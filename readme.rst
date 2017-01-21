@@ -55,7 +55,7 @@ Here are some examples of the results produced by NNAME
 
         Vacuum expectation value for operator |sigma| in M\ :sub:`34`\  + |sigma|
 
-.. figure:: img/M34-12-op12-VEV.jpg 
+.. figure:: img/M45-12-op12-FF.jpg 
         :width: 400pt
 
         <0| |epsilon| | {1,-1}> in M\ :sub:`45`\  + |epsilon|
