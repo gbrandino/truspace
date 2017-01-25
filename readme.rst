@@ -1,12 +1,12 @@
-NNAME
-======
+TruSpace
+=========
 
 .. contents::  
 
 Introduction
 -------------
 
-NNAME is Truncated Space Approach (``TSA``) code featuring spectrum-based Numerical Renormalization Group (``NRG``) [1]_ and its extension, that we call ``Sweep`` [2]_.
+TruSpace is Truncated Space Approach (``TSA``) code featuring spectrum-based Numerical Renormalization Group (``NRG``) [1]_ and its extension, that we call ``Sweep`` [2]_.
 
 The goal of ``TSA`` is to calculate the spectrum and possibly expectation values of a system described by an Hamiltonian in the form
 
@@ -27,7 +27,7 @@ The typically size of N and D are 2-4000 for N and N/4 for D, while the ``NRG`` 
 
 To increase precision even further, we can apply a technique called ``Sweep``. The idea is that, once the ``NRG`` iterations are done, we can start over, but this time instead of using the unperturbed states as computational basis for the D states added at each iteration, we can use the D states discarded at the previous ``NRG`` run at the same iteration. This procedure can be repeated indefinitely, untill convergence is reached. Experimentally, we observerd that 3-4 sweeps are enough to reach convergence in most of the cases. 
 
-The publicly available version supports currently only pertubation of unitary minimal conformal field theories, but it has been applied by the authors and coworkers to other class of models like SU(2)\ :sub:`1`\ [3]_ and 1+1 dimesional Landau-Ginzburg theories [4]_. The plan is to include those two application in NNAME.
+The publicly available version supports currently only pertubation of unitary minimal conformal field theories, but it has been applied by the authors and coworkers to other class of models like SU(2)\ :sub:`1`\ [3]_ and 1+1 dimesional Landau-Ginzburg theories [4]_. The plan is to include those two application in TruSpace.
 
 To allow further extension, the ``NRG`` and ``Sweep``
 
@@ -42,7 +42,7 @@ At the present time is able to calculate
   - Expectation value on the final basis of any primary field ( descendant field expectation values available but in beta testing phase )
 
 
-Here are some examples of the results produced by NNAME 
+Here are some examples of the results produced by TruSpace 
 
 .. figure:: img/M34-12-gaps.jpg 
         :width: 400pt
@@ -64,7 +64,7 @@ Here are some examples of the results produced by NNAME
 Code design
 ~~~~~~~~~~~~
 
-NNAME is written in C++ using and Object Oriented design pattern. 
+TruSpace is written in C++ using and Object Oriented design pattern. 
 
 The available classes are
 
@@ -80,24 +80,24 @@ The available classes are
 
 The model-agnostic nature of the NRG class should allow easy extension of the current code to other Quantum Hamiltonians.
 
-Buildung NNAME
----------------
+Buildung TruSpace
+-------------------
 
 Pre-requisites
 ~~~~~~~~~~~~~~~
 
-If you want to install NNAME dependecies by yourself, here is the list
+If you want to install TruSpace dependecies by yourself, here is the list
 
   - Lapack
   - Blas ( we suggest multi-threaded BLAS like Intel MKL_ or OpenBLAS)  
   - Ginac_ and its dependecy CLN_
    
-Otherwise NNAME comes with a version of the above libraries, so you can simply move to the next section and use the installation script. 
+Otherwise TruSpace comes with a version of the above libraries, so you can simply move to the next section and use the installation script. 
 
 Build instruction - script
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-If you want to use the provided script you can simply run the ``install.sh`` in the root folder. This will install all the dependecies in the NNAME folder and create the executable accordingly. 
+If you want to use the provided script you can simply run the ``install.sh`` in the root folder. This will install all the dependecies in the TruSpace folder and create the executable accordingly. 
 
 Build instruction - local dependencies
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -117,8 +117,8 @@ Then simply issue::
 :NOTE: CMake building will come soon
 
 
-Running NNAME
---------------
+Running TruSpace
+------------------
 
 :NOTE: In the current version you need to set::
 

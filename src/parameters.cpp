@@ -333,9 +333,9 @@ parameters::parameters(const char* input_file_name)
 void parameters::print() const
 {
     // Printing input configuration, for easy review
-    std::cout << "--------------------------------------" << std::endl;
-    std::cout << "-  Pertuberd CFT spectrum calculator -" << std::endl;
-    std::cout << "--------------------------------------" << std::endl;
+    std::cout << "-------------------------------" << std::endl;
+    std::cout << "  TruSpace - " << VERSION        << std::endl;
+    std::cout << "-------------------------------" << std::endl;
     std::cout << std::endl;
     std::cout << " Version " << VERSION << std::endl;
     std::cout << std::endl;
