@@ -12,7 +12,7 @@ OBJS=$(SRC:.cpp=.o)
 
 all : truspace.x 
 
-$(OBJS): %.o : %.cpp %.h
+$(OBJS): %.o : %.cpp %.h config.h
 	$(CXX) $(CFLAGS) -c $<
 
 

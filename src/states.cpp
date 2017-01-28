@@ -98,7 +98,7 @@ states::states(parameters& p, int subspace)
     tensor3D< int > cstate_ortho_mode_tmp(p.subdim[subspace],MaxChiralStates,MaxChiralStates); // probably enough cstate_ortho_mode_tmp(p.subdim[subspace],MaxChiralStates, MaxChiralStates/2)
     cstate_ortho_mode =  cstate_ortho_mode_tmp; 
 
-    tensor3D< long double > me_chi_0_tmp(p.subdim[subspace],MaxChiralStates, MaxNumGrade);
+    tensor3D< long double > me_chi_0_tmp(p.subdim[subspace],MaxChiralStates, MaxChiralStates);
     me_chi_0 = me_chi_0_tmp;
 
     tensor2D< int > nstates_lev_tmp(p.subdim[subspace], p.maxLev + 1) ;
@@ -278,11 +278,16 @@ void states::calculate_chiral(parameters& p, int subspace, filenames& fnames)
     tensor2D<long double> storeKac(MaxKac,MaxKac);
     tensor2D<long double> storeKac1(MaxKac,MaxKac);
 
-    /*determine partition of levels in order to denumerate chiral states*/
-    time_t start,end;
-    double dif;
-    time(&start);
+    for ( int i=0; i<MaxKac*MaxKac; ++i)
+        {
+        Kac.data[i]=0.;
+        storeKac.data[i]=0.;
+        storeKac1.data[i]=0.;
+        }
 
+
+
+    /*determine partition of levels in order to denumerate chiral states*/
 
     tensor3D<int> results(p.maxLev+1,MaxPart,MaxNumGrade);
     tensor2D<int> results2(MaxPart,MaxNumGrade);
@@ -334,10 +339,6 @@ void states::calculate_chiral(parameters& p, int subspace, filenames& fnames)
             }
         }
     
-    time(&end);
-    dif = difftime (end,start);
-    std::cout << " Partitioning took " << dif << " seconds" << std::endl << std::endl; 
-
 
     /*construct list of potential chiral states*/
     
@@ -345,6 +346,11 @@ void states::calculate_chiral(parameters& p, int subspace, filenames& fnames)
     int* pot_cstate_lev= new int[MaxChiralStates];
     int* pot_cstate_nmode= new int[MaxChiralStates];
     tensor2D<long double> pot_cstate_mode(MaxChiralStates,MaxNumGrade);
+    for (int i=0; i<MaxChiralStates; ++i)
+        {
+        pot_cstate_lev[i] = 0;
+        pot_cstate_nmode[i] = 0;
+        }
 
     for(int i=p.minLev;i<= p.maxLev;++i) 
         {
@@ -601,7 +607,6 @@ void states::calculate_chiral(parameters& p, int subspace, filenames& fnames)
             pstate++;
         } while (pstate < max_num_chir);
 
-//    std::cout << " Verma module " << i+1 << " has " << num_chir[i] << " states " << std::endl;
     std::cout << " Verma module " << p.finalsubspace(subspace,i) << " has " << num_chir[i] << " states " << std::endl;
     }
 

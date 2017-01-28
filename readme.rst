@@ -130,14 +130,6 @@ Then simply issue::
 Running TruSpace
 ------------------
 
-:NOTE: In the current version you need to set::
-
-         ulimit -s unlimited 
-
-       on the shell before running the code. It can be set in your .bash_rc. 
-
-       THIS WILL BE FIXED IN A FUTURE RELEASE
-
 To run the code:: 
 
   ./main.x input-file
@@ -209,8 +201,24 @@ If more than one perturbation is need, simply add the three lines about the othe
 Known issues
 -------------
 
-- At the moment, the code requires to size of the stack to be unlimited (or at least very large) by setting ``ulimit -s unlimited``, this will be fixed in future releases.
+- At very high truncation level ( >20), you may a get segfault. To fix this, you need to open the file ``config.h`` and modify the variables::
 
+    MaxPart          ----> Should be larger then the number of partitions of the number indicating the level 
+    MaxNumGrade      ----> Should larger than truncation level multplied by 2
+ 
+  If after chainging those values you get a segfault, it may be that your stack size is too small. So first check its size::
+
+    ulimit -s 
+
+  Then increase it::
+
+    ulimit -s 10240 
+
+  or set it to infinity::
+
+    ulimit -s unlimited
+
+  If this happens, please drop us a line brandino@exact-lab.it
 
 
 

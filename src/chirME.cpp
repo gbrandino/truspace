@@ -199,7 +199,7 @@ void chirME::calculate_or_read_chirME(parameters& p, filenames& fnames, states& 
                             for(int s=0;s< st.cstate_ortho_nmode(j, l);++s) 
                                 {
                                 temp = me_chi(pert, i, j, st.cstate_ortho_mode(i, k, r), st.cstate_ortho_mode(j,l,s) );
-                                temp *= st.cstate_ortho_modecoeff(i, k, r)*st.cstate_ortho_modecoeff(j, l, s);
+                                temp *= (st.cstate_ortho_modecoeff(i, k, r)*st.cstate_ortho_modecoeff(j, l, s));
                                 temp1 += temp;
                                 }
                             }
@@ -223,7 +223,7 @@ void chirME::calculate_or_read_chirME(parameters& p, filenames& fnames, states& 
                         temp1 = me_chi(pert, j, i, l, k);
                         if (fabs(temp-temp1) > .00000001) 
                             {
-                            std::cout << " Warning: Hermiticity not satisfied on non-orthogonal chiral ME" << " Vmod " << p.finalsubspace(subspace,i) << " state " << k << " Vmod " << p.finalsubspace(subspace,j) << " state " << l << " values " << temp << temp1 << std::endl;
+                            std::cout << " Warning: Hermiticity not satisfied on non-orthogonal chiral ME" << " Vmod " << p.finalsubspace(subspace,i) << " state " << k << " Vmod " << p.finalsubspace(subspace,j) << " state " << l << " values " << temp << " " << temp1 << std::endl;
                             std::cout << st.cstate_nmode(i,k) << " " << st.cstate_nmode(j,l) << std::endl;
                             for(int r=1;r <= st.cstate_nmode(i,k);++r)
                                 std::cout << r << " " << st.cstate_mode(i,k,r) << std::endl ;
@@ -234,7 +234,7 @@ void chirME::calculate_or_read_chirME(parameters& p, filenames& fnames, states& 
                         temp1 = me_chi_ortho(pert, j, i, l, k);
                         if (fabs(temp-temp1) > .00001) 
                             {
-                            std::cout << " Warning: Hermiticity not satisfied on orthogonal chiral ME" << " Vmod " << p.finalsubspace(subspace,i) << " state " << k << " Vmod " << p.finalsubspace(subspace,j) << " state " << l << " values " << temp << temp1 << std::endl;
+                            std::cout << " Warning: Hermiticity not satisfied on orthogonal chiral ME" << " Vmod " << p.finalsubspace(subspace,i) << " state " << k << " Vmod " << p.finalsubspace(subspace,j) << " state " << l << " values " << temp << " " << temp1 << std::endl;
                             }
                         }
                     }
