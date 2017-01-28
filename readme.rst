@@ -10,12 +10,12 @@ TruSpace is Truncated Space Approach (``TSA``) code featuring spectrum-based Num
 
 The goal of ``TSA`` is to calculate the spectrum and possibly expectation values of a system described by an Hamiltonian in the form
 
-  H = H\ :sub:`0`\ + H\ :sub:`P`
+H = H\ :sub:`0`\ + H\ :sub:`P`
 
 where H\ :sub:`0`\ is theory of which we are able to calculate the spectrum and expectation values of at the perturbing operator H\ :sub:`P`\. 
 Given the eigenstates of the H\ :sub:`0`, | E\ :sup:`0` :sub:`i`\>, the matrix form of the pertubed Hamiltonian can be written as 
 
-  <E\ :sup:`0`:sub:`i`\| H | E\ :sup:`0`:sub:`j`\ > = E\ :sup:`0`:sub:`i` |delta|\ :sub:`ij`\   + <E\ :sup:`0`:sub:`i`\| H\ :sub:`P`\ | E\ :sup:`0`:sub:`j`\ > 
+<E\ :sup:`0`:sub:`i`\| H | E\ :sup:`0`:sub:`j`\ > = E\ :sup:`0`:sub:`i` |delta|\ :sub:`ij`\   + <E\ :sup:`0`:sub:`i`\| H\ :sub:`P`\ | E\ :sup:`0`:sub:`j`\ > 
 
 If we are able to calculate the last expectation value above, we can then choose a finite number of states up to a certain i  | E\ :sup:`0` :sub:`i`\> and diagonalize numerically the matrix obtained. 
 
@@ -36,10 +36,10 @@ Features
 
 At the present time is able to calculate
 
-  - Eigenvalues and Eigenvectors of any unitary perturbed conformal field theory based minimal models ( diagonal partition function only for the moment) using full diagonalization, ``NRG`` or ``Sweep``
-  - Automatic separation of symmetry subspaces in the perturbed system. Symmetry subspaces are diagonalized separately, to reduce computational complexity
-  - Possibility of considering non-zero momentum states. Momentum subspace are diagonalized separately ( unless it is specifically requested to diagonalize all the subspaces together). 
-  - Expectation value on the final basis of any primary field ( descendant field expectation values available but in beta testing phase )
+- Eigenvalues and Eigenvectors of any unitary perturbed conformal field theory based minimal models ( diagonal partition function only for the moment) using full diagonalization, ``NRG`` or ``Sweep``
+- Automatic separation of symmetry subspaces in the perturbed system. Symmetry subspaces are diagonalized separately, to reduce computational complexity
+- Possibility of considering non-zero momentum states. Momentum subspace are diagonalized separately ( unless it is specifically requested to diagonalize all the subspaces together). 
+- Expectation value on the final basis of any primary field ( descendant field expectation values available but in beta testing phase )
 
 
 Here are some examples of the results produced by TruSpace 
@@ -80,7 +80,7 @@ The available classes are
 
 The model-agnostic nature of the NRG class should allow easy extension of the current code to other Quantum Hamiltonians.
 
-Buildung TruSpace
+Building TruSpace
 -------------------
 
 Pre-requisites
@@ -88,9 +88,9 @@ Pre-requisites
 
 If you want to install TruSpace dependecies by yourself, here is the list
 
-  - Lapack
-  - Blas ( we suggest multi-threaded BLAS like Intel MKL_ or OpenBLAS)  
-  - Ginac_ and its dependecy CLN_
+- Lapack
+- Blas ( we suggest multi-threaded BLAS like Intel MKL_ or OpenBLAS)  
+- Ginac_ and its dependecy CLN_
    
 Otherwise TruSpace comes with a version of the above libraries, so you can simply move to the next section and use the installation script. 
 
@@ -99,11 +99,20 @@ Build instruction - script
 
 If you want to use the provided script you can simply run the ``install.sh`` in the root folder. This will install all the dependecies in the TruSpace folder and create the executable accordingly. 
 
+(Experimental: you can define your compiler by issuing, for example::
+
+  CC=icc CXX=icpc ./install.sh
+
+:NOTE: Some versione of the intel compiler seems to have issues with the c++11 standard. This will cause Ginac to fail compilation.
+
+To remove the compiled code and its dependecies, run ``uninstall.sh``
+
 Build instruction - local dependencies
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 If you want to install the library in a different folder or use verion already available on your system, simply edit the following lines in the ``src/Makefile`` ::
 
+  CXX=                          --> name of the compiler to use
   CLN=                          --> the root folder of the CLN installation (should contain include/ and lib/ subdirs)
   GINAC=                        --> the root folder of the GINAC installation (should contain include/ and lib/ subdirs)
   BLAS=                         --> the root folder of the BLAS installation (should contain include/ and lib/ subdirs). 
@@ -116,6 +125,7 @@ Then simply issue::
 
 :NOTE: CMake building will come soon
 
+:NOTE: Some versione of the intel compiler seems to have issues with the c++11 standard.  
 
 Running TruSpace
 ------------------
