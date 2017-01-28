@@ -18,5 +18,7 @@ ex chisymb(int, int, int, int,int, symbol);
 void characexpan(int, int, double, double, int, int*);
 int partitions(int);
 int determine_partition(int, tensor2D<int>&);
+void  part(int, int*, int, tensor2D<int>&, int&);
+
 
 #endif

@@ -74,7 +74,7 @@ int partitions(int k)
  * This routine can probably be optimize or omp parallized, but with deep rewriting
  *
  */
-int determine_partition(int level, tensor2D<int>&  results)
+/*int determine_partition(int level, tensor2D<int>&  results)
 {
 
     int num,  flag, total;
@@ -128,4 +128,43 @@ int determine_partition(int level, tensor2D<int>&  results)
         }
 
     return total;
+}*/
+
+
+int determine_partition(int n, tensor2D<int>&  results)
+{
+
+    int* v;
+    v=new int[n];
+    int count = 0;    
+
+    part(n, v, 0, results, count) ;
+
+    delete [] v;
+    return count;  
 }
+
+
+void  part(int n, int* v, int level, tensor2D<int>&  results, int& count){
+    int first; /* first is before last */
+
+    if(n<1) return;
+    v[level]=n;
+    for(int i=0;i<=level;i++)
+        {
+        results(count,i)=v[i];
+        }
+    count++;
+
+    first=(level==0) ? 1 : v[level-1];
+
+    for(int i=first;i<=n/2;i++){
+        v[level]=i; /* replace last */
+        part(n-i, v, level+1, results,count);
+    }
+}
+
+
+
+
+
