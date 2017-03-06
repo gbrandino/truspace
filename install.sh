@@ -25,5 +25,5 @@ cd $ROOTDIR/$BLAS
 make  && make install PREFIX=$ROOTDIR/dep/$BLAS
 cd $ROOTDIR/src
 make
-cp truespace.x $ROOTDIR/
+cp truspace.x $ROOTDIR/
 
