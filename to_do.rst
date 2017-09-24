@@ -23,7 +23,6 @@ New files
 
 to do list
 
-- check R value convention
 - check Expecation values 
 - finish documentation of parameters class
 - document states class

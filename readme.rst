@@ -145,7 +145,7 @@ The input file should be self explanatory::
   0    Minimum conformal level to include
   0    Maximum momentum considered
   0    Set 1 to diagonalize all momentum subspaces together
-  5   Maximum nunber of eigenvalues, eigenvectors and matrix elements printed in output file(s), 0 for all of them
+  5   Maximum number of eigenvalues, eigenvectors and matrix elements printed in output file(s), 0 for all of them
   1    r index of first perturbation
   2    s index of first perturbation
   0.09  constant for first perturbation
@@ -183,7 +183,7 @@ printed table.
 If more than one perturbation is need, simply add the three lines about the other pertubations after the first one::
 
   ..
-  5   Maximum nunber of eigenvalues, eigenvectors and matrix elements printed in output file(s), 0 for all of them
+  5   Maximum number of eigenvalues, eigenvectors and matrix elements printed in output file(s), 0 for all of them
   1    r index of first perturbation
   2    s index of first perturbation
   0.09  constant for first perturbation
@@ -192,11 +192,36 @@ If more than one perturbation is need, simply add the three lines about the othe
   0.06  constant for second perturbation
 
 
+Output files 
+~~~~~~~~~~~~~
 
+The code outputs several files, most of which only optionally. In details 
 
+- Eigenvalues file. Always produced. Contains the Eigenvalues for every given value of R. The number of columns depends upon the key ``Maximum number of eigenvalue``. The columns structure is 
+  ::
 
+    NRG_iteration   |  Sweep_iteration | Effective_energy |   R   |  1st eigenvalue | 2nd eigenvalue ....
 
+  Example: ``Eigenvalues_p_3_q_4_minLev_0_maxLev_10_Per_1_2_c_0.09_Subspace_0_Mom_0``
 
+- Last iteration eigenvalues file. Produced only for NRG and NRG+Sweep. Same as above, but prints only last NRG iteration (and last sweep of last NRG iteration for sweeping). Same structure of the above file
+
+  Example: ``FINAL_Eigenvalues_p_3_q_4_minLev_0_maxLev_10_Per_1_2_c_0.09_Subspace_0_Mom_0``
+
+- Eigenvectors file. Produced only if the last key in the input (``set to 1 to se save eigenvectors to file``) is 1, contains the eigenvectors using the conformal computation base, one per row. 
+  The number of eigenvectors reported depends on the key ``Maximum number of eigenvalue``. If several R values are asked with N as maximum number of eigenvalue, the first N rows will be for the first R value, the next N for the second R, and so on.  
+
+  In the case of NRG or NRG+Sweep, the eigenvectors are only printed at the very last iteration.
+
+  Example: ``Eigenvectors_p_3_q_4_minLev_0_maxLev_10_Per_1_2_c_0.09_Subspace_0_Mom_0``
+
+- Expectation value file. Produced only if ``set 1 to calculate matrix element of a particular primary operator`` is 1. Contains the expectation value of the given operator on the calculated eigenvectors.  The number of reported expectation values depends on the key ``Maximum number of eigenvalue``. So N max eigenvalue will produce a NxN matrix. If several R values are asked , the first NxN will be for the first R value, the next NxN matrix for the second R, and so on.
+
+  If the key ``set to 1 to calculated only diagonal matrix elements`` will instead print only the <i|phi|i>. The output will contain diagonal eigenvectors expecation values, one per column. Different rows correspond to different values of R.   
+
+  In the case of NRG or NRG+Sweep, the expectation values are only printed at the very last iteration.
+
+  Example : ``ExpVal_Op_phi_1_2_\{bar\}phi_1_2_p_3_q_4_minLev_0_maxLev_10_Per_1_2_c_0.09_Subspace_0_Mom_0``
 
 Known issues
 -------------
