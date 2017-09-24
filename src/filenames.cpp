@@ -24,6 +24,7 @@ filenames::filenames(parameters& p, int subspace)
 
     std::stringstream temp;
     std::stringstream temp2;
+    std::stringstream temp3;
     temp << "_p_" << p.p << "_q_" << p.q << "_minLev_" << p.minLev << "_maxLev_" << p.maxLev;
     for (int i=0; i< p.numPert; i++)
         {
@@ -33,8 +34,10 @@ filenames::filenames(parameters& p, int subspace)
 
     temp2 << "Eigenvalues" << temp.str();
     EigenName = temp2.str();
-    temp2.str(" ");
-       
+    temp3 << "FINAL_" << temp2.str();
+    EigenNameFinal = temp3.str();
+    temp2.str(" ");    
+   
     temp2 << "Eigenvectors" << temp.str();
     EigenVectName = temp2.str();
     temp2.str(" ");
@@ -80,6 +83,10 @@ filenames::filenames(parameters& p, int subspace)
     std::cout << " ~~~~~~~~~~~~~~~~~~~~~~~~~~ " << std::endl << std::endl;
     std::cout << " Eigenvalue file name: " << EigenName << std::endl;
     std::cout << " Eigenvectors file name: " << EigenVectName << std::endl;
+    if (p.NRG)
+        {
+        std::cout << " Eigenvalue file name for last NRG/Sweep iteration: " << EigenNameFinal << std::endl;
+        }
 
     if (p.SAVE_STATES)
         {

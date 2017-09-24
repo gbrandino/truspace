@@ -13,8 +13,8 @@
 2    s index of second perturbation
 0.0928344   constant for second perturbation
 1   number of values of R
-0.1   increment at each R step(in fraction of 2*pi)
-0.1  starting value of R (in fraction of 2*pi)
+0.6   increment at each R step
+0.6  starting value of R 
 60  number of states in the basic matrix for NRG
 30   number of states added in every NRG step
 1    set 1 for complete TCSA calculation, 0 to have just Kac table structure constants and subspace analysis

@@ -110,8 +110,8 @@ void worker::run(parameters& p)
             for ( int r=0; r < p.rSteps; r++)
                 {
                 double R = p.rStart + r*p.rInc;
-                H_iter.R = R*2.*pi; //constant to match old results
-                std::cout << " R value: " << r << " (" << R << ")" << std::endl;  
+                H_iter.R = R;//R*2.*pi; //constant to match old results
+                std::cout << " R value: " << r << " (" << H_iter.R << ")" << std::endl;  
                 nrg.run(p, H_iter,fnames);  
                 // exp val
                 }
@@ -131,9 +131,9 @@ void worker::run(parameters& p)
                 for ( int r=0; r < p.rSteps; r++)
                     {
                     double R = p.rStart + r*p.rInc;
-                    H_iter.R = R*2.*pi;  //constant to match old results
+                    H_iter.R = R;//R*2.*pi;  //constant to match old results
                     
-                    std::cout << " R value: " << r << " (" << R << ")" << std::endl;
+                    std::cout << " R value: " << r << " (" << H_iter.R << ")" << std::endl;
                     nrg.run(p, H_iter, fnames);
                     // exp val
                     }

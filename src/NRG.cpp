@@ -244,7 +244,10 @@ void NRG::run(parameters& p, Hamiltonian& H, filenames& fnames)
                 }
 
             H.print_eigenValues(sweep,iter,eigen,fnames.EigenName, newSize);
-
+            if ( sweep== NSweeps and iter==NIters)
+                {
+                H.print_eigenValues(sweep,iter,eigen,fnames.EigenNameFinal, newSize);
+                }
             //compute coefficients of states in new basis
 
             // Determine how the coefficients of the first 'Nsize + step*iter'

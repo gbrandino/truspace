@@ -18,6 +18,7 @@ class filenames
 
         // outfiles and dump files
         std::string EigenName;          // File name of eigenvalues file
+        std::string EigenNameFinal;     // File name of the eigenvalues for last NRG iteration
         std::string EigenVectName;      // File name of eigenvectors file
         std::string MeOpName;           // File name
         std::string StoreName;          // File name
