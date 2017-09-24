@@ -826,10 +826,10 @@ void states::calculate_nonchiral(parameters& p, int subspace, int mom)
     double floor_en;
     double ceiling_en;
     double fin_en = 0.;
+    int diff = 0;
     for(int i=0; i< nstate; ++i) 
         {
-        int diff = 0;
-        if (i>=fpt) 
+        if (i>=fpt and i < (nstate-1)) 
             {
             fin_en = (2.*p.maxLev + 2.*h_min);
             fpt = nstate-1;
@@ -849,7 +849,14 @@ void states::calculate_nonchiral(parameters& p, int subspace, int mom)
                     }
                 }
             }
-        state_eff_en[i] = state_en[i] + (fin_en-start_en)*(i-bpt)/diff;
+        if (i < (nstate-1))
+            {
+            state_eff_en[i] = state_en[i] + (fin_en-start_en)*(i-bpt)/diff;
+            }
+        else
+            {
+            state_eff_en[i] = state_en[i];
+            }
         }
 
 

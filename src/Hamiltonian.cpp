@@ -400,9 +400,7 @@ void Hamiltonian::print_eigenValues(int iteration, int sweep, double* eigenValue
         eigen_output.open(temp.str().c_str(), std::ofstream::out | std::ofstream::app);
         }
 
-
     eigen_output << iteration  << " " << sweep << " " << std::setiosflags(std::ios::fixed) << std::setprecision(14) << st.state_eff_en[maxState] << " " << R << " ";
-
 
     for (int i=0; i < p.maxEigen; ++i)
         {
