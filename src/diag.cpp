@@ -1,8 +1,6 @@
-/*
- * set of c-programs that diagonalize matrices based on code found in
- *  Numerical Recipes 
- * authors: Robert Konik - BNL
- * last revision: November 2016
+/** Class containg a set of c-programs that diagonalize matrices based on code found in Numerical Recipes, for both double and long double. 
+ * \author Robert Konik - BNL, Giuseppe Piero Brandino - eXact-lab s.r.l.
+ * \date November 2016
  */
 
 #include "diag.h"
@@ -118,7 +116,6 @@ void diag::tred2_ld(tensor2D< long double >& a,int  n,long double* d ,long doubl
 
 
   for(i=n;i>=2;i--) {
-      /*printf("tred2: %d\n",i);fflush(stdout);*/
     l = i-1;
     h = scale = 0.0;
     if (l>1) {
