@@ -1,5 +1,5 @@
 /*
- * Classes that contains and calculates chiral states by removing null vectors from each verma module
+ * Class that contains and calculates chiral states by removing null vectors from each verma module
  *
  * It does so as follows:
  *
