@@ -1,0 +1,176 @@
+\hypertarget{classdiag}{}\section{diag Class Reference}
+\label{classdiag}\index{diag@{diag}}
+
+
+Class containg a set of c-\/programs that diagonalize matrices based on code found in Numerical Recipes, for both double and long double.  
+
+
+
+
+{\ttfamily \#include $<$diag.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classdiag_a53f5ca51a7eddedc099954685b813552}{tred2\+\_\+ld}} (\mbox{\hyperlink{classtensor2D}{tensor2D}}$<$ long double $>$ \&a, int n, long double $\ast$d, long double $\ast$e, int ev\+\_\+flag)
+\begin{DoxyCompactList}\small\item\em Routine reduces a real symmetric matrix to a symmetric tridiagonal matrix using and accumulating orthogonal similarity transformations. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classdiag_afab62a3f9039736e82d67e659370b6b7}{tqli\+\_\+ld}} (long double $\ast$d, long double $\ast$e, int n, \mbox{\hyperlink{classtensor2D}{tensor2D}}$<$ long double $>$ \&z, int ev\+\_\+flag)
+\begin{DoxyCompactList}\small\item\em Routine educes a real symmetric matrix to a symmetric tridiagonal matrix using and accumulating orthogonal similarity transformations. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classdiag_a3619b2c19b5f8720f3f8655ed19eaeda}{shell\+\_\+ld}} (unsigned long n, long double d\mbox{[}$\,$\mbox{]}, long double $\ast$r\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em Routine to sort an array in place, also providing sorting indices. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classdiag_a2752d315834d7aac61dfe9a973404e2f}{tred2\+\_\+double}} (double $\ast$a\mbox{[}$\,$\mbox{]}, int n, double d\mbox{[}$\,$\mbox{]}, double e\mbox{[}$\,$\mbox{]}, int ev\+\_\+flag)
+\begin{DoxyCompactList}\small\item\em Routine reduces a real symmetric matrix to a symmetric tridiagonal matrix using and accumulating orthogonal similarity transformations. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classdiag_a45ae62d2bb2e73473bb3b41e33294a9d}{tqli\+\_\+double}} (double d\mbox{[}$\,$\mbox{]}, double e\mbox{[}$\,$\mbox{]}, int n, double $\ast$z\mbox{[}$\,$\mbox{]}, int ev\+\_\+flag)
+\begin{DoxyCompactList}\small\item\em Routine educes a real symmetric matrix to a symmetric tridiagonal matrix using and accumulating orthogonal similarity transformations. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classdiag_a22655182c22153a4b33532b7852538ca}{shell\+\_\+double}} (unsigned long n, double d\mbox{[}$\,$\mbox{]}, double $\ast$r\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em Routine to sort an array in place, also providing sorting indices. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Class containg a set of c-\/programs that diagonalize matrices based on code found in Numerical Recipes, for both double and long double. 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classdiag_a22655182c22153a4b33532b7852538ca}\label{classdiag_a22655182c22153a4b33532b7852538ca}} 
+\index{diag@{diag}!shell\+\_\+double@{shell\+\_\+double}}
+\index{shell\+\_\+double@{shell\+\_\+double}!diag@{diag}}
+\subsubsection{\texorpdfstring{shell\+\_\+double()}{shell\_double()}}
+{\footnotesize\ttfamily void diag\+::shell\+\_\+double (\begin{DoxyParamCaption}\item[{unsigned long}]{n,  }\item[{double}]{d\mbox{[}$\,$\mbox{]},  }\item[{double $\ast$}]{r\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})}
+
+
+
+Routine to sort an array in place, also providing sorting indices. 
+
+Long double version. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em n} & The size of the array to sort \\
+\hline
+ & {\em \mbox{[}in/out\mbox{]}} & d The array to sort. On output, it contains the sorted array \\
+\hline
+\mbox{\tt out}  & {\em r} & Matrix of size n x n+1 contaning the sorting indeces \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classdiag_a3619b2c19b5f8720f3f8655ed19eaeda}\label{classdiag_a3619b2c19b5f8720f3f8655ed19eaeda}} 
+\index{diag@{diag}!shell\+\_\+ld@{shell\+\_\+ld}}
+\index{shell\+\_\+ld@{shell\+\_\+ld}!diag@{diag}}
+\subsubsection{\texorpdfstring{shell\+\_\+ld()}{shell\_ld()}}
+{\footnotesize\ttfamily void diag\+::shell\+\_\+ld (\begin{DoxyParamCaption}\item[{unsigned long}]{n,  }\item[{long double}]{d\mbox{[}$\,$\mbox{]},  }\item[{long double $\ast$}]{r\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})}
+
+
+
+Routine to sort an array in place, also providing sorting indices. 
+
+Class containg a set of c-\/programs that diagonalize matrices based on code found in Numerical Recipes, for both double and long double.
+
+Long double version. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em n} & The size of the array to sort \\
+\hline
+ & {\em \mbox{[}in/out\mbox{]}} & d The array to sort. On output, it contains the sorted array \\
+\hline
+\mbox{\tt out}  & {\em r} & Matrix of size n x n+1 contaning the sorting indeces\\
+\hline
+\end{DoxyParams}
+\begin{DoxyAuthor}{Author}
+Robert Konik -\/ B\+NL, Giuseppe Piero Brandino -\/ e\+Xact-\/lab s.\+r.\+l. 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+November 2016 
+\end{DoxyDate}
+\mbox{\Hypertarget{classdiag_a45ae62d2bb2e73473bb3b41e33294a9d}\label{classdiag_a45ae62d2bb2e73473bb3b41e33294a9d}} 
+\index{diag@{diag}!tqli\+\_\+double@{tqli\+\_\+double}}
+\index{tqli\+\_\+double@{tqli\+\_\+double}!diag@{diag}}
+\subsubsection{\texorpdfstring{tqli\+\_\+double()}{tqli\_double()}}
+{\footnotesize\ttfamily void diag\+::tqli\+\_\+double (\begin{DoxyParamCaption}\item[{double}]{d\mbox{[}$\,$\mbox{]},  }\item[{double}]{e\mbox{[}$\,$\mbox{]},  }\item[{int}]{n,  }\item[{double $\ast$}]{z\mbox{[}$\,$\mbox{]},  }\item[{int}]{ev\+\_\+flag }\end{DoxyParamCaption})}
+
+
+
+Routine educes a real symmetric matrix to a symmetric tridiagonal matrix using and accumulating orthogonal similarity transformations. 
+
+Double version. 
+\begin{DoxyParams}[1]{Parameters}
+ & {\em \mbox{[}in/out\mbox{]}} & d Array of size n that contains the diagonal element of the tridiagonal matrix. On output, it contains the eigenvalues. \\
+\hline
+\mbox{\tt in}  & {\em e} & Array of size n that contains the subdiagonal elements of the tridiagonal matrix in its last n-\/1 positions \\
+\hline
+\mbox{\tt in}  & {\em n} & Size of the matrix \\
+\hline
+\mbox{\tt out}  & {\em e} & Reference of \mbox{\hyperlink{classtensor2D}{tensor2\+D$<$long double $>$}} of size n x n. It will contain the eigenvectors is ev\+\_\+flag is set to 1. \\
+\hline
+\mbox{\tt in}  & {\em ev\+\_\+flag} & Set to 1 if eigenvectors are required, zero otherwise \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classdiag_afab62a3f9039736e82d67e659370b6b7}\label{classdiag_afab62a3f9039736e82d67e659370b6b7}} 
+\index{diag@{diag}!tqli\+\_\+ld@{tqli\+\_\+ld}}
+\index{tqli\+\_\+ld@{tqli\+\_\+ld}!diag@{diag}}
+\subsubsection{\texorpdfstring{tqli\+\_\+ld()}{tqli\_ld()}}
+{\footnotesize\ttfamily void diag\+::tqli\+\_\+ld (\begin{DoxyParamCaption}\item[{long double $\ast$}]{d,  }\item[{long double $\ast$}]{e,  }\item[{int}]{n,  }\item[{\mbox{\hyperlink{classtensor2D}{tensor2D}}$<$ long double $>$ \&}]{z,  }\item[{int}]{ev\+\_\+flag }\end{DoxyParamCaption})}
+
+
+
+Routine educes a real symmetric matrix to a symmetric tridiagonal matrix using and accumulating orthogonal similarity transformations. 
+
+Double version. 
+\begin{DoxyParams}[1]{Parameters}
+ & {\em \mbox{[}in/out\mbox{]}} & d Array of size n that contains the diagonal element of the tridiagonal matrix. On output, it contains the eigenvalues. \\
+\hline
+\mbox{\tt in}  & {\em e} & Array of size n that contains the subdiagonal elements of the tridiagonal matrix in its last n-\/1 positions \\
+\hline
+\mbox{\tt in}  & {\em n} & Size of the matrix \\
+\hline
+\mbox{\tt out}  & {\em e} & Reference of \mbox{\hyperlink{classtensor2D}{tensor2\+D$<$long double $>$}} of size n x n. It will contain the eigenvectors is ev\+\_\+flag is set to 1. \\
+\hline
+\mbox{\tt in}  & {\em ev\+\_\+flag} & Set to 1 if eigenvectors are required, zero otherwise \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classdiag_a2752d315834d7aac61dfe9a973404e2f}\label{classdiag_a2752d315834d7aac61dfe9a973404e2f}} 
+\index{diag@{diag}!tred2\+\_\+double@{tred2\+\_\+double}}
+\index{tred2\+\_\+double@{tred2\+\_\+double}!diag@{diag}}
+\subsubsection{\texorpdfstring{tred2\+\_\+double()}{tred2\_double()}}
+{\footnotesize\ttfamily void diag\+::tred2\+\_\+double (\begin{DoxyParamCaption}\item[{double $\ast$}]{a\mbox{[}$\,$\mbox{]},  }\item[{int}]{n,  }\item[{double}]{d\mbox{[}$\,$\mbox{]},  }\item[{double}]{e\mbox{[}$\,$\mbox{]},  }\item[{int}]{ev\+\_\+flag }\end{DoxyParamCaption})}
+
+
+
+Routine reduces a real symmetric matrix to a symmetric tridiagonal matrix using and accumulating orthogonal similarity transformations. 
+
+Long double version. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em a} & Reference of \mbox{\hyperlink{classtensor2D}{tensor2\+D$<$long double $>$}} of size n x n. The matrix to be reduced \\
+\hline
+\mbox{\tt in}  & {\em n} & Size of the matrix \\
+\hline
+\mbox{\tt out}  & {\em d} & Array of size n that will contain the diagonal element of the tridiagonal matrix \\
+\hline
+\mbox{\tt out}  & {\em e} & Array of size n that will contain the subdiagonal elements of the tridiagonal matrix in its last n-\/1 positions \\
+\hline
+\mbox{\tt in}  & {\em ev\+\_\+flag} & Set to 1 if eigenvectors are required, zero otherwise \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classdiag_a53f5ca51a7eddedc099954685b813552}\label{classdiag_a53f5ca51a7eddedc099954685b813552}} 
+\index{diag@{diag}!tred2\+\_\+ld@{tred2\+\_\+ld}}
+\index{tred2\+\_\+ld@{tred2\+\_\+ld}!diag@{diag}}
+\subsubsection{\texorpdfstring{tred2\+\_\+ld()}{tred2\_ld()}}
+{\footnotesize\ttfamily void diag\+::tred2\+\_\+ld (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtensor2D}{tensor2D}}$<$ long double $>$ \&}]{a,  }\item[{int}]{n,  }\item[{long double $\ast$}]{d,  }\item[{long double $\ast$}]{e,  }\item[{int}]{ev\+\_\+flag }\end{DoxyParamCaption})}
+
+
+
+Routine reduces a real symmetric matrix to a symmetric tridiagonal matrix using and accumulating orthogonal similarity transformations. 
+
+Long double version. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em a} & Reference of \mbox{\hyperlink{classtensor2D}{tensor2\+D$<$long double $>$}} of size n x n. The matrix to be reduced \\
+\hline
+\mbox{\tt in}  & {\em n} & Size of the matrix \\
+\hline
+\mbox{\tt out}  & {\em d} & Array of size n that will contain the diagonal element of the tridiagonal matrix \\
+\hline
+\mbox{\tt out}  & {\em e} & Array of size n that will contain the subdiagonal elements of the tridiagonal matrix in its last n-\/1 positions \\
+\hline
+\mbox{\tt in}  & {\em ev\+\_\+flag} & Set to 1 if eigenvectors are required, zero otherwise \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{diag_8h}{diag.\+h}}\item 
+diag.\+cpp\end{DoxyCompactItemize}

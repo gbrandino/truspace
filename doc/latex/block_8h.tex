@@ -1,0 +1,53 @@
+\hypertarget{block_8h}{}\section{block.\+h File Reference}
+\label{block_8h}\index{block.\+h@{block.\+h}}
+
+
+Helper function identify symmetry subspace by the analysis of the interaction matrix.  
+
+
+{\ttfamily \#include \char`\"{}tensors.\+h\char`\"{}}\newline
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{block_8h_a33ac56a6a003b13bae31d1fb817b65cd}{blockrec}} (int maxl, \mbox{\hyperlink{classtensor2D}{tensor2D}}$<$ complex$<$ long double $>$ $>$ \&a, \mbox{\hyperlink{classtensor2D}{tensor2D}}$<$ int $>$ \&finalsubspace, int $\ast$subdim, int \&numspace)
+\begin{DoxyCompactList}\small\item\em Routine to identify symmetry subspace by the analysis of the interaction matrix. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Helper function identify symmetry subspace by the analysis of the interaction matrix. 
+
+\begin{DoxyAuthor}{Authors}
+Giuseppe Piero Brandino -\/ e\+Xact-\/lab s.\+r.\+l. 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+October 2017 
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+G\+NU Public License. 
+\end{DoxyCopyright}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{block_8h_a33ac56a6a003b13bae31d1fb817b65cd}\label{block_8h_a33ac56a6a003b13bae31d1fb817b65cd}} 
+\index{block.\+h@{block.\+h}!blockrec@{blockrec}}
+\index{blockrec@{blockrec}!block.\+h@{block.\+h}}
+\subsubsection{\texorpdfstring{blockrec()}{blockrec()}}
+{\footnotesize\ttfamily void blockrec (\begin{DoxyParamCaption}\item[{int}]{maxl,  }\item[{\mbox{\hyperlink{classtensor2D}{tensor2D}}$<$ complex$<$ long double $>$ $>$ \&}]{a,  }\item[{\mbox{\hyperlink{classtensor2D}{tensor2D}}$<$ int $>$ \&}]{finalsubspace,  }\item[{int $\ast$}]{subdim,  }\item[{int \&}]{numspace }\end{DoxyParamCaption})}
+
+
+
+Routine to identify symmetry subspace by the analysis of the interaction matrix. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em maxl} & size of the interaction matrix a \\
+\hline
+\mbox{\tt in}  & {\em a} & matrix of type \mbox{\hyperlink{classtensor2D}{tensor2D}}$<$complex $<$long double$>$=\char`\"{}\char`\"{}$>$$>$containing the constant (structure costant) of the various verma module and perturbation, of which we want to identify subspace \\
+\hline
+\mbox{\tt out}  & {\em finalsubspace} & \mbox{\hyperlink{classtensor2D}{tensor2\+D$<$ int$>$}} that will contain in the row the indeces of the Verma module belonging the each subspace \\
+\hline
+\mbox{\tt out}  & {\em subdim} & Array that contains the number of Verma module in each subspace \\
+\hline
+\mbox{\tt out}  & {\em numspace} & Number of subspace found \\
+\hline
+\end{DoxyParams}

@@ -1,0 +1,297 @@
+\begin{theindex}
+
+  \item {all\+Mom\+Subspace}
+    \subitem {parameters}, \hyperpage{17}
+
+  \indexspace
+
+  \item {block.\+h}, \hyperpage{41}
+    \subitem {blockrec}, \hyperpage{41}
+  \item {blockrec}
+    \subitem {block.\+h}, \hyperpage{41}
+
+  \indexspace
+
+  \item {C}
+    \subitem {parameters}, \hyperpage{17}
+  \item {calculate\+\_\+\+Exp\+Val}
+    \subitem {chir\+ME}, \hyperpage{6}
+  \item {calculate\+\_\+chir\+M\+E\+\_\+for\+\_\+\+Exp\+Val}
+    \subitem {chir\+ME}, \hyperpage{6}
+  \item {calculate\+\_\+chiral}
+    \subitem {states}, \hyperpage{21}
+  \item {calculate\+\_\+nonchiral}
+    \subitem {states}, \hyperpage{22}
+  \item {calculate\+\_\+or\+\_\+read\+\_\+chir\+ME}
+    \subitem {chir\+ME}, \hyperpage{7}
+  \item {characexpan}
+    \subitem {characters.\+h}, \hyperpage{44}
+  \item {characters.\+h}, \hyperpage{43}
+    \subitem {characexpan}, \hyperpage{44}
+    \subitem {chisymb}, \hyperpage{44}
+    \subitem {determine\+\_\+partition}, \hyperpage{45}
+    \subitem {invphi}, \hyperpage{45}
+    \subitem {ksymb1}, \hyperpage{45}
+    \subitem {ksymb2}, \hyperpage{46}
+    \subitem {partitions}, \hyperpage{46}
+  \item {chir\+M\+E.\+h}, \hyperpage{47}
+  \item {chir\+ME}, \hyperpage{5}
+    \subitem {calculate\+\_\+\+Exp\+Val}, \hyperpage{6}
+    \subitem {calculate\+\_\+chir\+M\+E\+\_\+for\+\_\+\+Exp\+Val}, 
+		\hyperpage{6}
+    \subitem {calculate\+\_\+or\+\_\+read\+\_\+chir\+ME}, \hyperpage{7}
+    \subitem {chir\+ME}, \hyperpage{6}
+    \subitem {me\+\_\+chi\+\_\+ortho}, \hyperpage{7}
+    \subitem {me\+\_\+chi\+\_\+ortho\+\_\+op\+\_\+l}, \hyperpage{7}
+    \subitem {me\+\_\+chi\+\_\+ortho\+\_\+op\+\_\+r}, \hyperpage{8}
+  \item {chisymb}
+    \subitem {characters.\+h}, \hyperpage{44}
+  \item {config.\+h}, \hyperpage{47}
+    \subitem {Max\+Num\+Grade}, \hyperpage{48}
+    \subitem {Max\+Part}, \hyperpage{48}
+  \item {cpt}
+    \subitem {parameters}, \hyperpage{17}
+  \item {cpt.\+h}, \hyperpage{48}
+    \subitem {dot}, \hyperpage{49}
+  \item {cptsmall}
+    \subitem {parameters}, \hyperpage{17}
+  \item {cstate\+\_\+lev}
+    \subitem {states}, \hyperpage{23}
+  \item {cstate\+\_\+mode}
+    \subitem {states}, \hyperpage{23}
+  \item {cstate\+\_\+nmode}
+    \subitem {states}, \hyperpage{23}
+  \item {cstate\+\_\+ortho\+\_\+lev}
+    \subitem {states}, \hyperpage{23}
+  \item {cstate\+\_\+ortho\+\_\+mode}
+    \subitem {states}, \hyperpage{23}
+  \item {cstate\+\_\+ortho\+\_\+nmode}
+    \subitem {states}, \hyperpage{23}
+
+  \indexspace
+
+  \item {determine\+\_\+partition}
+    \subitem {characters.\+h}, \hyperpage{45}
+  \item {diag}, \hyperpage{8}
+    \subitem {shell\+\_\+double}, \hyperpage{9}
+    \subitem {shell\+\_\+ld}, \hyperpage{9}
+    \subitem {tqli\+\_\+double}, \hyperpage{10}
+    \subitem {tqli\+\_\+ld}, \hyperpage{10}
+    \subitem {tred2\+\_\+double}, \hyperpage{11}
+    \subitem {tred2\+\_\+ld}, \hyperpage{11}
+  \item {diag.\+h}, \hyperpage{50}
+  \item {dot}
+    \subitem {cpt.\+h}, \hyperpage{49}
+
+  \indexspace
+
+  \item {element\+\_\+computation}
+    \subitem {element\+\_\+computation.\+h}, \hyperpage{51}
+  \item {element\+\_\+computation.\+h}, \hyperpage{50}
+    \subitem {element\+\_\+computation}, \hyperpage{51}
+    \subitem {fac}, \hyperpage{52}
+
+  \indexspace
+
+  \item {fac}
+    \subitem {element\+\_\+computation.\+h}, \hyperpage{52}
+  \item {filenames}, \hyperpage{12}
+  \item {finalsubspace}
+    \subitem {parameters}, \hyperpage{18}
+
+  \indexspace
+
+  \item {gamma}
+    \subitem {gamma.\+h}, \hyperpage{52}
+  \item {gamma.\+h}, \hyperpage{52}
+    \subitem {gamma}, \hyperpage{52}
+
+  \indexspace
+
+  \item {Hamiltonian}, \hyperpage{12}
+
+  \indexspace
+
+  \item {int\+Matrix}
+    \subitem {parameters}, \hyperpage{18}
+  \item {invphi}
+    \subitem {characters.\+h}, \hyperpage{45}
+
+  \indexspace
+
+  \item {ksymb1}
+    \subitem {characters.\+h}, \hyperpage{45}
+  \item {ksymb2}
+    \subitem {characters.\+h}, \hyperpage{46}
+
+  \indexspace
+
+  \item {Max\+Chiral\+States}
+    \subitem {states}, \hyperpage{24}
+  \item {Max\+Chiral\+Verma}
+    \subitem {states}, \hyperpage{24}
+  \item {max\+Eigen}
+    \subitem {parameters}, \hyperpage{18}
+  \item {Max\+Num\+Grade}
+    \subitem {config.\+h}, \hyperpage{48}
+  \item {Max\+Part}
+    \subitem {config.\+h}, \hyperpage{48}
+  \item {Max\+States}
+    \subitem {states}, \hyperpage{24}
+  \item {maxp}
+    \subitem {parameters}, \hyperpage{18}
+  \item {me\+\_\+chi\+\_\+ortho}
+    \subitem {chir\+ME}, \hyperpage{7}
+  \item {me\+\_\+chi\+\_\+ortho\+\_\+op\+\_\+l}
+    \subitem {chir\+ME}, \hyperpage{7}
+  \item {me\+\_\+chi\+\_\+ortho\+\_\+op\+\_\+r}
+    \subitem {chir\+ME}, \hyperpage{8}
+
+  \indexspace
+
+  \item {N\+RG}, \hyperpage{13}
+    \subitem {run}, \hyperpage{13}
+  \item {n\+Sweep}
+    \subitem {parameters}, \hyperpage{19}
+  \item {Nsize}
+    \subitem {parameters}, \hyperpage{18}
+  \item {nstates\+\_\+lev}
+    \subitem {states}, \hyperpage{24}
+  \item {nstates\+\_\+lev\+\_\+each}
+    \subitem {states}, \hyperpage{24}
+  \item {Nstep}
+    \subitem {parameters}, \hyperpage{18}
+
+  \indexspace
+
+  \item {operator()}
+    \subitem {tensor2D}, \hyperpage{27}
+    \subitem {tensor3D}, \hyperpage{29, 30}
+    \subitem {tensor4D}, \hyperpage{32}
+    \subitem {tensor5D}, \hyperpage{35}
+    \subitem {tensor6D}, \hyperpage{38, 39}
+  \item {operator=}
+    \subitem {tensor2D}, \hyperpage{27}
+    \subitem {tensor3D}, \hyperpage{30}
+    \subitem {tensor4D}, \hyperpage{33}
+    \subitem {tensor5D}, \hyperpage{36}
+    \subitem {tensor6D}, \hyperpage{39}
+
+  \indexspace
+
+  \item {parameters}, \hyperpage{14}
+    \subitem {all\+Mom\+Subspace}, \hyperpage{17}
+    \subitem {C}, \hyperpage{17}
+    \subitem {cpt}, \hyperpage{17}
+    \subitem {cptsmall}, \hyperpage{17}
+    \subitem {finalsubspace}, \hyperpage{18}
+    \subitem {int\+Matrix}, \hyperpage{18}
+    \subitem {max\+Eigen}, \hyperpage{18}
+    \subitem {maxp}, \hyperpage{18}
+    \subitem {n\+Sweep}, \hyperpage{19}
+    \subitem {Nsize}, \hyperpage{18}
+    \subitem {Nstep}, \hyperpage{18}
+    \subitem {parameters}, \hyperpage{16}
+    \subitem {print}, \hyperpage{17}
+    \subitem {subdim}, \hyperpage{19}
+    \subitem {vermadim}, \hyperpage{19}
+    \subitem {vermadimcomul}, \hyperpage{19}
+  \item {parameters.\+h}, \hyperpage{53}
+  \item {partitions}
+    \subitem {characters.\+h}, \hyperpage{46}
+  \item {print}
+    \subitem {parameters}, \hyperpage{17}
+
+  \indexspace
+
+  \item {read\+\_\+chiral}
+    \subitem {states}, \hyperpage{22}
+  \item {run}
+    \subitem {N\+RG}, \hyperpage{13}
+
+  \indexspace
+
+  \item {shell\+\_\+double}
+    \subitem {diag}, \hyperpage{9}
+  \item {shell\+\_\+ld}
+    \subitem {diag}, \hyperpage{9}
+  \item {state\+\_\+left\+\_\+lev}
+    \subitem {states}, \hyperpage{24}
+  \item {state\+\_\+nonchiral\+\_\+lev}
+    \subitem {states}, \hyperpage{25}
+  \item {state\+\_\+right\+\_\+lev}
+    \subitem {states}, \hyperpage{25}
+  \item {states}, \hyperpage{19}
+    \subitem {calculate\+\_\+chiral}, \hyperpage{21}
+    \subitem {calculate\+\_\+nonchiral}, \hyperpage{22}
+    \subitem {cstate\+\_\+lev}, \hyperpage{23}
+    \subitem {cstate\+\_\+mode}, \hyperpage{23}
+    \subitem {cstate\+\_\+nmode}, \hyperpage{23}
+    \subitem {cstate\+\_\+ortho\+\_\+lev}, \hyperpage{23}
+    \subitem {cstate\+\_\+ortho\+\_\+mode}, \hyperpage{23}
+    \subitem {cstate\+\_\+ortho\+\_\+nmode}, \hyperpage{23}
+    \subitem {Max\+Chiral\+States}, \hyperpage{24}
+    \subitem {Max\+Chiral\+Verma}, \hyperpage{24}
+    \subitem {Max\+States}, \hyperpage{24}
+    \subitem {nstates\+\_\+lev}, \hyperpage{24}
+    \subitem {nstates\+\_\+lev\+\_\+each}, \hyperpage{24}
+    \subitem {read\+\_\+chiral}, \hyperpage{22}
+    \subitem {state\+\_\+left\+\_\+lev}, \hyperpage{24}
+    \subitem {state\+\_\+nonchiral\+\_\+lev}, \hyperpage{25}
+    \subitem {state\+\_\+right\+\_\+lev}, \hyperpage{25}
+    \subitem {states}, \hyperpage{21}
+  \item {states.\+h}, \hyperpage{54}
+  \item {subdim}
+    \subitem {parameters}, \hyperpage{19}
+
+  \indexspace
+
+  \item {tensor2\+D$<$ T $>$}, \hyperpage{25}
+  \item {tensor2D}
+    \subitem {operator()}, \hyperpage{27}
+    \subitem {operator=}, \hyperpage{27}
+    \subitem {tensor2D}, \hyperpage{26}
+  \item {tensor3\+D$<$ T $>$}, \hyperpage{28}
+  \item {tensor3D}
+    \subitem {operator()}, \hyperpage{29, 30}
+    \subitem {operator=}, \hyperpage{30}
+    \subitem {tensor3D}, \hyperpage{29}
+  \item {tensor4\+D$<$ T $>$}, \hyperpage{31}
+  \item {tensor4D}
+    \subitem {operator()}, \hyperpage{32}
+    \subitem {operator=}, \hyperpage{33}
+    \subitem {tensor4D}, \hyperpage{32}
+  \item {tensor5\+D$<$ T $>$}, \hyperpage{33}
+  \item {tensor5D}
+    \subitem {operator()}, \hyperpage{35}
+    \subitem {operator=}, \hyperpage{36}
+    \subitem {tensor5D}, \hyperpage{34}
+  \item {tensor6\+D$<$ T $>$}, \hyperpage{36}
+  \item {tensor6D}
+    \subitem {operator()}, \hyperpage{38, 39}
+    \subitem {operator=}, \hyperpage{39}
+    \subitem {tensor6D}, \hyperpage{38}
+  \item {tensors.\+h}, \hyperpage{54}
+  \item {tqli\+\_\+double}
+    \subitem {diag}, \hyperpage{10}
+  \item {tqli\+\_\+ld}
+    \subitem {diag}, \hyperpage{10}
+  \item {tred2\+\_\+double}
+    \subitem {diag}, \hyperpage{11}
+  \item {tred2\+\_\+ld}
+    \subitem {diag}, \hyperpage{11}
+  \item {truspace.\+cpp}, \hyperpage{55}
+
+  \indexspace
+
+  \item {vermadim}
+    \subitem {parameters}, \hyperpage{19}
+  \item {vermadimcomul}
+    \subitem {parameters}, \hyperpage{19}
+
+  \indexspace
+
+  \item {worker}, \hyperpage{40}
+  \item {worker.\+h}, \hyperpage{56}
+
+\end{theindex}

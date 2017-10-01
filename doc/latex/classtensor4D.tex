@@ -1,0 +1,154 @@
+\hypertarget{classtensor4D}{}\section{tensor4D$<$ T $>$ Class Template Reference}
+\label{classtensor4D}\index{tensor4\+D$<$ T $>$@{tensor4\+D$<$ T $>$}}
+
+
+Template class for 4D tensors This classes do not provide an allocator.  
+
+
+
+
+{\ttfamily \#include $<$tensors.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classtensor4D_a4af9243ce1ef1367b1970b329f99000c}\label{classtensor4D_a4af9243ce1ef1367b1970b329f99000c}} 
+\mbox{\hyperlink{classtensor4D_a4af9243ce1ef1367b1970b329f99000c}{tensor4D}} ()
+\begin{DoxyCompactList}\small\item\em Default Constructor, it allocates a 1x1x1x1 tensor. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classtensor4D_a01b37027f532ed8594096c5504aff0ab}{tensor4D}} (int, int, int, int)
+\begin{DoxyCompactList}\small\item\em Constructor to allocate custom size 4D tensor. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classtensor4D_a0bb667f76a6b4ba43387ee320c565eaa}\label{classtensor4D_a0bb667f76a6b4ba43387ee320c565eaa}} 
+\mbox{\hyperlink{classtensor4D_a0bb667f76a6b4ba43387ee320c565eaa}{$\sim$tensor4D}} ()
+\begin{DoxyCompactList}\small\item\em Destructor, deallocates data member. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classtensor4D}{tensor4D}}$<$ T $>$ \& \mbox{\hyperlink{classtensor4D_a45c7580ca5f000cfe64cb7963a80f387}{operator=}} (const \mbox{\hyperlink{classtensor4D}{tensor4D}}$<$ T $>$ \&)
+\begin{DoxyCompactList}\small\item\em Assignment operator. \end{DoxyCompactList}\item 
+T \& \mbox{\hyperlink{classtensor4D_a0d94ef9dab89422b1fa3b547b07c922a}{operator()}} (const int, const int, const int, const int)
+\begin{DoxyCompactList}\small\item\em Element access operator, with bound check. \end{DoxyCompactList}\item 
+T \mbox{\hyperlink{classtensor4D_a897359cbfc99fd28581f828391f7fe67}{operator()}} (const int, const int, const int, const int) const
+\begin{DoxyCompactList}\small\item\em Element access operator, with bound check -\/ Constant tensor version. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classtensor4D_a421c094496873371778fb53cf7027b4f}\label{classtensor4D_a421c094496873371778fb53cf7027b4f}} 
+int \mbox{\hyperlink{classtensor4D_a421c094496873371778fb53cf7027b4f}{n1}}
+\begin{DoxyCompactList}\small\item\em First tensor size. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classtensor4D_a079abfd952f0510b18258047008eec7f}\label{classtensor4D_a079abfd952f0510b18258047008eec7f}} 
+int \mbox{\hyperlink{classtensor4D_a079abfd952f0510b18258047008eec7f}{n2}}
+\begin{DoxyCompactList}\small\item\em Second tensor size. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classtensor4D_aab97d021c95ad401da51c28d77fd806c}\label{classtensor4D_aab97d021c95ad401da51c28d77fd806c}} 
+int \mbox{\hyperlink{classtensor4D_aab97d021c95ad401da51c28d77fd806c}{n3}}
+\begin{DoxyCompactList}\small\item\em Third tensor size. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classtensor4D_af1ecf8f3551f16d22119d728d67c990f}\label{classtensor4D_af1ecf8f3551f16d22119d728d67c990f}} 
+int \mbox{\hyperlink{classtensor4D_af1ecf8f3551f16d22119d728d67c990f}{n4}}
+\begin{DoxyCompactList}\small\item\em Fourth tensor size. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classtensor4D_ac0a2dd341e0de829bba5b0198e0c970f}\label{classtensor4D_ac0a2dd341e0de829bba5b0198e0c970f}} 
+T $\ast$ \mbox{\hyperlink{classtensor4D_ac0a2dd341e0de829bba5b0198e0c970f}{data}}
+\begin{DoxyCompactList}\small\item\em Data segment. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$class T$>$\newline
+class tensor4\+D$<$ T $>$}
+
+Template class for 4D tensors This classes do not provide an allocator. 
+
+They are allocated automatically using the costum constructor tesor?D( int int ....) The default constructor can be used, but only to create dummy tensors, that needs to be assigned using the assignment operator (=)
+
+Memebers are all public.
+\begin{DoxyItemize}
+\item n1, n2, ... contains the dimensions
+\item the pointer data contains the data in col major order, such that it can be pass to B\+L\+A\+S/\+L\+A\+P\+A\+CK easily as A.\+data
+\item reading and writing single elements is done using the () operator so element 1,2,5 of tensor A is accessed A(1,2,5) 
+\end{DoxyItemize}
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classtensor4D_a01b37027f532ed8594096c5504aff0ab}\label{classtensor4D_a01b37027f532ed8594096c5504aff0ab}} 
+\index{tensor4D@{tensor4D}!tensor4D@{tensor4D}}
+\index{tensor4D@{tensor4D}!tensor4D@{tensor4D}}
+\subsubsection{\texorpdfstring{tensor4\+D()}{tensor4D()}}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+\mbox{\hyperlink{classtensor4D}{tensor4D}}$<$ T $>$\+::\mbox{\hyperlink{classtensor4D}{tensor4D}} (\begin{DoxyParamCaption}\item[{int}]{n1\+\_\+in,  }\item[{int}]{n2\+\_\+in,  }\item[{int}]{n3\+\_\+in,  }\item[{int}]{n4\+\_\+in }\end{DoxyParamCaption})}
+
+
+
+Constructor to allocate custom size 4D tensor. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em n1\+\_\+in} & First dimension \\
+\hline
+\mbox{\tt in}  & {\em n2\+\_\+in} & Second dimension \\
+\hline
+\mbox{\tt in}  & {\em n3\+\_\+in} & Third dimension \\
+\hline
+\mbox{\tt in}  & {\em n4\+\_\+in} & Fourth dimension \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classtensor4D_a0d94ef9dab89422b1fa3b547b07c922a}\label{classtensor4D_a0d94ef9dab89422b1fa3b547b07c922a}} 
+\index{tensor4D@{tensor4D}!operator()@{operator()}}
+\index{operator()@{operator()}!tensor4D@{tensor4D}}
+\subsubsection{\texorpdfstring{operator()()}{operator()()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+T \& \mbox{\hyperlink{classtensor4D}{tensor4D}}$<$ T $>$\+::operator() (\begin{DoxyParamCaption}\item[{const int}]{i1,  }\item[{const int}]{i2,  }\item[{const int}]{i3,  }\item[{const int}]{i4 }\end{DoxyParamCaption})}
+
+
+
+Element access operator, with bound check. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em i1} & First index of the element to access \\
+\hline
+\mbox{\tt in}  & {\em i2} & Second index of the element to access \\
+\hline
+\mbox{\tt in}  & {\em i3} & Third index of the element to access \\
+\hline
+\mbox{\tt in}  & {\em i4} & Fourth index of the element to access \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classtensor4D_a897359cbfc99fd28581f828391f7fe67}\label{classtensor4D_a897359cbfc99fd28581f828391f7fe67}} 
+\index{tensor4D@{tensor4D}!operator()@{operator()}}
+\index{operator()@{operator()}!tensor4D@{tensor4D}}
+\subsubsection{\texorpdfstring{operator()()}{operator()()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+T \mbox{\hyperlink{classtensor4D}{tensor4D}}$<$ T $>$\+::operator() (\begin{DoxyParamCaption}\item[{const int}]{i1,  }\item[{const int}]{i2,  }\item[{const int}]{i3,  }\item[{const int}]{i4 }\end{DoxyParamCaption}) const}
+
+
+
+Element access operator, with bound check -\/ Constant tensor version. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em i1} & First index of the element to access \\
+\hline
+\mbox{\tt in}  & {\em i2} & Second index of the element to access \\
+\hline
+\mbox{\tt in}  & {\em i3} & Third index of the element to access \\
+\hline
+\mbox{\tt in}  & {\em i4} & Fourth index of the element to access \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classtensor4D_a45c7580ca5f000cfe64cb7963a80f387}\label{classtensor4D_a45c7580ca5f000cfe64cb7963a80f387}} 
+\index{tensor4D@{tensor4D}!operator=@{operator=}}
+\index{operator=@{operator=}!tensor4D@{tensor4D}}
+\subsubsection{\texorpdfstring{operator=()}{operator=()}}
+{\footnotesize\ttfamily template$<$class T$>$ \\
+\mbox{\hyperlink{classtensor4D}{tensor4D}}$<$ T $>$ \& \mbox{\hyperlink{classtensor4D}{tensor4D}}$<$ T $>$\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtensor4D}{tensor4D}}$<$ T $>$ \&}]{tens }\end{DoxyParamCaption})}
+
+
+
+Assignment operator. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em tens} & The tensor to copy return A reference to the current object, to allow expressions such as a=b=c to work \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{tensors_8h}{tensors.\+h}}\end{DoxyCompactItemize}

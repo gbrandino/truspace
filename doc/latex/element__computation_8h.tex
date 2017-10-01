@@ -1,0 +1,73 @@
+\hypertarget{element__computation_8h}{}\section{element\+\_\+computation.\+h File Reference}
+\label{element__computation_8h}\index{element\+\_\+computation.\+h@{element\+\_\+computation.\+h}}
+
+
+Routines to calculate matrix element and overlap of conformal states.  
+
+
+{\ttfamily \#include \char`\"{}config.\+h\char`\"{}}\newline
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+long double \mbox{\hyperlink{element__computation_8h_a2ddea0b64dfac00a888af1a447f72ccb}{fac}} (int n)
+\begin{DoxyCompactList}\small\item\em Return the factorial of the given integer. \end{DoxyCompactList}\item 
+long double \mbox{\hyperlink{element__computation_8h_ab1c1fd91475f60610e6b67ad9c16ba55}{element\+\_\+computation}} (long double C, long double grade\mbox{[}\mbox{\hyperlink{config_8h_acf079a10d2762f6727e58b994b70b359}{Max\+Num\+Grade}}\mbox{]}, int n, int m, long double hr, long double hl, long double coeff, long double Del)
+\begin{DoxyCompactList}\small\item\em Calculates the matrix element of a primary field phi\+\_\+(hr,hs) on the conformal basis. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Routines to calculate matrix element and overlap of conformal states. 
+
+\begin{DoxyAuthor}{Author}
+Robert Konik -\/ B\+NL, Giuseppe Piero Brandino -\/ e\+Xact-\/lab s.\+r.\+l. 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+November 2016 
+\end{DoxyDate}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{element__computation_8h_ab1c1fd91475f60610e6b67ad9c16ba55}\label{element__computation_8h_ab1c1fd91475f60610e6b67ad9c16ba55}} 
+\index{element\+\_\+computation.\+h@{element\+\_\+computation.\+h}!element\+\_\+computation@{element\+\_\+computation}}
+\index{element\+\_\+computation@{element\+\_\+computation}!element\+\_\+computation.\+h@{element\+\_\+computation.\+h}}
+\subsubsection{\texorpdfstring{element\+\_\+computation()}{element\_computation()}}
+{\footnotesize\ttfamily long double element\+\_\+computation (\begin{DoxyParamCaption}\item[{long double}]{C,  }\item[{long double}]{grade\mbox{[}\+Max\+Num\+Grade\mbox{]},  }\item[{int}]{n,  }\item[{int}]{m,  }\item[{long double}]{hr,  }\item[{long double}]{hl,  }\item[{long double}]{coeff,  }\item[{long double}]{Del }\end{DoxyParamCaption})}
+
+
+
+Calculates the matrix element of a primary field phi\+\_\+(hr,hs) on the conformal basis. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em C} & The central charge of the model \\
+\hline
+\mbox{\tt in}  & {\em grade} & Array of size Max\+Num\+Grade (defined in \mbox{\hyperlink{config_8h}{config.\+h}}). Contains the sequence of indeces of lowering and rising operator that define the bra and ket states, and 0 for the primary field, read from left to right \\
+\hline
+\mbox{\tt in}  & {\em n} & Length of the string or rising and lowering operators, including the primary field \\
+\hline
+\mbox{\tt in}  & {\em m} & Position of the primary field in the string \\
+\hline
+\mbox{\tt in}  & {\em hr} & Weight of the primary field from which the current conformal ket states is descending \\
+\hline
+\mbox{\tt in}  & {\em hl} & Weight of the primary field from which the current conformal bra states is descending \\
+\hline
+\mbox{\tt in}  & {\em coeff} & Coefficient to multiply the matrix element. Used internally in recursive calls \\
+\hline
+\mbox{\tt in}  & {\em Del} & The conformal weight of the field whose matrix element are computed. 0 indicates identity, so the overlaps of the conformal basis states are computed. return The matrix element \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{element__computation_8h_a2ddea0b64dfac00a888af1a447f72ccb}\label{element__computation_8h_a2ddea0b64dfac00a888af1a447f72ccb}} 
+\index{element\+\_\+computation.\+h@{element\+\_\+computation.\+h}!fac@{fac}}
+\index{fac@{fac}!element\+\_\+computation.\+h@{element\+\_\+computation.\+h}}
+\subsubsection{\texorpdfstring{fac()}{fac()}}
+{\footnotesize\ttfamily long double fac (\begin{DoxyParamCaption}\item[{int}]{n }\end{DoxyParamCaption})}
+
+
+
+Return the factorial of the given integer. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em n} & The integer to calculate the factorial return The factorial of n \\
+\hline
+\end{DoxyParams}
