@@ -1,3 +1,9 @@
+/** Class that contains the chiral matrix elements of perturbing operators and operator to calculate expectation values 
+ *
+ * authors: Giuseppe Piero Brandino - eXact-lab s.r.l., Robert Konik - BNL
+ * last revision: December 2016
+ */
+
 #include "chirME.h"
 #include "parameters.h"
 #include "states.h"
