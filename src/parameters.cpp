@@ -54,19 +54,7 @@ parameters::parameters(const char* input_file_name)
     input_file>>maxLev;  input_file.ignore(256, '\n');
     input_file>>minLev;  input_file.ignore(256, '\n');
     input_file>>maxMomentum;  input_file.ignore(256, '\n');
-/*    if (tmp == 0)
-        allMomSubspace=false;
-    else
-        allMomSubspace=true; 
-*/
     input_file>>allMomSubspace;  input_file.ignore(256, '\n');
-
-    // if only momentum zero is considered 
-/*    if(maxMomentum==0)
-        {
-        allMomSubspace=true;
-        }
-*/
     input_file>>maxEigen;  input_file.ignore(256, '\n');
 
     r = new int[numPert];
@@ -773,7 +761,7 @@ void parameters::analyse_subspaces()
         }
 
 
-    // If the expectation of a certain operator is required, we should check that such operator does not connect different symmetry. If it does, 
+    // If the expectation of a certain operator is required, we should check that such operator does not connect different symmetry subspaces. If it does, 
     // its expecation values between different subspaces can be non-zero. In such a case, we should diagonalize together all the subspaces connected by 
     // the perturbation.
     if (calcExpVal)
