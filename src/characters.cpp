@@ -46,8 +46,6 @@ ex chisymb(int r,int s,int p, int q,int k,symbol x)
     return expand((ksymb1(r,s,p,q,k,x)-ksymb2(r,s,p,q,k,x))*invphi(k,x));
     }
 
-
-
 void characexpan(int r,int s, double p,  double q,int l,int* leveldim ) 
     {
     symbol x("x");
@@ -66,13 +64,8 @@ int partitions(int k)
     return to_int(ex_to<numeric>(a.coeff(x,k)));
     }
 
-/* 
- * routine to determine partition of integers 
- * the routine accepts a given integer (i.e. "level" and returns
- * the partitions in results
- * 
- * This routine can probably be optimize or omp parallized, but with deep rewriting
- *
+/** 
+ * Original determine_partion routine, was giving big memory problem. Kept for reference
  */
 /*int determine_partition(int level, tensor2D<int>&  results)
 {
