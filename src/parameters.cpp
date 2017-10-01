@@ -1,12 +1,11 @@
-// move this to parameters.h
-/*
- * Big fuzzy object that contains 
- *  - input paramenter
- *  - Kac table 
- *  - structure constant
- *
- * authors: Giuseppe Piero Brandino - eXact-lab s.r.l.
- * last revision: October 2016
+/** Input parameter class. 
+ *  Big fuzzy object that contains 
+ *    - input paramenter
+ *    - Kac table 
+ *    - structure constant 
+ *    - verma module in each subspace
+ *  \authors Giuseppe Piero Brandino - eXact-lab s.r.l.
+ *  \date November 2017
  */
 
 #include "config.h"
