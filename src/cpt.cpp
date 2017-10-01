@@ -1,3 +1,10 @@
+/**  Set of helper function to calculate structure constant of Minimal CFTs.  
+ *
+ * \authors Giuseppe Piero Brandino - eXact-lab s.r.l.
+ * \date October 2017
+ * \copyright GNU Public License.
+ */
+
 #include "cpt.h"
 #include "gamma.h"
 #include <complex>
