@@ -1,14 +1,14 @@
-/* 
- * Class that takes care of 
- *  - loop through the subspace found by parameters::analyze_subspace
- *  - find chiral and non-chiral base states in each subspace
- *  - call NRG routine on each subspace
- *  - calculate Matrix element on the eigenstates found, in each subspace. If the operator connects a set of subspaces, then those subspaces are diagonalized at the same time
+/** @file worker.h 
+ * \brief Contains driver Class for states, matrix element and NRG calculation. 
+ *  It takes care of 
+ *    - looping through the subspace found by parameters::analyze_subspace
+ *    - finding chiral and non-chiral base states in each subspace
+ *    - calling NRG routine on each subspace
+ *    - calculating Matrix element on the eigenstates found, in each subspace. If the operator connects a set of subspaces, then those subspaces are diagonalized at the same time
  *
- * authors: Giuseppe Piero Brandino - eXact-lab s.r.l.
- * last revision: November 2016
+ * \author Giuseppe Piero Brandino - eXact-lab s.r.l.
+ * \date November 2017
  */
-
 #include "worker.h"
 #include "tensors.h"
 #include "parameters.h"
@@ -113,7 +113,6 @@ void worker::run(parameters& p)
                 H_iter.R = R;//R*2.*pi; //constant to match old results
                 std::cout << " R value: " << r << " (" << H_iter.R << ")" << std::endl;  
                 nrg.run(p, H_iter,fnames);  
-                // exp val
                 }
             }
         else
@@ -135,7 +134,6 @@ void worker::run(parameters& p)
                     
                     std::cout << " R value: " << r << " (" << H_iter.R << ")" << std::endl;
                     nrg.run(p, H_iter, fnames);
-                    // exp val
                     }
                 }
             }
