@@ -1,8 +1,8 @@
-/*
- *  Routine to identify symmetry subspace by the analysis of the interaction matrix   
+/**\brief Helper function identify symmetry subspace by the analysis of the interaction matrix   
  *
- * authors: Giuseppe Piero Brandino - eXact-lab s.r.l.
- * last revision: November 2016
+ * \authors Giuseppe Piero Brandino - eXact-lab s.r.l.
+ * \date October 2017
+ * \copyright GNU Public License.
  */
 
 #include "tensors.h" 

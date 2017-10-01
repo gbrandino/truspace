@@ -1,8 +1,8 @@
-/* Set of helper functions manage ginac computation 
- * 
- * authors: Giuseppe Piero Brandino - eXact-lab s.r.l.
- * last revision: October 2016
- *          
+/**  \brief Set of helper functions to calculate integers partitions and manage GiNaC computation of character expansion. 
+ *
+ * \authors Giuseppe Piero Brandino - eXact-lab s.r.l.
+ * \date October 2017
+ * \copyright GNU Public License.
  */
 
 #include "characters.h"
