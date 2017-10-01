@@ -62,7 +62,7 @@ ex chisymb(int r, int s, int p, int q, int l, symbol x);
  *  @param[out] leveldim Array of lenght l+1, contains the number of indenpendent states at each level
  *
  */
-void characexpan(int r, int s, double p, double p, int l, int* leveldim);
+void characexpan(int r, int s, double p, double q, int l, int* leveldim);
 
 
 /** Calculates the number of partions of the given integer.
