@@ -36,7 +36,7 @@
  * if there is a string of modes of the form L_{-n}L_{n}^k, it will compute not [L_{-n},L_{n}]
  * but the results of commuting L_{-n} through L_{n}^k in one go.
  *
- * authors: Robert Konik 
+ * authors: Robert Konik - BNL, Giuseppe Piero Brandino - eXact-lab s.r.l. 
  * last revision: November 2016
  */
 
