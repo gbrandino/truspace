@@ -68,8 +68,15 @@ $(function() {
 <div class="textblock"><p>Welcome to the Truspace developer documenation!</p>
 <p>This site contains all the information you need to modify or extend Truspace.</p>
 <p>For compilation and user-guide, please refer to <a href="http://bitbucket.org/truspacedevelopers/truspace">http://bitbucket.org/truspacedevelopers/truspace</a></p>
-<h3>Code design and structure</h3>
+<h2>Code design and structure</h2>
 <p>TruSpace is written in C++ using and Object Oriented design pattern.</p>
+<p>Table of content</p>
+<ul>
+<li><a href="#classes-and-utlities">Classes and utlities</a></li>
+<li><a href="#code-architecture">Code architecture</a></li>
+<li><a href="#how-to-extened-truspace">How to extened Truspace</a></li>
+</ul>
+<h3>Classes and utlities</h3>
 <p>The available classes are</p>
 <ul>
 <li><a class="el" href="classparameters.html">parameters</a> : class that handles the input reading, the calculation of the structure constants and the analysis of symmetry subspaces.</li>
@@ -90,7 +97,50 @@ $(function() {
 <li><a class="el" href="cpt_8h.html">cpt.h</a> Set of helper function to calculate structure constant of Minimal CFTs</li>
 <li><a class="el" href="gamma_8h.html">gamma.h</a> Computation of gamma function</li>
 </ul>
-<p>The model-agnostic nature of the <a class="el" href="classNRG.html">NRG</a> class should allow easy extension of the current code to other Quantum Hamiltonians. </p>
+<p>The model-agnostic nature of the <a class="el" href="classNRG.html">NRG</a> class should allow easy extension of the current code to other Quantum Hamiltonians.</p>
+<h3>Code architecture</h3>
+<p>The following diagram explains how the various objects are created and called.</p>
+<div class="image">
+<img src="diagram.png" alt="diagram.png"/>
+</div>
+<p>The flow is the following:</p>
+<ul>
+<li>The main, called <a class="el" href="truspace_8cpp.html" title="Main program of Truspace (driver routine). ">truspace.cpp</a><ul>
+<li>creates an instance of <a class="el" href="classparameters.html">parameters</a> from the input file, then calls <a class="el" href="classparameters.html#ab296b8a9284db7b8c74dabc944c7d654" title="Calculates Verma modules size, Hilbert space size, subspace analysis and structure constant...">parameters::analyse_subspaces</a> that calculates the size of Hilbert space, the structure constans and tries to find symmetry subspaces in the Hilbert space</li>
+<li>creates and instace of <a class="el" href="classworker.html">worker</a> and runs it</li>
+</ul>
+</li>
+<li><a class="el" href="classworker.html">worker</a><ul>
+<li>iterates through momentum subspaces and symmetry subspaces. For each of them<ul>
+<li>creates an instance of <a class="el" href="classstates.html">states</a>, which calculates (or reads from file) and hold the computational conformal basis. The basis is identified by removing null-vectors and then performing a orthgonalization</li>
+<li>creates an instance if <a class="el" href="classfilenames.html">filenames</a>, which holds the strings identifying the various output files</li>
+<li>creates an instance of <a class="el" href="classchirME.html">chirME</a>, which calculates (or reads from file) and hold the matrix elements of the pertubation(s) by calling <a class="el" href="classchirME.html#a9a7e36cc974d91607112bdf552ed40fc">chirME::calculate_or_read_chirME</a> Matrix element are stored on the chiral states to save memory, which means that the complete matrix element will be the product of the contribution for chiral and anti-chiral components. They are stored in <a class="el" href="classchirME.html#aa59c5a77d881d29746faaf171f5b627e">chirME::me_chi_ortho</a>. If the expectation value of an operator is asked in the input file, it also calculates chiral matrix elements for the specified operator. The matrix elements are stored in <a class="el" href="classchirME.html#ae206d3f68100f496ec7e3ea09bcf2c0a">chirME::me_chi_ortho_op_l</a> and <a class="el" href="classchirME.html#aba75f5ca87a3598e54eecb2aaa3cca34">chirME::me_chi_ortho_op_r</a> for the chiral and anti-chiral component of the operator.</li>
+<li>iterates through values of <code>R</code>, for each of them<ul>
+<li>creates and instance of <a class="el" href="classHamiltonian.html">Hamiltonian</a>, which hold the hamiltonian matrix and a set of routines to calculate the parts of the hamiltonian relevant for NRG/Sweep</li>
+<li>creates and <a class="el" href="classNRG.html">NRG</a> object and runs it<ul>
+<li><a class="el" href="classNRG.html">NRG</a> performs <a class="el" href="classNRG.html">NRG</a> iteration and Sweeps, calculates eigenvalues for each NRG/Sweep iteration, and, if requested in the input file, eigenvectors and expectation values of an operator. For eigenvectors and expectation values, the printed value are relative to the last <a class="el" href="classNRG.html">NRG</a> iteration.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3>How to extened Truspace</h3>
+<p>If you want to extend truspace, you will need to create your own version of <a class="el" href="classstates.html">states</a>, <a class="el" href="classchirME.html">chirME</a> and <a class="el" href="classHamiltonian.html">Hamiltonian</a>. You don't really need to respect the public interfaces for <a class="el" href="classstates.html">states</a>, <a class="el" href="classchirME.html">chirME</a>, as these are only used by <a class="el" href="classHamiltonian.html">Hamiltonian</a>, that you are rewirting anyway. Instead, the interfaces of <a class="el" href="classHamiltonian.html">Hamiltonian</a> are important to <a class="el" href="classNRG.html">NRG</a>, in particular</p>
+<ul>
+<li><a class="el" href="">Hamiltonian::init</a> - Initialization of the <a class="el" href="classHamiltonian.html">Hamiltonian</a>, meaning the filling of the matrix element for the first <a class="el" href="classNRG.html">NRG</a> iteration</li>
+<li><a class="el" href="">Hamiltonian::NRG_block_A</a> - Fills top-left part of the <a class="el" href="classHamiltonian.html">Hamiltonian</a> matrix, usually diagonal which contains the eigenvaues of the previous iteration</li>
+<li><a class="el" href="">Hamiltonian::NRG_block_BC</a> - Fills the bottom-left and top-right parts of the <a class="el" href="classHamiltonian.html">Hamiltonian</a> matrix, which contains the expectaion value of the perturbing operator(s) between previous step eigenstates and the newly added states of the computational basis</li>
+<li><a class="el" href="">Hamiltonian::NRG_block_D</a> - Fills the bottom-right part of the <a class="el" href="classHamiltonian.html">Hamiltonian</a> matrix, which contains the expectaion value of the perturbing operator(s) on the newly added states of the computational basis</li>
+<li><a class="el" href="">Hamiltonian::sweep_block_BC</a> - Fills the bottom-left and top-right parts of the <a class="el" href="classHamiltonian.html">Hamiltonian</a> matrix, which contains the expectaion value of the perturbing operator(s) between previous step eigenstates and eigenstates of the previous step same iteration</li>
+<li><a class="el" href="">Hamiltonian::Msize</a> - Size of the <a class="el" href="classHamiltonian.html">Hamiltonian</a> matrix at each <a class="el" href="classNRG.html">NRG</a> iteration</li>
+<li><a class="el" href="">Hamiltonian::print_eigenValues</a> - Prints eigenvalues to file</li>
+<li><a class="el" href="">Hamiltonian::print_eigenVectors</a> - Prints eigenvectors to file</li>
+<li><a class="el" href="classchirME.html#aad56d2574efe19f3da59c6b5ab0ddbdb">chirME::calculate_ExpVal</a> - Calculates expecation value on the final eigenstates of a given operator. Only interface of <a class="el" href="classchirME.html">chirME</a> to be strictly respected. </li>
+</ul>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

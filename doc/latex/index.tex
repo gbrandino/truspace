@@ -4,9 +4,20 @@ This site contains all the information you need to modify or extend Truspace.
 
 For compilation and user-\/guide, please refer to \href{http://bitbucket.org/truspacedevelopers/truspace}{\tt http\+://bitbucket.\+org/truspacedevelopers/truspace}
 
-\subsubsection*{Code design and structure}
+\subsection*{Code design and structure}
 
 Tru\+Space is written in C++ using and Object Oriented design pattern.
+
+Table of content
+
+
+\begin{DoxyItemize}
+\item \href{#classes-and-utlities}{\tt Classes and utlities}
+\item \href{#code-architecture}{\tt Code architecture}
+\item \href{#how-to-extened-truspace}{\tt How to extened Truspace}
+\end{DoxyItemize}
+
+\subsubsection*{Classes and utlities}
 
 The available classes are
 
@@ -34,4 +45,55 @@ Moreover, the are a series of helper functions
 \item \mbox{\hyperlink{gamma_8h}{gamma.\+h}} Computation of gamma function
 \end{DoxyItemize}
 
-The model-\/agnostic nature of the \mbox{\hyperlink{classNRG}{N\+RG}} class should allow easy extension of the current code to other Quantum Hamiltonians. 
+The model-\/agnostic nature of the \mbox{\hyperlink{classNRG}{N\+RG}} class should allow easy extension of the current code to other Quantum Hamiltonians.
+
+\subsubsection*{Code architecture}
+
+The following diagram explains how the various objects are created and called.
+
+
+
+The flow is the following\+:
+
+
+\begin{DoxyItemize}
+\item The main, called \mbox{\hyperlink{truspace_8cpp}{truspace.\+cpp}}
+\begin{DoxyItemize}
+\item creates an instance of \mbox{\hyperlink{classparameters}{parameters}} from the input file, then calls \mbox{\hyperlink{classparameters_ab296b8a9284db7b8c74dabc944c7d654}{parameters\+::analyse\+\_\+subspaces}} that calculates the size of Hilbert space, the structure constans and tries to find symmetry subspaces in the Hilbert space
+\item creates and instace of \mbox{\hyperlink{classworker}{worker}} and runs it
+\end{DoxyItemize}
+\item \mbox{\hyperlink{classworker}{worker}}
+\begin{DoxyItemize}
+\item iterates through momentum subspaces and symmetry subspaces. For each of them
+\begin{DoxyItemize}
+\item creates an instance of \mbox{\hyperlink{classstates}{states}}, which calculates (or reads from file) and hold the computational conformal basis. The basis is identified by removing null-\/vectors and then performing a orthgonalization
+\item creates an instance if \mbox{\hyperlink{classfilenames}{filenames}}, which holds the strings identifying the various output files
+\item creates an instance of \mbox{\hyperlink{classchirME}{chir\+ME}}, which calculates (or reads from file) and hold the matrix elements of the pertubation(s) by calling \mbox{\hyperlink{classchirME_a9a7e36cc974d91607112bdf552ed40fc}{chir\+M\+E\+::calculate\+\_\+or\+\_\+read\+\_\+chir\+ME}} Matrix element are stored on the chiral states to save memory, which means that the complete matrix element will be the product of the contribution for chiral and anti-\/chiral components. They are stored in \mbox{\hyperlink{classchirME_aa59c5a77d881d29746faaf171f5b627e}{chir\+M\+E\+::me\+\_\+chi\+\_\+ortho}}. If the expectation value of an operator is asked in the input file, it also calculates chiral matrix elements for the specified operator. The matrix elements are stored in \mbox{\hyperlink{classchirME_ae206d3f68100f496ec7e3ea09bcf2c0a}{chir\+M\+E\+::me\+\_\+chi\+\_\+ortho\+\_\+op\+\_\+l}} and \mbox{\hyperlink{classchirME_aba75f5ca87a3598e54eecb2aaa3cca34}{chir\+M\+E\+::me\+\_\+chi\+\_\+ortho\+\_\+op\+\_\+r}} for the chiral and anti-\/chiral component of the operator.
+\item iterates through values of {\ttfamily R}, for each of them
+\begin{DoxyItemize}
+\item creates and instance of \mbox{\hyperlink{classHamiltonian}{Hamiltonian}}, which hold the hamiltonian matrix and a set of routines to calculate the parts of the hamiltonian relevant for N\+R\+G/\+Sweep
+\item creates and \mbox{\hyperlink{classNRG}{N\+RG}} object and runs it
+\begin{DoxyItemize}
+\item \mbox{\hyperlink{classNRG}{N\+RG}} performs \mbox{\hyperlink{classNRG}{N\+RG}} iteration and Sweeps, calculates eigenvalues for each N\+R\+G/\+Sweep iteration, and, if requested in the input file, eigenvectors and expectation values of an operator. For eigenvectors and expectation values, the printed value are relative to the last \mbox{\hyperlink{classNRG}{N\+RG}} iteration.
+\end{DoxyItemize}
+\end{DoxyItemize}
+\end{DoxyItemize}
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+\subsubsection*{How to extened Truspace}
+
+If you want to extend truspace, you will need to create your own version of \mbox{\hyperlink{classstates}{states}}, \mbox{\hyperlink{classchirME}{chir\+ME}} and \mbox{\hyperlink{classHamiltonian}{Hamiltonian}}. You don\textquotesingle{}t really need to respect the public interfaces for \mbox{\hyperlink{classstates}{states}}, \mbox{\hyperlink{classchirME}{chir\+ME}}, as these are only used by \mbox{\hyperlink{classHamiltonian}{Hamiltonian}}, that you are rewirting anyway. Instead, the interfaces of \mbox{\hyperlink{classHamiltonian}{Hamiltonian}} are important to \mbox{\hyperlink{classNRG}{N\+RG}}, in particular
+
+
+\begin{DoxyItemize}
+\item \mbox{\hyperlink{}{Hamiltonian\+::init}} -\/ Initialization of the \mbox{\hyperlink{classHamiltonian}{Hamiltonian}}, meaning the filling of the matrix element for the first \mbox{\hyperlink{classNRG}{N\+RG}} iteration
+\item \mbox{\hyperlink{}{Hamiltonian\+::\+N\+R\+G\+\_\+block\+\_\+A}} -\/ Fills top-\/left part of the \mbox{\hyperlink{classHamiltonian}{Hamiltonian}} matrix, usually diagonal which contains the eigenvaues of the previous iteration
+\item \mbox{\hyperlink{}{Hamiltonian\+::\+N\+R\+G\+\_\+block\+\_\+\+BC}} -\/ Fills the bottom-\/left and top-\/right parts of the \mbox{\hyperlink{classHamiltonian}{Hamiltonian}} matrix, which contains the expectaion value of the perturbing operator(s) between previous step eigenstates and the newly added states of the computational basis
+\item \mbox{\hyperlink{}{Hamiltonian\+::\+N\+R\+G\+\_\+block\+\_\+D}} -\/ Fills the bottom-\/right part of the \mbox{\hyperlink{classHamiltonian}{Hamiltonian}} matrix, which contains the expectaion value of the perturbing operator(s) on the newly added states of the computational basis
+\item \mbox{\hyperlink{}{Hamiltonian\+::sweep\+\_\+block\+\_\+\+BC}} -\/ Fills the bottom-\/left and top-\/right parts of the \mbox{\hyperlink{classHamiltonian}{Hamiltonian}} matrix, which contains the expectaion value of the perturbing operator(s) between previous step eigenstates and eigenstates of the previous step same iteration
+\item \mbox{\hyperlink{}{Hamiltonian\+::\+Msize}} -\/ Size of the \mbox{\hyperlink{classHamiltonian}{Hamiltonian}} matrix at each \mbox{\hyperlink{classNRG}{N\+RG}} iteration
+\item \mbox{\hyperlink{}{Hamiltonian\+::print\+\_\+eigen\+Values}} -\/ Prints eigenvalues to file
+\item \mbox{\hyperlink{}{Hamiltonian\+::print\+\_\+eigen\+Vectors}} -\/ Prints eigenvectors to file
+\item \mbox{\hyperlink{classchirME_aad56d2574efe19f3da59c6b5ab0ddbdb}{chir\+M\+E\+::calculate\+\_\+\+Exp\+Val}} -\/ Calculates expecation value on the final eigenstates of a given operator. Only interface of \mbox{\hyperlink{classchirME}{chir\+ME}} to be strictly respected. 
+\end{DoxyItemize}

@@ -24,8 +24,27 @@ New files
 to do list
 
 - check Expecation values 
-- finish documentation of parameters class
-- document states class
+
+Documentation status
+
+block.h                   done
+characters.h              done
+chirME.h                  done 
+config.h                  done 
+cpt.h                     done 
+diag.h                    done 
+element_computation.h     done   
+filenames.h     
+gamma.h                   done 
+Hamiltonian.h       
+NRG.h       
+parameters.h              done 
+states.h                  done
+tensors.h                 done
+worker.h                  done 
+truspace.cpp              done
+
+- create a section "expanding Truspace" with reference to doxygen files
 
 NOTE:
 

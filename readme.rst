@@ -80,6 +80,8 @@ The available classes are
 
 The model-agnostic nature of the NRG class should allow easy extension of the current code to other Quantum Hamiltonians.
 
+Full class documentation available at https://gbrandino.bitbucket.io/truspace/
+
 Building TruSpace
 -------------------
 
@@ -222,6 +224,13 @@ The code outputs several files, most of which only optionally. In details
   In the case of NRG or NRG+Sweep, the expectation values are only printed at the very last iteration.
 
   Example : ``ExpVal_Op_phi_1_2_\{bar\}phi_1_2_p_3_q_4_minLev_0_maxLev_10_Per_1_2_c_0.09_Subspace_0_Mom_0``
+
+
+Developer documentation and extending truspace
+~~~~~~~~~~~~~~~~~~~
+
+Full developer documentation and indications about how to expand truspace are available at https://gbrandino.bitbucket.io/truspace/
+
 
 Known issues
 -------------
