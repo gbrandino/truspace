@@ -39,13 +39,5 @@ class worker
          */    
         void run(parameters& p);
 
-        // outfiles and dump files
-        std::string EigenName;          /**< File name of eigenvalues file */
-        std::string EigenVectName;      /**< File name of eigenvectors file */
-        std::string MeOpName;           /**< File name of expectation value file */
-//        std::string StoreName;          
-        std::string OverlapName;        /**< File name of overlap file (Used when storing states or chiral matrix elements)*/
-        std::string StateName;          /**< File name of states file (Used when storing states) */
-        std::string MeChirName;         /**< File name of chiral matrix element file (Used when storing chiral matrix elements) */
 };
 #endif
