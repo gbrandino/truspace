@@ -1,0 +1,204 @@
+\subsection*{Introduction }
+
+Tru\+Space is Truncated Space Approach ({\ttfamily T\+SA}) code featuring spectrum-\/based Numerical Renormalization Group ({\ttfamily N\+RG}) \mbox{[}$^\wedge$1\mbox{]} and its extension, that we call {\ttfamily Sweep} \mbox{[}$^\wedge$2\mbox{]}.
+
+The goal of {\ttfamily T\+SA} is to calculate the spectrum and possibly expectation values of a system described by an Hamiltonian in the form
+
+H = H$\sim$0$\sim$+ H$\sim$\+P$\sim$
+
+where H$\sim$0$\sim$is theory of which we are able to calculate the spectrum and expectation values of at the perturbing operator H$\sim$\+P$\sim$. Given the eigenstates of the H$\sim$0$\sim$, $\vert$ E$^\wedge$0$^\wedge$ $\sim$i$\sim$$>$, the matrix form of the pertubed Hamiltonian can be written as
+
+$<$E$^\wedge$0$^\wedge$$\sim$i$\sim$$\vert$ H $\vert$ E$^\wedge$0$^\wedge$$\sim$j$\sim$$>$ = E$^\wedge$0$^\wedge$$\sim$i$\sim$ δ$\sim$ij$\sim$ + $<$E$^\wedge$0$^\wedge$$\sim$i$\sim$$\vert$ H$\sim$\+P$\sim$$\vert$ E$^\wedge$0$^\wedge$$\sim$j$\sim$$>$
+
+If we are able to calculate the last expectation value above, we can then choose a finite number of states up to a certain i $\vert$ E$^\wedge$0$^\wedge$ $\sim$i$\sim$$>$ and diagonalize numerically the matrix obtained.
+
+However, diagonalization of the entire matrix can in some cases become cumbersome, in particular in cases in which a large number of states or great precision are required.
+
+This is were {\ttfamily N\+RG} comes in the game. The idea of spectrum-\/based {\ttfamily N\+RG} is to take into account the contribution of higher and higher unperturbed states to the complete Hamiltonian low-\/lying energy states. This is done by fixing a size M of the matrix to a given value. The size M is splitted in two parts, N and D. The first iteration of the algorithm takes the lowest N+D=M states and performs the usual {\ttfamily T\+SA} procedure. At the second iteration, the last D states are removed, and the following D states of the computational basis are put in the computation and the {\ttfamily T\+SA} procedure is applied on this mixed basis ( N states are approximation of the perturbed theory, while the new D states are unperturbed). The procedure is repeated untill a sufficiently high number of states is included (typically by checking convergence of relevant quantities). In this way, the total size of the matrix is fixed, but the code is able to get contribution from an increasing number of unpertubed states. The typically size of N and D are 2-\/4000 for N and N/4 for D, while the {\ttfamily N\+RG} is run to include up to tens of thousands of unperturbed states.
+
+To increase precision even further, we can apply a technique called {\ttfamily Sweep}. The idea is that, once the {\ttfamily N\+RG} iterations are done, we can start over, but this time instead of using the unperturbed states as computational basis for the D states added at each iteration, we can use the D states discarded at the previous {\ttfamily N\+RG} run at the same iteration. This procedure can be repeated indefinitely, untill convergence is reached. Experimentally, we observerd that 3-\/4 sweeps are enough to reach convergence in most of the cases.
+
+The publicly available version supports currently only pertubation of unitary minimal conformal field theories, but it has been applied by the authors and coworkers to other class of models like S\+U(2)$\sim$1$\sim$\mbox{[}$^\wedge$3\mbox{]} and 1+1 dimesional Landau-\/\+Ginzburg theories \mbox{[}$^\wedge$4\mbox{]}. The plan is to include those two application in Tru\+Space.
+
+To allow further extension, the {\ttfamily N\+RG} and {\ttfamily Sweep}
+
+\subsubsection*{Features}
+
+At the present time is able to calculate
+
+
+\begin{DoxyItemize}
+\item Eigenvalues and Eigenvectors of any unitary perturbed conformal field theory based minimal models ( diagonal partition function only for the moment) using full diagonalization, {\ttfamily N\+RG} or {\ttfamily Sweep}
+\item Automatic separation of symmetry subspaces in the perturbed system. Symmetry subspaces are diagonalized separately, to reduce computational complexity
+\item Possibility of considering non-\/zero momentum states. Momentum subspace are diagonalized separately ( unless it is specifically requested to diagonalize all the subspaces together).
+\item Expectation value on the final basis of any primary field ( descendant field expectation values available but in beta testing phase )
+\end{DoxyItemize}
+
+Here are some examples of the results produced by Tru\+Space
+
+\{width=\char`\"{}400pt\char`\"{}\}
+
+\{width=\char`\"{}400pt\char`\"{}\}
+
+\{width=\char`\"{}400pt\char`\"{}\}
+
+\subsubsection*{Code design}
+
+Tru\+Space is written in C++ using and Object Oriented design pattern.
+
+The available classes are
+
+
+\begin{DoxyItemize}
+\item paramters \+: class that handles the input reading, the calculation of the structure constants and the analysis of symmetry subspaces.
+\item worker \+: class that takes care of running the different parts of the code after all parameters are set
+\item states \+: class that calculates and holds all the informations regarding the computation basis
+\item chir\+ME \+: class that calculates and holds all the information about matrix element of the fields on the computational basis
+\item filenames \+: helper class to manage output and swap files names
+\item Hamiltonian \+: class that handles the computation and the matrix form of the T\+SA Hamiltonian of the perturbed model
+\item diag \+: helper class that contains Numerical Recipies diagonalization routines for long double (required to calculate the conformal computational basis)
+\item tensors \+: helper template class to handle 2D, 3D, 4D, 5D and 6D tensors. It ensures memory contiguity and automatic deallocation when out of scope, without forcing compilation-\/time sizes.
+\item N\+RG \+: model-\/agnostic full diagonalization, {\ttfamily N\+RG} and {\ttfamily Sweep} routine
+\end{DoxyItemize}
+
+The model-\/agnostic nature of the N\+RG class should allow easy extension of the current code to other Quantum Hamiltonians.
+
+\subsection*{Building Tru\+Space }
+
+\subsubsection*{Pre-\/requisites}
+
+If you want to install Tru\+Space dependecies by yourself, here is the list
+
+
+\begin{DoxyItemize}
+\item Lapack
+\item Blas ( we suggest multi-\/threaded B\+L\+AS like Intel \href{https://software.intel.com/en-us/intel-mkl}{\tt M\+KL} or Open\+B\+L\+AS)
+\item \href{http://www.ginac.de/}{\tt Ginac} and its dependecy \href{http://www.ginac.de/CLN/}{\tt C\+LN}
+\end{DoxyItemize}
+
+Otherwise Tru\+Space comes with a version of the above libraries, so you can simply move to the next section and use the installation script.
+
+\subsubsection*{Build instruction -\/ script}
+
+If you want to use the provided script you can simply run the {\ttfamily install.\+sh} in the root folder. This will install all the dependecies in the Tru\+Space folder and create the executable accordingly.
+
+(Experimental\+: you can define your compiler by issuing, for example\+: \begin{DoxyVerb}CC=icc CXX=icpc ./install.sh
+\end{DoxyVerb}
+
+
+N\+O\+TE
+
+\+: Some versione of the intel compiler seems to have issues with the c++11 standard. This will cause Ginac to fail compilation.
+
+To remove the compiled code and its dependecies, run {\ttfamily uninstall.\+sh}
+
+\subsubsection*{Build instruction -\/ local dependencies}
+
+If you want to install the library in a different folder or use verion already available on your system, simply edit the following lines in the {\ttfamily src/\+Makefile} \+: \begin{DoxyVerb}CXX=                          --> name of the compiler to use
+CLN=                          --> the root folder of the CLN installation (should contain include/ and lib/ subdirs)
+GINAC=                        --> the root folder of the GINAC installation (should contain include/ and lib/ subdirs)
+BLAS=                         --> the root folder of the BLAS installation (should contain include/ and lib/ subdirs). 
+BLAS_LIB=                     --> the name of the BLAS library, for example -lopenblas, -lcblas, -lmkl
+LAPACK_LIB=                   --> should be in the format -L{folder containing lapack library files} -l{library name}
+\end{DoxyVerb}
+
+
+Then simply issue\+: \begin{DoxyVerb}make -j4
+\end{DoxyVerb}
+
+
+N\+O\+TE
+
+\+: C\+Make building will come soon
+
+N\+O\+TE
+
+\+: Some versione of the intel compiler seems to have issues with the c++11 standard.
+
+\subsection*{Running Tru\+Space }
+
+To run the code\+: \begin{DoxyVerb}./main.x input-file
+\end{DoxyVerb}
+
+
+T\+HE O\+R\+D\+ER OF T\+HE L\+I\+N\+ES A\+ND T\+H\+E\+IR P\+O\+S\+I\+T\+I\+O\+NS IS F\+I\+X\+ED A\+ND C\+A\+N\+N\+OT BE M\+O\+D\+I\+F\+I\+ED. The are example of input files in the {\ttfamily examples} folder
+
+The input file should be self explanatory\+: \begin{DoxyVerb}3    p
+4    q
+1    number of perturbations
+5    Maximum conformal level to include
+0    Minimum conformal level to include
+0    Maximum momentum considered
+0    Set 1 to diagonalize all momentum subspaces together
+5   Maximum number of eigenvalues, eigenvectors and matrix elements printed in output file(s), 0 for all of them
+1    r index of first perturbation
+2    s index of first perturbation
+0.09  constant for first perturbation
+20   number of values of R
+0.6  increment at each R step
+8.0  starting value of R 
+15  number of states in the basic matrix for NRG
+5   number of states added in every NRG step
+1    set 1 for complete TCSA calculation, 0 to have just Kac table structure constants and subspace analysis
+0    set 1 for NRG, 0 for complete trucated hamiltonian diagonalization
+0    number of NRG sweep. Set 0 for basic NRG
+0    set 1 to save states to file, 0 not to save them
+0    set 1 to read saved state from file, 0 to calculate them
+0    set 1 to save chiral matrix element to file, 0 not to save them
+0    set 1 to read saved matrix elements from file, 0 to calculate them
+1    set 1 to calculate matrix element of a particular primary operator
+1    r index of holomorphic component of the operator to calculate matrix elements
+2    s index of holomorphic component of the operator to calculate matrix elements
+0    number of virasoro operator applied to the holomorphic component of the primary operator (set 0 to evaluate operator itself)
+1    r index of anti holomorphic component of the operator to calculate matrix elements
+2    s index of anti holomorphic component of the operator to calculate matrix elements
+0    number of virasoro operator applied to the antiholomorphic component of the primary operator (set 0 to evaluate operator itself)
+1    set to 1 to calculated only diagonal matrix elements (<i|phi|i>), 0 for full matrix elements calculation
+0    set to 1 to se save eigenvectors to file
+\end{DoxyVerb}
+
+
+When approaching a new model, it is best to set the key\+: \begin{DoxyVerb}0    set 1 for complete TCSA calculation, 0 to have just Kac table structure constants and subspace analysis
+\end{DoxyVerb}
+
+
+such that not {\ttfamily T\+SA} is performed, but the size of the Hilbert Space of the given model is calculated, as well as the subspace analysis, and the index r and s can be checked upon the printed table.
+
+If more than one perturbation is need, simply add the three lines about the other pertubations after the first one\+: \begin{DoxyVerb}..
+5   Maximum number of eigenvalues, eigenvectors and matrix elements printed in output file(s), 0 for all of them
+1    r index of first perturbation
+2    s index of first perturbation
+0.09  constant for first perturbation
+1    r index of second perturbation
+3    s index of second perturbation
+0.06  constant for second perturbation
+\end{DoxyVerb}
+
+
+\subsubsection*{Output files}
+
+The code outputs several files, most of which only optionally. In details
+
+
+\begin{DoxyItemize}
+\item Eigenvalues file. Always produced. Contains the Eigenvalues for every given value of R. The number of columns depends upon the key {\ttfamily Maximum number of eigenvalue}. The columns structure is \+: \begin{DoxyVerb}NRG_iteration   |  Sweep_iteration | Effective_energy |   R   |  1st eigenvalue | 2nd eigenvalue ....
+\end{DoxyVerb}
+
+
+Example\+: {\ttfamily Eigenvalues\+\_\+p\+\_\+3\+\_\+q\+\_\+4\+\_\+min\+Lev\+\_\+0\+\_\+max\+Lev\+\_\+10\+\_\+\+Per\+\_\+1\+\_\+2\+\_\+c\+\_\+0.\+09\+\_\+\+Subspace\+\_\+0\+\_\+\+Mom\+\_\+0}
+\item Last iteration eigenvalues file. Produced only for N\+RG and N\+R\+G+\+Sweep. Same as above, but prints only last N\+RG iteration (and last sweep of last N\+RG iteration for sweeping). Same structure of the above file
+
+Example\+: {\ttfamily F\+I\+N\+A\+L\+\_\+\+Eigenvalues\+\_\+p\+\_\+3\+\_\+q\+\_\+4\+\_\+min\+Lev\+\_\+0\+\_\+max\+Lev\+\_\+10\+\_\+\+Per\+\_\+1\+\_\+2\+\_\+c\+\_\+0.\+09\+\_\+\+Subspace\+\_\+0\+\_\+\+Mom\+\_\+0}
+\item Eigenvectors file. Produced only if the last key in the input ({\ttfamily set to 1 to se save eigenvectors to file}) is 1, contains the eigenvectors using the conformal computation base, one per row. The number of eigenvectors reported depends on the key {\ttfamily Maximum number of eigenvalue}. If several R values are asked with N as maximum number of eigenvalue, the first N rows will be for the first R value, the next N for the second R, and so on.
+
+In the case of N\+RG or N\+R\+G+\+Sweep, the eigenvectors are only printed at the very last iteration.
+
+Example\+: {\ttfamily Eigenvectors\+\_\+p\+\_\+3\+\_\+q\+\_\+4\+\_\+min\+Lev\+\_\+0\+\_\+max\+Lev\+\_\+10\+\_\+\+Per\+\_\+1\+\_\+2\+\_\+c\+\_\+0.\+09\+\_\+\+Subspace\+\_\+0\+\_\+\+Mom\+\_\+0}
+\item Expectation value file. Produced only if {\ttfamily set 1 to calculate matrix element of a particular primary operator} is 1. Contains the expectation value of the given operator on the calculated eigenvectors. The number of reported expectation values depends on the key {\ttfamily Maximum number of eigenvalue}. So N max eigenvalue will produce a NxN matrix. If several R values are asked , the first NxN will be for the first R value, the next NxN matrix for the second R, and so on.
+
+If the key {\ttfamily set to 1 to calculated only diagonal matrix elements} will instead print only the $<$i$\vert$phi$\vert$i$>$. The output will contain diagonal eigenvectors expecation values, one per column. Different rows correspond to different values of R.
+
+In the case of N\+RG or N\+R\+G+\+Sweep, the expectation values are only printed at the very last iteration.
+
+Example \+: `\+Exp\+Val\+\_\+\+Op\+\_\+phi\+\_\+1\+\_\+2\+\_\+bar 
+\end{DoxyItemize}

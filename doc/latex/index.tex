@@ -1,0 +1,37 @@
+Welcome to the Truspace developer documenation!
+
+This site contains all the information you need to modify or extend Truspace.
+
+For compilation and user-\/guide, please refer to \href{http://bitbucket.org/truspacedevelopers/truspace}{\tt http\+://bitbucket.\+org/truspacedevelopers/truspace}
+
+\subsubsection*{Code design and structure}
+
+Tru\+Space is written in C++ using and Object Oriented design pattern.
+
+The available classes are
+
+
+\begin{DoxyItemize}
+\item \mbox{\hyperlink{classparameters}{parameters}} \+: class that handles the input reading, the calculation of the structure constants and the analysis of symmetry subspaces.
+\item \mbox{\hyperlink{classworker}{worker}} \+: class that takes care of running the different parts of the code after all parameters are set
+\item \mbox{\hyperlink{classstates}{states}}\+: class that calculates and holds all the informations regarding the computation basis
+\item \mbox{\hyperlink{classchirME}{chir\+ME}} \+: class that calculates and holds all the information about matrix element of the fields on the computational basis
+\item \mbox{\hyperlink{classfilenames}{filenames}} \+: helper class to manage output and swap files names
+\item \mbox{\hyperlink{classHamiltonian}{Hamiltonian}} \+: class that handles the computation and the matrix form of the T\+SA \mbox{\hyperlink{classHamiltonian}{Hamiltonian}} of the perturbed model
+\item \mbox{\hyperlink{classdiag}{diag}}\+: helper class that contains Numerical Recipies diagonalization routines for long double (required to calculate the conformal computational basis)
+\item \mbox{\hyperlink{classtensor2D}{tensor2D}}, \mbox{\hyperlink{classtensor3D}{tensor3D}}, \mbox{\hyperlink{classtensor4D}{tensor4D}}, \mbox{\hyperlink{classtensor5D}{tensor5D}}, \mbox{\hyperlink{classtensor6D}{tensor6D}} \+: helper template class to handle 2D, 3D, 4D, 5D and 6D tensors. It ensures memory contiguity and automatic deallocation when out of scope, without forcing compilation-\/time sizes.
+\item \mbox{\hyperlink{classNRG}{N\+RG}} \+: model-\/agnostic full diagonalization, {\ttfamily \mbox{\hyperlink{classNRG}{N\+RG}}} and {\ttfamily Sweep} routine
+\end{DoxyItemize}
+
+Moreover, the are a series of helper functions
+
+
+\begin{DoxyItemize}
+\item \mbox{\hyperlink{config_8h}{config.\+h}} Configuration file holding version number, some hard-\/coded limits that effect array dimensions, constants and macros
+\item \mbox{\hyperlink{block_8h}{block.\+h}} Contains a routine to identify symmetry subspace by the analysis of the interaction matrix.
+\item \mbox{\hyperlink{characters_8h}{characters.\+h}} Set of helper functions to calculate integers partitions and manage Gi\+NaC computation of character expansion
+\item \mbox{\hyperlink{cpt_8h}{cpt.\+h}} Set of helper function to calculate structure constant of Minimal C\+F\+Ts
+\item \mbox{\hyperlink{gamma_8h}{gamma.\+h}} Computation of gamma function
+\end{DoxyItemize}
+
+The model-\/agnostic nature of the \mbox{\hyperlink{classNRG}{N\+RG}} class should allow easy extension of the current code to other Quantum Hamiltonians. 
