@@ -86,7 +86,7 @@ If you want to extend truspace, you will need to create your own version of \lin
 - \link Hamiltonian::NRG_block_A \endlink - Fills top-left part of the Hamiltonian matrix, usually diagonal which contains the eigenvaues of the previous iteration
 - \link Hamiltonian::NRG_block_BC \endlink - Fills the bottom-left and top-right parts of the Hamiltonian matrix, which contains the expectaion value of the perturbing operator(s) between previous step eigenstates and the newly added states of the computational basis
 - \link Hamiltonian::NRG_block_D  \endlink - Fills the bottom-right part of the Hamiltonian matrix, which contains the expectaion value of the perturbing operator(s) on the newly added states of the computational basis 
-- \link Hamiltonian::sweep_block_BC \endlink - Fills the bottom-left and top-right parts of the Hamiltonian matrix, which contains the expectaion value of the perturbing operator(s) between previous step eigenstates and eigenstates of the previous step same iteration 
+- \link Hamiltonian::sweep_block_BC \endlink - Fills the bottom-left and top-right parts of the Hamiltonian matrix, which contains the expectaion value of the hamiltonian between previous step eigenstates and eigenstates of the previous step same iteration 
 - \link Hamiltonian::Msize \endlink - Size of the Hamiltonian matrix at each NRG iteration
 - \link Hamiltonian::print_eigenValues \endlink - Prints eigenvalues to file
 - \link Hamiltonian::print_eigenVectors \endlink - Prints eigenvectors to file

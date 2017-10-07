@@ -175,7 +175,7 @@ void NRG::run(parameters& p, Hamiltonian& H, filenames& fnames)
 
                 H.NRG_block_A(eigen);
                 H.NRG_block_D(iter);
-                H.NRG_block_BC(EigenVectors.data, iter, coeff);
+                H.NRG_block_BC(iter, coeff);
                 }
             else
                 {
@@ -223,7 +223,7 @@ void NRG::run(parameters& p, Hamiltonian& H, filenames& fnames)
                     }
                 storeCoeff.close();
 
-                H.sweep_block_BC(EigenVectors.data, iter, coeff, coeffSweep, NRGspacesize, NRGstoresize );
+                H.sweep_block_BC(iter, coeff, coeffSweep, NRGspacesize, NRGstoresize );
 
                 }
 

@@ -5,22 +5,13 @@
  * \date November 2017
  */
 
-/* 
- * Class that contains file name for the entire code
- *
- * authors: Giuseppe Piero Brandino - eXact-lab s.r.l.
- * last revision: December 2016
- */
-
 #ifndef FILENAMES_H
 #define FILENAMES_H
 #include "parameters.h"
+
 /** Output filenames helper class. 
  *  Initializes and holds all the output file names, based on input paramters
 */
-
-
-
 class filenames
 {
     public:

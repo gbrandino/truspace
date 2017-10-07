@@ -131,7 +131,7 @@ void Hamiltonian::NRG_block_A(double* eigenvalues)
 
 }
 
-void Hamiltonian::NRG_block_BC(double* eigenvectors, int iteration, double* coeff)
+void Hamiltonian::NRG_block_BC(int iteration, double* coeff)
 {
     int shift = p.Nsize + p.Nstep*iteration;
     double* me_needed = new double[p.Nstep*shift];
@@ -218,7 +218,7 @@ void Hamiltonian::NRG_block_D(int iteration)
 }
  
 
-void Hamiltonian::sweep_block_BC(double* eigenvectors, int iteration, double* coeff, double* coeffSweep, int NRGspacesize, int NRGstoresize)
+void Hamiltonian::sweep_block_BC(int iteration, double* coeff, double* coeffSweep, int NRGspacesize, int NRGstoresize)
 {
 
     int subsizeMax = 0;
