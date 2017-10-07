@@ -44,6 +44,8 @@ class Hamiltonian
          */
 
         Hamiltonian(parameters& p, states& st, chirME& me, int subspace);
+        /** Destructor
+         */
         ~Hamiltonian();
         /** Initializes the first iteration Hamiltonian.
          *  The first iteration hamiltonian has conformal energy on diagonal and expectation value of the perturbing operator(s) on the conformal states and stores it in the tensor H.

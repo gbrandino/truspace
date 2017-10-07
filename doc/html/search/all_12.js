@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['truspace',['TruSpace',['../md_temp.html',1,'']]],
   ['tcsa',['TCSA',['../classparameters.html#a54a5c41858f431e5b836a610af4911e4',1,'parameters']]],
   ['tensor2d',['tensor2D',['../classtensor2D.html',1,'tensor2D&lt; T &gt;'],['../classtensor2D.html#a93a62e6d7c7131df8178bfa2047987af',1,'tensor2D::tensor2D()'],['../classtensor2D.html#a46491ff480f8d89dbea7e447cd3f6331',1,'tensor2D::tensor2D(int, int)']]],
   ['tensor2d_3c_20double_20_3e',['tensor2D&lt; double &gt;',['../classtensor2D.html',1,'']]],

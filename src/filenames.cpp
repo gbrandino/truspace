@@ -1,3 +1,8 @@
+/** Output filenames helper class. 
+ *   - Contains the filenames helper class 
+ * \authors Giuseppe Piero Brandino - eXact-lab s.r.l.
+ * \date November 2017
+ */
 #include "filenames.h"
 #include "parameters.h"
 #include <string>

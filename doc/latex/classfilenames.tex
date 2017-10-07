@@ -1,41 +1,69 @@
 \hypertarget{classfilenames}{}\section{filenames Class Reference}
 \label{classfilenames}\index{filenames@{filenames}}
+
+
+Output filenames helper class.  
+
+
+
+
+{\ttfamily \#include $<$filenames.\+h$>$}
+
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{classfilenames_a221e79ea97ca882e43338095a6dd02f0}\label{classfilenames_a221e79ea97ca882e43338095a6dd02f0}} 
-{\bfseries filenames} (\mbox{\hyperlink{classparameters}{parameters}} \&, int)
-\end{DoxyCompactItemize}
+\mbox{\hyperlink{classfilenames_a221e79ea97ca882e43338095a6dd02f0}{filenames}} (\mbox{\hyperlink{classparameters}{parameters}} \&, int)
+\begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{classfilenames_abde847abd53a4cb5998b948082943e84}\label{classfilenames_abde847abd53a4cb5998b948082943e84}} 
-std\+::string {\bfseries Eigen\+Name}
-\item 
+std\+::string \mbox{\hyperlink{classfilenames_abde847abd53a4cb5998b948082943e84}{Eigen\+Name}}
+\begin{DoxyCompactList}\small\item\em File name of eigenvalues file. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classfilenames_a742e0e35657ea3b86c39efb8a27eb9c4}\label{classfilenames_a742e0e35657ea3b86c39efb8a27eb9c4}} 
-std\+::string {\bfseries Eigen\+Name\+Final}
-\item 
+std\+::string \mbox{\hyperlink{classfilenames_a742e0e35657ea3b86c39efb8a27eb9c4}{Eigen\+Name\+Final}}
+\begin{DoxyCompactList}\small\item\em File name of the eigenvalues for last \mbox{\hyperlink{classNRG}{N\+RG}} iteration. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classfilenames_a9e2905e7c8a2f218f71d9d211d50695b}\label{classfilenames_a9e2905e7c8a2f218f71d9d211d50695b}} 
-std\+::string {\bfseries Eigen\+Vect\+Name}
-\item 
+std\+::string \mbox{\hyperlink{classfilenames_a9e2905e7c8a2f218f71d9d211d50695b}{Eigen\+Vect\+Name}}
+\begin{DoxyCompactList}\small\item\em File name of eigenvectors file. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classfilenames_a3efec1e90160997d70d4d95e35793d99}\label{classfilenames_a3efec1e90160997d70d4d95e35793d99}} 
-std\+::string {\bfseries Me\+Op\+Name}
-\item 
-\mbox{\Hypertarget{classfilenames_a9a8860b837869c0b24f1fa6fe7c406fb}\label{classfilenames_a9a8860b837869c0b24f1fa6fe7c406fb}} 
-std\+::string {\bfseries Store\+Name}
-\item 
-\mbox{\Hypertarget{classfilenames_a0e0841d0ebfda3f86d2634a3525cb34c}\label{classfilenames_a0e0841d0ebfda3f86d2634a3525cb34c}} 
-std\+::string {\bfseries Overlap\+Name}
-\item 
+std\+::string \mbox{\hyperlink{classfilenames_a3efec1e90160997d70d4d95e35793d99}{Me\+Op\+Name}}
+\begin{DoxyCompactList}\small\item\em File name of Expectation value on the final eigenstates. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classfilenames_aff57913e16f1ea5710114922f7c48753}\label{classfilenames_aff57913e16f1ea5710114922f7c48753}} 
-std\+::string {\bfseries State\+Name}
-\item 
+std\+::string \mbox{\hyperlink{classfilenames_aff57913e16f1ea5710114922f7c48753}{State\+Name}}
+\begin{DoxyCompactList}\small\item\em File name of states file. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classfilenames_a0e0841d0ebfda3f86d2634a3525cb34c}\label{classfilenames_a0e0841d0ebfda3f86d2634a3525cb34c}} 
+std\+::string \mbox{\hyperlink{classfilenames_a0e0841d0ebfda3f86d2634a3525cb34c}{Overlap\+Name}}
+\begin{DoxyCompactList}\small\item\em File name of file holding the overlap of states. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classfilenames_aabdc69227aa93f3bfff3ea248b08f0c2}\label{classfilenames_aabdc69227aa93f3bfff3ea248b08f0c2}} 
-std\+::string $\ast$ {\bfseries Me\+Chir\+Name}
-\end{DoxyCompactItemize}
+std\+::string $\ast$ \mbox{\hyperlink{classfilenames_aabdc69227aa93f3bfff3ea248b08f0c2}{Me\+Chir\+Name}}
+\begin{DoxyCompactList}\small\item\em File name(s) of chiral matrix element file. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Output filenames helper class. 
+
+Initializes and holds all the output file names, based on input paramters 
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classfilenames_a221e79ea97ca882e43338095a6dd02f0}\label{classfilenames_a221e79ea97ca882e43338095a6dd02f0}} 
+\index{filenames@{filenames}!filenames@{filenames}}
+\index{filenames@{filenames}!filenames@{filenames}}
+\subsubsection{\texorpdfstring{filenames()}{filenames()}}
+{\footnotesize\ttfamily filenames\+::filenames (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classparameters}{parameters}} \&}]{p,  }\item[{int}]{subspace }\end{DoxyParamCaption})}
+
+
+
+Constructor. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em A} & reference to a parameters object \\
+\hline
+\end{DoxyParams}
 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-filenames.\+h\item 
+\mbox{\hyperlink{filenames_8h}{filenames.\+h}}\item 
 filenames.\+cpp\end{DoxyCompactItemize}

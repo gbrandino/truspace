@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['r',['r',['../classparameters.html#ab4a0cf927710a59f8136ff74ea9ed166',1,'parameters']]],
+  ['r',['R',['../classHamiltonian.html#a77d8542358120deb5f71feadeba49524',1,'Hamiltonian::R()'],['../classparameters.html#ab4a0cf927710a59f8136ff74ea9ed166',1,'parameters::r()']]],
   ['read_5fme',['READ_ME',['../classparameters.html#a136bfd86b5e19bc0e12b19a0ababed7e',1,'parameters']]],
   ['read_5fstates',['READ_STATES',['../classparameters.html#a763f4f38e8602d1666ed3a115fa3e09c',1,'parameters']]],
   ['rinc',['rInc',['../classparameters.html#a7d6648aac822ae11a3eeadcbedf6bf45',1,'parameters']]],

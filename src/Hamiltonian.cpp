@@ -1,3 +1,8 @@
+/** Hamiltonian class file. 
+ * \authors Giuseppe Piero Brandino - eXact-lab s.r.l.
+ * \date November 2017
+ */
+
 #include "Hamiltonian.h"
 #include "parameters.h"
 #include "tensors.h"

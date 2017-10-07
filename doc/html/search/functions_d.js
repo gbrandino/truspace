@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['shell_5fdouble',['shell_double',['../classdiag.html#a22655182c22153a4b33532b7852538ca',1,'diag']]],
-  ['shell_5fld',['shell_ld',['../classdiag.html#a3619b2c19b5f8720f3f8655ed19eaeda',1,'diag']]],
-  ['states',['states',['../classstates.html#ae206bf8fa4a70fc320f801b49580b079',1,'states']]]
+  ['read_5fchiral',['read_chiral',['../classstates.html#a3cd13c3362fd88e1c6d36cd05568c2e6',1,'states']]],
+  ['run',['run',['../classNRG.html#a0cdebccf7b1db2cd43c5516dbc4a2d99',1,'NRG::run()'],['../classworker.html#aad45e74b9cdc1cdf0ab979d5354ada69',1,'worker::run()']]]
 ];

@@ -84,10 +84,10 @@ $(function() {
 <li><a class="el" href="classstates.html">states</a>: class that calculates and holds all the informations regarding the computation basis</li>
 <li><a class="el" href="classchirME.html" title="Class that contains the chiral matrix elements of perturbing operators and of the operator to calcula...">chirME</a> : class that calculates and holds all the information about matrix element of the fields on the computational basis</li>
 <li><a class="el" href="classfilenames.html">filenames</a> : helper class to manage output and swap files names</li>
-<li><a class="el" href="classHamiltonian.html">Hamiltonian</a> : class that handles the computation and the matrix form of the TSA <a class="el" href="classHamiltonian.html">Hamiltonian</a> of the perturbed model</li>
+<li><a class="el" href="classHamiltonian.html" title="Hamiltonian Class. ">Hamiltonian</a> : class that handles the computation and the matrix form of the TSA <a class="el" href="classHamiltonian.html" title="Hamiltonian Class. ">Hamiltonian</a> of the perturbed model</li>
 <li><a class="el" href="classdiag.html">diag</a>: helper class that contains Numerical Recipies diagonalization routines for long double (required to calculate the conformal computational basis)</li>
 <li><a class="el" href="classtensor2D.html" title="Template class for 2D tensors This classes do not provide an allocator. ">tensor2D</a>, <a class="el" href="classtensor3D.html" title="Template class for 3D tensors This classes do not provide an allocator. ">tensor3D</a>, <a class="el" href="classtensor4D.html" title="Template class for 4D tensors This classes do not provide an allocator. ">tensor4D</a>, <a class="el" href="classtensor5D.html" title="Template class for 5D tensors This classes do not provide an allocator. ">tensor5D</a>, <a class="el" href="classtensor6D.html" title="Template class for 6D tensors This classes do not provide an allocator. ">tensor6D</a> : helper template class to handle 2D, 3D, 4D, 5D and 6D tensors. It ensures memory contiguity and automatic deallocation when out of scope, without forcing compilation-time sizes.</li>
-<li><a class="el" href="classNRG.html">NRG</a> : model-agnostic full diagonalization, <code><a class="el" href="classNRG.html">NRG</a></code> and <code>Sweep</code> routine</li>
+<li><a class="el" href="classNRG.html" title="Class that handles exact diagonalization, NRG and Sweep in a model-agnostic way ( as much as possible...">NRG</a> : model-agnostic full diagonalization, <code><a class="el" href="classNRG.html" title="Class that handles exact diagonalization, NRG and Sweep in a model-agnostic way ( as much as possible...">NRG</a></code> and <code>Sweep</code> routine</li>
 </ul>
 <p>Moreover, the are a series of helper functions</p>
 <ul>
@@ -97,7 +97,7 @@ $(function() {
 <li><a class="el" href="cpt_8h.html">cpt.h</a> Set of helper function to calculate structure constant of Minimal CFTs</li>
 <li><a class="el" href="gamma_8h.html">gamma.h</a> Computation of gamma function</li>
 </ul>
-<p>The model-agnostic nature of the <a class="el" href="classNRG.html">NRG</a> class should allow easy extension of the current code to other Quantum Hamiltonians.</p>
+<p>The model-agnostic nature of the <a class="el" href="classNRG.html" title="Class that handles exact diagonalization, NRG and Sweep in a model-agnostic way ( as much as possible...">NRG</a> class should allow easy extension of the current code to other Quantum Hamiltonians.</p>
 <h3>Code architecture</h3>
 <p>The following diagram explains how the various objects are created and called.</p>
 <div class="image">
@@ -118,7 +118,7 @@ $(function() {
 <li>iterates through values of <code>R</code>, for each of them<ul>
 <li>creates and instance of <a class="el" href="classHamiltonian.html">Hamiltonian</a>, which hold the hamiltonian matrix and a set of routines to calculate the parts of the hamiltonian relevant for NRG/Sweep</li>
 <li>creates and <a class="el" href="classNRG.html">NRG</a> object and runs it<ul>
-<li><a class="el" href="classNRG.html">NRG</a> performs <a class="el" href="classNRG.html">NRG</a> iteration and Sweeps, calculates eigenvalues for each NRG/Sweep iteration, and, if requested in the input file, eigenvectors and expectation values of an operator. For eigenvectors and expectation values, the printed value are relative to the last <a class="el" href="classNRG.html">NRG</a> iteration.</li>
+<li><a class="el" href="classNRG.html">NRG</a> performs <a class="el" href="classNRG.html" title="Class that handles exact diagonalization, NRG and Sweep in a model-agnostic way ( as much as possible...">NRG</a> iteration and Sweeps, calculates eigenvalues for each NRG/Sweep iteration, and, if requested in the input file, eigenvectors and expectation values of an operator. For eigenvectors and expectation values, the printed value are relative to the last <a class="el" href="classNRG.html" title="Class that handles exact diagonalization, NRG and Sweep in a model-agnostic way ( as much as possible...">NRG</a> iteration.</li>
 </ul>
 </li>
 </ul>
@@ -131,14 +131,14 @@ $(function() {
 <h3>How to extened Truspace</h3>
 <p>If you want to extend truspace, you will need to create your own version of <a class="el" href="classstates.html">states</a>, <a class="el" href="classchirME.html">chirME</a> and <a class="el" href="classHamiltonian.html">Hamiltonian</a>. You don't really need to respect the public interfaces for <a class="el" href="classstates.html">states</a>, <a class="el" href="classchirME.html">chirME</a>, as these are only used by <a class="el" href="classHamiltonian.html">Hamiltonian</a>, that you are rewirting anyway. Instead, the interfaces of <a class="el" href="classHamiltonian.html">Hamiltonian</a> are important to <a class="el" href="classNRG.html">NRG</a>, in particular</p>
 <ul>
-<li><a class="el" href="">Hamiltonian::init</a> - Initialization of the <a class="el" href="classHamiltonian.html">Hamiltonian</a>, meaning the filling of the matrix element for the first <a class="el" href="classNRG.html">NRG</a> iteration</li>
-<li><a class="el" href="">Hamiltonian::NRG_block_A</a> - Fills top-left part of the <a class="el" href="classHamiltonian.html">Hamiltonian</a> matrix, usually diagonal which contains the eigenvaues of the previous iteration</li>
-<li><a class="el" href="">Hamiltonian::NRG_block_BC</a> - Fills the bottom-left and top-right parts of the <a class="el" href="classHamiltonian.html">Hamiltonian</a> matrix, which contains the expectaion value of the perturbing operator(s) between previous step eigenstates and the newly added states of the computational basis</li>
-<li><a class="el" href="">Hamiltonian::NRG_block_D</a> - Fills the bottom-right part of the <a class="el" href="classHamiltonian.html">Hamiltonian</a> matrix, which contains the expectaion value of the perturbing operator(s) on the newly added states of the computational basis</li>
-<li><a class="el" href="">Hamiltonian::sweep_block_BC</a> - Fills the bottom-left and top-right parts of the <a class="el" href="classHamiltonian.html">Hamiltonian</a> matrix, which contains the expectaion value of the perturbing operator(s) between previous step eigenstates and eigenstates of the previous step same iteration</li>
-<li><a class="el" href="">Hamiltonian::Msize</a> - Size of the <a class="el" href="classHamiltonian.html">Hamiltonian</a> matrix at each <a class="el" href="classNRG.html">NRG</a> iteration</li>
-<li><a class="el" href="">Hamiltonian::print_eigenValues</a> - Prints eigenvalues to file</li>
-<li><a class="el" href="">Hamiltonian::print_eigenVectors</a> - Prints eigenvectors to file</li>
+<li><a class="el" href="classHamiltonian.html#a04675b0b538bfb01d2f0aacf55ad4a7e">Hamiltonian::init</a> - Initialization of the <a class="el" href="classHamiltonian.html" title="Hamiltonian Class. ">Hamiltonian</a>, meaning the filling of the matrix element for the first <a class="el" href="classNRG.html" title="Class that handles exact diagonalization, NRG and Sweep in a model-agnostic way ( as much as possible...">NRG</a> iteration</li>
+<li><a class="el" href="classHamiltonian.html#a8cc203b3b630ada7845f3c59606c3d27">Hamiltonian::NRG_block_A</a> - Fills top-left part of the <a class="el" href="classHamiltonian.html" title="Hamiltonian Class. ">Hamiltonian</a> matrix, usually diagonal which contains the eigenvaues of the previous iteration</li>
+<li><a class="el" href="classHamiltonian.html#a8e57b289129fc6039c761c22ae45a27a">Hamiltonian::NRG_block_BC</a> - Fills the bottom-left and top-right parts of the <a class="el" href="classHamiltonian.html" title="Hamiltonian Class. ">Hamiltonian</a> matrix, which contains the expectaion value of the perturbing operator(s) between previous step eigenstates and the newly added states of the computational basis</li>
+<li><a class="el" href="classHamiltonian.html#a5da029dcda9ab74d5beb045694bcbc47">Hamiltonian::NRG_block_D</a> - Fills the bottom-right part of the <a class="el" href="classHamiltonian.html" title="Hamiltonian Class. ">Hamiltonian</a> matrix, which contains the expectaion value of the perturbing operator(s) on the newly added states of the computational basis</li>
+<li><a class="el" href="classHamiltonian.html#a6a08e22b729adbc783c1770b21510ee2">Hamiltonian::sweep_block_BC</a> - Fills the bottom-left and top-right parts of the <a class="el" href="classHamiltonian.html" title="Hamiltonian Class. ">Hamiltonian</a> matrix, which contains the expectaion value of the hamiltonian between previous step eigenstates and eigenstates of the previous step same iteration</li>
+<li><a class="el" href="classHamiltonian.html#ab17354d805e72f8e171f1d4b42d54856">Hamiltonian::Msize</a> - Size of the <a class="el" href="classHamiltonian.html" title="Hamiltonian Class. ">Hamiltonian</a> matrix at each <a class="el" href="classNRG.html" title="Class that handles exact diagonalization, NRG and Sweep in a model-agnostic way ( as much as possible...">NRG</a> iteration</li>
+<li><a class="el" href="classHamiltonian.html#ab70ecbcd7f5ce1cf3ba9753c2411e9fc">Hamiltonian::print_eigenValues</a> - Prints eigenvalues to file</li>
+<li><a class="el" href="classHamiltonian.html#a8b6c47e52675e438f1b7c780b15da039">Hamiltonian::print_eigenVectors</a> - Prints eigenvectors to file</li>
 <li><a class="el" href="classchirME.html#aad56d2574efe19f3da59c6b5ab0ddbdb">chirME::calculate_ExpVal</a> - Calculates expecation value on the final eigenstates of a given operator. Only interface of <a class="el" href="classchirME.html">chirME</a> to be strictly respected. </li>
 </ul>
 </div></div><!-- contents -->

@@ -1,6 +1,8 @@
 var searchData=
 [
   ['_7echirme',['~chirME',['../classchirME.html#a58fe24d5185144ead98d8f91e25d392b',1,'chirME']]],
+  ['_7ehamiltonian',['~Hamiltonian',['../classHamiltonian.html#a490c32e242dbdbdd8cdf949d8fd9aef6',1,'Hamiltonian']]],
+  ['_7enrg',['~NRG',['../classNRG.html#a63d1da6ac2d6d5e4b9ace89aa28a2f1b',1,'NRG']]],
   ['_7eparameters',['~parameters',['../classparameters.html#a8ef05b5210024cb8d7ab84fddb4d05b2',1,'parameters']]],
   ['_7estates',['~states',['../classstates.html#aaf08681a42c3435c65ebbec0eba43909',1,'states']]],
   ['_7etensor2d',['~tensor2D',['../classtensor2D.html#a3aa4739e707d585ca5baa53f4f23b7ca',1,'tensor2D']]],

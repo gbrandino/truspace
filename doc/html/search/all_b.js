@@ -13,13 +13,16 @@ var searchData=
   ['maxpart',['MaxPart',['../config_8h.html#aa325eef3bd630e6c462a8baa6d3ba114',1,'config.h']]],
   ['maxq',['maxq',['../classparameters.html#a0ac6db52037a0c7317757e3c686a8cf1',1,'parameters']]],
   ['maxstates',['MaxStates',['../classstates.html#a9ce5621c6ba0f68a02cf9f2356bf10ae',1,'states']]],
+  ['me',['me',['../classHamiltonian.html#ad6c1f94f6300b5ad0cc4556aa6bc081a',1,'Hamiltonian']]],
   ['me_5fchi_5f0',['me_chi_0',['../classstates.html#a54c223108d7c04e84816e2bcb77708e7',1,'states']]],
   ['me_5fchi_5fortho',['me_chi_ortho',['../classchirME.html#aa59c5a77d881d29746faaf171f5b627e',1,'chirME']]],
   ['me_5fchi_5fortho_5fop_5fl',['me_chi_ortho_op_l',['../classchirME.html#ae206d3f68100f496ec7e3ea09bcf2c0a',1,'chirME']]],
   ['me_5fchi_5fortho_5fop_5fr',['me_chi_ortho_op_r',['../classchirME.html#aba75f5ca87a3598e54eecb2aaa3cca34',1,'chirME']]],
-  ['mechirname',['MeChirName',['../classworker.html#ae305a9a441efc78c7d4148c01165ab73',1,'worker']]],
-  ['meopname',['MeOpName',['../classworker.html#ac78eeff963f4434c938e7acc4ec5235b',1,'worker']]],
+  ['mechirname',['MeChirName',['../classfilenames.html#aabdc69227aa93f3bfff3ea248b08f0c2',1,'filenames']]],
+  ['meopname',['MeOpName',['../classfilenames.html#a3efec1e90160997d70d4d95e35793d99',1,'filenames']]],
   ['minlev',['minLev',['../classparameters.html#a9e200979fbc5fe35d559a59727f86aac',1,'parameters']]],
   ['mode_5fl_5fop',['mode_l_op',['../classparameters.html#a6e666ef2e948899946649ff896d184a5',1,'parameters']]],
-  ['mode_5fr_5fop',['mode_r_op',['../classparameters.html#a874c0da338a9cb7481f8349e5b96dc61',1,'parameters']]]
+  ['mode_5fr_5fop',['mode_r_op',['../classparameters.html#a874c0da338a9cb7481f8349e5b96dc61',1,'parameters']]],
+  ['momentum',['Momentum',['../classHamiltonian.html#ad6472d0c13ee1e24e34b0e4e09b5fc58',1,'Hamiltonian']]],
+  ['msize',['Msize',['../classHamiltonian.html#ab17354d805e72f8e171f1d4b42d54856',1,'Hamiltonian']]]
 ];

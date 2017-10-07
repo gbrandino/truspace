@@ -69,61 +69,450 @@ $(function() {
 <div class="title">Hamiltonian Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p><a class="el" href="classHamiltonian.html" title="Hamiltonian Class. ">Hamiltonian</a> Class.  
+ <a href="classHamiltonian.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="Hamiltonian_8h_source.html">Hamiltonian.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a8319ba9ce62108ca9d2243daf09082b5"><td class="memItemLeft" align="right" valign="top"><a id="a8319ba9ce62108ca9d2243daf09082b5"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>Hamiltonian</b> (<a class="el" href="classparameters.html">parameters</a> &amp;, <a class="el" href="classstates.html">states</a> &amp;, <a class="el" href="classchirME.html">chirME</a> &amp;, int)</td></tr>
-<tr class="separator:a8319ba9ce62108ca9d2243daf09082b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a04675b0b538bfb01d2f0aacf55ad4a7e"><td class="memItemLeft" align="right" valign="top"><a id="a04675b0b538bfb01d2f0aacf55ad4a7e"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>init</b> ()</td></tr>
+<tr class="memitem:a41eb14e8aaa239a3d624bbdc5069af86"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHamiltonian.html#a41eb14e8aaa239a3d624bbdc5069af86">Hamiltonian</a> (<a class="el" href="classparameters.html">parameters</a> &amp;<a class="el" href="classHamiltonian.html#a7d0213d423e77d94bb1c245bd3451f06">p</a>, <a class="el" href="classstates.html">states</a> &amp;<a class="el" href="classHamiltonian.html#a08287c76afc38a1a6cb324f2a0238305">st</a>, <a class="el" href="classchirME.html">chirME</a> &amp;<a class="el" href="classHamiltonian.html#ad6c1f94f6300b5ad0cc4556aa6bc081a">me</a>, int <a class="el" href="classHamiltonian.html#aec683518a29edc78699205c1a2059b95">subspace</a>)</td></tr>
+<tr class="memdesc:a41eb14e8aaa239a3d624bbdc5069af86"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#a41eb14e8aaa239a3d624bbdc5069af86">More...</a><br /></td></tr>
+<tr class="separator:a41eb14e8aaa239a3d624bbdc5069af86"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a490c32e242dbdbdd8cdf949d8fd9aef6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHamiltonian.html#a490c32e242dbdbdd8cdf949d8fd9aef6">~Hamiltonian</a> ()</td></tr>
+<tr class="memdesc:a490c32e242dbdbdd8cdf949d8fd9aef6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor.  <a href="#a490c32e242dbdbdd8cdf949d8fd9aef6">More...</a><br /></td></tr>
+<tr class="separator:a490c32e242dbdbdd8cdf949d8fd9aef6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a04675b0b538bfb01d2f0aacf55ad4a7e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHamiltonian.html#a04675b0b538bfb01d2f0aacf55ad4a7e">init</a> ()</td></tr>
+<tr class="memdesc:a04675b0b538bfb01d2f0aacf55ad4a7e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the first iteration <a class="el" href="classHamiltonian.html" title="Hamiltonian Class. ">Hamiltonian</a>.  <a href="#a04675b0b538bfb01d2f0aacf55ad4a7e">More...</a><br /></td></tr>
 <tr class="separator:a04675b0b538bfb01d2f0aacf55ad4a7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a610e605a5ed00739a8813928378a5a1d"><td class="memItemLeft" align="right" valign="top"><a id="a610e605a5ed00739a8813928378a5a1d"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>print_eigenValues</b> (int, int, double *, std::string, int)</td></tr>
-<tr class="separator:a610e605a5ed00739a8813928378a5a1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0dc5819077bf9c827c2bfad01a79b924"><td class="memItemLeft" align="right" valign="top"><a id="a0dc5819077bf9c827c2bfad01a79b924"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>print_eigenVectors</b> (double *, std::string, int)</td></tr>
-<tr class="separator:a0dc5819077bf9c827c2bfad01a79b924"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5320b63f0b2c6265a2e72f1733c25984"><td class="memItemLeft" align="right" valign="top"><a id="a5320b63f0b2c6265a2e72f1733c25984"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>NRG_block_A</b> (double *)</td></tr>
-<tr class="separator:a5320b63f0b2c6265a2e72f1733c25984"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9be3443b728b9ef524741a35f40dcbfc"><td class="memItemLeft" align="right" valign="top"><a id="a9be3443b728b9ef524741a35f40dcbfc"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>NRG_block_BC</b> (double *, int, double *)</td></tr>
-<tr class="separator:a9be3443b728b9ef524741a35f40dcbfc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0b6ec3713d7e870f3ec94da73a6ab7f1"><td class="memItemLeft" align="right" valign="top"><a id="a0b6ec3713d7e870f3ec94da73a6ab7f1"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>NRG_block_D</b> (int)</td></tr>
-<tr class="separator:a0b6ec3713d7e870f3ec94da73a6ab7f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8fba968d301239b81b82d635ecdd60fe"><td class="memItemLeft" align="right" valign="top"><a id="a8fba968d301239b81b82d635ecdd60fe"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>sweep_block_BC</b> (double *, int, double *, double *, int, int)</td></tr>
-<tr class="separator:a8fba968d301239b81b82d635ecdd60fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab70ecbcd7f5ce1cf3ba9753c2411e9fc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHamiltonian.html#ab70ecbcd7f5ce1cf3ba9753c2411e9fc">print_eigenValues</a> (int iteration, int sweep, double *eigenvalues, std::string fname, int maxState)</td></tr>
+<tr class="memdesc:ab70ecbcd7f5ce1cf3ba9753c2411e9fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Routine to print eigenvalues to file.  <a href="#ab70ecbcd7f5ce1cf3ba9753c2411e9fc">More...</a><br /></td></tr>
+<tr class="separator:ab70ecbcd7f5ce1cf3ba9753c2411e9fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8b6c47e52675e438f1b7c780b15da039"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHamiltonian.html#a8b6c47e52675e438f1b7c780b15da039">print_eigenVectors</a> (double *eigenvectors, std::string fname, int size)</td></tr>
+<tr class="memdesc:a8b6c47e52675e438f1b7c780b15da039"><td class="mdescLeft">&#160;</td><td class="mdescRight">Routine to print eigenvectors to file.  <a href="#a8b6c47e52675e438f1b7c780b15da039">More...</a><br /></td></tr>
+<tr class="separator:a8b6c47e52675e438f1b7c780b15da039"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8cc203b3b630ada7845f3c59606c3d27"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHamiltonian.html#a8cc203b3b630ada7845f3c59606c3d27">NRG_block_A</a> (double *eigenvalues)</td></tr>
+<tr class="memdesc:a8cc203b3b630ada7845f3c59606c3d27"><td class="mdescLeft">&#160;</td><td class="mdescRight">Routine to fill the top left corner of the <a class="el" href="classNRG.html" title="Class that handles exact diagonalization, NRG and Sweep in a model-agnostic way ( as much as possible...">NRG</a> matrix (A block).  <a href="#a8cc203b3b630ada7845f3c59606c3d27">More...</a><br /></td></tr>
+<tr class="separator:a8cc203b3b630ada7845f3c59606c3d27"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8e57b289129fc6039c761c22ae45a27a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHamiltonian.html#a8e57b289129fc6039c761c22ae45a27a">NRG_block_BC</a> (int iteration, double *coeff)</td></tr>
+<tr class="memdesc:a8e57b289129fc6039c761c22ae45a27a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Routine to fill the bottom left and top right corners of the <a class="el" href="classNRG.html" title="Class that handles exact diagonalization, NRG and Sweep in a model-agnostic way ( as much as possible...">NRG</a> matrix (B and C blocks).  <a href="#a8e57b289129fc6039c761c22ae45a27a">More...</a><br /></td></tr>
+<tr class="separator:a8e57b289129fc6039c761c22ae45a27a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5da029dcda9ab74d5beb045694bcbc47"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHamiltonian.html#a5da029dcda9ab74d5beb045694bcbc47">NRG_block_D</a> (int iteration)</td></tr>
+<tr class="memdesc:a5da029dcda9ab74d5beb045694bcbc47"><td class="mdescLeft">&#160;</td><td class="mdescRight">Routine to fill the bottom right corner of the <a class="el" href="classNRG.html" title="Class that handles exact diagonalization, NRG and Sweep in a model-agnostic way ( as much as possible...">NRG</a> matrix (D block).  <a href="#a5da029dcda9ab74d5beb045694bcbc47">More...</a><br /></td></tr>
+<tr class="separator:a5da029dcda9ab74d5beb045694bcbc47"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6a08e22b729adbc783c1770b21510ee2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHamiltonian.html#a6a08e22b729adbc783c1770b21510ee2">sweep_block_BC</a> (int iteration, double *coeff, double *coeffSweep, int NRGspacesize, int NRGstoresize)</td></tr>
+<tr class="memdesc:a6a08e22b729adbc783c1770b21510ee2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Routine to fill the bottom left and top right corners of the Sweep matrix (B and C blocks).  <a href="#a6a08e22b729adbc783c1770b21510ee2">More...</a><br /></td></tr>
+<tr class="separator:a6a08e22b729adbc783c1770b21510ee2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:afa751d6788e3abf29e24471b2dc479ab"><td class="memItemLeft" align="right" valign="top"><a id="afa751d6788e3abf29e24471b2dc479ab"></a>
-<a class="el" href="classtensor2D.html">tensor2D</a>&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>H</b></td></tr>
+<a class="el" href="classtensor2D.html">tensor2D</a>&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHamiltonian.html#afa751d6788e3abf29e24471b2dc479ab">H</a></td></tr>
+<tr class="memdesc:afa751d6788e3abf29e24471b2dc479ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tensor2D holding the <a class="el" href="classHamiltonian.html" title="Hamiltonian Class. ">Hamiltonian</a> matrix elements. <br /></td></tr>
 <tr class="separator:afa751d6788e3abf29e24471b2dc479ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab17354d805e72f8e171f1d4b42d54856"><td class="memItemLeft" align="right" valign="top"><a id="ab17354d805e72f8e171f1d4b42d54856"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>Msize</b></td></tr>
+int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHamiltonian.html#ab17354d805e72f8e171f1d4b42d54856">Msize</a></td></tr>
+<tr class="memdesc:ab17354d805e72f8e171f1d4b42d54856"><td class="mdescLeft">&#160;</td><td class="mdescRight">Size of the <a class="el" href="classHamiltonian.html" title="Hamiltonian Class. ">Hamiltonian</a> matrix. <br /></td></tr>
 <tr class="separator:ab17354d805e72f8e171f1d4b42d54856"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a77d8542358120deb5f71feadeba49524"><td class="memItemLeft" align="right" valign="top"><a id="a77d8542358120deb5f71feadeba49524"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>R</b></td></tr>
+double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHamiltonian.html#a77d8542358120deb5f71feadeba49524">R</a></td></tr>
+<tr class="memdesc:a77d8542358120deb5f71feadeba49524"><td class="mdescLeft">&#160;</td><td class="mdescRight">Current value of the system size R. <br /></td></tr>
 <tr class="separator:a77d8542358120deb5f71feadeba49524"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad6472d0c13ee1e24e34b0e4e09b5fc58"><td class="memItemLeft" align="right" valign="top"><a id="ad6472d0c13ee1e24e34b0e4e09b5fc58"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>Momentum</b></td></tr>
+<tr class="memitem:ad6472d0c13ee1e24e34b0e4e09b5fc58"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHamiltonian.html#ad6472d0c13ee1e24e34b0e4e09b5fc58">Momentum</a></td></tr>
+<tr class="memdesc:ad6472d0c13ee1e24e34b0e4e09b5fc58"><td class="mdescLeft">&#160;</td><td class="mdescRight">Current momentum subspace.  <a href="#ad6472d0c13ee1e24e34b0e4e09b5fc58">More...</a><br /></td></tr>
 <tr class="separator:ad6472d0c13ee1e24e34b0e4e09b5fc58"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7d0213d423e77d94bb1c245bd3451f06"><td class="memItemLeft" align="right" valign="top"><a id="a7d0213d423e77d94bb1c245bd3451f06"></a>
-<a class="el" href="classparameters.html">parameters</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>p</b></td></tr>
+<a class="el" href="classparameters.html">parameters</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHamiltonian.html#a7d0213d423e77d94bb1c245bd3451f06">p</a></td></tr>
+<tr class="memdesc:a7d0213d423e77d94bb1c245bd3451f06"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reference to parameters object. <br /></td></tr>
 <tr class="separator:a7d0213d423e77d94bb1c245bd3451f06"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a08287c76afc38a1a6cb324f2a0238305"><td class="memItemLeft" align="right" valign="top"><a id="a08287c76afc38a1a6cb324f2a0238305"></a>
-<a class="el" href="classstates.html">states</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>st</b></td></tr>
+<a class="el" href="classstates.html">states</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHamiltonian.html#a08287c76afc38a1a6cb324f2a0238305">st</a></td></tr>
+<tr class="memdesc:a08287c76afc38a1a6cb324f2a0238305"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reference to state obejct. <br /></td></tr>
 <tr class="separator:a08287c76afc38a1a6cb324f2a0238305"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad6c1f94f6300b5ad0cc4556aa6bc081a"><td class="memItemLeft" align="right" valign="top"><a id="ad6c1f94f6300b5ad0cc4556aa6bc081a"></a>
-<a class="el" href="classchirME.html">chirME</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>me</b></td></tr>
+<a class="el" href="classchirME.html">chirME</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHamiltonian.html#ad6c1f94f6300b5ad0cc4556aa6bc081a">me</a></td></tr>
+<tr class="memdesc:ad6c1f94f6300b5ad0cc4556aa6bc081a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reference to chirMe object. <br /></td></tr>
 <tr class="separator:ad6c1f94f6300b5ad0cc4556aa6bc081a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aec683518a29edc78699205c1a2059b95"><td class="memItemLeft" align="right" valign="top"><a id="aec683518a29edc78699205c1a2059b95"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>subspace</b></td></tr>
+int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHamiltonian.html#aec683518a29edc78699205c1a2059b95">subspace</a></td></tr>
+<tr class="memdesc:aec683518a29edc78699205c1a2059b95"><td class="mdescLeft">&#160;</td><td class="mdescRight">Current symmetry subspace. <br /></td></tr>
 <tr class="separator:aec683518a29edc78699205c1a2059b95"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p><a class="el" href="classHamiltonian.html" title="Hamiltonian Class. ">Hamiltonian</a> Class. </p>
+<p>Class that calculates and holds the <a class="el" href="classHamiltonian.html" title="Hamiltonian Class. ">Hamiltonian</a> matrix and the function to calculates the elements needed for <a class="el" href="classNRG.html" title="Class that handles exact diagonalization, NRG and Sweep in a model-agnostic way ( as much as possible...">NRG</a> and Sweep. For NRG/Sweep the structure of the matrix is</p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone"></th><th class="markdownTableHeadNone"></th></tr>
+<tr class="markdownTableBody" class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">A  </td><td class="markdownTableBodyNone">B   </td></tr>
+<tr class="markdownTableBody" class="markdownTableRowEven">
+<td class="markdownTableBodyNone">C  </td><td class="markdownTableBodyNone">D   </td></tr>
+</table>
+<p>Where A is a matrix of size <a class="el" href="classparameters.html#a66a6f4fca1216c8012c4d48e9de1364a" title="basic sizes the NRG matrix. ">parameters::Nsize</a>**2, B and C are of size <a class="el" href="classparameters.html#a66a6f4fca1216c8012c4d48e9de1364a" title="basic sizes the NRG matrix. ">parameters::Nsize</a>* <a class="el" href="classparameters.html#a6316b36c6b8ffb4bb8731c2fc5eadb5e" title="number of states added at each NRG iteration. ">parameters::Nstep</a> and C is of size <a class="el" href="classparameters.html#a6316b36c6b8ffb4bb8731c2fc5eadb5e" title="number of states added at each NRG iteration. ">parameters::Nstep</a>**2 </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a41eb14e8aaa239a3d624bbdc5069af86"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a41eb14e8aaa239a3d624bbdc5069af86">&#9670;&nbsp;</a></span>Hamiltonian()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Hamiltonian::Hamiltonian </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classparameters.html">parameters</a> &amp;&#160;</td>
+          <td class="paramname"><em>p</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classstates.html">states</a> &amp;&#160;</td>
+          <td class="paramname"><em>st</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classchirME.html">chirME</a> &amp;&#160;</td>
+          <td class="paramname"><em>me</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>subspace</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Constructor. </p>
+<p>Allocates the correct size of the tensor H, which hold the <a class="el" href="classHamiltonian.html" title="Hamiltonian Class. ">Hamiltonian</a> matrix elements. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">p</td><td>Reference to a parameter object. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">st</td><td>Reference to a state object. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">me</td><td>Reference to a <a class="el" href="classchirME.html" title="Class that contains the chiral matrix elements of perturbing operators and of the operator to calcula...">chirME</a> object. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">subspace</td><td>Integer descrbing the subspace currently under investigation. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a490c32e242dbdbdd8cdf949d8fd9aef6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a490c32e242dbdbdd8cdf949d8fd9aef6">&#9670;&nbsp;</a></span>~Hamiltonian()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Hamiltonian::~Hamiltonian </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Destructor. </p>
+<p><a class="el" href="classHamiltonian.html" title="Hamiltonian Class. ">Hamiltonian</a> class file.</p>
+<dl class="section author"><dt>Authors</dt><dd>Giuseppe Piero Brandino - eXact-lab s.r.l. </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>November 2017 </dd></dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a04675b0b538bfb01d2f0aacf55ad4a7e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a04675b0b538bfb01d2f0aacf55ad4a7e">&#9670;&nbsp;</a></span>init()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Hamiltonian::init </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Initializes the first iteration <a class="el" href="classHamiltonian.html" title="Hamiltonian Class. ">Hamiltonian</a>. </p>
+<p>The first iteration hamiltonian has conformal energy on diagonal and expectation value of the perturbing operator(s) on the conformal states and stores it in the tensor H. Internally, it uses the state object member and the <a class="el" href="classchirME.html" title="Class that contains the chiral matrix elements of perturbing operators and of the operator to calcula...">chirME</a> object member </p>
+
+</div>
+</div>
+<a id="a8cc203b3b630ada7845f3c59606c3d27"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8cc203b3b630ada7845f3c59606c3d27">&#9670;&nbsp;</a></span>NRG_block_A()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Hamiltonian::NRG_block_A </td>
+          <td>(</td>
+          <td class="paramtype">double *&#160;</td>
+          <td class="paramname"><em>eigenvalues</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Routine to fill the top left corner of the <a class="el" href="classNRG.html" title="Class that handles exact diagonalization, NRG and Sweep in a model-agnostic way ( as much as possible...">NRG</a> matrix (A block). </p>
+<p>The top left corner of the NRG/Sweep matrix usually contains the eigenvaues of the previous iteration on the diagonal, 0 otherwise</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">eigenvalues</td><td>Array containing the eigenvalues of the previous <a class="el" href="classNRG.html" title="Class that handles exact diagonalization, NRG and Sweep in a model-agnostic way ( as much as possible...">NRG</a> iteration. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a8e57b289129fc6039c761c22ae45a27a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8e57b289129fc6039c761c22ae45a27a">&#9670;&nbsp;</a></span>NRG_block_BC()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Hamiltonian::NRG_block_BC </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>iteration</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double *&#160;</td>
+          <td class="paramname"><em>coeff</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Routine to fill the bottom left and top right corners of the <a class="el" href="classNRG.html" title="Class that handles exact diagonalization, NRG and Sweep in a model-agnostic way ( as much as possible...">NRG</a> matrix (B and C blocks). </p>
+<p>The the bottom left and top right corners contain the expectaion value of the perturbing operator(s) between previous step eigenstates and the newly added states of the computational basis. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">iteration</td><td>Index of the <a class="el" href="classNRG.html" title="Class that handles exact diagonalization, NRG and Sweep in a model-agnostic way ( as much as possible...">NRG</a> iteration </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">coeff</td><td>Matrix containing the eigenvectors of the previous <a class="el" href="classNRG.html" title="Class that handles exact diagonalization, NRG and Sweep in a model-agnostic way ( as much as possible...">NRG</a> iteration, one per row </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a5da029dcda9ab74d5beb045694bcbc47"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5da029dcda9ab74d5beb045694bcbc47">&#9670;&nbsp;</a></span>NRG_block_D()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Hamiltonian::NRG_block_D </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>iteration</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Routine to fill the bottom right corner of the <a class="el" href="classNRG.html" title="Class that handles exact diagonalization, NRG and Sweep in a model-agnostic way ( as much as possible...">NRG</a> matrix (D block). </p>
+<p>The bottom right corner contains the expectaion value of the perturbing operator(s) on the newly added states of the computational basis </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">iteration</td><td>Index of the <a class="el" href="classNRG.html" title="Class that handles exact diagonalization, NRG and Sweep in a model-agnostic way ( as much as possible...">NRG</a> iteration </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ab70ecbcd7f5ce1cf3ba9753c2411e9fc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab70ecbcd7f5ce1cf3ba9753c2411e9fc">&#9670;&nbsp;</a></span>print_eigenValues()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Hamiltonian::print_eigenValues </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>iteration</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>sweep</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double *&#160;</td>
+          <td class="paramname"><em>eigenvalues</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>fname</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>maxState</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Routine to print eigenvalues to file. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">iteration</td><td><a class="el" href="classNRG.html" title="Class that handles exact diagonalization, NRG and Sweep in a model-agnostic way ( as much as possible...">NRG</a> iteration number. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">sweeep</td><td>Sweep iteration. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">eigenvalues</td><td>Array containing the eigenvalues to print. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">fname</td><td>std::string containing the file name to print. Usually, a member variable of filenames. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">maxState</td><td>Integer describing the maximum state considered in the current <a class="el" href="classNRG.html" title="Class that handles exact diagonalization, NRG and Sweep in a model-agnostic way ( as much as possible...">NRG</a> iteration. Used to define effective energy of the truncation. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a8b6c47e52675e438f1b7c780b15da039"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8b6c47e52675e438f1b7c780b15da039">&#9670;&nbsp;</a></span>print_eigenVectors()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Hamiltonian::print_eigenVectors </td>
+          <td>(</td>
+          <td class="paramtype">double *&#160;</td>
+          <td class="paramname"><em>eigenvectors</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>fname</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>size</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Routine to print eigenvectors to file. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">eigenvectors</td><td>Matrix containing the eigenvectors to print, one per row </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">fname</td><td>std::string containing the file name to print. Usually, a member variable of filenames. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">size</td><td>Number of component of each eigenvectors (row size of the eigenvectors array(. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a6a08e22b729adbc783c1770b21510ee2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6a08e22b729adbc783c1770b21510ee2">&#9670;&nbsp;</a></span>sweep_block_BC()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Hamiltonian::sweep_block_BC </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>iteration</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double *&#160;</td>
+          <td class="paramname"><em>coeff</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double *&#160;</td>
+          <td class="paramname"><em>coeffSweep</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>NRGspacesize</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>NRGstoresize</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Routine to fill the bottom left and top right corners of the Sweep matrix (B and C blocks). </p>
+<p>The the bottom left and top right corners contain the expectaion value of the <a class="el" href="classHamiltonian.html" title="Hamiltonian Class. ">Hamiltonian</a> between previous step eigenstates and eigenstates of the previous step same iteration </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">iteration</td><td>Index of the <a class="el" href="classNRG.html" title="Class that handles exact diagonalization, NRG and Sweep in a model-agnostic way ( as much as possible...">NRG</a> iteration </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">coeff</td><td>Matrix containing the eigenvectors of the previous <a class="el" href="classNRG.html" title="Class that handles exact diagonalization, NRG and Sweep in a model-agnostic way ( as much as possible...">NRG</a> iteration, one per row </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">coeffSweep</td><td>Matrix containing the eigenvectors of the previous sweep and same <a class="el" href="classNRG.html" title="Class that handles exact diagonalization, NRG and Sweep in a model-agnostic way ( as much as possible...">NRG</a> iteration, one per row </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">NRGspacesize</td><td>Current size of the <a class="el" href="classNRG.html" title="Class that handles exact diagonalization, NRG and Sweep in a model-agnostic way ( as much as possible...">NRG</a> hilbert space, i.e. the number of components of eigenvectors in coeff </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">NRGspacesize</td><td>Size of the <a class="el" href="classNRG.html" title="Class that handles exact diagonalization, NRG and Sweep in a model-agnostic way ( as much as possible...">NRG</a> hilbert space at the previous sweep same <a class="el" href="classNRG.html" title="Class that handles exact diagonalization, NRG and Sweep in a model-agnostic way ( as much as possible...">NRG</a> iteration, i.e. the number of components of eigenvectors in coeffSweep </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="ad6472d0c13ee1e24e34b0e4e09b5fc58"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad6472d0c13ee1e24e34b0e4e09b5fc58">&#9670;&nbsp;</a></span>Momentum</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Hamiltonian::Momentum</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Current momentum subspace. </p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li><a class="el" href="Hamiltonian_8h_source.html">Hamiltonian.h</a></li>
 <li>Hamiltonian.cpp</li>
