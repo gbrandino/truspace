@@ -68,7 +68,7 @@ TruSpace is written in C++ using and Object Oriented design pattern.
 
 The available classes are
 
-- paramters : class that handles the input reading, the calculation of the structure constants and the analysis of symmetry subspaces.
+- parameters : class that handles the input reading, the calculation of the structure constants and the analysis of symmetry subspaces.
 - worker : class that takes care of running the different parts of the code after all parameters are set 
 - states : class that calculates and holds all the informations regarding the computation basis
 - chirME : class that calculates and holds all the information about matrix element of the fields on the computational basis 
@@ -103,7 +103,7 @@ If you want to use the provided script you can simply run the ``install.sh`` in 
 
   CC=icc CXX=icpc ./install.sh
 
-:NOTE: Some versione of the intel compiler seems to have issues with the c++11 standard. This will cause Ginac to fail compilation.
+:NOTE: Some version of the intel compiler seems to have issues with the c++11 standard. This will cause Ginac to fail compilation.
 
 To remove the compiled code and its dependecies, run ``uninstall.sh``
 
