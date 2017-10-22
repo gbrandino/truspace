@@ -8,6 +8,9 @@
 #include <string>
 #include <sstream>
 #include <iostream>
+#ifdef MPI_PAR
+#include <mpi.h>
+#endif
 
 filenames::filenames()
 {
@@ -26,6 +29,13 @@ filenames::~filenames()
 
 filenames::filenames(parameters& p, int subspace)
 {
+
+#ifdef MPI_PAR
+    int myrank_mpi,nprocs_mpi;
+    MPI_Comm_rank(MPI_COMM_WORLD, &myrank_mpi);
+    MPI_Comm_size(MPI_COMM_WORLD, &nprocs_mpi);
+#endif
+
 
     std::stringstream temp;
     std::stringstream temp2;
@@ -82,7 +92,10 @@ filenames::filenames(parameters& p, int subspace)
         MeChirName[i]= temp2.str();
         }
 
-
+#ifdef MPI_PAR
+    if ( myrank_mpi == 0)
+    {
+#endif
     std::cout << std::endl;    
     std::cout << " Output and dump file names prefixes " << std::endl;
     std::cout << " ~~~~~~~~~~~~~~~~~~~~~~~~~~ " << std::endl << std::endl;
@@ -126,5 +139,8 @@ filenames::filenames(parameters& p, int subspace)
     std::cout << std::endl;
     std::cout << " ~~~~~~~~~~~~~~~~~~~~~~~~~~ " << std::endl << std::endl;
     std::cout << std::endl;
+#ifdef MPI_PAR
+    }
+#endif    
 
 }

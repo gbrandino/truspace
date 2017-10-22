@@ -1,6 +1,6 @@
 /** @file truspace.cpp
  * \brief Main program of Truspace (driver routine).
- *         Acts a a driver routine, reading input files and calling worker class to perform TCSA if required
+ *         Acts as a driver routine, reading input files and calling worker class to perform TCSA if required
  *
  * \authors Giuseppe Piero Brandino - eXact-lab s.r.l.
  * \date October 2017
@@ -10,20 +10,44 @@
 #include <iostream>
 #include "parameters.h"
 #include "worker.h"
+#ifdef MPI_PAR
+#include <mpi.h>
+#endif
 
 int main(int argc, char** argv)
 {
+#ifdef MPI_PAR
+    int myrank_mpi,nprocs_mpi;
+    MPI_Init( &argc, &argv);
+    MPI_Comm_rank(MPI_COMM_WORLD, &myrank_mpi);
+    MPI_Comm_size(MPI_COMM_WORLD, &nprocs_mpi);
+#endif
+
+#ifdef MPI_PAR
+    if (argc<2)
+        {
+        if (myrank_mpi==0)
+            std::cout<<" Usage: " << argv[0] << " [input file name] " << std::endl;
+        MPI_Finalize();
+        std::exit(0);
+        }
+#else
     if (argc<2)
         {
         std::cout<<" Usage: " << argv[0] << " [input file name] " << std::endl;
         std::exit(0);
         }
+#endif
+
     // Create parameter object from the given input file
     parameters par(argv[1]);
     // Analyse subspace (also calculates structure constans, necessary for subspace analysis 
     par.analyse_subspaces(); 
     // Print recap of input, structure constants, subspace analysis,  and Verma modules dimensions
-    par.print();   
+#ifdef MPI_PAR
+    if (myrank_mpi==0)
+#endif
+        par.print();   
 
     worker sys;
     // If TCSA is selectd, run it, otherwise, exit
@@ -31,6 +55,10 @@ int main(int argc, char** argv)
         {
         sys.run(par);
         }
+
+#ifdef MPI_PAR
+    MPI_Finalize();
+#endif
 
     return 0;
 

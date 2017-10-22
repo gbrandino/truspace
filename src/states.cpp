@@ -52,6 +52,10 @@
 #include "element_computation.h"
 #include "diag.h"
 #include <time.h>
+#ifdef MPI_PAR
+#include <mpi.h>
+#endif
+
 
 states::states()
 {
@@ -61,6 +65,11 @@ states::states()
 
 states::states(parameters& p, int subspace)
 {
+#ifdef MPI_PAR
+    int myrank_mpi,nprocs_mpi;
+    MPI_Comm_rank(MPI_COMM_WORLD, &myrank_mpi);
+    MPI_Comm_size(MPI_COMM_WORLD, &nprocs_mpi);
+#endif
 
     int temp=0;
     for (int j=0;j<= p.maxLev;j++) /* it was lev+1 */
@@ -266,6 +275,12 @@ void states::calculate_chiral(parameters& p, int subspace, filenames& fnames)
 {
     // MaxPart and MaxNumGrade are (at least for now) global constant 
     // defined in config.h
+
+#ifdef MPI_PAR
+    int myrank_mpi,nprocs_mpi;
+    MPI_Comm_rank(MPI_COMM_WORLD, &myrank_mpi);
+    MPI_Comm_size(MPI_COMM_WORLD, &nprocs_mpi);
+#endif
 
     char fname[100];
     FILE *state_file;
@@ -607,6 +622,9 @@ void states::calculate_chiral(parameters& p, int subspace, filenames& fnames)
             pstate++;
         } while (pstate < max_num_chir);
 
+#ifdef MPI_PAR
+    if (myrank_mpi == 0)
+#endif
     std::cout << " Verma module " << p.finalsubspace(subspace,i) << " has " << num_chir[i] << " states " << std::endl;
     }
 
@@ -624,6 +642,11 @@ void states::calculate_chiral(parameters& p, int subspace, filenames& fnames)
 
     if (p.SAVE_STATES ) 
         {
+#ifdef MPI_PAR
+    if (myrank_mpi == 0)
+        {
+#endif
+
         for(int i=0;i< p.subdim[subspace];++i) 
             {
             for (int k=0;k<= p.maxLev;++k) 
@@ -665,13 +688,24 @@ void states::calculate_chiral(parameters& p, int subspace, filenames& fnames)
                     }
                 }
             }
+#ifdef MPI_PAR
         }
+#endif
+        }
+
+#ifdef MPI_PAR
+    MPI_Barrier(MPI_COMM_WORLD);
+#endif
 
 
     /*write states to file if so desired*/
 
     if (p.SAVE_STATES ) 
         {
+#ifdef MPI_PAR
+    if (myrank_mpi == 0)
+        {
+#endif
         for(int i=0;i< p.subdim[subspace];++i) 
             {
             count = 0;
@@ -695,7 +729,13 @@ void states::calculate_chiral(parameters& p, int subspace, filenames& fnames)
                 }
             }
         }
+#ifdef MPI_PAR
+        }
+#endif
 
+#ifdef MPI_PAR
+    MPI_Barrier(MPI_COMM_WORLD);
+#endif
 
     delete [] new0;
     delete [] num_part;
@@ -709,6 +749,12 @@ void states::calculate_chiral(parameters& p, int subspace, filenames& fnames)
 
 void states::calculate_nonchiral(parameters& p, int subspace, int mom)
 {
+#ifdef MPI_PAR
+    int myrank_mpi,nprocs_mpi;
+    MPI_Comm_rank(MPI_COMM_WORLD, &myrank_mpi);
+    MPI_Comm_size(MPI_COMM_WORLD, &nprocs_mpi);
+#endif
+
   /*delineate states of non-chiral states (with or up to given  momentum) up to a given energy*/
 
     if(mom == -1)
@@ -738,7 +784,10 @@ void states::calculate_nonchiral(parameters& p, int subspace, int mom)
                     }
                 }
             }
-        
+       
+#ifdef MPI_PAR
+    if (myrank_mpi == 0)
+#endif  
         std::cout << " Number of states up to momentum "<< p.maxMomentum << " for the current subspace  "<< nstate << std::endl;
         }
     else
@@ -765,6 +814,9 @@ void states::calculate_nonchiral(parameters& p, int subspace, int mom)
                     }
                 }
             }
+#ifdef MPI_PAR
+    if (myrank_mpi == 0)
+#endif
         std::cout << " Number of states with momentum "<< mom << " for the current subspace  "<< nstate << std::endl;
         }
 
@@ -938,6 +990,11 @@ void states::calculate_nonchiral(parameters& p, int subspace, int mom)
 
 void states::read_chiral(parameters& p, int subspace, filenames& fnames)
 {
+#ifdef MPI_PAR
+    int myrank_mpi,nprocs_mpi;
+    MPI_Comm_rank(MPI_COMM_WORLD, &myrank_mpi);
+    MPI_Comm_size(MPI_COMM_WORLD, &nprocs_mpi);
+#endif
     char fname[100];
     FILE *state_file;
     diag diagonalizer;
@@ -955,7 +1012,9 @@ void states::read_chiral(parameters& p, int subspace, filenames& fnames)
     int mode_num;
     int status;
     /*read states from files*/
-
+#ifdef MPI_PAR
+    if (myrank_mpi == 0)
+#endif
     std::cout << " Reading states and overlap from file " << std::endl;
 
     for (int i=0;i< p.subdim[subspace];++i) 
@@ -983,6 +1042,9 @@ void states::read_chiral(parameters& p, int subspace, filenames& fnames)
             fclose(state_file);
             }
         //std::cout << " Verma module " << i+1 << "  has " << num_chir[i] << " states " << std::endl;
+#ifdef MPI_PAR
+    if (myrank_mpi == 0)
+#endif
         std::cout << " Verma module " << p.finalsubspace(subspace,i) << " has " << num_chir[i] << " states " << std::endl;
         }
 
@@ -1049,6 +1111,9 @@ void states::read_chiral(parameters& p, int subspace, filenames& fnames)
                         {
                         if (fabs(me_chi_0(i,l,k) > .0000001)) 
                             {
+#ifdef MPI_PAR
+    if (myrank_mpi == 0)
+#endif
                             printf(" Warning: Different levels but non-zero overlap %d %d\n",l,k);
                             for(int j=1;j<=nm;++j)
                                 printf(" %d %3.8Le\n",j,grade[j]);

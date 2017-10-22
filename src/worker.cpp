@@ -21,6 +21,9 @@
 #include "config.h"
 #include <complex>
 #include <iostream>
+#ifdef MPI_PAR
+#include <mpi.h>
+#endif
 
 worker::worker()
 {
@@ -38,6 +41,12 @@ worker::~worker()
 
 void worker::run(parameters& p)
 {
+#ifdef MPI_PAR
+    int myrank_mpi,nprocs_mpi;
+    MPI_Comm_rank(MPI_COMM_WORLD, &myrank_mpi);
+    MPI_Comm_size(MPI_COMM_WORLD, &nprocs_mpi);
+#endif
+
 
     // checking if structure constants are real, not to have to implement additional hermitian matrix diagonalization
     int rflag=0;
@@ -54,10 +63,19 @@ void worker::run(parameters& p)
                         for (int k1=0;k1< p.maxq;k1++)
                             {
                             if (abs(p.cpt(i,i1,j,j1,k,k1) - std::conj(p.cpt(i,i1,j,j1,k,k1)))>0.0000000001)
-                                { 
-                                std::cout << std::endl;
-                                std::cout<<" Warining - complex structure constant, the TCSA code can't handle that - quitting" << std::endl;
-                                std::exit(1);
+                                {
+#ifdef MPI_PAR 
+                                if (myrank_mpi == 0)
+                                    {
+#endif
+                                    std::cout << std::endl;
+                                    std::cout<<" Warining - complex structure constant, the TCSA code can't handle that - quitting" << std::endl;
+                                    std::exit(1);
+#ifdef MPI_PAR 
+                                   }
+                                MPI_Finalize(); 
+#endif
+
                                 }
                             }
                         }
@@ -68,20 +86,36 @@ void worker::run(parameters& p)
 
     if (rflag==0)
         {
-        std::cout << std::endl;
-        std::cout << " Real structure constant, everything is fine :) " << std::endl;
-        std::cout << std::endl;
+#ifdef MPI_PAR 
+        if (myrank_mpi == 0)
+            {
+#endif
+            std::cout << std::endl;
+            std::cout << " Real structure constant, everything is fine :) " << std::endl;
+            std::cout << std::endl;
+#ifdef MPI_PAR 
+            }
+#endif
+
         }
 
 
     // iterate through the subspaces 
     for (int sub=0; sub < p.numspace; sub++)
         {
-        std::cout << std::endl;
-        std::cout << "--------------------------------"  << std::endl;
-        std::cout << " Now working on subspace "<< sub << " of " << p.numspace << std::endl;
-        std::cout << "--------------------------------"  << std::endl;
-        std::cout << std::endl;
+#ifdef MPI_PAR 
+        if (myrank_mpi == 0)
+            {
+#endif
+            std::cout << std::endl;
+            std::cout << "--------------------------------"  << std::endl;
+            std::cout << " Now working on subspace "<< sub << " of " << p.numspace << std::endl;
+            std::cout << "--------------------------------"  << std::endl;
+            std::cout << std::endl;
+#ifdef MPI_PAR 
+            }
+#endif
+
 
         states st(p,sub);
         filenames fnames(p,sub);
@@ -104,14 +138,25 @@ void worker::run(parameters& p)
             Hamiltonian H_iter(p, st, me, sub);
             H_iter.Momentum = -1;
             NRG nrg;
+#ifdef MPI_PAR 
+            if (myrank_mpi == 0)
+                {
+#endif
             std::cout << std::endl;
             std::cout << " ------------------------------ " << std::endl;
             std::cout << " Diagonalization of Hamiltonian " << std::endl;
+#ifdef MPI_PAR 
+                }
+#endif
+
             for ( int r=0; r < p.rSteps; r++)
                 {
                 double R = p.rStart + r*p.rInc;
                 H_iter.R = R;//R*2.*pi; //constant to match old results
-                std::cout << " R value: " << r << " (" << H_iter.R << ")" << std::endl;  
+#ifdef MPI_PAR 
+                if (myrank_mpi == 0)
+#endif
+                    std::cout << " R value: " << r << " (" << H_iter.R << ")" << std::endl;  
                 nrg.run(p, H_iter,fnames);  
                 }
             }
@@ -124,15 +169,25 @@ void worker::run(parameters& p)
                 Hamiltonian H_iter(p, st, me, sub);
                 H_iter.Momentum = mom;
                 NRG nrg;
+#ifdef MPI_PAR 
+            if (myrank_mpi == 0)
+                {
+#endif
                 std::cout << std::endl;
                 std::cout << " --------------------------------------------- " << std::endl;
                 std::cout << " Diagonalization of Hamiltonian for momentum " << mom  << std::endl;
+#ifdef MPI_PAR 
+                }
+#endif
+
                 for ( int r=0; r < p.rSteps; r++)
                     {
                     double R = p.rStart + r*p.rInc;
                     H_iter.R = R;//R*2.*pi;  //constant to match old results
-                    
-                    std::cout << " R value: " << r << " (" << H_iter.R << ")" << std::endl;
+#ifdef MPI_PAR 
+                    if (myrank_mpi == 0)
+#endif                    
+                        std::cout << " R value: " << r << " (" << H_iter.R << ")" << std::endl;
                     nrg.run(p, H_iter, fnames);
                     }
                 }
