@@ -30,4 +30,7 @@
 #define SIGN(a,b) ((b) >= 0.0 ? fabsl(a) : -fabsl(a))
 #define SIGNd(a,b) ((b) >= 0.0 ? fabs(a) : -fabs(a))
 #define pi 3.1415926535897 
+#ifdef MPI_PAR
+#define NB 64  /* blocking factor for BLACS/SCALAPACK */
+#endif
 #endif

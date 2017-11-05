@@ -31,6 +31,13 @@ int main(int argc, char** argv)
         MPI_Finalize();
         std::exit(0);
         }
+    if ( nprocs_mpi != 1 and nprocs_mpi != 4 and nprocs_mpi != 9 and nprocs_mpi != 25 and nprocs_mpi != 36 and nprocs_mpi != 49 and nprocs_mpi != 64)
+        {
+        if (myrank_mpi==0)
+            std::cout<<" Number of MPI processes needs to be a perfect square - quitting " << std::endl;
+        MPI_Finalize();
+        std::exit(0);
+        }
 #else
     if (argc<2)
         {

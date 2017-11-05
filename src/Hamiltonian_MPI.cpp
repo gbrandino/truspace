@@ -3,12 +3,14 @@
  * \date November 2017
  */
 
-#include "Hamiltonian.h"
+#include "Hamiltonian_MPI.h"
 #include "parameters.h"
 #include "tensors.h"
 #include "chirME.h"
 #include "states.h"
 #include "config.h"
+#include <mpi.h>
+#include "scalapack.h"
 #include <cblas.h>
 #include <iostream>
 #include <fstream>
@@ -28,16 +30,36 @@ st(st_in),
 me(me_in),
 subspace(sub)
 {
+    // init blacs grid
+    int nprow;
+    int npcol;
+    int myrow;
+    int mycol;
+    int nb=NB;
+    int iam;
+    int nprocs;
+    int ictxt;
+    int izero = 0;
+    Cblacs_pinfo( &iam, &nprocs ) ;
+    Cblacs_get( -1, 0, &ictxt );
+    nprow = npcol = sqrt(nprocs);
+    Cblacs_gridinit( &ictxt, "Row", nprow, npcol );
+    Cblacs_gridinfo( ictxt, &nprow, &npcol, &myrow, &mycol );
+
     if (!p.NRG)
         {
         Msize = st.nstate;
-        tensor2D< double> H_tmp(Msize, Msize);
+        rowH    = numroc_( &Msize, &nb, &myrow, &izero, &nprow );
+        colH    = numroc_( &Msize, &nb, &mycol, &izero, &npcol );
+        tensor2D< double> H_tmp(rowH, colH);
         H = H_tmp;
         }
     else
         {
         Msize = p.Nsize + p.Nstep;
-        tensor2D< double> H_tmp(Msize, Msize);
+        rowH    = numroc_( &Msize, &nb, &myrow, &izero, &nprow );
+        colH    = numroc_( &Msize, &nb, &mycol, &izero, &npcol );
+        tensor2D< double> H_tmp(rowH, colH);
         H = H_tmp;
         }
 
@@ -75,12 +97,31 @@ subspace(sub)
 void Hamiltonian::init()
 {
 
-    for (int i=0;i<Msize*Msize;i++)
+    for (int i=0;i<rowH*colH;i++)
          {
          H.data[i]=0.;
          }
 
-   
+    int myrank_mpi, nprocs_mpi;
+    MPI_Comm_rank(MPI_COMM_WORLD, &myrank_mpi);
+    MPI_Comm_size(MPI_COMM_WORLD, &nprocs_mpi);
+    int izero=0;
+    int nb=NB;
+    int itemp=rowH>1?rowH:1;
+    int info;
+    descinit_( descH,  &Msize, &Msize, &nb, &nb, &izero, &izero, &ictxt, &itemp, &info );
+
+
+    int localSize = myrank_mpi < Msize%nprocs_mpi ? Msize/nprocs_mpi+1 :  Msize/nprocs_mpi;
+    int localOffset = 0;
+    for (int proc=0; proc < myrank_mpi; proc++)
+        {
+        localOffset +=  proc < Msize%nprocs_mpi ? Msize/nprocs_mpi+1 :  Msize/nprocs_mpi;
+        } 
+     
+    std::cout << myrank_mpi << " " << localSize << " " << localOffset << std::endl;
+    std::cout << myrank_mpi << " " << me.me_chi_ortho.n1 << " " << me.me_chi_ortho.n2 << " " << me.me_chi_ortho.n3 << " " << me.me_chi_ortho.n4 << " " << me.me_chi_ortho.n5 << " " << &(me.me_chi_ortho)<< std::endl;
+    MPI_Barrier(MPI_COMM_WORLD);
     for (int pert=0; pert < p.numPert; pert++)
         {
         //effective strength of each perturbation
@@ -92,29 +133,48 @@ void Hamiltonian::init()
             int st_left = st.state_left[i];
             int st_right  = st.state_right[i];
             //off-diagonal elements
-            for(int j=0; j < Msize; ++j) 
+            for(int j=localOffset; j < localOffset + localSize; ++j) 
                 {
                 if( ( st.cstate_lev(st.state_vmod[i],st.state_left[i]) - st.cstate_lev(st.state_vmod[i],st.state_right[i]) )==( st.cstate_lev(st.state_vmod[j],st.state_left[j]) - st.cstate_lev(st.state_vmod[j],st.state_right[j]) ) )
                     {
                     int st_vmodj = st.state_vmod[j];
                     double temp = me.me_chi_ortho(pert, st_vmod, st_vmodj, st_left, st.state_left[j]);
                     temp *= me.me_chi_ortho(pert, st_vmod, st_vmodj, st_right, st.state_right[j]);
-                    H(i,j) += (c*temp);
+                    double alpha = 0;
+                    char getcode = 'A';
+                    char top = ' ';
+                    int row=i+1;
+                    int col=j+1;
+                    pdelget_(&getcode,&top, &alpha, H.data, &row, &col, descH);
+                    alpha += (c*temp);
+                    pdelset_(H.data, &row, &col, descH, &alpha);
+                    
                     }
                 }
 
             // diagonal elements (check 2pi factor)
-            H(i,i) += 2.*pi/R*(st.state_en[i]-p.C/12.)/p.numPert;
-    
+            double alpha;
+            char getcode = 'A';
+            char top = ' ';
+            int row=i+1;
+            pdelget_(&getcode,&top, &alpha, H.data, &row, &row, descH);
+            alpha += 2.*pi/R*(st.state_en[i]-p.C/12.)/p.numPert;
+            pdelset_(H.data, &row, &row, descH, &alpha);          
             }
         }
     //check for hermiticity
+    std::cout << myrank_mpi << " till here " << std::endl;
 
     for(int i=0;i<Msize;++i) 
         {
-        for(int j=0;j<Msize;++j) 
+        for(int j=localOffset;j< localOffset + localSize;++j) 
             {
-            if (fabs(H(i,j)-H(j,i)) > .000001)
+            double alphai, alphaj;
+            char getcode = 'A';
+            char top = ' ';
+            pdelget_(&getcode,&top, &alphai, H.data, &i, &j, descH);
+            pdelget_(&getcode,&top, &alphaj, H.data, &j, &i, descH);
+            if (fabs(alphai-alphaj) > .000001)
                 std::cout << " Warning - hermiticity problem " << std::endl;
             }
         } 
@@ -418,25 +478,38 @@ void Hamiltonian::print_eigenValues(int iteration, int sweep, double* eigenValue
 
 void Hamiltonian::print_eigenVectors(double* eigenVectors, std::string fname, int size)
 {
-    std::ofstream eigenVec_output;
-    if ( Momentum == -1)
-        {
-        eigenVec_output.open(fname.c_str(), std::ofstream::out | std::ofstream::app);
-        }
-    else
-        {
-        std::stringstream temp;
-        temp << fname << "_Mom_" << Momentum; 
-        eigenVec_output.open(temp.str().c_str(), std::ofstream::out | std::ofstream::app);
-        }
+    int myrank_mpi,nprocs_mpi;
+    MPI_Comm_rank(MPI_COMM_WORLD, &myrank_mpi);
+    MPI_Comm_size(MPI_COMM_WORLD, &nprocs_mpi);
 
-    for (int i=0; i < p.maxEigen; ++i)
+    if(myrank_mpi == 0)
         {
-        for (int j=0; j < size; ++j)
+        std::ofstream eigenVec_output;
+        if ( Momentum == -1)
             {
-            eigenVec_output  << eigenVectors[i*size + j]  << " ";
+            eigenVec_output.open(fname.c_str(), std::ofstream::out | std::ofstream::app);
             }
-        eigenVec_output << std::endl;
-        }
+        else
+            {
+            std::stringstream temp;
+            temp << fname << "_Mom_" << Momentum; 
+            eigenVec_output.open(temp.str().c_str(), std::ofstream::out | std::ofstream::app);
+            }
 
+        for (int i=0; i < p.maxEigen; ++i)
+            {
+            for (int j=0; j < size; ++j)
+                {
+                double alpha = 0;
+                char getcode = 'A';
+                char top = ' ';
+                int row=i+1;
+                int col=j+1;
+                pdelget_(&getcode,&top, &alpha, H.data, &row, &col, descH); 
+                eigenVec_output  << alpha  << " ";
+                }
+            eigenVec_output << std::endl;
+            }
+        }
+    MPI_Barrier(MPI_COMM_WORLD);
 }

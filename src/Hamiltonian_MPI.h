@@ -28,11 +28,15 @@ class Hamiltonian
 {
     public: 
         tensor2D< double > H; /**< Tensor2D holding the Hamiltonian matrix elements */
-        int Msize; /**< Size of the Hamiltonian matrix */
+        int Msize; /**< Size of the Global Hamiltonian matrix */
+        int rowH;   /**< Number of row of local slice of Hamiltonian matrix */
+        int colH;   /**< Number of columns of local slice of Hamiltonian matrix */
         double R;  /**< Current value of the system size R */
+        int descH[9]; /**< BLACS descriptor of the distributed Hamiltonian */
+        int ictxt;   /**< BLACS context */
         int Momentum; /**< Current momentum subspace. */
         parameters& p; /**< Reference to parameters object */
-        states& st; /**< Reference to state obejct */
+        states& st; /**< Reference to state object */
         chirME& me; /**< Reference to chirMe object */
         int subspace; /**< Current symmetry subspace */
         /** Constructor. 

@@ -1,19 +1,19 @@
-/** Class that handles exact diagonalization, NRG and Sweep in a model-agnostic way ( as much as possible ) 
+/** Class that handles exact diagonalization, NRG and Sweep in a model-agnostic way ( as much as possible ) - MPI Parallel Version using scalapack/pblas 
  * \authors Giuseppe Piero Brandino - eXact-lab s.r.l.
  * \date November 2017
  */
 
-#include "NRG.h"
+#include "NRG_MPI.h"
 #include "parameters.h"
 #include "tensors.h"
 #include "filenames.h"
+#include "config.h"
+#include "scalapack.h"
 #include <cblas.h>
 #include <cstring>
 #include <fstream>
 #include <sstream>
-#ifdef MPI_PAR
 #include <mpi.h>
-#endif 
 
 NRG::NRG()
 {
@@ -27,39 +27,32 @@ NRG::~NRG()
 
 void NRG::run(parameters& p, Hamiltonian& H, filenames& fnames)
 {
-#ifdef MPI_PAR
     int myrank_mpi,nprocs_mpi;
     MPI_Comm_rank(MPI_COMM_WORLD, &myrank_mpi);
     MPI_Comm_size(MPI_COMM_WORLD, &nprocs_mpi);
-#endif
 
     H.init();
     char jobz;
-    char range='A';
     char uplo='L';
-    int  il = 1;
-    int  iu = H.Msize;
-    int lda = H.Msize;
-    int ldz = H.Msize;
-    int ms = H.Msize;
-    double vl = 0.;
-    double vu = 0.;
-    double abstol= 0.;
-    int lwork;
-    int liwork;
-    double* work;
-    int* iwork;
-    int *isuppz;
-    int info;
     int n = H.Msize;
+    int ia, ja;
+    int iz,jz;
+    int descZ[9];
+    int izero=0;
+    int ione=1;
+    int lwork;
+    double* work;
+    int info;
 
     double* eigen = new double[H.Msize];
 
     if ( p.NRG or p.calcExpVal or p.saveEigenvec)
         {
         jobz = 'V';
-        tensor2D<double> EigenVectors_tmp(H.Msize, H.Msize);
+        tensor2D<double> EigenVectors_tmp(H.rowH, H.colH);
         EigenVectors = EigenVectors_tmp;
+        for(int i=0; i<9; i++)
+            descZ[i]=H.descH[i];
         }
     else
         {
@@ -81,30 +74,30 @@ void NRG::run(parameters& p, Hamiltonian& H, filenames& fnames)
 
     if ( p.NRG )
         {
-        std::cout << " Performing " << NIters << " iterations " << std::endl;
-        std::cout << " NRG iteration: 0 " << std::flush;
+        if (myrank_mpi == 0)
+            {
+            std::cout << " Performing " << NIters << " iterations " << std::endl;
+            std::cout << " NRG iteration: 0 " << std::flush;
+            }            
         }
     
     lwork = -1;
-    liwork = -1;
-    double t_work;
-    int t_iwork;
-    isuppz = new int[2*ms];
-   
-    dsyevr_(&jobz,&range,&uplo,&n,NULL,&lda,&vl,&vu,&il,&iu,&abstol,&ms,eigen,NULL,&ldz,isuppz,&t_work,&lwork,&t_iwork,&liwork,&info);
+    work = new double[2]; 
+    pdsyev_( &jobz, &uplo, &n, H.H.data, &ione, &ione, H.descH, eigen, EigenVectors.data, &ione, &ione, descZ, work, &lwork, &info ); 
 
-    lwork = (int)t_work;
-    liwork = t_iwork;
+    lwork = (int)work[0];
+    delete [] work;  
     work = new double[lwork];
-    iwork = new int[liwork];
 
-    dsyevr_(&jobz,&range,&uplo,&n,H.H.data,&lda,&vl,&vu,&il,&iu,&abstol,&ms,eigen,EigenVectors.data,&ldz,isuppz,work,&lwork,iwork,&liwork,&info);
-    if (info > 0)
+    pdsyev_( &jobz, &uplo, &n, H.H.data, &ione, &ione, H.descH, eigen, EigenVectors.data, &ione, &ione, descZ, work, &lwork, &info );
+    if (info > 0 and myrank_mpi == 0)
         {
-        std::cerr << " Lapack problem. Error code: " << info << std::endl;
+        std::cerr << " SCALapack problem. Error code: " << info << std::endl;
         }
 
-    H.print_eigenValues(0,0,eigen,fnames.EigenName, H.Msize);
+    if (myrank_mpi == 0)    
+        H.print_eigenValues(0,0,eigen,fnames.EigenName, H.Msize);
+    MPI_Barrier(MPI_COMM_WORLD);
 
     if ( p.saveEigenvec and !p.NRG )
         {
@@ -241,7 +234,7 @@ void NRG::run(parameters& p, Hamiltonian& H, filenames& fnames)
                 }
 
             ///diagonalize Hamiltonian and sort for relevant states
-            dsyevr_(&jobz,&range,&uplo,&n,H.H.data,&lda,&vl,&vu,&il,&iu,&abstol,&ms,eigen,EigenVectors.data,&ldz,isuppz,work,&lwork,iwork,&liwork,&info);
+            //dsyevr_(&jobz,&range,&uplo,&n,H.H.data,&lda,&vl,&vu,&il,&iu,&abstol,&ms,eigen,EigenVectors.data,&ldz,isuppz,work,&lwork,iwork,&liwork,&info);
 
             int NRGsize;
             int newSize;
@@ -425,9 +418,7 @@ void NRG::run(parameters& p, Hamiltonian& H, filenames& fnames)
                 }
 
             } // closing loop over NRG iterations
-#ifdef MPI_PAR
         if (myrank_mpi == 0)
-#endif
             std::cout << std::endl;
         } // closing loop over sweeps
 
@@ -436,7 +427,5 @@ void NRG::run(parameters& p, Hamiltonian& H, filenames& fnames)
         delete [] coeff;
 
     delete [] work;
-    delete [] iwork;
-    delete [] isuppz;
     delete [] eigen;
 }
