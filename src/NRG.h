@@ -9,7 +9,11 @@
 
 #include "tensors.h"
 #include "parameters.h"
+#ifdef MPI_PAR
+#include "Hamiltonian_MPI.h"
+#else
 #include "Hamiltonian.h"
+#endif
 #include "filenames.h"
 
 extern "C" {

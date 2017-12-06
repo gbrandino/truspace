@@ -31,14 +31,13 @@ me(me_in),
 subspace(sub)
 {
     // init blacs grid
-    int nprow;
-    int npcol;
-    int myrow;
-    int mycol;
+    //int nprow;
+    //int npcol;
+    //int myrow;
+    //int mycol;
     int nb=NB;
     int iam;
     int nprocs;
-    int ictxt;
     int izero = 0;
     Cblacs_pinfo( &iam, &nprocs ) ;
     Cblacs_get( -1, 0, &ictxt );
@@ -53,6 +52,16 @@ subspace(sub)
         colH    = numroc_( &Msize, &nb, &mycol, &izero, &npcol );
         tensor2D< double> H_tmp(rowH, colH);
         H = H_tmp;
+        localOffsetRow = 0;
+        for (int proc=0; proc < myrow; proc++)
+            {
+            localOffsetRow +=  numroc_( &Msize, &nb, &proc, &izero, &nprow );
+            }
+        localOffsetCol = 0;
+        for (int proc=0; proc < mycol; proc++)
+            {
+            localOffsetCol +=  numroc_( &Msize, &nb, &proc, &izero, &npcol );
+            }
         }
     else
         {
@@ -61,8 +70,18 @@ subspace(sub)
         colH    = numroc_( &Msize, &nb, &mycol, &izero, &npcol );
         tensor2D< double> H_tmp(rowH, colH);
         H = H_tmp;
+        localOffsetRow = 0;
+        for (int proc=0; proc < myrow; proc++)
+            {
+            localOffsetRow +=  numroc_( &Msize, &nb, &proc, &izero, &nprow );
+            }
+        localOffsetCol = 0;
+        for (int proc=0; proc < mycol; proc++)
+            {
+            localOffsetCol +=  numroc_( &Msize, &nb, &proc, &izero, &npcol );
+            }
         }
-
+    std::cout << "NUMROC "<< myrow << " " << mycol <<" " << rowH << " " << localOffsetRow << " " << colH << " " << localOffsetCol <<std::endl;  
     // checking printing size 
     if ( p.maxEigen == 0 )
         {
@@ -112,28 +131,20 @@ void Hamiltonian::init()
     descinit_( descH,  &Msize, &Msize, &nb, &nb, &izero, &izero, &ictxt, &itemp, &info );
 
 
-    int localSize = myrank_mpi < Msize%nprocs_mpi ? Msize/nprocs_mpi+1 :  Msize/nprocs_mpi;
-    int localOffset = 0;
-    for (int proc=0; proc < myrank_mpi; proc++)
-        {
-        localOffset +=  proc < Msize%nprocs_mpi ? Msize/nprocs_mpi+1 :  Msize/nprocs_mpi;
-        } 
-     
-    std::cout << myrank_mpi << " " << localSize << " " << localOffset << std::endl;
-    std::cout << myrank_mpi << " " << me.me_chi_ortho.n1 << " " << me.me_chi_ortho.n2 << " " << me.me_chi_ortho.n3 << " " << me.me_chi_ortho.n4 << " " << me.me_chi_ortho.n5 << " " << &(me.me_chi_ortho)<< std::endl;
     MPI_Barrier(MPI_COMM_WORLD);
     for (int pert=0; pert < p.numPert; pert++)
         {
         //effective strength of each perturbation
         double c = p.pConst[pert]*2.*pi*pow(R/2./pi,1.-2.*p.deltas[pert]); 
 
-        for(int i=0; i < Msize; ++i) 
+        //for(int i=0; i < Msize; ++i) 
+        for(int i=localOffsetRow; i < localOffsetRow + rowH; ++i)
             {
             int st_vmod = st.state_vmod[i];
             int st_left = st.state_left[i];
             int st_right  = st.state_right[i];
             //off-diagonal elements
-            for(int j=localOffset; j < localOffset + localSize; ++j) 
+            for(int j=localOffsetCol; j < localOffsetCol + colH; ++j) 
                 {
                 if( ( st.cstate_lev(st.state_vmod[i],st.state_left[i]) - st.cstate_lev(st.state_vmod[i],st.state_right[i]) )==( st.cstate_lev(st.state_vmod[j],st.state_left[j]) - st.cstate_lev(st.state_vmod[j],st.state_right[j]) ) )
                     {
@@ -167,7 +178,8 @@ void Hamiltonian::init()
 
     for(int i=0;i<Msize;++i) 
         {
-        for(int j=localOffset;j< localOffset + localSize;++j) 
+        //for(int j=localOffset;j< localOffset + localSize;++j) 
+        for(int j=0;j<Msize;++j)
             {
             double alphai, alphaj;
             char getcode = 'A';

@@ -16,7 +16,11 @@
 #include "states.h"
 #include "filenames.h"
 #include "chirME.h"
+#ifdef MPI_PAR
+#include "Hamiltonian_MPI.h"
+#else
 #include "Hamiltonian.h"
+#endif
 #include "NRG.h"
 #include "config.h"
 #include <complex>

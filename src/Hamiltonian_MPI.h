@@ -31,6 +31,12 @@ class Hamiltonian
         int Msize; /**< Size of the Global Hamiltonian matrix */
         int rowH;   /**< Number of row of local slice of Hamiltonian matrix */
         int colH;   /**< Number of columns of local slice of Hamiltonian matrix */
+        int localOffsetRow; /**< Row ffset of the Hamiltonian matrix for the current process in the BLACS grid */
+        int localOffsetCol; /**< Col ffset of the Hamiltonian matrix for the current process in the BLACS grid */
+        int nprow;  /**< Number of processes per row in the BLACS grid */
+        int npcol;  /**< Number of processes per col in the BLACS grid */
+        int myrow;  /**< Row ID of the current process in the BLACS grid */
+        int mycol;  /**< Col ID of the current process in the BLACS grid */
         double R;  /**< Current value of the system size R */
         int descH[9]; /**< BLACS descriptor of the distributed Hamiltonian */
         int ictxt;   /**< BLACS context */
