@@ -21,17 +21,21 @@ mpi : truspace_mpi.x
 
 $(OBJS): %.o : %.cpp %.h config.h
 	$(CXX) $(CFLAGS) -c $<
-	
-$(OBJS_MPI): %.o : %.cpp %.h config.h
-	$(MPICXX) -DMPI_PAR $(CFLAGS) -c $<
+
+Hamiltonian_MPI.o : Hamiltonian_MPI.cpp Hamiltonian_MPI.h config.h
+	$(CXX) $(CFLAGS) -c $<
+
+NRG_MPI.o : NRG_MPI.cpp NRG_MPI.h config.h
+	$(CXX) $(CFLAGS) -c $<	
 
 truspace.x : truspace.cpp $(OBJS)
 	${CXX} ${CFLAGS}  $^ ${LIBS} -o  $@  -Wl,-rpath ${CLN}/lib/ -Wl,-rpath ${GINAC}/lib/ -Wl,-rpath ${BLAS}/lib/ -Wl,-rpath ${LAPACK}/lib
 
+truspace_mpi.x : CFLAGS += -DMPI_PAR 
+truspace_mpi.x : CXX=${MPICXX}
 truspace_mpi.x : truspace.cpp $(OBJS_MPI)
 	${MPICXX} -DMPI_PAR ${CFLAGS}  $^ ${LIBS} ${SCALAPACK_LIB} -lgfortran -o  $@  -Wl,-rpath ${CLN}/lib/ -Wl,-rpath ${GINAC}/lib/ -Wl,-rpath ${BLAS}/lib/ -Wl,-rpath ${LAPACK}/lib 
 
-%.o : 
 
 clean:
 	rm -f *.x *.o

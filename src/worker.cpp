@@ -18,10 +18,11 @@
 #include "chirME.h"
 #ifdef MPI_PAR
 #include "Hamiltonian_MPI.h"
+#include "NRG_MPI.h"
 #else
 #include "Hamiltonian.h"
-#endif
 #include "NRG.h"
+#endif
 #include "config.h"
 #include <complex>
 #include <iostream>
