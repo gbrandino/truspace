@@ -82,14 +82,28 @@ void NRG::run(parameters& p, Hamiltonian& H, filenames& fnames)
         }
     
     lwork = -1;
-    work = new double[2]; 
-    pdsyev_( &jobz, &uplo, &n, H.H.data, &ione, &ione, H.descH, eigen, EigenVectors.data, &ione, &ione, descZ, work, &lwork, &info ); 
+    work = new double[2];
+
+    //
+ 
+    int liwork = 7*n + 8*H.npcol +2;
+    int* iwork = new int[liwork];
+    jobz = 'V';
+        tensor2D<double> EigenVectors_tmp(H.rowH, H.colH);
+        EigenVectors = EigenVectors_tmp;
+        for(int i=0; i<9; i++)
+            descZ[i]=H.descH[i];
+    //
+ 
+    //pdsyev_( &jobz, &uplo, &n, H.H.data, &ione, &ione, H.descH, eigen, EigenVectors.data, &ione, &ione, descZ, work, &lwork, &info ); 
+    pdsyevd_( &jobz, &uplo, &n, H.H.data, &ione, &ione, H.descH, eigen, EigenVectors.data, &ione, &ione, descZ, work, &lwork, iwork, &liwork, &info );    
 
     lwork = (int)work[0];
     delete [] work;  
     work = new double[lwork];
 
-    pdsyev_( &jobz, &uplo, &n, H.H.data, &ione, &ione, H.descH, eigen, EigenVectors.data, &ione, &ione, descZ, work, &lwork, &info );
+    //pdsyev_( &jobz, &uplo, &n, H.H.data, &ione, &ione, H.descH, eigen, EigenVectors.data, &ione, &ione, descZ, work, &lwork, &info );
+    pdsyevd_( &jobz, &uplo, &n, H.H.data, &ione, &ione, H.descH, eigen, EigenVectors.data, &ione, &ione, descZ, work, &lwork, iwork, &liwork, &info );
     if (info > 0 and myrank_mpi == 0)
         {
         std::cerr << " SCALapack problem. Error code: " << info << std::endl;
@@ -427,5 +441,6 @@ void NRG::run(parameters& p, Hamiltonian& H, filenames& fnames)
         delete [] coeff;
 
     delete [] work;
+    delete [] iwork;
     delete [] eigen;
 }

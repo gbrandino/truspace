@@ -41,6 +41,9 @@ class Hamiltonian
         int colH;   /**< Number of columns of local slice of Hamiltonian matrix */
         int localOffsetRow; /**< Row ffset of the Hamiltonian matrix for the current process in the BLACS grid */
         int localOffsetCol; /**< Col ffset of the Hamiltonian matrix for the current process in the BLACS grid */
+        int myrank_mpi;  /**< Processor ID for MPI */
+        int nprocs_mpi;  /**< Number of MPI processes */
+        int* Offset;     /**< Array containing the offset for each process, used for the distributed calculation of the Hamiltonian */
         int nprow;  /**< Number of processes per row in the BLACS grid */
         int npcol;  /**< Number of processes per col in the BLACS grid */
         int myrow;  /**< Row ID of the current process in the BLACS grid */

@@ -18,8 +18,7 @@
 
 Hamiltonian::~Hamiltonian()
 {
-
-
+    delete [] Offset;
 }
 
 
@@ -40,6 +39,10 @@ subspace(sub)
     nprow = npcol = sqrt(nprocs);
     Cblacs_gridinit( &ictxt, "Row", nprow, npcol );
     Cblacs_gridinfo( ictxt, &nprow, &npcol, &myrow, &mycol );
+
+    MPI_Comm_rank(MPI_COMM_WORLD, &myrank_mpi);
+    MPI_Comm_size(MPI_COMM_WORLD, &nprocs_mpi);
+
 
     if (!p.NRG)
         {
@@ -79,6 +82,28 @@ subspace(sub)
             localOffsetCol +=  numroc_( &Msize, &nb, &proc, &izero, &npcol );
             }
         }
+ 
+    // Offset contains the offsets for each process. The last element is the size of H
+    Offset = new int[nprocs_mpi+1];
+    int* localSizes=new int[nprocs_mpi];
+    for (int i=0; i<nprocs_mpi; ++i)
+        {
+        if( i < Msize%nprocs_mpi )
+            localSizes[i] = Msize/nprocs_mpi + 1;
+        else
+            localSizes[i] = Msize/nprocs_mpi;
+        }
+    
+    int sumSizes;
+    Offset[0] = 0;   
+    for (int i=1; i<nprocs_mpi; ++i)
+        {
+        sumSizes += localSizes[i-1];
+        Offset[i] = sumSizes;
+        }
+    Offset[nprocs_mpi] = Msize;
+
+    delete [] localSizes;
 
     // checking printing size 
     if ( p.maxEigen == 0 )
@@ -119,86 +144,75 @@ void Hamiltonian::init()
          H.data[i]=0.;
          }
 
-    int myrank_mpi, nprocs_mpi;
-    MPI_Comm_rank(MPI_COMM_WORLD, &myrank_mpi);
-    MPI_Comm_size(MPI_COMM_WORLD, &nprocs_mpi);
     int izero=0;
     int nb=NB;
     int itemp=rowH>1?rowH:1;
     int info;
     descinit_( descH,  &Msize, &Msize, &nb, &nb, &izero, &izero, &ictxt, &itemp, &info );
 
-    double* tempH = new double[rowH*colH];
-    for (int i=0; i < rowH*colH; ++i)
+    int localSlice = Offset[myrank_mpi+1] - Offset[myrank_mpi];
+    double* tempH = new double[localSlice * Msize];
+    for (int i=0; i < localSlice*Msize; ++i)
         tempH[i]=0.;
 
     MPI_Barrier(MPI_COMM_WORLD);
+
     for (int pert=0; pert < p.numPert; pert++)
         {
         //effective strength of each perturbation
         double c = p.pConst[pert]*2.*pi*pow(R/2./pi,1.-2.*p.deltas[pert]); 
 
         //for(int i=0; i < Msize; ++i) 
-        for(int i=localOffsetRow; i < localOffsetRow + rowH; ++i)
+        for(int i=Offset[myrank_mpi]; i < Offset[myrank_mpi+1]; ++i)
             {
             int st_vmod = st.state_vmod[i];
             int st_left = st.state_left[i];
             int st_right  = st.state_right[i];
             //off-diagonal elements
-            for(int j=localOffsetCol; j < localOffsetCol + colH; ++j) 
+            for(int j=0; j < Msize; ++j)
+            //for(int j=localOffsetCol; j < localOffsetCol + colH; ++j) 
                 {
-    //            std::cout << myrow << " " << mycol << " " << i << " " << j << std::endl;
                 if( ( st.cstate_lev(st.state_vmod[i],st.state_left[i]) - st.cstate_lev(st.state_vmod[i],st.state_right[i]) )==( st.cstate_lev(st.state_vmod[j],st.state_left[j]) - st.cstate_lev(st.state_vmod[j],st.state_right[j]) ) )
                     {
                     int st_vmodj = st.state_vmod[j];
                     double temp = me.me_chi_ortho(pert, st_vmod, st_vmodj, st_left, st.state_left[j]);
                     temp *= me.me_chi_ortho(pert, st_vmod, st_vmodj, st_right, st.state_right[j]);
-                    /*double alpha = 0;
-                    char getcode = 'A';
-                    char top = ' ';
-                    int row=i+1;
-                    int col=j+1;
-                    pdelget_(&getcode,&top, &alpha, H.data, &row, &col, descH);
-                    alpha += (c*temp);
-                    pdelset_(H.data, &row, &col, descH, &alpha); */
-                    tempH[ (i-localOffsetRow)*colH + (j-localOffsetCol)] += c*temp;
+                    tempH[ (i- Offset[myrank_mpi])*Msize + j] += c*temp;
                     }
                 if ( i==j )
-                    tempH[ (i-localOffsetRow)*colH + (i-localOffsetCol)] += 2.*pi/R*(st.state_en[i]-p.C/12.)/p.numPert;
+                    tempH[ (i-Offset[myrank_mpi])*Msize + i] += 2.*pi/R*(st.state_en[i]-p.C/12.)/p.numPert;
                 }
-
-            // diagonal elements (check 2pi factor)
-            /*double alpha;
-            char getcode = 'A';
-            char top = ' ';
-            int row=i+1;
-            pdelget_(&getcode,&top, &alpha, H.data, &row, &row, descH);
-            alpha += 2.*pi/R*(st.state_en[i]-p.C/12.)/p.numPert;
-            pdelset_(H.data, &row, &row, descH, &alpha);*/
             }
-        }
+        } 
 
-    for(int i=0; i < rowH; ++i)
+    //Offset[1] always contains the size of the largest slice (if any of them is larger)
+    double* shareH = new double[Offset[1]*Msize];
+    for (int n=0; n<nprocs_mpi; ++n)
         {
-        for(int j=0; j < colH; ++j)
+        int slice = Offset[n+1] - Offset[n];
+        if (myrank_mpi == n)
             {
-            int row=i + localOffsetRow + 1;
-            int col=j + localOffsetCol + 1;
-            double alpha = tempH[i*colH +j];
-            pdelset_(H.data, &row, &col, descH, &alpha);
-            //if (myrow == 1 and mycol == 0 and fabs(tempH[i*colH +j])>1.0 )//and i==j)
-            //     std::cout << tempH[i*colH +j] << " ";
+            memcpy(shareH, tempH, slice*Msize*sizeof(double));
             }
-        //if (myrow == 0 and mycol == 0)
-        //    std::cout << std::endl;
+        MPI::COMM_WORLD.Bcast(shareH, slice*Msize, MPI_DOUBLE, n); 
+        for(int i=0; i < slice; ++i)
+            {
+            for(int j=0; j < Msize; ++j)
+                {
+                int row=i + Offset[n] + 1;
+                int col=j + 1;
+                double alpha = shareH[i*Msize +j];
+                pdelset_(H.data, &row, &col, descH, &alpha);
+                }
+            }
         }
-            
-    delete [] tempH;
-    //check for hermiticity
 
+    delete [] tempH;
+    delete [] shareH;
+
+    // Hermiticity check
     for(int i=0;i<Msize;++i) 
         {
-        //for(int j=localOffset;j< localOffset + localSize;++j) 
         for(int j=0;j<Msize;++j)
             {
             double alphai, alphaj;
@@ -208,12 +222,14 @@ void Hamiltonian::init()
             int col=j+1;
             pdelget_(&getcode,&top, &alphai, H.data, &row, &col, descH);
             pdelget_(&getcode,&top, &alphaj, H.data, &col, &row, descH);
+            //if (myrow == 0 and mycol == 0)
+            //    std::cout  <<  alphai << " ";
             if (fabs(alphai-alphaj) > .000001)
                 std::cout << " Warning - hermiticity problem i,j H(i,j) H(j,i) " << i << " " << j << " " << alphai << " " << alphaj  << " " << std::endl;
             }
+        //if (myrow == 0 and mycol == 0)
+        //        std::cout << std::endl;
         } 
-
-
 
 }
 
@@ -512,9 +528,6 @@ void Hamiltonian::print_eigenValues(int iteration, int sweep, double* eigenValue
 
 void Hamiltonian::print_eigenVectors(double* eigenVectors, std::string fname, int size)
 {
-    int myrank_mpi,nprocs_mpi;
-    MPI_Comm_rank(MPI_COMM_WORLD, &myrank_mpi);
-    MPI_Comm_size(MPI_COMM_WORLD, &nprocs_mpi);
 
     if(myrank_mpi == 0)
         {
