@@ -237,17 +237,24 @@ void Hamiltonian::NRG_block_A(double* eigenvalues)
 {
     // called first, clears the entire Hamiltonian, then stores the eigenvalues on the diagonal 
     // for the Nsize*Nsize submatrix
-    for (int i=0;i<Msize*Msize;i++)
-         {
-         H.data[i]=0.;
-         }
-    for( int i=0; i < p.Nsize;++i)
-        H(i,i) = eigenvalues[i];
+    for (int i=0;i<Msize;++i)   
+        { 
+        for (int j=0; j < Msize; ++j)
+            {
+            int row = i + 1;
+            int col = j + 1;
+            double alpha = 0.0;
+            if ( i == j )
+                alpha = eigenvalues[i];
+            pdelset_(H.data, &row, &col, descH, &alpha);
+            }
+        }
 
 }
 
 void Hamiltonian::NRG_block_BC(int iteration, double* coeff)
 {
+    // all ranks calculate block B-C. This could probably be parallelized, even though the speed up could be irrelevant
     int shift = p.Nsize + p.Nstep*iteration;
     double* me_needed = new double[p.Nstep*shift];
     double* results = new double[p.Nstep*p.Nsize];
@@ -287,8 +294,13 @@ void Hamiltonian::NRG_block_BC(int iteration, double* coeff)
             int ishift1 = i*p.Nsize;
             for(int j=0;j< p.Nsize;++j)
                 {
-                H(ishift, j) += results[ishift1+j];
-                H(j,ishift) += results[ishift1+j];
+                //H(ishift, j) += results[ishift1+j];
+                //H(j,ishift) += results[ishift1+j];
+                int row = ishift + 1;
+                int col = j + 1;
+                double alpha = results[ishift1+j];
+                pdelset_(H.data, &row, &col, descH, &alpha);
+                pdelset_(H.data, &col, &row, descH, &alpha);
                 }
             }
         }
@@ -299,7 +311,12 @@ void Hamiltonian::NRG_block_BC(int iteration, double* coeff)
 
 void Hamiltonian::NRG_block_D(int iteration)
 {
-   for (int pert=0; pert < p.numPert; pert++)
+    double* tempD = new double[p.Nstep*p.Nstep];
+    for(int i=0; i < p.Nstep*p.Nstep; ++i)
+        tempD[i] = 0.0;
+
+    // all ranks calculate block D
+    for (int pert=0; pert < p.numPert; pert++)
         {
         //effective strength of each perturbation
         double c = p.pConst[pert]*2.*pi*pow(R/2./pi,1.-2.*p.deltas[pert]);
@@ -319,17 +336,28 @@ void Hamiltonian::NRG_block_D(int iteration)
                     int st_vmodj = st.state_vmod[jshift];
                     double temp = me.me_chi_ortho(pert, st_vmod, st_vmodj, st_left, st.state_left[jshift]);
                     temp *= me.me_chi_ortho(pert, st_vmod, st_vmodj, st_right, st.state_right[jshift]);
-                    H(i + p.Nsize, j + p.Nsize) += (c*temp);
+                    tempD[i*p.Nstep + j] +=  (c*temp); 
                     }
                 }
 
             // diagonal elements (check 2pi factor)
-            H(i + p.Nsize, i + p.Nsize ) += 2.*pi/R*(st.state_en[shift + i]-p.C/12.)/p.numPert;
-
+            tempD[i*p.Nstep + i] += 2.*pi/R*(st.state_en[shift + i]-p.C/12.)/p.numPert;
             }
         }
 
+    // setting block D in the distributed H
+    for(int i=0; i < p.Nstep; ++i)
+        {
+        for(int j=0; j < p.Nstep; ++j)
+            {
+            int row = i + p.Nsize + 1;
+            int col = j + p.Nsize + 1;
+            double alpha = tempD[i*p.Nstep + j];
+            pdelset_(H.data, &row, &col, descH, &alpha);
+            }
+        }
 
+    delete [] tempD;
 }
  
 

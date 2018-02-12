@@ -119,35 +119,43 @@ void NRG::run(parameters& p, Hamiltonian& H, filenames& fnames)
         }
     if ( p.calcExpVal and !p.NRG)
         {
+        // check if mpi parallel
         H.me.calculate_ExpVal(p, H.st, EigenVectors.data, H.Msize, H.Momentum, fnames.MeOpName, H.R);
         }
 
 
     // starting iterations 
+    // Each MPI process holds a copy of the eigenvectors of the previous iteration
     double * coeff; 
     if ( p.NRG )
         {
         coeff=new double[p.Nsize*H.Msize];
-        for(int i=0;i < p.Nsize;++i)
+        for(int i=0; i < p.Nsize;++i)
             {
             int ishift = i*H.Msize;
             for(int k=0; k < H.Msize;++k)
                  {
-                 coeff[ishift+k] = EigenVectors(i,k);  //the i-ith eigenvector is stored as the i-th row of X
+                 char getcode = 'A';
+                 char top = ' ';
+                 int row=i+1;
+                 int col=k+1;
+                 double alpha;
+                 pdelget_(&getcode,&top, &alpha, EigenVectors.data, &row, &col, descZ);
+                 coeff[ishift + k] = alpha;  //the i-ith eigenvector is stored as the i-th row of X
                  }
             }
 
         }
-
     std::fstream storeCoeff;
     std::fstream storeEigen;
     double* coeffSweep;
 
     for ( int sweep = 0; sweep <= NSweeps; ++sweep)
         {
-        if (sweep ==  0 and NSweeps > 0)
+        if (sweep ==  0 and NSweeps > 0 and myrank_mpi == 0)
             {
             //Storing to file eigenvectors and eigenvalues of 'step' part of hamiltonian for iteration 0
+            // Only rank 0 menages I/O
             std::stringstream storeCoeffname;
             storeCoeffname << "storeCoeff_0" << ".bin";
             storeCoeff.open(storeCoeffname.str().c_str(),std::ios::out | std::ios::binary | std::ios::trunc );
@@ -155,7 +163,13 @@ void NRG::run(parameters& p, Hamiltonian& H, filenames& fnames)
                 {
                 for (int j=0;j< H.Msize;j++)
                     {
-                    storeCoeff.write(reinterpret_cast<char*>( &EigenVectors.data[i*(H.Msize)+j] ),sizeof(double));
+                    char getcode = 'A';
+                    char top = ' ';
+                    int row = i+1;
+                    int col = j+1;
+                    double alpha;
+                    pdelget_(&getcode,&top, &alpha, EigenVectors.data, &row, &col, H.descH);
+                    storeCoeff.write(reinterpret_cast<char*>( &alpha ),sizeof(double));
                     }
                 }
             storeCoeff.close();
@@ -169,7 +183,9 @@ void NRG::run(parameters& p, Hamiltonian& H, filenames& fnames)
                 }
             storeEigen.close();
             }
-        if ( sweep >0 )
+        MPI_Barrier(MPI_COMM_WORLD);
+
+        if ( sweep >0 and myrank_mpi == 0)
             std::cout << " Sweep " << sweep << " : "<< std::flush;
 
 
@@ -180,8 +196,8 @@ void NRG::run(parameters& p, Hamiltonian& H, filenames& fnames)
             if ( sweep == 0 and iter == 0)
                 continue;
 
-
-            std::cout << iter << " " << std::flush;
+            if ( myrank_mpi == 0 )
+                std::cout << iter << " " << std::flush;
             
             // imagine Hamiltonian in block form:
             //
@@ -190,7 +206,7 @@ void NRG::run(parameters& p, Hamiltonian& H, filenames& fnames)
             //
             if (sweep == 0)
                 {
-                for (int i = 0; i< H.Msize*H.Msize; ++i)
+                for (int i = 0; i< H.rowH*H.colH; ++i)
                     H.H.data[i]=0.;
 
                 H.NRG_block_A(eigen);
@@ -199,28 +215,50 @@ void NRG::run(parameters& p, Hamiltonian& H, filenames& fnames)
                 }
             else
                 {
-                for (int i = 0; i< H.Msize*H.Msize; ++i)
-                    H.H.data[i]=0.;
+//                for (int i = 0; i< H.Msize*H.Msize; ++i)
+//                    H.H.data[i]=0.;
 
                 H.NRG_block_A(eigen);
 
                 // BLOCK D: while sweeping, block D simply contains the eigenvalues between the correspoding eigenstates of the previous iteration
-
-                std::stringstream storeEigenname;
-                storeEigenname << "storeEigen_"<< iter << ".bin";
-                storeEigen.open(storeEigenname.str().c_str(), std::ios::in | std::ios::binary );
-                storeEigen.seekg(0, std::ios::beg);
-                for (int i = p.Nsize; i < H.Msize;i++)
+                double* tempD = new double[p.Nstep];
+                if ( myrank_mpi == 0 )  
                     {
-                    storeEigen.read(reinterpret_cast<char*>( &H.H.data[i*H.Msize + i] ),sizeof(double));
+                    std::stringstream storeEigenname;
+                    storeEigenname << "storeEigen_"<< iter << ".bin";
+                    storeEigen.open(storeEigenname.str().c_str(), std::ios::in | std::ios::binary );
+                    storeEigen.seekg(0, std::ios::beg);
+                    for (int i = p.Nsize; i < H.Msize;i++)
+                        {
+                        storeEigen.read(reinterpret_cast<char*>( &tempD[i] ),sizeof(double));
+                        }
+                    storeEigen.close();
                     }
-                storeEigen.close();
-                // BLOCK B and C: while sweeping, block B and C require the eigenvectors calculated at the previous iterations
+                MPI::COMM_WORLD.Bcast(tempD, p.Nstep, MPI_DOUBLE, 0);
 
-                std::stringstream storeCoeffname;
-                storeCoeffname << "storeCoeff_" << iter << ".bin";
-                storeCoeff.open(storeCoeffname.str().c_str(),std::ios::in | std::ios::binary);
-                storeCoeff.seekg(0, std::ios::beg);
+                for(int i=p.Nsize; i < H.Msize; ++i)
+                    {
+                    for(int j=p.Nsize; j < H.Msize; ++j)
+                        {
+                        int row = i + 1;
+                        int col = j + 1;
+                        double alpha = 0.0;
+                        if ( i == j )
+                            alpha = tempD[i];
+                        pdelset_(H.H.data, &row, &col, H.descH, &alpha);
+                        }
+                    }
+                delete [] tempD;
+                // BLOCK B and C: while sweeping, block B and C require the eigenvectors calculated at the previous iterations
+        
+                if (myrank_mpi == 0)
+                    {
+                    std::stringstream storeCoeffname;
+                    storeCoeffname << "storeCoeff_" << iter << ".bin";
+                    storeCoeff.open(storeCoeffname.str().c_str(),std::ios::in | std::ios::binary);
+                    storeCoeff.seekg(0, std::ios::beg);
+                    }
+
                 int NRGstoresize;
                 int NRGspacesize;
                 if ( sweep == 1)
@@ -233,15 +271,19 @@ void NRG::run(parameters& p, Hamiltonian& H, filenames& fnames)
                     }
                 NRGspacesize = p.Nsize + p.Nstep*(NIters+1);
                 coeffSweep = new double[p.Nstep*NRGstoresize];
-                       
-                for (int i=0; i < p.Nstep;i++)
-                    {
-                    for(int j=0;j < NRGstoresize;j++)
+
+                if (myrank_mpi == 0)
+                    {                       
+                    for (int i=0; i < p.Nstep;i++)
                         {
-                        storeCoeff.read(reinterpret_cast<char*>( &coeffSweep[i*NRGstoresize+j] ),sizeof(double));
+                        for(int j=0;j < NRGstoresize;j++)
+                            {
+                            storeCoeff.read(reinterpret_cast<char*>( &coeffSweep[i*NRGstoresize+j] ),sizeof(double));
+                            }
                         }
+                    storeCoeff.close();
                     }
-                storeCoeff.close();
+                MPI::COMM_WORLD.Bcast(coeffSweep, p.Nstep*NRGstoresize, MPI_DOUBLE, 0);            
 
                 H.sweep_block_BC(iter, coeff, coeffSweep, NRGspacesize, NRGstoresize );
 
@@ -249,6 +291,7 @@ void NRG::run(parameters& p, Hamiltonian& H, filenames& fnames)
 
             ///diagonalize Hamiltonian and sort for relevant states
             //dsyevr_(&jobz,&range,&uplo,&n,H.H.data,&lda,&vl,&vu,&il,&iu,&abstol,&ms,eigen,EigenVectors.data,&ldz,isuppz,work,&lwork,iwork,&liwork,&info);
+            pdsyevd_( &jobz, &uplo, &n, H.H.data, &ione, &ione, H.descH, eigen, EigenVectors.data, &ione, &ione, descZ, work, &lwork, iwork, &liwork, &info );
 
             int NRGsize;
             int newSize;
@@ -263,11 +306,13 @@ void NRG::run(parameters& p, Hamiltonian& H, filenames& fnames)
                 newSize = NRGsize;
                 }
 
-            H.print_eigenValues(sweep,iter,eigen,fnames.EigenName, newSize);
-            if ( sweep== NSweeps and iter==NIters)
+            if (myrank_mpi == 0)
+                H.print_eigenValues(sweep,iter,eigen,fnames.EigenName, newSize);
+            if ( sweep== NSweeps and iter==NIters and myrank_mpi == 0)
                 {
                 H.print_eigenValues(sweep,iter,eigen,fnames.EigenNameFinal, newSize);
                 }
+            MPI_Barrier(MPI_COMM_WORLD);
             //compute coefficients of states in new basis
 
             // Determine how the coefficients of the first 'Nsize + step*iter'
@@ -281,10 +326,20 @@ void NRG::run(parameters& p, Hamiltonian& H, filenames& fnames)
             for(int i=0; i < H.Msize;++i)
                 {
                 int ishift = i*p.Nsize;
-                int ishift1 = i*H.Msize;
-                double* pt = &EigenVectorsPart[ishift];
-                double* pt_part = &EigenVectors.data[ishift1];
-                memcpy(pt,pt_part,p.Nsize*sizeof(double));
+                //int ishift1 = i*H.Msize;
+                //double* pt = &EigenVectorsPart[ishift];
+                //double* pt_part = &EigenVectors.data[ishift1];
+                //memcpy(pt,pt_part,p.Nsize*sizeof(double));
+                for (int j=0; j < p.Nsize; ++j)
+                    {
+                    char getcode = 'A';
+                    char top = ' ';
+                    double alpha;
+                    int row = i + 1;
+                    int col = j + 1;
+                    pdelget_(&getcode, &top, &alpha, EigenVectors.data, &row, &col, descZ);
+                    EigenVectorsPart[ishift + j] = alpha;
+                    }       
                 }
     
             cblas_dgemm(CblasRowMajor,CblasNoTrans,CblasNoTrans,H.Msize,NRGsize,p.Nsize,1.0,EigenVectorsPart,p.Nsize,coeff,NRGsize,0.0,coeff_part,NRGsize);
@@ -308,10 +363,20 @@ void NRG::run(parameters& p, Hamiltonian& H, filenames& fnames)
                 for(int i=0; i < p.Nsize;++i)
                     {
                     int ishift = i*newSize + NRGsize;
-                    int ishift1 = i*H.Msize + p.Nsize;
-                    double* pt = &coeff[ishift];
-                    double* pt_part = &EigenVectors.data[ishift1];
-                    memcpy(pt,pt_part,p.Nstep*sizeof(double));
+                    //int ishift1 = i*H.Msize + p.Nsize;
+                    //double* pt = &coeff[ishift];
+                    //double* pt_part = &EigenVectors.data[ishift1];
+                    //memcpy(pt,pt_part,p.Nstep*sizeof(double));
+                    for (int j=0; j < p.Nstep; ++j)
+                        {
+                        char getcode = 'A';
+                        char top = ' ';
+                        double alpha;
+                        int row = i + 1;
+                        int col = j + p.Nsize + 1;
+                        pdelget_(&getcode,&top, &alpha, EigenVectors.data, &row, &col, descZ);
+                        coeff[ishift + j] = alpha;
+                        }
                     }
                 // if sweeping, save last 'Nstep' part of the eigenvector, on the conformal basis
                 if ( NSweeps > 0 )
@@ -329,22 +394,38 @@ void NRG::run(parameters& p, Hamiltonian& H, filenames& fnames)
                     for(int i=0; i < p.Nstep;++i)
                         {
                         int ishift = i*newSize + NRGsize;
-                        int ishift1 = (i + p.Nsize)*H.Msize + p.Nsize;
-                        double* pt = &coeff_part2[ishift];
-                        double* pt_part = &EigenVectors.data[ishift1];
-                        memcpy(pt,pt_part,p.Nstep*sizeof(double));
-                        }            
-                    std::stringstream storeCoeffname;
-                    storeCoeffname << "storeCoeff_" << iter << ".bin";
-                    storeCoeff.open(storeCoeffname.str().c_str(), std::ios::out | std::ios::binary | std::ios::trunc );
-                    for (int i = 0; i < p.Nstep;i++)
-                        {
-                        for (int j=0; j < newSize;j++)
+                        //int ishift1 = (i + p.Nsize)*H.Msize + p.Nsize; 
+                        //double* pt = &coeff_part2[ishift];
+                        //double* pt_part = &EigenVectors.data[ishift1];
+                        //memcpy(pt,pt_part,p.Nstep*sizeof(double));
+
+                        for (int j=0; j < p.Nstep; ++j)
                             {
-                            storeCoeff.write(reinterpret_cast<char*>( &coeff_part2[i*newSize + j] ),sizeof(double));
+                            char getcode = 'A';
+                            char top = ' ';
+                            double alpha;
+                            int row = i + p.Nsize + 1;
+                            int col = j + p.Nsize + 1;
+                            pdelget_(&getcode,&top, &alpha, EigenVectors.data, &row, &col, descZ);
+                            coeff_part2[ishift + j] = alpha;
                             }
                         }
-                    storeCoeff.close();
+
+                    if (myrank_mpi == 0)
+                        {            
+                        std::stringstream storeCoeffname;
+                        storeCoeffname << "storeCoeff_" << iter << ".bin";
+                        storeCoeff.open(storeCoeffname.str().c_str(), std::ios::out | std::ios::binary | std::ios::trunc );
+                        for (int i = 0; i < p.Nstep;i++)
+                            {
+                            for (int j=0; j < newSize;j++)
+                                {
+                                storeCoeff.write(reinterpret_cast<char*>( &coeff_part2[i*newSize + j] ),sizeof(double));
+                                }
+                            }
+                        storeCoeff.close();
+                        }
+                    MPI_Barrier(MPI_COMM_WORLD);
                     
                     delete [] coeff_part2;
                     }
@@ -356,11 +437,21 @@ void NRG::run(parameters& p, Hamiltonian& H, filenames& fnames)
                 double* EigenVectorsPart2 = new double[H.Msize*p.Nstep];
                 for(int i=0; i < H.Msize;++i)
                     {
+                    char getcode = 'A';
+                    char top = ' ';
+                    double alpha;
                     int ishift = i*p.Nstep;
-                    int ishift1 = i*H.Msize + p.Nsize;
-                    double* pt = &EigenVectorsPart2[ishift];
-                    double* pt_part = &EigenVectors.data[ishift1];
-                    memcpy(pt,pt_part,p.Nstep*sizeof(double));                  
+                    //int ishift1 = i*H.Msize + p.Nsize;
+                    //double* pt = &EigenVectorsPart2[ishift];
+                    //double* pt_part = &EigenVectors.data[ishift1];
+                    //memcpy(pt,pt_part,p.Nstep*sizeof(double));                 
+                    for (int j=0; j < p.Nstep; ++j) 
+                        {
+                        int row = i + p.Nsize + 1;
+                        int col = j + 1;
+                        pdelget_(&getcode,&top, &alpha, EigenVectors.data, &row, &col, descZ);
+                        EigenVectorsPart2[ishift + j] = alpha;
+                        }
                     }
                 int NRGstoresize;
                 if ( sweep == 1)
@@ -390,17 +481,21 @@ void NRG::run(parameters& p, Hamiltonian& H, filenames& fnames)
                     memcpy(pt,pt_part,NRGsize*sizeof(double));
                     }
 
-                std::stringstream storeCoeffname;
-                storeCoeffname << "storeCoeff_" << iter << ".bin";
-                storeCoeff.open(storeCoeffname.str().c_str(), std::ios::out | std::ios::binary | std::ios::trunc );
-                for (int i = p.Nsize; i < H.Msize;i++)
+                if (myrank_mpi == 0)
                     {
-                    for (int j=0; j < NRGsize;j++)
+                    std::stringstream storeCoeffname;
+                    storeCoeffname << "storeCoeff_" << iter << ".bin";
+                    storeCoeff.open(storeCoeffname.str().c_str(), std::ios::out | std::ios::binary | std::ios::trunc );
+                    for (int i = p.Nsize; i < H.Msize;i++)
                         {
-                        storeCoeff.write(reinterpret_cast<char*>( &coeff_part[i*NRGsize+j] ),sizeof(double));
+                        for (int j=0; j < NRGsize;j++)
+                            {
+                            storeCoeff.write(reinterpret_cast<char*>( &coeff_part[i*NRGsize+j] ),sizeof(double));
+                            }
                         }
+                    storeCoeff.close();
                     }
-                storeCoeff.close();
+                MPI_Barrier(MPI_COMM_WORLD);
 
                 delete [] coeff_part;
                 delete [] coeff_part2;
@@ -409,16 +504,19 @@ void NRG::run(parameters& p, Hamiltonian& H, filenames& fnames)
             //Storing to file eigenvalues of 'step' part of hamiltonian
             if (NSweeps > 0)
                 {
-
-                std::stringstream storeEigenname;
-                storeEigenname << "storeEigen_" << iter << ".bin";
-                storeEigen.open(storeEigenname.str().c_str(), std::ios::out | std::ios::binary| std::ios::trunc);
-                for (int j= p.Nsize; j < H.Msize;j++)
+                if (myrank_mpi == 0)
                     {
-                    storeEigen.write(reinterpret_cast<char*>( &eigen[j] ),sizeof(double));
-                    }
+                    std::stringstream storeEigenname;
+                    storeEigenname << "storeEigen_" << iter << ".bin";
+                    storeEigen.open(storeEigenname.str().c_str(), std::ios::out | std::ios::binary| std::ios::trunc);
+                    for (int j= p.Nsize; j < H.Msize;j++)
+                        {
+                        storeEigen.write(reinterpret_cast<char*>( &eigen[j] ),sizeof(double));
+                        }
 
-                storeEigen.close();
+                    storeEigen.close();
+                    }
+                MPI_Barrier(MPI_COMM_WORLD);
                 }
 
             if ( sweep== NSweeps and iter==NIters)
