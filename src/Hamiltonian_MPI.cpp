@@ -518,8 +518,13 @@ void Hamiltonian::sweep_block_BC(int iteration, double* coeff, double* coeffSwee
         {
         for (int j=0; j < p.Nstep;j++)
             {
-            H(i,j + p.Nsize) = H_part2[i*p.Nstep +j];
-            H(j +p.Nsize,i) = H_part2[i*p.Nstep +j];
+            //H(i,j + p.Nsize) = H_part2[i*p.Nstep +j];
+            //H(j +p.Nsize,i) = H_part2[i*p.Nstep +j];
+            int row = i + 1;
+            int col = j + p.Nsize + 1;
+            double alpha = H_part2[i*p.Nstep +j];
+            pdelset_(H.data, &row, &col, descH, &alpha);
+            pdelset_(H.data, &col, &row, descH, &alpha);
             }
         }
 

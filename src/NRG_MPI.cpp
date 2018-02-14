@@ -119,8 +119,9 @@ void NRG::run(parameters& p, Hamiltonian& H, filenames& fnames)
         }
     if ( p.calcExpVal and !p.NRG)
         {
-        // check if mpi parallel
-        H.me.calculate_ExpVal(p, H.st, EigenVectors.data, H.Msize, H.Momentum, fnames.MeOpName, H.R);
+        if (myrank_mpi == 0)
+            H.me.calculate_ExpVal(p, H.st, EigenVectors.data, H.Msize, H.Momentum, fnames.MeOpName, H.R);
+        MPI_Barrier(MPI_COMM_WORLD);
         }
 
 
@@ -152,13 +153,16 @@ void NRG::run(parameters& p, Hamiltonian& H, filenames& fnames)
 
     for ( int sweep = 0; sweep <= NSweeps; ++sweep)
         {
-        if (sweep ==  0 and NSweeps > 0 and myrank_mpi == 0)
+        if (sweep ==  0 and NSweeps > 0 )
             {
             //Storing to file eigenvectors and eigenvalues of 'step' part of hamiltonian for iteration 0
             // Only rank 0 menages I/O
-            std::stringstream storeCoeffname;
-            storeCoeffname << "storeCoeff_0" << ".bin";
-            storeCoeff.open(storeCoeffname.str().c_str(),std::ios::out | std::ios::binary | std::ios::trunc );
+            if (myrank_mpi == 0)
+                {
+                std::stringstream storeCoeffname;
+                storeCoeffname << "storeCoeff_0" << ".bin";
+                storeCoeff.open(storeCoeffname.str().c_str(),std::ios::out | std::ios::binary | std::ios::trunc );
+                }
             for (int i= p.Nsize; i< H.Msize;i++)
                 {
                 for (int j=0;j< H.Msize;j++)
@@ -169,19 +173,24 @@ void NRG::run(parameters& p, Hamiltonian& H, filenames& fnames)
                     int col = j+1;
                     double alpha;
                     pdelget_(&getcode,&top, &alpha, EigenVectors.data, &col, &row, H.descH);  //the i-th eigenvector is stored as the i-th col of EigenVectors.data. That's why we switch col and row
-                    storeCoeff.write(reinterpret_cast<char*>( &alpha ),sizeof(double));
+                    if (myrank_mpi == 0)
+                        storeCoeff.write(reinterpret_cast<char*>( &alpha ),sizeof(double));
                     }
                 }
-            storeCoeff.close();
+            if (myrank_mpi == 0)
+                storeCoeff.close();
 
-            std::stringstream storeEigenname;
-            storeEigenname << "storeEigen_0"<< ".bin";
-            storeEigen.open(storeEigenname.str().c_str(), std::ios::out| std::ios::binary | std::ios::trunc);
-            for (int i= p.Nsize; i< H.Msize;i++)
+            if (myrank_mpi == 0)
                 {
-                storeEigen.write(reinterpret_cast<char*>( &eigen[i] ),sizeof(double));
+                std::stringstream storeEigenname;
+                storeEigenname << "storeEigen_0"<< ".bin";
+                storeEigen.open(storeEigenname.str().c_str(), std::ios::out| std::ios::binary | std::ios::trunc);
+                for (int i= p.Nsize; i< H.Msize;i++)
+                    {
+                    storeEigen.write(reinterpret_cast<char*>( &eigen[i] ),sizeof(double));
+                    }
+                storeEigen.close();
                 }
-            storeEigen.close();
             }
         MPI_Barrier(MPI_COMM_WORLD);
 
@@ -228,7 +237,7 @@ void NRG::run(parameters& p, Hamiltonian& H, filenames& fnames)
                     storeEigenname << "storeEigen_"<< iter << ".bin";
                     storeEigen.open(storeEigenname.str().c_str(), std::ios::in | std::ios::binary );
                     storeEigen.seekg(0, std::ios::beg);
-                    for (int i = p.Nsize; i < H.Msize;i++)
+                    for (int i = 0; i < p.Nstep; i++)
                         {
                         storeEigen.read(reinterpret_cast<char*>( &tempD[i] ),sizeof(double));
                         }
@@ -236,12 +245,12 @@ void NRG::run(parameters& p, Hamiltonian& H, filenames& fnames)
                     }
                 MPI::COMM_WORLD.Bcast(tempD, p.Nstep, MPI_DOUBLE, 0);
 
-                for(int i=p.Nsize; i < H.Msize; ++i)
+                for(int i=0; i < p.Nstep; ++i)
                     {
-                    for(int j=p.Nsize; j < H.Msize; ++j)
+                    for(int j=0; j < p.Nstep; ++j)
                         {
-                        int row = i + 1;
-                        int col = j + 1;
+                        int row = i + p.Nsize + 1;
+                        int col = j + p.Nsize + 1;
                         double alpha = 0.0;
                         if ( i == j )
                             alpha = tempD[i];
@@ -283,7 +292,8 @@ void NRG::run(parameters& p, Hamiltonian& H, filenames& fnames)
                         }
                     storeCoeff.close();
                     }
-                MPI::COMM_WORLD.Bcast(coeffSweep, p.Nstep*NRGstoresize, MPI_DOUBLE, 0);            
+                int Bcast_size = p.Nstep*NRGstoresize;
+                MPI::COMM_WORLD.Bcast(coeffSweep, Bcast_size, MPI_DOUBLE, 0);            
 
                 H.sweep_block_BC(iter, coeff, coeffSweep, NRGspacesize, NRGstoresize );
 
@@ -306,8 +316,10 @@ void NRG::run(parameters& p, Hamiltonian& H, filenames& fnames)
                 newSize = NRGsize;
                 }
 
+
             if (myrank_mpi == 0)
                 H.print_eigenValues(sweep,iter,eigen,fnames.EigenName, newSize);
+
             if ( sweep== NSweeps and iter==NIters and myrank_mpi == 0)
                 {
                 H.print_eigenValues(sweep,iter,eigen,fnames.EigenNameFinal, newSize);
@@ -447,8 +459,8 @@ void NRG::run(parameters& p, Hamiltonian& H, filenames& fnames)
                     //memcpy(pt,pt_part,p.Nstep*sizeof(double));                 
                     for (int j=0; j < p.Nstep; ++j) 
                         {
-                        int row = i + p.Nsize + 1;
-                        int col = j + 1;
+                        int row = i + 1;
+                        int col = j + p.Nsize + 1;
                         pdelget_(&getcode,&top, &alpha, EigenVectors.data, &col, &row, descZ);  //the i-th eigenvector is stored as the i-th col of EigenVectors.data. That's why we switch col and row
                         EigenVectorsPart2[ishift + j] = alpha;
                         }
@@ -524,8 +536,12 @@ void NRG::run(parameters& p, Hamiltonian& H, filenames& fnames)
                 if ( p.saveEigenvec )
                     H.print_eigenVectors(coeff, fnames.EigenVectName, newSize);
 
-                if ( p.calcExpVal )
-                    H.me.calculate_ExpVal(p, H.st, coeff, newSize, H.Momentum, fnames.MeOpName, H.R);
+                if ( p.calcExpVal)
+                    {
+                    if (myrank_mpi == 0)                
+                        H.me.calculate_ExpVal(p, H.st, coeff, newSize, H.Momentum, fnames.MeOpName, H.R);
+                    MPI_Barrier(MPI_COMM_WORLD);
+                    }
     
                 }
 
