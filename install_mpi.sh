@@ -48,6 +48,6 @@ cd $ROOTDIR/$SCALAPACK
 BLASDIR=$ROOTDIR/$BLAS/lib make
 
 cd $ROOTDIR/src
-make
-cp truspace.x $ROOTDIR/
+make mpi
+cp truspace_mpi.x $ROOTDIR/
 

@@ -93,6 +93,7 @@ If you want to install TruSpace dependecies by yourself, here is the list
 - Lapack
 - Blas ( we suggest multi-threaded BLAS like Intel MKL_ or OpenBLAS)  
 - Ginac_ and its dependecy CLN_
+- MPI implementation (OpenMPI recommmended) for MPI parallel version
    
 Otherwise TruSpace comes with a version of the above libraries, so you can simply move to the next section and use the installation script. 
 
@@ -109,6 +110,15 @@ If you want to use the provided script you can simply run the ``install.sh`` in 
 
 To remove the compiled code and its dependecies, run ``uninstall.sh``
 
+MPI Build instrction - script 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Truspace is distributed with a Netlib scalapack implementation, working on top of the provided Openblas
+
+If you want to use the provided script you can simply run the ``install-mpi.sh`` in the root folder. This will install all the dependecies in the TruSpace folder and create the executable accordingly.
+
+
+
 Build instruction - local dependencies
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -120,10 +130,17 @@ If you want to install the library in a different folder or use verion already a
   BLAS=                         --> the root folder of the BLAS installation (should contain include/ and lib/ subdirs). 
   BLAS_LIB=                     --> the name of the BLAS library, for example -lopenblas, -lcblas, -lmkl
   LAPACK_LIB=                   --> should be in the format -L{folder containing lapack library files} -l{library name}
+  (SCALAPACK_LIB=)              --> For MPI version only, should point to the static library file libscalapack.a with its full path
  
 Then simply issue::
 
   make -j4
+
+for the serial and OpenMP version, or::
+
+  make -j4 mpi
+
+for the MPI parallel verion.
 
 :NOTE: CMake building will come soon
 
@@ -132,9 +149,13 @@ Then simply issue::
 Running TruSpace
 ------------------
 
-To run the code:: 
+If you are using multi-threaded BLAS (like the provided OpenBLAS), all linear algebra will be parallel. To this end we 
+recommend setting the environment variable OMP_NUM_THREADS to the number of cores of your CPU. 
 
-  ./main.x input-file
+So, to run the code:: 
+
+  export OMP_NUM_THREADS=4
+  ./truespace.x input-file
 
 THE ORDER OF THE LINES AND THEIR POSITIONS IS FIXED AND CANNOT BE MODIFIED. The are example of input files in the ``examples`` folder
 
@@ -193,6 +214,20 @@ If more than one perturbation is need, simply add the three lines about the othe
   3    s index of second perturbation
   0.06  constant for second perturbation
 
+Running MPI parallel Truspace
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The MPI version of Truspace is run by simply issuing:: 
+
+  mpirun -np #number-of-process truspace_mpi.x
+
+:NOTE: In a single node scenario, the multithreaded version will always perform better than the MPI version. Use the MPI version only on multinode machines such as clusters.
+
+Even in the multinode scenario, it is always best to use one MPI process per node and than set OMP_NUM_THREADS to the number of core of each node.
+This setup will grant the best performance. This amount to issue::
+
+  export OMP_NUM_THREADS=<your number of cores>
+  mpirun -np <your number of nodes> -npernode 1 ./truspace_mpi.x input-file
 
 Output files 
 ~~~~~~~~~~~~~
