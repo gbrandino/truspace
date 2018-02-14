@@ -177,8 +177,8 @@ void Hamiltonian::NRG_block_BC(int iteration, double* coeff)
             int ishift1 = i*p.Nsize;
             for(int j=0;j< p.Nsize;++j)
                 {
-                H(ishift, j) += results[ishift1+j];
-                H(j,ishift) += results[ishift1+j];
+                H(ishift, j) = results[ishift1+j];
+                H(j,ishift) = results[ishift1+j];
                 }
             }
         }

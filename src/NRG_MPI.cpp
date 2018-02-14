@@ -139,9 +139,9 @@ void NRG::run(parameters& p, Hamiltonian& H, filenames& fnames)
                  char top = ' ';
                  int row=i+1;
                  int col=k+1;
-                 double alpha;
-                 pdelget_(&getcode,&top, &alpha, EigenVectors.data, &row, &col, descZ);
-                 coeff[ishift + k] = alpha;  //the i-ith eigenvector is stored as the i-th row of X
+                 double alpha = 0.0;
+                 pdelget_(&getcode,&top, &alpha, EigenVectors.data, &col, &row, descZ); //the i-th eigenvector is stored as the i-th col of EigenVectors.data. That's why we switch col and row
+                 coeff[ishift + k] = alpha;  
                  }
             }
 
@@ -168,7 +168,7 @@ void NRG::run(parameters& p, Hamiltonian& H, filenames& fnames)
                     int row = i+1;
                     int col = j+1;
                     double alpha;
-                    pdelget_(&getcode,&top, &alpha, EigenVectors.data, &row, &col, H.descH);
+                    pdelget_(&getcode,&top, &alpha, EigenVectors.data, &col, &row, H.descH);  //the i-th eigenvector is stored as the i-th col of EigenVectors.data. That's why we switch col and row
                     storeCoeff.write(reinterpret_cast<char*>( &alpha ),sizeof(double));
                     }
                 }
@@ -206,8 +206,8 @@ void NRG::run(parameters& p, Hamiltonian& H, filenames& fnames)
             //
             if (sweep == 0)
                 {
-                for (int i = 0; i< H.rowH*H.colH; ++i)
-                    H.H.data[i]=0.;
+                //for (int i = 0; i< H.rowH*H.colH; ++i)
+                //    H.H.data[i]=0.;
 
                 H.NRG_block_A(eigen);
                 H.NRG_block_D(iter);
@@ -287,7 +287,7 @@ void NRG::run(parameters& p, Hamiltonian& H, filenames& fnames)
 
                 H.sweep_block_BC(iter, coeff, coeffSweep, NRGspacesize, NRGstoresize );
 
-                }
+                }// closing else of if (sweep == 0)
 
             ///diagonalize Hamiltonian and sort for relevant states
             //dsyevr_(&jobz,&range,&uplo,&n,H.H.data,&lda,&vl,&vu,&il,&iu,&abstol,&ms,eigen,EigenVectors.data,&ldz,isuppz,work,&lwork,iwork,&liwork,&info);
@@ -337,7 +337,7 @@ void NRG::run(parameters& p, Hamiltonian& H, filenames& fnames)
                     double alpha;
                     int row = i + 1;
                     int col = j + 1;
-                    pdelget_(&getcode, &top, &alpha, EigenVectors.data, &row, &col, descZ);
+                    pdelget_(&getcode, &top, &alpha, EigenVectors.data, &col, &row, descZ);  //the i-th eigenvector is stored as the i-th col of EigenVectors.data. That's why we switch col and row
                     EigenVectorsPart[ishift + j] = alpha;
                     }       
                 }
@@ -374,7 +374,7 @@ void NRG::run(parameters& p, Hamiltonian& H, filenames& fnames)
                         double alpha;
                         int row = i + 1;
                         int col = j + p.Nsize + 1;
-                        pdelget_(&getcode,&top, &alpha, EigenVectors.data, &row, &col, descZ);
+                        pdelget_(&getcode,&top, &alpha, EigenVectors.data, &col, &row, descZ);  //the i-th eigenvector is stored as the i-th col of EigenVectors.data. That's why we switch col and row
                         coeff[ishift + j] = alpha;
                         }
                     }
@@ -406,7 +406,7 @@ void NRG::run(parameters& p, Hamiltonian& H, filenames& fnames)
                             double alpha;
                             int row = i + p.Nsize + 1;
                             int col = j + p.Nsize + 1;
-                            pdelget_(&getcode,&top, &alpha, EigenVectors.data, &row, &col, descZ);
+                            pdelget_(&getcode,&top, &alpha, EigenVectors.data, &col, &row, descZ);  //the i-th eigenvector is stored as the i-th col of EigenVectors.data. That's why we switch col and row
                             coeff_part2[ishift + j] = alpha;
                             }
                         }
@@ -428,7 +428,7 @@ void NRG::run(parameters& p, Hamiltonian& H, filenames& fnames)
                     MPI_Barrier(MPI_COMM_WORLD);
                     
                     delete [] coeff_part2;
-                    }
+                    }//closing if ( NSweeps > 0 )
                 delete [] coeff_part;
                 }
             else
@@ -449,7 +449,7 @@ void NRG::run(parameters& p, Hamiltonian& H, filenames& fnames)
                         {
                         int row = i + p.Nsize + 1;
                         int col = j + 1;
-                        pdelget_(&getcode,&top, &alpha, EigenVectors.data, &row, &col, descZ);
+                        pdelget_(&getcode,&top, &alpha, EigenVectors.data, &col, &row, descZ);  //the i-th eigenvector is stored as the i-th col of EigenVectors.data. That's why we switch col and row
                         EigenVectorsPart2[ishift + j] = alpha;
                         }
                     }

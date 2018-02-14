@@ -265,7 +265,7 @@ void Hamiltonian::NRG_block_BC(int iteration, double* coeff)
         for(int j=0;j < p.Nstep;++j) 
             {
             int jshift = shift + j;
-            int  jshift1 = j*shift;
+            int jshift1 = j*shift;
             for(int k=0; k < shift;++k) 
                 {
                 double temp;
