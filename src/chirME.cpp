@@ -368,9 +368,10 @@ void chirME::calculate_chirME_for_ExpVal(parameters& p, states& st, int subspace
                                 {
                                 grade[r] = -1.*st.cstate_mode(i,l,r);
                                 }
-                            for(int r=st.cstate_nmode(i,l)+1 ; r<= st.cstate_nmode(i,l) + nmode_op;r++)
+                            for(int r=st.cstate_nmode(i,l) + 1 ; r<= st.cstate_nmode(i,l) + nmode_op;r++)
                                 {
-                                grade[r] = mode_op[r];
+                                int idxtmp = r - st.cstate_nmode(i,l) - 1; 
+                                grade[r] = mode_op[idxtmp];
                                 }
                             grade[mop] = 0.;
                             for(int r=1; r<= st.cstate_nmode(j,k);++r)
