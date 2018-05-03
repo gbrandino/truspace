@@ -128,7 +128,7 @@ parameters::parameters(const char* input_file_name)
     input_file>>rr_op;  input_file.ignore(256, '\n');
     input_file>>sr_op;  input_file.ignore(256, '\n');
     input_file>>nModes_r_op;  input_file.ignore(256, '\n');
-    if (nModes_r_op)
+    if (nModes_r_op>0)
         {
         mode_r_op= new int[nModes_r_op];
         for (int i=0;i<nModes_r_op;i++)
