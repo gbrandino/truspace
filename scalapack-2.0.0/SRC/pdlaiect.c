@@ -227,7 +227,7 @@ void pdlaiectl_( sigma, n, d, count )
    }
 }
 
-pdlachkieee_( isieee, rmax, rmin )
+void pdlachkieee_( isieee, rmax, rmin )
 /*
 *  .. Scalar Arguments ..
 */
