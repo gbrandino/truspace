@@ -36,18 +36,17 @@ do
 done
 
 
-cd $ROOTDIR/$CLN
-touch configure.ac aclocal.m4 configure Makefile.am Makefile.in
-./configure --prefix=$ROOTDIR/dep/$CLN/ && make -j4 && make install
-cd $ROOTDIR/$GINAC
-touch configure.ac aclocal.m4 configure Makefile.am Makefile.in
-CLN_LIBS="-L$ROOTDIR/dep/$CLN/lib -lcln" CLN_CFLAGS=-I$ROOTDIR/dep/$CLN/include ./configure --prefix=$ROOTDIR/dep/$GINAC && make -j4 && make install
-cd $ROOTDIR/$BLAS
-make FC=$FC  && make install PREFIX=$ROOTDIR/dep/$BLAS
-cd $ROOTDIR/$SCALAPACK
-BLASDIR=$ROOTDIR/$BLAS/lib make
-
-cd $ROOTDIR/src
-make mpi
+cd $ROOTDIR/$CLN  && \
+touch configure.ac aclocal.m4 configure Makefile.am Makefile.in  && \
+./configure --prefix=$ROOTDIR/dep/$CLN/ && make -j4 && make install  && \
+cd $ROOTDIR/$GINAC  && \
+touch configure.ac aclocal.m4 configure Makefile.am Makefile.in  && \
+CLN_LIBS="-L$ROOTDIR/dep/$CLN/lib -lcln" CLN_CFLAGS=-I$ROOTDIR/dep/$CLN/include ./configure --prefix=$ROOTDIR/dep/$GINAC && make -j4 && make install  && \
+cd $ROOTDIR/$BLAS  && \ 
+make FC=$FC  && make install PREFIX=$ROOTDIR/dep/$BLAS  && \
+cd $ROOTDIR/$SCALAPACK  && \
+BLASDIR=$ROOTDIR/$BLAS/lib make  && \
+cd $ROOTDIR/src  && \ 
+make mpi  && \
 cp truspace_mpi.x $ROOTDIR/
 
