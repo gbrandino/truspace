@@ -16,7 +16,7 @@ else
       sleep 5
 fi
 
-if which gfortran > /dev/null; then
+if type "gfortran" > /dev/null 2>&1; then
     FC=gfortran
 else
     echo "gfortran not found!"
