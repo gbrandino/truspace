@@ -17,7 +17,7 @@ else
 fi
 
 if type "gfortran" > /dev/null 2>&1; then
-    FC=gfortran
+    FC=$(which gfortran)
 else
     echo "gfortran not found!"
     echo "Please specify the full path to your fortran compiler"
