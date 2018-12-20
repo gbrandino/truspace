@@ -56,3 +56,55 @@ TO EXTEND SWEEP TO HIGHER MOMENTUM STATES
 
 - modify states.cpp at line 840 ( the part of the code activated is nSweep > 0 )
 - modify void Hamiltonian::sweep_block_BC ( line 192 of Hamiltonian.cpp) 
+
+
+
+
+MODULAR INVARIANT PARTION FUNCTIONS
+
+
+- remove structure constant check in worker
+- states   ----> states::calculate_nonchiral : pass a list of tuples to this function. for diagonal case it will be (1,1) (2,2) etc. for non diag (1,2) (2,1)
+- chirME
+- blockrec needs to be changed
+- 
+
+
+GENERIC MODEL (e.g.  Harmonic Oscillator)
+
+- worker modified for non translational invariant Hamiltonian ( no momentum subspaces)
+
+== Relevant parameters for NRG
+
+p.NRG
+p.calcExpVal
+p.saveEigenvec
+p.Nsize
+p.Nstep
+p.nSweep
+
+== Hamiltonian stuff for NRG
+
+H.init();
+H.Msize
+H.st
+H.st.nstate
+H.H.data
+H.print_eigenValues
+H.print_eigenVectors
+H.me.calculate_ExpVal
+H.Momentum
+H.R
+H.NRG_block_A(eigen);
+H.NRG_block_D(iter);
+H.NRG_block_BC(iter, coeff);
+
+== State stuff for Hamiltonian
+
+
+== ME stuff for Hamiltonian
+
+
+
+
+

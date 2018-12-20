@@ -3,6 +3,7 @@
 2    number of perturbations
 12  Maximum conformal level to include
 0    Minimum conformal level to include
+0    Which partition function to use. 0 for diagonal one
 0    Maximum momentum considered
 0    Set 1 to diagonalize all momentum subspaces in the same subspace
 0    Maximum nunber of eigenvalues, eigenvectors and matrix elements printed in output file(s), 0 for all of them 

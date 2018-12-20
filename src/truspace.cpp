@@ -48,6 +48,8 @@ int main(int argc, char** argv)
 
     // Create parameter object from the given input file
     parameters par(argv[1]);
+    // Check which modular partion functions are available
+    par.calculate_partition_functions();
     // Analyse subspace (also calculates structure constans, necessary for subspace analysis 
     par.analyse_subspaces(); 
     // Print recap of input, structure constants, subspace analysis,  and Verma modules dimensions

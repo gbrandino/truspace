@@ -16,6 +16,37 @@
 #include "block.h"
 #include <iostream>
 #include <fstream>
+
+class character
+{
+    public:
+        int multeplicity;
+        std::pair<int,int> indexesL;
+        std::pair<int,int> indexesR;
+        character(int rl, int sl, int rr, int sr, int mult);
+    private:
+        character();
+
+};
+
+character::character(int rl, int sl, int rr, int sr, int mult)
+{
+    multeplicity = mult;
+    indexesL = std::make_pair(rl, sl);
+    indexesR = std::make_pair(rr, sr);
+
+}
+
+
+bool compareCharacter( character char1, character char2)
+{
+    if (char1.indexesL == char2.indexesL and char1.indexesR == char2.indexesR)
+        return true;
+    else
+        return false;
+
+
+}
 	
 parameters::parameters()
 {
@@ -52,6 +83,7 @@ parameters::parameters(const char* input_file_name)
     input_file>>numPert;  input_file.ignore(256, '\n');
     input_file>>maxLev;  input_file.ignore(256, '\n');
     input_file>>minLev;  input_file.ignore(256, '\n');
+    input_file>>PartitionFunc;  input_file.ignore(256, '\n');
     input_file>>maxMomentum;  input_file.ignore(256, '\n');
     input_file>>allMomSubspace;  input_file.ignore(256, '\n');
     input_file>>maxEigen;  input_file.ignore(256, '\n');
@@ -337,6 +369,7 @@ void parameters::print() const
     std::cout << " Number of perturbations ---> " << numPert << std::endl;
     std::cout << " Maximum conformal level considered ---> " << maxLev << std::endl;
     std::cout << " Minimum conformal level considered ---> " << minLev << std::endl;
+    std::cout << " Which partition function to use    ---> " << PartitionFunc << std::endl;
 
     if (allMomSubspace)
         {
@@ -733,6 +766,105 @@ void parameters::print() const
         }
 
 }
+
+void parameters::calculate_partition_functions()
+{
+    int rho;
+
+    // A_2rho+2, Dp-1
+    std::vector<int> rList1;
+    std::vector<int> rList2;
+    std::vector<character> characterList;
+    std::vector<character> filteredCharacterList;
+
+    if ( (q - 2) % 4 == 0 ){
+        rho = (q - 2) / 4;
+        for (int rIndex = 1;  rIndex < 4 * rho + 2; rIndex++)
+            {
+            if ( rIndex % 2 == 1 and rIndex != 2 * rho + 1)
+                rList1.push_back(rIndex);
+            }
+
+        for (int rIndex = 1; rIndex < 2 * rho; rIndex++)
+            {
+            if ( rIndex % 2 == 1)
+                rList2.push_back(rIndex);
+            }
+
+        /*for(std::vector<int>::iterator it = rList1.begin(); it != rList1.end(); ++it) {
+            std::cout << *it << std::endl;
+        }
+
+        for(std::vector<int>::iterator it = rList2.begin(); it != rList2.end(); ++it) {
+            std::cout << *it << std::endl;
+        }*/
+
+
+            for (int sIndex = 1; sIndex < p; sIndex++)
+                {
+                for(std::vector<int>::iterator it = rList1.begin(); it != rList1.end(); ++it) {
+                    int rIndex = *it;
+                    character chi = character( sIndex, rIndex, sIndex, rIndex, 1);
+                    characterList.push_back(chi);
+                }
+
+                character chi = character(sIndex, 2*rho + 1, sIndex, 2*rho + 1, 2);
+                characterList.push_back(chi);
+
+                for(std::vector<int>::iterator it = rList2.begin(); it != rList2.end(); ++it) {
+                    int rIndex = *it;
+                    character chi = character(sIndex, rIndex, sIndex, 4*rho + 2 - rIndex, 1);
+                    characterList.push_back(chi);
+                    character chistar  = character(sIndex, 4*rho + 2 -rIndex, sIndex, rIndex, 1);
+                    characterList.push_back(chistar);
+    
+                    }   
+                }
+
+            // Use symmetry of Kac Table
+            for(std::vector<character>::iterator it = characterList.begin(); it != characterList.end(); ++it) {
+                if ((*it).indexesL.first > (p - 1) / 2)
+                    (*it).indexesL = std::make_pair(p - (*it).indexesL.first, q - (*it).indexesL.second);
+                if ((*it).indexesR.first > (p - 1) / 2)
+                    (*it).indexesR = std::make_pair(p - (*it).indexesR.first, q - (*it).indexesR.second);
+
+            }
+
+            for(std::vector<character>::iterator it = characterList.begin(); it != characterList.end(); ++it) {
+                bool found = false;
+                for(std::vector<character>::iterator it2 = filteredCharacterList.begin(); it2 != filteredCharacterList.end(); ++it2) {
+                    if (compareCharacter(*it, *it2))
+                        {
+                        (*it2).multeplicity += (*it).multeplicity;
+                        found = true;
+                        }
+                    }
+                if (!found)
+                    filteredCharacterList.push_back(*it);
+                }
+            
+            for(std::vector<character>::iterator it2 = filteredCharacterList.begin(); it2 != filteredCharacterList.end(); ++it2) {
+                (*it2).multeplicity /= 2;
+            }
+
+            
+            for(std::vector<character>::iterator it = filteredCharacterList.begin(); it != filteredCharacterList.end(); ++it) {
+                std::cout << (*it).indexesL.first << (*it).indexesL.second << " ) ( " << (*it).indexesR.first << (*it).indexesR.second << " ) " << (*it).multeplicity  <<std::endl;
+                }
+
+
+        }
+
+
+    if ( (p - 2) % 4 == 0 ){
+        rho = (p - 2) / 4;
+        std::cout << " rho = " << rho;
+        }
+
+    
+
+}
+
 
 void parameters::analyse_subspaces()
 {
