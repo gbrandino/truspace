@@ -16,7 +16,8 @@
 #include "block.h"
 #include <iostream>
 #include <fstream>
-	
+#include <utility>
+
 parameters::parameters()
 {
     
@@ -145,6 +146,8 @@ parameters::parameters(const char* input_file_name)
     // done reading input file. Calculating relevant quantities
 
     // central charge
+    p = 5;
+    q = 6;
     C=1.0-6.0*std::pow(p-q,2)/double(p*q);
 
     // size of Kac table
@@ -159,7 +162,49 @@ parameters::parameters(const char* input_file_name)
         maxp = (p-1)/2;
         }
     maxl = maxp*maxq;
-    
+   
+    tensor2D<std::pair<double, double> > KacNonChiral(maxp,maxq);
+    std::ifstream kac_table_file("potts_kac.dat");
+
+    std::string line;
+    std::string fields_strings[maxl];
+    int count = 0;
+    // read line by line, skip line that CONTAINS '#' and split the various cells separated by "|"
+    while( std::getline(kac_table_file, line) ){
+        if (line.find("#")  != std::string::npos ){
+            continue;
+        }
+        char * pch;
+        char * str = &line[0u];
+        pch = strtok (str,"|");
+        while (pch != NULL)
+            {
+            fields_strings[count++] = pch;
+            pch = strtok (NULL, "|");
+            }
+    }
+    for (int i=0; i < maxl; i++){
+    //    std::cout << fields_strings[i] << std::endl;
+        char * pch;
+        std::string tmp = fields_strings[i];
+        char * str = &tmp[0u];
+        pch = strtok (str,",");
+        KacNonChiral( i / maxq, i % maxq).first = atof(pch);
+        while (pch != NULL)
+            {
+            pch = strtok (NULL, ",");
+            if (pch)
+                KacNonChiral( i / maxq, i % maxq).second = atof(pch);
+            }
+
+    }
+    for (int i=0; i < maxp; i++){
+        for (int j=0; j < maxq; j++){
+            std::cout << KacNonChiral(i,j).first << " ,, " << KacNonChiral(i,j).second << " || ";
+        }
+        std::cout << std::endl;
+    }
+    exit(0);
     //temporary tensor, used to properly allocate Kac now that we know the sizes
     tensor2D<double> Kac_temp(maxp,maxq);
     Kac = Kac_temp;
