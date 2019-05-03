@@ -200,7 +200,7 @@ parameters::parameters(const char* input_file_name)
     }
     for (int i=0; i < maxp; i++){
         for (int j=0; j < maxq; j++){
-            std::cout << KacNonChiral(i,j).first << " ,, " << KacNonChiral(i,j).second << " || ";
+            std::cout << KacNonChiral(i,j).first << " , " << KacNonChiral(i,j).second << " || ";
         }
         std::cout << std::endl;
     }
