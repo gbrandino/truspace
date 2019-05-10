@@ -58,12 +58,7 @@ filenames::filenames(parameters& p, int subspace)
     temp2.str(" ");
     
     temp2 << "ExpVal_Op";
-    for (int i=0; i<p.nModes_l_op; i++)
-        temp2 << "_L_" << p.mode_l_op[i];
-    temp2 <<  "_phi_" << p.rl_op << "_" << p.sl_op;
-    for (int i=0; i<p.nModes_r_op; i++)
-        temp2 << "_{bar}L_" << p.mode_r_op[i];
-    temp2 <<  "_{bar}phi_" << p.rr_op << "_" << p.sr_op;
+    temp2 <<  "_phi_" << p.r_op << "_" << p.s_op << "_";
     temp2 << temp.str();
     MeOpName = temp2.str();
     temp2.str(" ");

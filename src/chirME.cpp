@@ -27,17 +27,14 @@ chirME::~chirME()
 
 chirME::chirME(parameters& p, states& st, int subspace)
 {
-    tensor5D< long double > me_chi_ortho_tmp(p.numPert, p.subdim[subspace],p.subdim[subspace], st.MaxChiralStates, st.MaxChiralStates );
+    tensor5D< std::pair< long double, long double> > me_chi_ortho_tmp(p.numPert, p.subdim[subspace],p.subdim[subspace], st.MaxChiralStates, st.MaxChiralStates );
     me_chi_ortho = me_chi_ortho_tmp;
 
     // allocating tensors used for matrix element calculation
     if ( p.calcExpVal )
         { 
-        tensor4D< long double >  me_chi_ortho_op_l_tmp(p.subdim[subspace],p.subdim[subspace], st.MaxChiralStates, st.MaxChiralStates );
-        me_chi_ortho_op_l = me_chi_ortho_op_l_tmp;
-
-        tensor4D< long double >  me_chi_ortho_op_r_tmp(p.subdim[subspace],p.subdim[subspace], st.MaxChiralStates, st.MaxChiralStates );
-        me_chi_ortho_op_r = me_chi_ortho_op_r_tmp;
+        tensor4D< std::pair<long double, long double> >  me_chi_ortho_op_tmp(p.subdim[subspace],p.subdim[subspace], st.MaxChiralStates, st.MaxChiralStates );
+        me_chi_ortho_op = me_chi_ortho_op_tmp;
         }
 }
 
@@ -60,7 +57,7 @@ void chirME::calculate_or_read_chirME(parameters& p, filenames& fnames, states& 
 
     char fname[100];
        
-    tensor5D<long double> me_chi(p.numPert, p.subdim[subspace],p.subdim[subspace], st.MaxChiralStates, st.MaxChiralStates );
+    tensor5D< std::pair<long double, long double> > me_chi(p.numPert, p.subdim[subspace],p.subdim[subspace], st.MaxChiralStates, st.MaxChiralStates );
     tensor5D<int> me_exists(p.numPert,p.subdim[subspace], p.subdim[subspace], p.maxLev+1, p.maxLev+1);
     tensor2D<int> me0_exists(p.subdim[subspace], p.maxLev+1);
 
@@ -98,8 +95,9 @@ void chirME::calculate_or_read_chirME(parameters& p, filenames& fnames, states& 
                                     { 
                                     for(int s=0;s<num_k;++s) 
                                         {
-                                        status = fscanf(state_file,"%d %d %Lf",&eq_r,&eq_s,&temp);
-                                        me_chi(pert,i,j,num_lindex+r,num_kindex+s) = temp;
+                                        status = fscanf(state_file,"%d %d %Lf %Lf",&eq_r,&eq_s,&temp, &temp1);
+                                        me_chi(pert,i,j,num_lindex+r,num_kindex+s).first = temp;
+                                        me_chi(pert,i,j,num_lindex+r,num_kindex+s).second = temp1;
                                         }
                                     }
                                 fclose(state_file);
@@ -135,12 +133,15 @@ void chirME::calculate_or_read_chirME(parameters& p, filenames& fnames, states& 
     tensor3D<long double> SC(p.numPert, p.subdim[subspace], p.subdim[subspace]);
     for (int pert=0; pert < p.numPert; ++pert)
         {
-        int indtemp = (p.r[pert]-1)*(p.maxq)+p.s[pert]-1;
         for(int i=0;i < p.subdim[subspace];++i)
             {
             for(int j=0;j < p.subdim[subspace];++j) 
                 {
-                SC(pert,i,j)=std::sqrt(std::abs(std::real(p.cptsmall(p.finalsubspace(subspace,i)-1, p.finalsubspace(subspace,j)-1, indtemp) )));            
+                int R1 = p.finalsubspace(subspace,i) / p.maxq;
+                int S1 = p.finalsubspace(subspace,i) % p.maxq;
+                int R2 = p.finalsubspace(subspace,j) / p.maxq;
+                int S2 = p.finalsubspace(subspace,j) % p.maxq;
+                SC(pert,i,j)= std::sqrt(p.cpt(R1, S1, p.r[pert], p.s[pert], R2, S2));
                 }
             }
         }
@@ -169,8 +170,10 @@ void chirME::calculate_or_read_chirME(parameters& p, filenames& fnames, states& 
                                 grade[mop] = 0.;
                                 for(int r=1;r <= st.cstate_nmode(j,k);++r)
                                     grade[r+mop] = st.cstate_mode(j, k, st.cstate_nmode(j,k)-r+1);
-                                temp = element_computation( p.C, grade, nm, mop, st.h[i], st.h[j], 1., p.deltas[pert])/sqrt(st.norm(i,l)*st.norm(j,k));
-                                me_chi(pert, i, j, l, k) = SC(pert,i,j)*temp;
+                                temp = element_computation( p.C, grade, nm, mop, st.h[i], st.h[j], 1., p.deltas[pert].first)/sqrt(st.norm(i,l)*st.norm(j,k));
+                                me_chi(pert, i, j, l, k).first = temp;
+                                temp = element_computation( p.C, grade, nm, mop, st.h[i], st.h[j], 1., p.deltas[pert].second)/sqrt(st.norm(i,l)*st.norm(j,k));
+                                me_chi(pert, i, j, l, k).second = temp;
                                 }
                             }
                         }
@@ -181,7 +184,8 @@ void chirME::calculate_or_read_chirME(parameters& p, filenames& fnames, states& 
                         {
                         for(int k=0;k<st.num_chir[j];++k) 
                             {
-                            me_chi(pert, i, j, l, k) = 0.;
+                            me_chi(pert, i, j, l, k).first  = 0.;
+                            me_chi(pert, i, j, l, k).second = 0.;
                             }
                         }
                     }
@@ -204,12 +208,26 @@ void chirME::calculate_or_read_chirME(parameters& p, filenames& fnames, states& 
                             {
                             for(int s=0;s< st.cstate_ortho_nmode(j, l);++s) 
                                 {
-                                temp = me_chi(pert, i, j, st.cstate_ortho_mode(i, k, r), st.cstate_ortho_mode(j,l,s) );
+                                temp = me_chi(pert, i, j, st.cstate_ortho_mode(i, k, r), st.cstate_ortho_mode(j,l,s) ).first;
                                 temp *= (st.cstate_ortho_modecoeff(i, k, r)*st.cstate_ortho_modecoeff(j, l, s));
                                 temp1 += temp;
                                 }
                             }
-                        me_chi_ortho(pert,i, j, k, l) = temp1;
+                        me_chi_ortho(pert,i, j, k, l).first = temp1;
+
+                        temp1 = 0.0;
+                        for(int r=0;r < st.cstate_ortho_nmode(i,k);++r)
+                            {
+                            for(int s=0;s< st.cstate_ortho_nmode(j, l);++s)
+                                {
+                                temp = me_chi(pert, i, j, st.cstate_ortho_mode(i, k, r), st.cstate_ortho_mode(j,l,s) ).second;
+                                temp *= (st.cstate_ortho_modecoeff(i, k, r)*st.cstate_ortho_modecoeff(j, l, s));
+                                temp1 += temp;
+                                }
+                            }
+                        me_chi_ortho(pert,i, j, k, l).second = temp1;
+
+
                         }
                     }
                 }
@@ -225,8 +243,8 @@ void chirME::calculate_or_read_chirME(parameters& p, filenames& fnames, states& 
                     {
                     for(int l=0;l < st.num_chir[j];++l) 
                         {
-                        temp = me_chi(pert, i, j, k, l);
-                        temp1 = me_chi(pert, j, i, l, k);
+                        temp = me_chi(pert, i, j, k, l).first;
+                        temp1 = me_chi(pert, j, i, l, k).first;
                         if (fabs(temp-temp1) > .00000001) 
                             {
                             std::cout << " Warning: Hermiticity not satisfied on non-orthogonal chiral ME" << " Vmod " << p.finalsubspace(subspace,i) << " state " << k << " Vmod " << p.finalsubspace(subspace,j) << " state " << l << " values " << temp << " " << temp1 << std::endl;
@@ -236,8 +254,8 @@ void chirME::calculate_or_read_chirME(parameters& p, filenames& fnames, states& 
                             for(int r=1;r <= st.cstate_nmode(j,l);++r)
                                 std::cout << r << " " << st.cstate_mode(j,l,r) << std::endl;
                             }
-                        temp = me_chi_ortho(pert, i, j, k, l);
-                        temp1 = me_chi_ortho(pert, j, i, l, k);
+                        temp = me_chi_ortho(pert, i, j, k, l).first;
+                        temp1 = me_chi_ortho(pert, j, i, l, k).first;
                         if (fabs(temp-temp1) > .00001) 
                             {
                             std::cout << " Warning: Hermiticity not satisfied on orthogonal chiral ME" << " Vmod " << p.finalsubspace(subspace,i) << " state " << k << " Vmod " << p.finalsubspace(subspace,j) << " state " << l << " values " << temp << " " << temp1 << std::endl;
@@ -276,13 +294,13 @@ void chirME::calculate_or_read_chirME(parameters& p, filenames& fnames, states& 
                                     {
                                     new1(st.cstate_lev(i,k), st.cstate_lev(j,l) ) = 1;
                                     state_file = fopen(fname,"w");
-                                    fprintf(state_file,"%d %d %3.24Lf\n",num_k,num_l,me_chi(pert, i, j, k,l));
+                                    fprintf(state_file,"%d %d %3.24Lf\n %3.24Lf\n",num_k,num_l,me_chi(pert, i, j, k,l).first, me_chi(pert, i, j, k,l).second);
                                     fclose(state_file);
                                     }
                                 else 
                                     {
                                     state_file = fopen(fname,"a");
-                                    fprintf(state_file,"%d %d %3.24Lf\n",num_k,num_l,me_chi(pert, i, j, k, l));
+                                    fprintf(state_file,"%d %d %3.24Lf\n %3.24Lf\n",num_k,num_l,me_chi(pert, i, j, k, l).first, me_chi(pert, i, j, k, l).second);
                                     fclose(state_file);
                                     }
                                 }
@@ -303,7 +321,7 @@ void chirME::calculate_chirME_for_ExpVal(parameters& p, states& st, int subspace
 
     int nm,mop;
 
-    tensor4D< long double >  me_chi(p.subdim[subspace],p.subdim[subspace], st.MaxChiralStates, st.MaxChiralStates ); 
+    tensor4D< std::pair<long double, long double> >  me_chi(p.subdim[subspace],p.subdim[subspace], st.MaxChiralStates, st.MaxChiralStates ); 
 
     tensor2D<long double> SC(p.subdim[subspace], p.subdim[subspace]);
 
@@ -313,39 +331,29 @@ void chirME::calculate_chirME_for_ExpVal(parameters& p, states& st, int subspace
     // chiralirity == 1 corresponds to right component ( anti-chiral )
     for ( int chirality = 0; chirality < 2; ++chirality) 
         {
-        tensor4D<long double>* me_chi_ortho_tmp;         
         int R_op;
         int S_op;
-        int nmode_op;
-        int* mode_op;       
         int Del_op; 
 
         if ( chirality == 0 )
             {
-            me_chi_ortho_tmp = &me_chi_ortho_op_l;
-            R_op = p.rl_op;
-            S_op = p.sl_op;
-            nmode_op = p.nModes_l_op;
-            mode_op = p.mode_l_op;
-            Del_op = hrs( R_op, S_op, p.p, p.q);
+            Del_op = p.Kac( p.r_op, p.s_op).first;
             }
         else
             {
-            me_chi_ortho_tmp = &me_chi_ortho_op_r;
-            R_op = p.rr_op;
-            S_op = p.sr_op;
-            nmode_op = p.nModes_r_op;
-            mode_op = p.mode_r_op;  
-            Del_op = hrs( R_op, S_op, p.p, p.q); 
+            Del_op = p.Kac( p.r_op, p.s_op).second; 
             }
   
         // copy relevant strcture constant 
-        int indtemp = (R_op - 1)*(p.maxq) + S_op - 1;
         for(int i=0;i < p.subdim[subspace];++i)
             {
             for(int j=0;j < p.subdim[subspace];++j) 
                 {
-                SC(i,j)=std::sqrt(std::abs(std::real(p.cptsmall(p.finalsubspace(subspace,i)-1, p.finalsubspace(subspace,j)-1, indtemp) )));            
+                int R1 = p.finalsubspace(subspace,i) / p.maxq;
+                int S1 = p.finalsubspace(subspace,i) % p.maxq;
+                int R2 = p.finalsubspace(subspace,j) / p.maxq;
+                int S2 = p.finalsubspace(subspace,j) % p.maxq;
+                SC(i,j)= std::sqrt(p.cpt(R1, S1, p.r_op, p.s_op, R2, S2));
                 }
             }
 
@@ -362,23 +370,20 @@ void chirME::calculate_chirME_for_ExpVal(parameters& p, states& st, int subspace
                         for(int k=0; k < st.num_chir[j];++k)  /*modes to right of op*/
                             {
 
-                            nm = 1 + st.cstate_nmode(i,l) + st.cstate_nmode(j,k) + nmode_op;
-                            mop = 1 + st.cstate_nmode(i,l) + nmode_op;
+                            nm = 1 + st.cstate_nmode(i,l) + st.cstate_nmode(j,k) ;
+                            mop = 1 + st.cstate_nmode(i,l);
                             for(int r=1; r <= st.cstate_nmode(i,l);++r)
                                 {
                                 grade[r] = -1.*st.cstate_mode(i,l,r);
-                                }
-                            for(int r=st.cstate_nmode(i,l) + 1 ; r<= st.cstate_nmode(i,l) + nmode_op;r++)
-                                {
-                                int idxtmp = r - st.cstate_nmode(i,l) - 1; 
-                                grade[r] = mode_op[idxtmp];
                                 }
                             grade[mop] = 0.;
                             for(int r=1; r<= st.cstate_nmode(j,k);++r)
                                 grade[r+mop] = st.cstate_mode(j,k, st.cstate_nmode(j,k)-r+1);
                             temp = element_computation( p.C, grade,nm,mop,st.h[i],st.h[j],1.,Del_op)/sqrt(st.norm(i,l)*st.norm(j,k));
-                            me_chi(i,j,l,k) = SC(i,j)*temp;
-    
+                            if (chirality == 0)
+                                me_chi(i,j,l,k).first = SC(i,j)*temp;
+                            else
+                                me_chi(i,j,l,k).second = SC(i,j)*temp;
                             }
                         }
                     }
@@ -388,7 +393,8 @@ void chirME::calculate_chirME_for_ExpVal(parameters& p, states& st, int subspace
                         {
                         for(int k=0; k < st.num_chir[j];++k) 
                             {
-                            me_chi(i,j,l,k) = 0.;
+                            me_chi(i,j,l,k).first  = 0.;
+                            me_chi(i,j,l,k).second = 0.;
                             }
                         }
                     }
@@ -410,12 +416,18 @@ void chirME::calculate_chirME_for_ExpVal(parameters& p, states& st, int subspace
                             {
                             for(int s=0; s < st.cstate_ortho_nmode(j,l);++s) 
                                 {
-                                temp = me_chi(i, j, st.cstate_ortho_mode(i,k,r), st.cstate_ortho_mode(j,l,s));
+                                if (chirality == 0)
+                                    temp = me_chi(i, j, st.cstate_ortho_mode(i,k,r), st.cstate_ortho_mode(j,l,s)).first;
+                                else
+                                    temp = me_chi(i, j, st.cstate_ortho_mode(i,k,r), st.cstate_ortho_mode(j,l,s)).second;
                                 temp *= st.cstate_ortho_modecoeff(i,k,r)*st.cstate_ortho_modecoeff(j,l,s);
                                 temp1 += temp;
                                 }
                             }
-                        (*me_chi_ortho_tmp)(i,j,k,l) = temp1;
+                        if (chirality == 0)
+                            me_chi_ortho_op(i,j,k,l).first = temp1;
+                        else
+                            me_chi_ortho_op(i,j,k,l).second = temp1;
                         }
                     }
                 }
@@ -442,7 +454,6 @@ void chirME::calculate_ExpVal(parameters& p, states& st, double* coeff, int size
         me_op_output.open(temp.str().c_str(), std::ofstream::out | std::ofstream::app);
         }
 
-    //double Del_op_tot = hrs( p.rl_op, p.sl_op, p.p, p.q) + hrs( p.rr_op, p.sr_op, p.p, p.q);
 
     if ( p.onlyDiagExpV)
         {
@@ -458,12 +469,11 @@ void chirME::calculate_ExpVal(parameters& p, states& st, double* coeff, int size
                     int st_right = st.state_right[ii];
                     int st_vmodj = st.state_vmod[jj];
                     int jshift = jj;
-                    double temp1 = me_chi_ortho_op_l(st_vmod, st_vmodj, st_left, st.state_left[jshift]);
-                    temp1 *= me_chi_ortho_op_r(st_vmod, st_vmodj, st_right, st.state_right[jshift]);
+                    double temp1 = me_chi_ortho_op(st_vmod, st_vmodj, st_left, st.state_left[jshift]).first;
+                    temp1 *= me_chi_ortho_op(st_vmod, st_vmodj, st_right, st.state_right[jshift]).second;
                     temp+=coeff[i*size + ii] * temp1 * coeff[i*size + jj];
                     }
                 }
-                //me_op_output << std::setiosflags(std::ios::fixed) << std::setprecision(14)<<temp*pow(2.*pi/R,Del_op_tot)<<" ";
                 me_op_output << std::setiosflags(std::ios::fixed) << std::setprecision(14) << temp <<" ";
             }
         me_op_output<< std::endl;
@@ -484,8 +494,8 @@ void chirME::calculate_ExpVal(parameters& p, states& st, double* coeff, int size
                         int st_right = st.state_right[ii];
                         int st_vmodj = st.state_vmod[jj];
                         int jshift = jj;
-                        double temp1 = me_chi_ortho_op_l(st_vmod, st_vmodj, st_left, st.state_left[jshift]);
-                        temp1 *= me_chi_ortho_op_r(st_vmod, st_vmodj, st_right, st.state_right[jshift]);
+                        double temp1 = me_chi_ortho_op(st_vmod, st_vmodj, st_left, st.state_left[jshift]).first;
+                        temp1 *= me_chi_ortho_op(st_vmod, st_vmodj, st_right, st.state_right[jshift]).second;
                         temp+=coeff[i*size + ii] * temp1 * coeff[j*size + jj];
                         }
                     }

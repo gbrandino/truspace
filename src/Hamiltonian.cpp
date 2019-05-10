@@ -84,7 +84,7 @@ void Hamiltonian::init()
     for (int pert=0; pert < p.numPert; pert++)
         {
         //effective strength of each perturbation
-        double c = p.pConst[pert]*2.*pi*pow(R/2./pi,1.-2.*p.deltas[pert]); 
+        double c = p.pConst[pert]*2.*pi*pow(R/2./pi,1. - (p.deltas[pert].first + p.deltas[pert].second)); 
 
         for(int i=0; i < Msize; ++i) 
             {
@@ -97,8 +97,8 @@ void Hamiltonian::init()
                 if( ( st.cstate_lev(st.state_vmod[i],st.state_left[i]) - st.cstate_lev(st.state_vmod[i],st.state_right[i]) )==( st.cstate_lev(st.state_vmod[j],st.state_left[j]) - st.cstate_lev(st.state_vmod[j],st.state_right[j]) ) )
                     {
                     int st_vmodj = st.state_vmod[j];
-                    double temp = me.me_chi_ortho(pert, st_vmod, st_vmodj, st_left, st.state_left[j]);
-                    temp *= me.me_chi_ortho(pert, st_vmod, st_vmodj, st_right, st.state_right[j]);
+                    double temp = me.me_chi_ortho(pert, st_vmod, st_vmodj, st_left, st.state_left[j]).first;
+                    temp *= me.me_chi_ortho(pert, st_vmod, st_vmodj, st_right, st.state_right[j]).second;
                     H(i,j) += (c*temp);
                     }
                 }
@@ -143,7 +143,7 @@ void Hamiltonian::NRG_block_BC(int iteration, double* coeff)
     double* results = new double[p.Nstep*p.Nsize];
     for (int pert=0; pert < p.numPert; pert++)
         {
-        double c = p.pConst[pert]*2.*pi*pow(R/2./pi,1.-2.*p.deltas[pert]);
+        double c = p.pConst[pert]*2.*pi*pow(R/2./pi,1.- (p.deltas[pert].first + p.deltas[pert].second));
         
         for(int j=0;j < p.Nstep;++j) 
             {
@@ -158,8 +158,8 @@ void Hamiltonian::NRG_block_BC(int iteration, double* coeff)
                 int st_vmodk = st.state_vmod[k];
                 if( (st.cstate_lev(st_vmod,st_left) - st.cstate_lev(st_vmod, st_right)) == (st.cstate_lev(st_vmodk,st.state_left[k]) - st.cstate_lev(st_vmodk, st.state_right[k])))
                     {
-                    temp = me.me_chi_ortho(pert,st_vmod,st_vmodk,st_left,st.state_left[k]);
-                    temp *= me.me_chi_ortho(pert,st_vmod,st_vmodk,st_right,st.state_right[k]);
+                    temp = me.me_chi_ortho(pert,st_vmod,st_vmodk,st_left,st.state_left[k]).first;
+                    temp *= me.me_chi_ortho(pert,st_vmod,st_vmodk,st_right,st.state_right[k]).second;
                     }
                 else
                     {
@@ -192,7 +192,7 @@ void Hamiltonian::NRG_block_D(int iteration)
    for (int pert=0; pert < p.numPert; pert++)
         {
         //effective strength of each perturbation
-        double c = p.pConst[pert]*2.*pi*pow(R/2./pi,1.-2.*p.deltas[pert]);
+        double c = p.pConst[pert]*2.*pi*pow(R/2./pi,1.-(p.deltas[pert].first + p.deltas[pert].second));
         int shift = p.Nsize + p.Nstep*iteration;
         for(int i=0; i < p.Nstep; ++i)
             {
@@ -207,8 +207,8 @@ void Hamiltonian::NRG_block_D(int iteration)
                 if( ( st.cstate_lev(st_vmod, st_left) - st.cstate_lev(st_vmod, st_right) )==( st.cstate_lev(st.state_vmod[jshift],st.state_left[jshift]) - st.cstate_lev(st.state_vmod[jshift],st.state_right[jshift]) ) )
                     {
                     int st_vmodj = st.state_vmod[jshift];
-                    double temp = me.me_chi_ortho(pert, st_vmod, st_vmodj, st_left, st.state_left[jshift]);
-                    temp *= me.me_chi_ortho(pert, st_vmod, st_vmodj, st_right, st.state_right[jshift]);
+                    double temp = me.me_chi_ortho(pert, st_vmod, st_vmodj, st_left, st.state_left[jshift]).first;
+                    temp *= me.me_chi_ortho(pert, st_vmod, st_vmodj, st_right, st.state_right[jshift]).second;
                     H(i + p.Nsize, j + p.Nsize) += (c*temp);
                     }
                 }
@@ -236,6 +236,7 @@ void Hamiltonian::sweep_block_BC(int iteration, double* coeff, double* coeffSwee
             }
         }
 
+    std::cout << " SWEEP IS WRONG RIGHT NOW! BLOCKS m1 AND m2 ARE TAKING ONLY CHIRAL PART OF THE OPERATOR!!!! FIX!!!! " << std::endl;
     tensor6D<double> m1(p.numPert, p.subdim[subspace], p.subdim[subspace], p.maxLev+1, p.maxLev+1, subsizeMax*subsizeMax);
     tensor6D<double> m2(p.numPert, p.subdim[subspace], p.subdim[subspace], p.maxLev+1, p.maxLev+1, subsizeMax*subsizeMax);
 
@@ -260,11 +261,11 @@ void Hamiltonian::sweep_block_BC(int iteration, double* coeff, double* coeffSwee
                                     {
                                     int ind1 = st.state_left_lev(vmod2,lev2,ii);
                                     int ind2 = st.state_left_lev(vmod,lev,jj);
-                                    m1(pert, vmod2, vmod, lev2, lev, ii*subsize+jj)=me.me_chi_ortho(pert, vmod2, vmod, ind1, ind2);
+                                    m1(pert, vmod2, vmod, lev2, lev, ii*subsize+jj)=me.me_chi_ortho(pert, vmod2, vmod, ind1, ind2).first;
                                         
                                     ind1 = st.state_right_lev(vmod2, lev2, ii);
                                     ind2 = st.state_right_lev(vmod, lev, jj);
-                                    m2(pert, vmod2, vmod, lev2, lev, ii*subsize+jj) = me.me_chi_ortho(pert, vmod2, vmod, ind1, ind2);
+                                    m2(pert, vmod2, vmod, lev2, lev, ii*subsize+jj) = me.me_chi_ortho(pert, vmod2, vmod, ind1, ind2).second;
                                     }
                                 }
                             }
@@ -323,7 +324,7 @@ void Hamiltonian::sweep_block_BC(int iteration, double* coeff, double* coeffSwee
                                 cblas_dgemm(CblasRowMajor,CblasNoTrans,CblasNoTrans,subsize2,subsize,subsize,1.0,&m1(pert,vmod2,vmod,lev2,lev,0),subsize,coeffSweep_j,subsize,0.0,results,subsize);
                                 cblas_dgemm(CblasRowMajor,CblasNoTrans,CblasTrans,subsize2,subsize2,subsize,1.0,results,subsize,&m2(pert,vmod2,vmod,lev2,lev,0),subsize,0.0,results2,subsize2);
 
-                                double c = p.pConst[pert]*2.*pi*pow(R/2./pi,1.-2.*p.deltas[pert]);
+                                double c = p.pConst[pert]*2.*pi*pow(R/2./pi,1.-(p.deltas[pert].first + p.deltas[pert].second));
                                 for (int ii=0;ii<subsize2;ii++)
                                     {
                                     for (int jj=0;jj<subsize2;jj++)

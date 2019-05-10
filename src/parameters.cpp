@@ -14,9 +14,11 @@
 #include "cpt.h"
 #include "characters.h"
 #include "block.h"
+#include "sparse_tensor.h"
 #include <iostream>
 #include <fstream>
 #include <utility>
+#include <vector>
 
 parameters::parameters()
 {
@@ -31,10 +33,6 @@ parameters::~parameters()
     delete [] s;
     delete [] deltas;
     delete [] pConst;
-    if ( nModes_l_op > 0)
-        delete [] mode_l_op;
-    if ( nModes_r_op > 0)
-        delete [] mode_r_op;
     delete [] subdim;
     delete [] leveldim; 
 }
@@ -59,7 +57,7 @@ parameters::parameters(const char* input_file_name)
 
     r = new int[numPert];
     s = new int[numPert];
-    deltas=new double[numPert];
+    deltas=new std::pair<double, double>[numPert];
     pConst=new double[numPert];
     for (int i=0;i<numPert;i++)
         {
@@ -114,29 +112,9 @@ parameters::parameters(const char* input_file_name)
         READ_ME=true;
 
     input_file>>calcExpVal;  input_file.ignore(256, '\n');
-    input_file>>rl_op;  input_file.ignore(256, '\n');
-    input_file>>sl_op;  input_file.ignore(256, '\n');
-    input_file>>nModes_l_op;  input_file.ignore(256, '\n');
-    if (nModes_l_op>0)
-        {
-        mode_l_op= new int[nModes_l_op];
-        for (int i=0;i<nModes_l_op;i++)
-            {
-            input_file>>mode_l_op[i];  input_file.ignore(256, '\n');
-            }
-        }
 
-    input_file>>rr_op;  input_file.ignore(256, '\n');
-    input_file>>sr_op;  input_file.ignore(256, '\n');
-    input_file>>nModes_r_op;  input_file.ignore(256, '\n');
-    if (nModes_r_op>0)
-        {
-        mode_r_op= new int[nModes_r_op];
-        for (int i=0;i<nModes_r_op;i++)
-            {
-            input_file>>mode_r_op[i];  input_file.ignore(256, '\n');
-            }
-        }
+    input_file>>r_op;  input_file.ignore(256, '\n');
+    input_file>>s_op;  input_file.ignore(256, '\n');
 
     input_file>>onlyDiagExpV;  input_file.ignore(256, '\n');
     input_file>>saveEigenvec;  input_file.ignore(256, '\n');
@@ -150,8 +128,7 @@ parameters::parameters(const char* input_file_name)
     q = 6;
     C=1.0-6.0*std::pow(p-q,2)/double(p*q);
 
-    // size of Kac table
-    if ( std::div(q-1,2).rem == 0 )
+    /*if ( std::div(q-1,2).rem == 0 )
         {
         maxq = (q-1)/2;
         maxp = p-1;
@@ -160,15 +137,13 @@ parameters::parameters(const char* input_file_name)
         {
         maxq = q-1;
         maxp = (p-1)/2;
-        }
-    maxl = maxp*maxq;
-   
-    tensor2D<std::pair<double, double> > KacNonChiral(maxp,maxq);
+        } */
+
     std::ifstream kac_table_file("potts_kac.dat");
 
     std::string line;
-    std::string fields_strings[maxl];
-    int count = 0;
+    std::vector<std::string>  fields_strings;
+    int n_lines = 0;
     // read line by line, skip line that CONTAINS '#' and split the various cells separated by "|"
     while( std::getline(kac_table_file, line) ){
         if (line.find("#")  != std::string::npos ){
@@ -179,10 +154,19 @@ parameters::parameters(const char* input_file_name)
         pch = strtok (str,"|");
         while (pch != NULL)
             {
-            fields_strings[count++] = pch;
+            fields_strings.push_back(pch);
+            
             pch = strtok (NULL, "|");
             }
+        n_lines++;
     }
+
+    maxp = n_lines;
+    maxq = fields_strings.size() / n_lines;
+    maxl = fields_strings.size();
+
+    tensor2D<std::pair<double, double> > KacNonChiral(maxp,maxq);
+
     for (int i=0; i < maxl; i++){
     //    std::cout << fields_strings[i] << std::endl;
         char * pch;
@@ -196,26 +180,58 @@ parameters::parameters(const char* input_file_name)
             if (pch)
                 KacNonChiral( i / maxq, i % maxq).second = atof(pch);
             }
-
     }
-    for (int i=0; i < maxp; i++){
+    kac_table_file.close();
+
+    /*for (int i=0; i < maxp; i++){
         for (int j=0; j < maxq; j++){
             std::cout << KacNonChiral(i,j).first << " , " << KacNonChiral(i,j).second << " || ";
         }
         std::cout << std::endl;
+    } */
+
+    sparse_tensor6D<double> CptNonChiral;
+    std::ifstream structure_constant_file("potts_constants.dat");
+
+    // read line by line, skip line that CONTAINS '#' and split the various cells separated by "|"
+    n_lines = 0;
+    while( std::getline(structure_constant_file, line) ){
+        if (line.find("#")  != std::string::npos ){
+            continue;
+        }
+        n_lines++;
+        char * pch;
+        char * str = &line[0u];
+        pch = strtok (str,"|");
+        std::string tmp[2];
+        int count = 0;
+        while (pch != NULL){
+            tmp[count++] = pch;
+            pch = strtok (NULL, "|");
+            }
+        int indexes[6];
+        int countIndexes = 0;
+        int valTmp;
+        char * pch2;
+        char * str2 = &tmp[0][0u];
+        pch2 = strtok (str2,",");
+        while (pch2 != NULL){
+            indexes[countIndexes++] = atoi(pch2);
+            pch2 = strtok (NULL, ",");
+            }
+        CptNonChiral.set(indexes[0], indexes[1], indexes[2], indexes[3], indexes[4], indexes[5]) = atof(tmp[1].c_str());
+        //std::cout << " " <<  indexes[0] << " " <<  indexes[1] << " " << indexes[2]<< " " <<  indexes[3] << " " <<  indexes[4] << " " <<  indexes[5] << " " <<  tmp[1] << " | " <<  CptNonChiral(indexes[0], indexes[1], indexes[2], indexes[3], indexes[4], indexes[5])  << std::endl;
+        
     }
-    exit(0);
     //temporary tensor, used to properly allocate Kac now that we know the sizes
-    tensor2D<double> Kac_temp(maxp,maxq);
-    Kac = Kac_temp;
+    Kac = KacNonChiral;
     
     //temporary tensor, used to properly allocate cpt now that we know the sizes
-    tensor6D< complex<long double>  > cpt_temp(maxp, maxq, maxp, maxq, maxp, maxq);
-    cpt = cpt_temp; 
+    cpt = CptNonChiral; 
 
     //temporary tensor, used to properly allocate cptsmall now that we know the sizes
-    tensor3D< complex<long double>  > cptsmall_temp(maxl, maxl, maxl);
-    cptsmall = cptsmall_temp;
+    //tensor3D< complex<long double>  > cptsmall_temp(maxl, maxl, maxl);
+    //cptsmall = cptsmall_temp;
 
     //temporary tensor, used to properly allocate vermadim now that we know the sizes
     tensor3D< int > vermadim_temp(maxp, maxq, maxLev+1);
@@ -232,6 +248,12 @@ parameters::parameters(const char* input_file_name)
     subdim = new int[maxl];
     leveldim = new int[maxLev+1];
 
+    for (int i=0;i<numPert;i++)
+        {
+        deltas[i]= Kac(r[i] - 1, s[i] - 1);
+        }
+
+    /*
     // filling Kac table with primary fields weight
     for (int i=1;i<=maxp;i++)
         {
@@ -358,7 +380,7 @@ parameters::parameters(const char* input_file_name)
                 }
             ai=ai+1;
             }
-        } 
+        }*/ 
 }
  
 
@@ -366,7 +388,7 @@ void parameters::print() const
 {
     // Printing input configuration, for easy review
     std::cout << "-------------------------------" << std::endl;
-    std::cout << "  TruSpace - " << VERSION        << std::endl;
+    std::cout << "  TruSpace - Non diagonal Potts - " << VERSION        << std::endl;
     std::cout << "-------------------------------" << std::endl;
     std::cout << std::endl;
     std::cout << " Version " << VERSION << std::endl;
@@ -483,22 +505,7 @@ void parameters::print() const
     if (calcExpVal)
         {
         std::cout << " Calculation of matrix elements of ";
-        if (nModes_l_op >=1)
-            {
-            for(int i=0;i<nModes_l_op;i++) 
-                {
-                std::cout<<"L_("<<mode_l_op[i]<<")";
-                }
-            }
-        std::cout << "phi_(" << rl_op << "," << sl_op << ")";
-        if (nModes_r_op >= 1)
-            {
-            for(int i=0;i<nModes_r_op;i++)
-                {
-                std::cout << " {bar}L_(" << mode_r_op[i] << ")";
-                }
-            }
-        std::cout << "{bar}phi_(" << rr_op << "," << sr_op << ") operator is enabled." << std::endl;
+        std::cout << "phi_(" << r_op << "," << s_op << ")";
         }
 
     if(calcExpVal)
@@ -528,10 +535,11 @@ void parameters::print() const
         {
         for (int j=1;j<=maxq;j++)
             {
-            std::cout << "  " << hrs((long double)(i),(long double)(j),p,q);
+            std::cout << "  (" << Kac(i,j).first << " " << Kac(i,j).second << ") ";
             }
         std::cout << std::endl;
         }
+    exit(0);
     std::cout << std::endl;
     std::cout << " Indexes of fields (for indications like C(abc))" << std::endl;
     std::cout << std::endl;
@@ -558,34 +566,6 @@ void parameters::print() const
     std::cout << "  v   " << std::endl;
     std::cout << std::endl;
     std::cout << std::endl;
-    std::cout << "   Structure constant tensor  C(r,s)(r',s')(r'',s'')" << std::endl;
-    std::cout << std::endl;
-
-    for (int i=0;i<maxp;i++)
-        {
-        for (int i1=0;i1<maxq;i1++)
-            {
-            for (int j=0;j<maxp;j++)
-                {
-                for (int j1=0;j1<maxq;j1++)
-	                {
-	                for (int k=0;k<maxp;k++)
-	                    {
-	                    for (int k1=0;k1<maxq;k1++)
-		                    {
-		                    std::cout << "C(" << i+1 << i1+1 << ")" << "(" << j+1 << j1+1 << ")" << "(" << k+1 << k1+1 << ")=" << cpt(i,i1,j,j1,k,k1) << "     ";
-		                    }
-                	        std::cout << std::endl;
-	                        }
-	
-	                    }
-                    std::cout << std::endl;
-                }
-            }
-        }
-
-    std::cout << std::endl;
-    std::cout << std::endl;
     std::cout << "--  Perturbation of the CFT hamiltonian  ----" << std::endl;
     std::cout << std::endl;
     for (int i=0;i<numPert;i++)
@@ -596,20 +576,8 @@ void parameters::print() const
 
     for (int i=0;i<numPert;i++)
         {
-        std::cout << " Conformal dimension of perturbation "<<i+1<<" : "<<deltas[i] << std::endl;
+        std::cout << " Conformal dimension of perturbation "<<i+1<<" : "<< deltas[i].first << " " << deltas[i].second << std::endl;
         }
-    std::cout << std::endl;
-
-    std::cout<<"-- Decomposition of the hamiltonian --" << std::endl;
-
-
-    std::cout << " Structure constants related to the perturbation of the hamiltonian" << std::endl;
-    std::cout << std::endl;
-    for (int i=0;i<numPert;i++)
-        {
-        std::cout << "C(a,b,[" << r[i] << "," << s[i] << "])" << "+" ;
-        }
-    std::cout << std::endl;
     std::cout << std::endl;
 
     std::cout << " Sketch of the interaction matrix, each element is a verma module " << std::endl;
@@ -781,7 +749,7 @@ void parameters::print() const
 
 void parameters::analyse_subspaces()
 {
-    tensor2D<complex <long double> > a(maxl,maxl);
+    tensor2D<double> a(maxl,maxl);
     // Creating interaction matrix for subspace analysis. The matrix has size maxl by maxl, ( maxl is the number of independent verma modules).
     // For each perturbation labelled by a combined single index k ( as in cptsmall above), the matrix a(i,j)  is filled with the corresponding strcture constant
     // c_(i,j,k). This will allow to understand if the are symmetry subspaces that can be diagonalized separately. 
@@ -793,32 +761,51 @@ void parameters::analyse_subspaces()
             }
         }
 
-    for (int i=0;i<maxl;i++)
+std::cout << "HHH0 " << maxp << " " << maxq << std::endl;
+
+    for (int p1=1;p1 <= maxp; p1++)
         {
-        for (int j=0;j<maxl;j++)
+        for (int q1=1;q1 <= maxq; q1++)
             {
-            for (int k=0;k<numPert;k++)
+            int i =  (p1-1)*maxq + q1;
+            for (int p2=1; p2 <= maxp; p2++)
                 {
-                a(i,j)=a(i,j) + cptsmall(i,j,(r[k]-1)*maxq+s[k]-1);
+                for (int q2=1;q2 <= maxq; q2++)
+                    {
+                    int j = (p2-1)*maxq + q2;
+                    for (int k=0; k < numPert;k++)
+                        {
+                        a(i-1,j-1)=a(i-1,j-1) + cpt(p1, q1, r[k], s[k], p2, q2);
+                        }
+                    }
                 }
             }
         }
 
+std::cout << "HHH1 " << std::endl;
 
     // If the expectation of a certain operator is required, we should check that such operator does not connect different symmetry subspaces. If it does, 
     // its expecation values between different subspaces can be non-zero. In such a case, we should diagonalize together all the subspaces connected by 
     // the perturbation.
     if (calcExpVal)
         {
-        for (int i=0;i<maxl;i++)
+        for (int p1=1;p1 <= maxp; p1++)
             {
-            for (int j=0;j<maxl;j++)
+            for (int q1=1;q1 <= maxq; q1++)
                 {
-                a(i,j) = a(i,j) + cptsmall(i,j,(rl_op-1)*maxq+sl_op-1)  + cptsmall(i,j,(rr_op-1)*maxq+sr_op-1);
+                int i =  (p1-1)*maxq + q1;
+                for (int p2=1; p2 <= maxp; p2++)
+                    {
+                    for (int q2=1;q2 <= maxq; q2++)
+                        {
+                        int j = (p2-1)*maxq + q2;
+                        a(i-1,j-1) = a(i-1,j-1) + cpt(p1, q1, r_op, s_op, p2, q2);
+                        }
+                    }
                 }
             }
         }
-
+    std::cout << "HHH2 " << std::endl;
     // Tensor intMatrix is just the 0-1 representation of the matrix a
     tensor2D<int> intMatrix_temp(maxl,maxl);
     intMatrix = intMatrix_temp;

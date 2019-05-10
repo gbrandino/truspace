@@ -104,7 +104,7 @@ T& tensor2D<T>::operator()(const int i1, const int i2)
 {
     if (i1 > (n1-1) or i2 > (n2-1) )
         {
-        std::cerr << " ERROR: Out of bound on 2D tensor! Requested " << std::endl;
+        std::cerr << " ERROR: Out of bound on 2D tensor!  Requested " << std::endl;
         std::cerr << i1 << " (size " << n1 << ")" << std::endl;
         std::cerr << i2 << " (size " << n2 << ")" << std::endl;
         std::exit(1);
