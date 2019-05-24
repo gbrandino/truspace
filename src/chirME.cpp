@@ -337,11 +337,11 @@ void chirME::calculate_chirME_for_ExpVal(parameters& p, states& st, int subspace
 
         if ( chirality == 0 )
             {
-            Del_op = p.Kac( p.r_op, p.s_op).first;
+         //   Del_op = p.Kac( p.r_op, p.s_op).first;
             }
         else
             {
-            Del_op = p.Kac( p.r_op, p.s_op).second; 
+         //   Del_op = p.Kac( p.r_op, p.s_op).second; 
             }
   
         // copy relevant strcture constant 

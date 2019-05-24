@@ -62,7 +62,7 @@ parameters::parameters(const char* input_file_name)
     for (int i=0;i<numPert;i++)
         {
         input_file>>r[i];  input_file.ignore(256, '\n');
-        input_file>>s[i];  input_file.ignore(256, '\n');
+        //input_file>>s[i];  input_file.ignore(256, '\n');
         input_file>>pConst[i];  input_file.ignore(256, '\n');
         }
 
@@ -114,7 +114,7 @@ parameters::parameters(const char* input_file_name)
     input_file>>calcExpVal;  input_file.ignore(256, '\n');
 
     input_file>>r_op;  input_file.ignore(256, '\n');
-    input_file>>s_op;  input_file.ignore(256, '\n');
+    //input_file>>s_op;  input_file.ignore(256, '\n');
 
     input_file>>onlyDiagExpV;  input_file.ignore(256, '\n');
     input_file>>saveEigenvec;  input_file.ignore(256, '\n');
@@ -128,7 +128,7 @@ parameters::parameters(const char* input_file_name)
     q = 6;
     C=1.0-6.0*std::pow(p-q,2)/double(p*q);
 
-    /*if ( std::div(q-1,2).rem == 0 )
+    if ( std::div(q-1,2).rem == 0 )
         {
         maxq = (q-1)/2;
         maxp = p-1;
@@ -137,60 +137,71 @@ parameters::parameters(const char* input_file_name)
         {
         maxq = q-1;
         maxp = (p-1)/2;
-        } */
+        } 
 
-    std::ifstream kac_table_file("potts_kac.dat");
+    std::ifstream kac_table_file("potts_fields.dat");
 
     std::string line;
     std::vector<std::string>  fields_strings;
     int n_lines = 0;
     // read line by line, skip line that CONTAINS '#' and split the various cells separated by "|"
     while( std::getline(kac_table_file, line) ){
-        if (line.find("#")  != std::string::npos ){
-            continue;
-        }
+//        if (line.find("#")  != std::string::npos ){
+//            continue;
+//        }
         char * pch;
         char * str = &line[0u];
-        pch = strtok (str,"|");
-        while (pch != NULL)
+        pch = strtok (str,"#");
+        if(pch){
+            fields_strings.push_back(pch);            
+        }
+        
+/*        while (pch != NULL)
             {
             fields_strings.push_back(pch);
             
             pch = strtok (NULL, "|");
-            }
+            }*/
         n_lines++;
     }
 
-    maxp = n_lines;
-    maxq = fields_strings.size() / n_lines;
-    maxl = fields_strings.size();
+    n_fields = n_lines;
 
-    tensor2D<std::pair<double, double> > KacNonChiral(maxp,maxq);
 
-    for (int i=0; i < maxl; i++){
+    for (int i=0; i < n_fields; i++){
     //    std::cout << fields_strings[i] << std::endl;
         char * pch;
         std::string tmp = fields_strings[i];
         char * str = &tmp[0u];
         pch = strtok (str,",");
-        KacNonChiral( i / maxq, i % maxq).first = atof(pch);
+        std::pair<int,int> chiral;
+        std::pair<int,int> antichiral;
+        chiral.first = atoi(pch);
+        int count = 1;
         while (pch != NULL)
             {
             pch = strtok (NULL, ",");
-            if (pch)
-                KacNonChiral( i / maxq, i % maxq).second = atof(pch);
+            if (pch) {
+                switch (count) {
+                    case 1 :
+                        chiral.second = atoi(pch);
+                        break;
+                    case 2 :
+                        antichiral.first = atoi(pch);
+                        break;
+                    case 3 :    
+                        antichiral.second = atoi(pch);
+                        break;
+                    }
+                count++;
+                }
             }
+        fields.push_back(std::make_pair(chiral, antichiral));
+        fields_dimensions[i+1] = std::make_pair( hrs(chiral.first, chiral.second, p, q) , hrs(antichiral.first, antichiral.second, p, q) );
     }
     kac_table_file.close();
 
-    /*for (int i=0; i < maxp; i++){
-        for (int j=0; j < maxq; j++){
-            std::cout << KacNonChiral(i,j).first << " , " << KacNonChiral(i,j).second << " || ";
-        }
-        std::cout << std::endl;
-    } */
-
-    sparse_tensor6D<double> CptNonChiral;
+    sparse_tensor3D<double> CptNonChiral;
     std::ifstream structure_constant_file("potts_constants.dat");
 
     // read line by line, skip line that CONTAINS '#' and split the various cells separated by "|"
@@ -219,19 +230,21 @@ parameters::parameters(const char* input_file_name)
             indexes[countIndexes++] = atoi(pch2);
             pch2 = strtok (NULL, ",");
             }
-        CptNonChiral.set(indexes[0], indexes[1], indexes[2], indexes[3], indexes[4], indexes[5]) = atof(tmp[1].c_str());
-        //std::cout << " " <<  indexes[0] << " " <<  indexes[1] << " " << indexes[2]<< " " <<  indexes[3] << " " <<  indexes[4] << " " <<  indexes[5] << " " <<  tmp[1] << " | " <<  CptNonChiral(indexes[0], indexes[1], indexes[2], indexes[3], indexes[4], indexes[5])  << std::endl;
-        
+        CptNonChiral.set(indexes[0], indexes[1], indexes[2]) = atof(tmp[1].c_str());
     }
     //temporary tensor, used to properly allocate Kac now that we know the sizes
-    Kac = KacNonChiral;
-    
+    tensor2D<double> Kac_temp(maxp,maxq);
+    Kac = Kac_temp;
+ 
     //temporary tensor, used to properly allocate cpt now that we know the sizes
-    cpt = CptNonChiral; 
+    //tensor6D< complex<long double>  > cpt_temp(maxp, maxq, maxp, maxq, maxp, maxq);
+    //cpt = cpt_temp; 
+
 
     //temporary tensor, used to properly allocate cptsmall now that we know the sizes
     //tensor3D< complex<long double>  > cptsmall_temp(maxl, maxl, maxl);
     //cptsmall = cptsmall_temp;
+    cptsmall = CptNonChiral;
 
     //temporary tensor, used to properly allocate vermadim now that we know the sizes
     tensor3D< int > vermadim_temp(maxp, maxq, maxLev+1);
@@ -242,18 +255,19 @@ parameters::parameters(const char* input_file_name)
     vermadimcomul = vermadimcomul_temp;
 
     //temporary tensor, used to properly allocate finalsubspace now that we know the sizes
-    tensor2D< int > finalsubspace_temp(maxl,maxl);
+    tensor2D< int > finalsubspace_temp(n_fields, n_fields);
     finalsubspace=finalsubspace_temp; 
 
-    subdim = new int[maxl];
+    subdim = new int[n_fields];
     leveldim = new int[maxLev+1];
 
     for (int i=0;i<numPert;i++)
         {
-        deltas[i]= Kac(r[i] - 1, s[i] - 1);
+        //deltas[i]= Kac(r[i] - 1, s[i] - 1);
+        deltas[i] = fields_dimensions[r[i]];
         }
 
-    /*
+    
     // filling Kac table with primary fields weight
     for (int i=1;i<=maxp;i++)
         {
@@ -263,7 +277,7 @@ parameters::parameters(const char* input_file_name)
             }
         }
 
-
+    /*
     for (int i=0;i<numPert;i++)
         {
         deltas[i]= hrs( (long double)r[i],(long double)s[i],p,q);
@@ -535,25 +549,22 @@ void parameters::print() const
         {
         for (int j=1;j<=maxq;j++)
             {
-            std::cout << "  (" << Kac(i,j).first << " " << Kac(i,j).second << ") ";
-            }
-        std::cout << std::endl;
-        }
-    exit(0);
-    std::cout << std::endl;
-    std::cout << " Indexes of fields (for indications like C(abc))" << std::endl;
-    std::cout << std::endl;
-    int index=1;
-    for (int i=1;i<=maxp;i++)
-        {
-        for (int j=1;j<=maxq;j++)
-            {
-            std::cout << "  " << index;
-            index += 1;
+            std::cout << "  " << hrs((long double)(i),(long double)(j),p,q);
             }
         std::cout << std::endl;
         }
 
+    std::cout << std::endl;
+    std::cout << " Indexes of fields (for indications like C(abc))" << std::endl;
+    std::cout << std::endl;
+    for (int i=0;i< n_fields;i++)
+        {
+        int r_tmp = fields[i].first.first;
+        int s_tmp = fields[i].first.second;
+        int r1_tmp = fields[i].second.first;
+        int s1_tmp = fields[i].second.second;
+        std::cout << i << "| ( " << r_tmp << ", " << s_tmp << " ) " << r1_tmp << ", " << s1_tmp << " ) | ( " <<  fields_dimensions.at(i+1).first << " , " << fields_dimensions.at(i+1).second << " ) " << std::endl;
+        }
     std::cout << " r max : " << maxp << std::endl;
     std::cout << " s max : "<< maxq << std::endl;
     std::cout << std::endl;
@@ -582,9 +593,9 @@ void parameters::print() const
 
     std::cout << " Sketch of the interaction matrix, each element is a verma module " << std::endl;
     
-    for (int i=0;i<maxl;i++)
+    for (int i=0;i<n_fields;i++)
         {
-        for (int j=0;j<maxl;j++)
+        for (int j=0;j<n_fields;j++)
             {
             std::cout << intMatrix(i,j) << " "; 
             }
@@ -680,10 +691,10 @@ void parameters::print() const
     std::cout << " Number of independent subspaces found  " << numspace << std::endl;
     std::cout << std::endl;
 
-    for (int i=0;i<maxl;i++)
+    for (int i=0;i<n_fields;i++)
         {
         cout<<" Subspace "<<i+1<<"      ";
-        for (int j=0;j<maxl;j++)
+        for (int j=0;j<n_fields;j++)
             {
             if (finalsubspace(i,j) != 0)
                 {
@@ -695,10 +706,10 @@ void parameters::print() const
     std::cout << std::endl;
 
 
-    for (int i=0;i<maxl;i++)
+    for (int i=0;i<n_fields;i++)
         {
         std::cout<<" Subspace "<< i+1 << "      ";
-        for (int j=0;j<maxl;j++)
+        for (int j=0;j<n_fields;j++)
             {
             if (finalsubspace(i,j) != 0)
                 {
@@ -717,7 +728,7 @@ void parameters::print() const
     std::cout<< std::endl;
     std::cout << " Subspace dimensions (number of verma modules in each subspace) " << std::endl;
 
-    for (int i=0;i<maxl;i++)
+    for (int i=0;i<n_fields;i++)
         {
         std::cout << " " << subdim[i];
         }
@@ -749,77 +760,57 @@ void parameters::print() const
 
 void parameters::analyse_subspaces()
 {
-    tensor2D<double> a(maxl,maxl);
-    // Creating interaction matrix for subspace analysis. The matrix has size maxl by maxl, ( maxl is the number of independent verma modules).
+    tensor2D<double> a(n_fields, n_fields);
+    // Creating interaction matrix for subspace analysis. The matrix has size n_fields by n_fields, ( n_fileds is the number of fields in theory as from input file).
     // For each perturbation labelled by a combined single index k ( as in cptsmall above), the matrix a(i,j)  is filled with the corresponding strcture constant
     // c_(i,j,k). This will allow to understand if the are symmetry subspaces that can be diagonalized separately. 
-    for (int i=0;i<maxl;i++)
+    for (int i=0;i<n_fields;i++)
         {
-        for (int j=0;j<maxl;j++)
+        for (int j=0;j<n_fields; j++)
             {
             a(i,j)=0;
             }
         }
 
-std::cout << "HHH0 " << maxp << " " << maxq << std::endl;
-
-    for (int p1=1;p1 <= maxp; p1++)
+    for (int i=1;i <= n_fields ; i++)
         {
-        for (int q1=1;q1 <= maxq; q1++)
+        for (int j=1;j <= n_fields; j++)
             {
-            int i =  (p1-1)*maxq + q1;
-            for (int p2=1; p2 <= maxp; p2++)
+            for (int k=0; k< numPert; k++)
                 {
-                for (int q2=1;q2 <= maxq; q2++)
-                    {
-                    int j = (p2-1)*maxq + q2;
-                    for (int k=0; k < numPert;k++)
-                        {
-                        a(i-1,j-1)=a(i-1,j-1) + cpt(p1, q1, r[k], s[k], p2, q2);
-                        }
-                    }
+                a(i-1, j-1)=a(i-1, j-1) + cptsmall(i, r[k], j);
                 }
-            }
+            } 
         }
-
-std::cout << "HHH1 " << std::endl;
 
     // If the expectation of a certain operator is required, we should check that such operator does not connect different symmetry subspaces. If it does, 
     // its expecation values between different subspaces can be non-zero. In such a case, we should diagonalize together all the subspaces connected by 
     // the perturbation.
     if (calcExpVal)
         {
-        for (int p1=1;p1 <= maxp; p1++)
+        for (int i=1;i <= n_fields ; i++)
             {
-            for (int q1=1;q1 <= maxq; q1++)
+            for (int j=1;j <= n_fields; j++)
                 {
-                int i =  (p1-1)*maxq + q1;
-                for (int p2=1; p2 <= maxp; p2++)
-                    {
-                    for (int q2=1;q2 <= maxq; q2++)
-                        {
-                        int j = (p2-1)*maxq + q2;
-                        a(i-1,j-1) = a(i-1,j-1) + cpt(p1, q1, r_op, s_op, p2, q2);
-                        }
-                    }
+                a(i-1,j-1) = a(i-1,j-1) + cptsmall(i, r_op, j);
                 }
             }
         }
-    std::cout << "HHH2 " << std::endl;
+
     // Tensor intMatrix is just the 0-1 representation of the matrix a
-    tensor2D<int> intMatrix_temp(maxl,maxl);
+    tensor2D<int> intMatrix_temp(n_fields, n_fields);
     intMatrix = intMatrix_temp;
-    for (int i=0;i<maxl;i++)
+    for (int i=0;i<n_fields;i++)
         {
-        for (int j=0;j<maxl;j++)
+        for (int j=0;j<n_fields;j++)
             {
             intMatrix(i,j)=0;
             }
         }
 
-    for (int i=0;i<maxl;i++)
+    for (int i=0;i<n_fields;i++)
         {
-        for (int j=0;j<maxl;j++)
+        for (int j=0;j<n_fields;j++)
             {
             if (std::abs(a(i,j))>0.000001 )
                {
@@ -828,10 +819,9 @@ std::cout << "HHH1 " << std::endl;
             }
         }
 
-
     //Calculation of independent subspaces
-    blockrec(maxl,a,finalsubspace,subdim,numspace);
-
+    blockrec(n_fields,a,finalsubspace,subdim,numspace);
+ 
     tensor2D<int>  subdimStates_temp(numspace,maxMomentum+1);
     subdimStates = subdimStates_temp;
 
@@ -851,47 +841,38 @@ std::cout << "HHH1 " << std::endl;
             }
         }
 
+    for (int i=0;i<numspace;i++)
+            {
+            for(int j=0;j<subdim[i];j++)
+                   {
+                   std::cout << finalsubspace(i,j) << " ";
+                   }
+            std::cout << std::endl;
+            }
+
     // given the states in each verma module in a given subspace, we calculate the number of non-chiral states in each subspace
     if (allMomSubspace)
         {
         for (int i=0;i<numspace;i++)
             {
-            int NumVMods=subdim[i];
             int tempdim=0;
             for(int mom=0;mom<=maxMomentum;mom++)
                 {
-                for(int j=0;j<NumVMods;j++)
-                   {
-                    if (std::div(finalsubspace(i,j),maxq).rem!=0)
+                for(int j=0;j<subdim[i];j++)
+                    {
+                    int r_tmp = fields[finalsubspace(i,j) - 1].first.first;
+                    int s_tmp = fields[finalsubspace(i,j) - 1].first.second;
+                    int r1_tmp = fields[finalsubspace(i,j) - 1].second.first;
+                    int s1_tmp = fields[finalsubspace(i,j) - 1].second.second;
+                    for (int k=0;k<=maxLev;k++)
                         {
-                        int indtemp1 = std::div(finalsubspace(i,j),maxq).quot;
-                        int indtemp2 = std::div(finalsubspace(i,j),maxq).rem-1;
-                        for (int k=0;k<=maxLev;k++)
+                        for (int k1=0;k1<=maxLev;k1++)
                             {
-                            for (int k1=0;k1<=maxLev;k1++)
+                            if(abs(k-k1) == mom)
                                 {
-                                if(abs(k-k1) == mom)
-                                    {
-                                    tempdim=tempdim+vermadim(indtemp1,indtemp2,k)*vermadim(indtemp1,indtemp2,k1);
-                                    }
-                                }          
-                            }
-
-                        }
-                    else
-                        {
-                        int indtemp1 = std::div(finalsubspace(i,j),maxq).quot-1;
-                        int indtemp2 = maxq-1;
-                        for (int k=0;k<= maxLev;k++)
-                            {
-                            for (int k1=0;k1<= maxLev;k1++)
-                                {
-                                if(abs(k-k1) == mom)
-                                    {
-                                    tempdim=tempdim+vermadim(indtemp1,indtemp2,k)*vermadim(indtemp1,indtemp2,k1);
-                                    }
+                                tempdim=tempdim+vermadim(r_tmp-1, s_tmp-1, k)*vermadim(r1_tmp-1, s1_tmp-1, k1);
                                 }
-                            }
+                            }          
                         }
                     }
                 }
@@ -900,43 +881,26 @@ std::cout << "HHH1 " << std::endl;
         }
     else
         {
+        std::cout << "GGG" << std::endl;
         for (int i=0;i<numspace;i++)
             {
-            int NumVMods=subdim[i];
             int tempdim=0;
             for(int mom=0;mom<= maxMomentum;mom++)
                 {
                 tempdim=0;
-                for(int j=0;j<NumVMods;j++)
+                for(int j=0;j<subdim[i];j++)
                     {
-                    if (std::div(finalsubspace(i,j),maxq).rem!=0)
+                    int r_tmp = fields[finalsubspace(i,j) - 1].first.first;
+                    int s_tmp = fields[finalsubspace(i,j) - 1].first.second;
+                    int r1_tmp = fields[finalsubspace(i,j) - 1].second.first;
+                    int s1_tmp = fields[finalsubspace(i,j) - 1].second.second;
+                    for (int k=0;k<= maxLev;k++)
                         {
-                        int indtemp1 = std::div(finalsubspace(i,j),maxq).quot;
-                        int indtemp2 = std::div(finalsubspace(i,j),maxq).rem-1;
-                        for (int k=0;k<= maxLev;k++)
+                        for (int k1=0;k1<=maxLev;k1++)
                             {
-                            for (int k1=0;k1<=maxLev;k1++)
+                            if(abs(k-k1)==mom)
                                 {
-                                if(abs(k-k1)==mom)
-                                    {
-                                    tempdim=tempdim+vermadim(indtemp1,indtemp2,k)*vermadim(indtemp1,indtemp2,k1);
-                                    }
-                                }
-                            }
-
-                        }
-                    else
-                        {
-                        int indtemp1 = std::div(finalsubspace(i,j),maxq).quot-1;
-                        int indtemp2 = maxq-1;
-                        for (int k=0;k<= maxLev;k++)
-                            {
-                            for (int k1=0;k1<=maxLev;k1++)
-                                {
-                                if(abs(k-k1)==mom)
-                                    {
-                                    tempdim=tempdim+vermadim(indtemp1,indtemp2,k)*vermadim(indtemp1,indtemp2,k1);
-                                    }
+                                tempdim=tempdim+vermadim(r_tmp-1, s_tmp-1, k)*vermadim(r1_tmp-1, s1_tmp-1, k1);
                                 }
                             }
                         }
@@ -945,8 +909,6 @@ std::cout << "HHH1 " << std::endl;
                 }
             }
         }
-
-
-
+std::cout << "GGG1" << std::endl;
 
 }
