@@ -75,7 +75,8 @@ class parameters
         sparse_tensor6D<double> cpt;  /**< Structure constant of the model. Calculated by the code */
         //tensor3D< std::complex<long double> > cptsmall; /**< Structure constant of the model, indexed with field index instead of r,s. Calculated by the code */
         sparse_tensor3D<double> cptsmall; /**< Structure constants of the model, indexed with field index. Read from input file */
-
+        std::vector< std::map < std::pair<int, int>, int > > PairToIndex; /**< Vector whose elements are map of pairs of indexes of fields (r,s) and the corresponding linear index of the chiral field, foreach subspace */
+        std::vector< std::map < int, std::pair<int, int> > > IndexToPair; /**< Vector whose elements are map of the linear index of the chiral field and the correspoding pairs of indexes of fields (r,s), foreach subspace */
         tensor3D< int > vermadim;       /**< contains the number of states for each level of each verma module. The first two indeces are the r,s indeces of the primary field, the third is the level */
         tensor3D< int > vermadimcomul;  /**< contains the cumulative number of states up to each level of each verma module. The first two indeces are the r,s indeces of the primary field, the third is the level */
         tensor2D<int> finalsubspace;  /**< contains the label of the verma module in each subspace. Calculated by the code */

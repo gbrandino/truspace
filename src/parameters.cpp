@@ -204,6 +204,12 @@ parameters::parameters(const char* input_file_name)
     sparse_tensor3D<double> CptNonChiral;
     std::ifstream structure_constant_file("potts_constants.dat");
 
+    // set structure constant to zero, such that only the one different from zero needs to be in the input file
+    for(int i = 1; i <= n_fields; i++)
+        for(int j = 1; j <= n_fields; j++)
+            for(int k = 1; k <= n_fields; k++)
+                CptNonChiral.set(i, j, k) = 0.0;
+
     // read line by line, skip line that CONTAINS '#' and split the various cells separated by "|"
     n_lines = 0;
     while( std::getline(structure_constant_file, line) ){
@@ -263,7 +269,6 @@ parameters::parameters(const char* input_file_name)
 
     for (int i=0;i<numPert;i++)
         {
-        //deltas[i]= Kac(r[i] - 1, s[i] - 1);
         deltas[i] = fields_dimensions[r[i]];
         }
 
@@ -277,124 +282,6 @@ parameters::parameters(const char* input_file_name)
             }
         }
 
-    /*
-    for (int i=0;i<numPert;i++)
-        {
-        deltas[i]= hrs( (long double)r[i],(long double)s[i],p,q);
-        }
-
-    complex<long double> tdot;
-
-    // Filling cpt tensord with structure constants. 
-    // The tensor is indexed in the usual way with 6 indexes, that are the r,s Kac index for each field 
-    // We also check each of them is not NaN or infinite. 
-    // Due to the symmetry of the tensor, if one elemenent is NaN or infinite, we compute the equivalent coefficient using the corresponding permutation
-    // If no permutation gives a finite number, the code prints an error and quits.
-    for (int i=0; i<maxp; i++)
-        {
-        for (int i1=0; i1<maxq; i1++)
-            {
-            for (int j=0; j<maxp; j++)
-                {
-                for (int j1=0; j1<maxq; j1++)
-	                { 
-	                for (int k=0; k<maxp; k++)
-	                    {
-	                    for (int k1=0; k1<maxq; k1++)
-		                    {               
-                            tdot=dot((int)p,(int)q,i1+1,i+1,j1+1,j+1,k1+1,k+1);//123
-                            if (isnan(real(tdot)) or isinf(real(tdot)) or isnan(imag(tdot)) or isinf(imag(tdot)) )
-                                {
-                                tdot=dot((int)p,(int)q,i1+1,i+1,k1+1,k+1,j1+1,j+1);   //132
-                                if (isnan(real(tdot)) or isinf(real(tdot)) or isnan(imag(tdot)) or isinf(imag(tdot)) )
-                                   {
-                                   tdot=dot((int)p,(int)q,j1+1,j+1,i1+1,i+1,k1+1,k+1);  //213
-                                   if (isnan(real(tdot)) or isinf(real(tdot)) or isnan(imag(tdot)) or isinf(imag(tdot)) )
-                                      {
-                                      tdot=dot((int)p,(int)q,j1+1,j+1,k1+1,k+1,i1+1,i+1);  //231  
-                                      if (isnan(real(tdot)) || isinf(real(tdot)) || isnan(imag(tdot)) or isinf(imag(tdot)) )
-                                         {
-                                         tdot=dot((int)p,(int)q,k1+1,k+1,j1+1,j+1,i1+1,i+1); //321
-                                         if (isnan(real(tdot)) or isinf(real(tdot)) or isnan(imag(tdot)) or isinf(imag(tdot)) )
-                                            {
-                                            tdot=dot((int)p,(int)q,k1+1,k+1,i1+1,i+1,j1+1,j+1); //312 
-                                            if (isnan(real(tdot)) or isinf(real(tdot)) or isnan(imag(tdot)) or isinf(imag(tdot)) ) 
-                                               {
-                                               std::cerr << "  ERROR, structure constants are either NaN of infinite" << std::endl;
-                                               std::exit(1);
-                                               }
-                                            }
-                                         }
-                                      }
-                                   }
-                                }
-                            cpt(i, i1, j, j1, k, k1)=tdot;
-		                    }
-	                    }
-	                }
-                }
-            }
-        } 
-
-
-    // Filling cptsmall tensord with structure constants. 
-    // The tensor is indexed using 3 indexes, so each field is labelled by a single integer, that is its position in the Kac table, counting in row_major order
-    // So, a field 2,3 on ai 2 by 3 table  will have index 4.  
-    // We also check each of them is not NaN or infinite. 
-    // Due to the symmetry of the tensor, if one elemenent is NaN or infinite, we compute the equivalent coefficient using the corresponding permutation
-    // If no permutation gives a finite number, the code prints an error and quits.
-    int ai=0;	 
-    for (int i=0;i<maxp;i++)
-        {
-        for (int i1=0;i1<maxq;i1++)
-            {
-            int bi=0;        
-            for (int j=0;j<maxp;j++)
-                {
-                for (int j1=0;j1<maxq;j1++)
-                	{ 
-                	int ci=0;
-                	for (int k=0;k<maxp;k++)
-                	    {
-                	    for (int k1=0;k1<maxq;k1++)
-                    		{
-                            tdot=dot((int)p,(int)q,i1+1,i+1,j1+1,j+1,k1+1,k+1);//123
-                            if (isnan(real(tdot)) || isinf(real(tdot)) || isnan(imag(tdot)) || isinf(imag(tdot)) )
-                                {
-                                tdot=dot((int)p,(int)q,i1+1,i+1,k1+1,k+1,j1+1,j+1);   //132
-                                if (isnan(real(tdot)) || isinf(real(tdot)) || isnan(imag(tdot)) || isinf(imag(tdot)) )
-                                    {
-                                    tdot=dot((int)p,(int)q,j1+1,j+1,i1+1,i+1,k1+1,k+1);  //213
-                                    if (isnan(real(tdot)) || isinf(real(tdot)) || isnan(imag(tdot)) || isinf(imag(tdot)) )
-                                        {
-                                        tdot=dot((int)p,(int)q,j1+1,j+1,k1+1,k+1,i1+1,i+1);  //231  
-                                        if (isnan(real(tdot)) || isinf(real(tdot)) || isnan(imag(tdot)) || isinf(imag(tdot)) )
-                                            {
-                                            tdot=dot((int)p,(int)q,k1+1,k+1,j1+1,j+1,i1+1,i+1); //321
-                                            if (isnan(real(tdot)) || isinf(real(tdot)) || isnan(imag(tdot)) || isinf(imag(tdot)) )
-                                                {
-                                                tdot=dot((int)p,(int)q,k1+1,k+1,i1+1,i+1,j1+1,j+1); //312 
-                                                if (isnan(real(tdot)) || isinf(real(tdot)) || isnan(imag(tdot)) || isinf(imag(tdot)) )
-                                                    {
-                                                    std::cerr <<"WARNING, structure constants are either NaN of infinite" << std::endl;
-                                                    std::exit(1);
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-
-                            cptsmall(ai,bi,ci)=tdot; 
-                    		ci=ci+1;
-		                    }
-	                    }
-	                bi=bi+1;
-	                }
-                }
-            ai=ai+1;
-            }
-        }*/ 
 }
  
 
@@ -541,11 +428,11 @@ void parameters::print() const
     std::cout << std::endl;
     std::cout << "-------------------------" << endl;
     std::cout << std::endl;
-    std::cout << " Number of primary fields " << maxl << endl;
+    std::cout << " Number of fields " << n_fields << endl;
     std::cout << std::endl;
     std::cout << "   Reduced Kac table" << std::endl;
    
-    for (int i=1;i<=maxp;i++)
+    for (int i=maxp;i>=1;i--)
         {
         for (int j=1;j<=maxq;j++)
             {
@@ -563,19 +450,20 @@ void parameters::print() const
         int s_tmp = fields[i].first.second;
         int r1_tmp = fields[i].second.first;
         int s1_tmp = fields[i].second.second;
-        std::cout << i << "| ( " << r_tmp << ", " << s_tmp << " ) " << r1_tmp << ", " << s1_tmp << " ) | ( " <<  fields_dimensions.at(i+1).first << " , " << fields_dimensions.at(i+1).second << " ) " << std::endl;
+        std::cout << i << "| ( " << r_tmp << ", " << s_tmp << " ) ( " << r1_tmp << ", " << s1_tmp << " ) | ( " <<  fields_dimensions.at(i+1).first << " , " << fields_dimensions.at(i+1).second << " ) " << std::endl;
         }
+    std::cout << std::endl;
     std::cout << " r max : " << maxp << std::endl;
     std::cout << " s max : "<< maxq << std::endl;
     std::cout << std::endl;
-    std::cout << "        s     " << std::endl;
+/*    std::cout << "        s     " << std::endl;
     std::cout << "  |---------->" << std::endl;
     std::cout << "  |" << std::endl;
     std::cout << "  |" << std::endl;
     std::cout << " r|" << std::endl;
     std::cout << "  |" << std::endl;
     std::cout << "  v   " << std::endl;
-    std::cout << std::endl;
+    std::cout << std::endl;*/
     std::cout << std::endl;
     std::cout << "--  Perturbation of the CFT hamiltonian  ----" << std::endl;
     std::cout << std::endl;
@@ -691,7 +579,7 @@ void parameters::print() const
     std::cout << " Number of independent subspaces found  " << numspace << std::endl;
     std::cout << std::endl;
 
-    for (int i=0;i<n_fields;i++)
+    for (int i=0;i<numspace /*n_fields*/;i++)
         {
         cout<<" Subspace "<<i+1<<"      ";
         for (int j=0;j<n_fields;j++)
@@ -706,27 +594,7 @@ void parameters::print() const
     std::cout << std::endl;
 
 
-    for (int i=0;i<n_fields;i++)
-        {
-        std::cout<<" Subspace "<< i+1 << "      ";
-        for (int j=0;j<n_fields;j++)
-            {
-            if (finalsubspace(i,j) != 0)
-                {
-                if (div(finalsubspace(i,j),maxq).rem!=0)
-                    {
-                    std::cout << "(" << div(finalsubspace(i,j),maxq).quot+1 << div(finalsubspace(i,j),maxq).rem << ")" << "   ";
-                    }
-                else
-                    {
-                    std::cout << "(" << div(finalsubspace(i,j),maxq).quot<<maxq << ")" << "   ";
-                    }
-                }
-            }
-        std::cout << std::endl;
-        }
-    std::cout<< std::endl;
-    std::cout << " Subspace dimensions (number of verma modules in each subspace) " << std::endl;
+    std::cout << " Subspace dimensions (number of verma fields in each subspace) " << std::endl;
 
     for (int i=0;i<n_fields;i++)
         {
@@ -841,16 +709,13 @@ void parameters::analyse_subspaces()
             }
         }
 
-    for (int i=0;i<numspace;i++)
-            {
-            for(int j=0;j<subdim[i];j++)
-                   {
-                   std::cout << finalsubspace(i,j) << " ";
-                   }
-            std::cout << std::endl;
-            }
 
     // given the states in each verma module in a given subspace, we calculate the number of non-chiral states in each subspace
+    std::vector< std::map < std::pair<int, int>, int > > PairToIndex_tmp(numspace);
+    PairToIndex = PairToIndex_tmp;
+    std::vector< std::map < int, std::pair<int, int> > > IndexToPair_tmp(numspace);
+    IndexToPair = IndexToPair_tmp;
+
     if (allMomSubspace)
         {
         for (int i=0;i<numspace;i++)
@@ -862,8 +727,24 @@ void parameters::analyse_subspaces()
                     {
                     int r_tmp = fields[finalsubspace(i,j) - 1].first.first;
                     int s_tmp = fields[finalsubspace(i,j) - 1].first.second;
+                    std::pair <int, int > tmp_pair(r_tmp, s_tmp);
+                    if ( PairToIndex[i].find(tmp_pair) == PairToIndex[i].end() ) {
+                        PairToIndex[i][tmp_pair] = 1;
+                    } else {
+                        PairToIndex[i][tmp_pair] += 1;
+                    } 
+
+
                     int r1_tmp = fields[finalsubspace(i,j) - 1].second.first;
                     int s1_tmp = fields[finalsubspace(i,j) - 1].second.second;
+                    std::pair <int, int > tmp1_pair(r1_tmp, s1_tmp); 
+                    if ( PairToIndex[i].find(tmp1_pair) == PairToIndex[i].end() ) {
+                        PairToIndex[i][tmp1_pair] = 1;
+                    } else {
+                        PairToIndex[i][tmp1_pair] += 1;
+                    }
+
+
                     for (int k=0;k<=maxLev;k++)
                         {
                         for (int k1=0;k1<=maxLev;k1++)
@@ -881,7 +762,6 @@ void parameters::analyse_subspaces()
         }
     else
         {
-        std::cout << "GGG" << std::endl;
         for (int i=0;i<numspace;i++)
             {
             int tempdim=0;
@@ -892,8 +772,25 @@ void parameters::analyse_subspaces()
                     {
                     int r_tmp = fields[finalsubspace(i,j) - 1].first.first;
                     int s_tmp = fields[finalsubspace(i,j) - 1].first.second;
+                    std::pair <int, int > tmp_pair(r_tmp, s_tmp);
+                    if ( PairToIndex[i].find(tmp_pair) == PairToIndex[i].end() ) {
+                        PairToIndex[i][tmp_pair] = 1;
+                    } else {
+                        PairToIndex[i][tmp_pair] += 1;
+                    }
+
+
                     int r1_tmp = fields[finalsubspace(i,j) - 1].second.first;
                     int s1_tmp = fields[finalsubspace(i,j) - 1].second.second;
+                    std::pair <int, int > tmp1_pair(r1_tmp, s1_tmp);
+                    if ( PairToIndex[i].find(tmp1_pair) == PairToIndex[i].end() ) {
+                        PairToIndex[i][tmp1_pair] = 1;
+                    } else {
+                        PairToIndex[i][tmp1_pair] += 1;
+                    }     
+
+
+
                     for (int k=0;k<= maxLev;k++)
                         {
                         for (int k1=0;k1<=maxLev;k1++)
@@ -909,6 +806,31 @@ void parameters::analyse_subspaces()
                 }
             }
         }
-std::cout << "GGG1" << std::endl;
 
+        for (int i=0;i<numspace;i++)
+            {
+            int countChiralFields = 0;
+            std::map < pair<int,int> , int >::iterator it;
+            //std::cout << " chiral size subspace " << PairToIndex[i].size() << std::endl;
+            for (it = PairToIndex[i].begin(); it !=  PairToIndex[i].end(); it++){
+                it->second = countChiralFields;
+                std::pair<int, int> tempPair(it->first.first, it->first.second);
+                //std::cout<< it->first.first << " " << it->first.second << " index " << it->second << std::endl;
+                IndexToPair[i][countChiralFields] = tempPair;
+                countChiralFields++;
+            }
+            //std::cout << " ----------------- " << std::endl;
+            } 
+
+        /* for (int i=0;i<numspace;i++)
+            {
+            std::map < int, pair<int,int> >::iterator it;
+            std::cout << " chiral size subspace " << IndexToPair[i].size() << std::endl;
+            for(int j=0; j<IndexToPair[i].size(); j++)
+                {
+                std::pair<int, int> tmp = IndexToPair[i][j];
+                std::cout<< tmp.first << " " << tmp.second << " index " << j <<std::endl;
+                }
+            std::cout << " ----------------- " << std::endl;
+            }*/
 }

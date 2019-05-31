@@ -76,58 +76,63 @@ states::states(parameters& p, int subspace)
         {
         temp=temp+partitions(j);
         }
-    MaxChiralStates = p.subdim[subspace]*temp+100;
+    MaxChiralStates = p.PairToIndex[subspace].size()*temp+100;
 
     // we cannot use initialization list to allocate tensors like cstate_ortho_modecoeff, because MaxChiralStates is calculated in this functions. 
     // Calculate it outside this function seems conceptually strange
-    tensor3D< long double > cstate_ortho_modecoeff_tmp(p.subdim[subspace],MaxChiralStates, MaxChiralStates); // probably enough cstate_ortho_modecoeff_tmp(p.subdim[subspace],MaxChiralStates, MaxChiralStates/2)
+    tensor3D< long double > cstate_ortho_modecoeff_tmp(p.PairToIndex[subspace].size(),MaxChiralStates, MaxChiralStates); // probably enough cstate_ortho_modecoeff_tmp(p.PairToIndex[subspace].size(),MaxChiralStates, MaxChiralStates/2)
     cstate_ortho_modecoeff = cstate_ortho_modecoeff_tmp;
 
-    tensor2D< long double > norm_tmp(p.subdim[subspace],MaxChiralStates);
+    tensor2D< long double > norm_tmp(p.PairToIndex[subspace].size(),MaxChiralStates);
     norm = norm_tmp;
 
-    tensor3D< long double > cstate_mode_tmp(p.subdim[subspace],MaxChiralStates, MaxNumGrade);
+    tensor3D< long double > cstate_mode_tmp(p.PairToIndex[subspace].size(),MaxChiralStates, MaxNumGrade);
     cstate_mode = cstate_mode_tmp;
 
-    tensor2D< long double > cstate_norm_tmp(p.subdim[subspace],MaxChiralStates);
+    tensor2D< long double > cstate_norm_tmp(p.PairToIndex[subspace].size(),MaxChiralStates);
     cstate_norm =  cstate_norm_tmp;
    
-    tensor2D< int > cstate_lev_tmp(p.subdim[subspace],MaxChiralStates);
+    tensor2D< int > cstate_lev_tmp(p.PairToIndex[subspace].size(),MaxChiralStates);
     cstate_lev =  cstate_lev_tmp;     
 
-    tensor2D< int > cstate_nmode_tmp(p.subdim[subspace],MaxChiralStates);
+    tensor2D< int > cstate_nmode_tmp(p.PairToIndex[subspace].size(),MaxChiralStates);
     cstate_nmode =  cstate_nmode_tmp;
 
-    tensor2D< int > cstate_ortho_lev_tmp(p.subdim[subspace],MaxChiralStates);
+    tensor2D< int > cstate_ortho_lev_tmp(p.PairToIndex[subspace].size(),MaxChiralStates);
     cstate_ortho_lev =  cstate_ortho_lev_tmp;
 
-    tensor2D< int > cstate_ortho_nmode_tmp(p.subdim[subspace],MaxChiralStates);
+    tensor2D< int > cstate_ortho_nmode_tmp(p.PairToIndex[subspace].size(),MaxChiralStates);
     cstate_ortho_nmode =  cstate_ortho_nmode_tmp;
 
-    tensor3D< int > cstate_ortho_mode_tmp(p.subdim[subspace],MaxChiralStates,MaxChiralStates); // probably enough cstate_ortho_mode_tmp(p.subdim[subspace],MaxChiralStates, MaxChiralStates/2)
+    tensor3D< int > cstate_ortho_mode_tmp(p.PairToIndex[subspace].size(),MaxChiralStates,MaxChiralStates); // probably enough cstate_ortho_mode_tmp(p.PairToIndex[subspace].size(),MaxChiralStates, MaxChiralStates/2)
     cstate_ortho_mode =  cstate_ortho_mode_tmp; 
 
-    tensor3D< long double > me_chi_0_tmp(p.subdim[subspace],MaxChiralStates, MaxChiralStates);
+    tensor3D< long double > me_chi_0_tmp(p.PairToIndex[subspace].size(),MaxChiralStates, MaxChiralStates);
     me_chi_0 = me_chi_0_tmp;
 
-    tensor2D< int > nstates_lev_tmp(p.subdim[subspace], p.maxLev + 1) ;
+    tensor2D< int > nstates_lev_tmp(p.PairToIndex[subspace].size(), p.maxLev + 1) ;
     nstates_lev = nstates_lev_tmp;
     
-    tensor2D< int > nstates_lev_each_tmp(p.subdim[subspace], p.maxLev + 1) ;
+    tensor2D< int > nstates_lev_each_tmp(p.PairToIndex[subspace].size(), p.maxLev + 1) ;
     nstates_lev_each = nstates_lev_each_tmp;   
 
     /*determine the conformal dimesions of the primary field labelling the verma module for each verma module in the subspace*/
-    h= new long double[p.subdim[subspace]];
-    num_chir= new int[p.subdim[subspace]];
+    h= new long double[p.PairToIndex[subspace].size()];
+    num_chir= new int[p.PairToIndex[subspace].size()];
 
-    for(int j=0;j<p.subdim[subspace];j++)
+    std::map < std::pair < int, int>, int >::iterator it;
+    int counter = 0;
+    //for(int j=0;j<p.PairToIndex[subspace].size();j++)
+    for(it = p.PairToIndex[subspace].begin(); it != p.PairToIndex[subspace].end(); it++)
         {
-        int indtemp1;
-        int indtemp2;
-        if (std::div(p.finalsubspace(subspace,j),p.maxq).rem!=0)
+        int indtemp1 = it->first.first;
+        int indtemp2 = it->first.second;
+        h[counter]=hrs((long double)indtemp1,(long double)indtemp2,p.p,p.q);
+        /* if (std::div(p.finalsubspace(subspace,j),p.maxq).rem!=0)
             {
             indtemp1=std::div(p.finalsubspace(subspace,j),p.maxq).quot;
             indtemp2=std::div(p.finalsubspace(subspace,j),p.maxq).rem-1;
+            indtemp1 = p.PairToIndex(subspace).
             h[j]=hrs((long double)indtemp1+1,(long double)indtemp2+1,p.p,p.q);
             }
         else
@@ -135,16 +140,17 @@ states::states(parameters& p, int subspace)
             indtemp1=std::div(p.finalsubspace(subspace,j),p.maxq).quot-1;
             indtemp2=p.maxq-1;
             h[j]=hrs((long double)indtemp1+1,(long double)indtemp2+1,p.p,p.q);
-            }
+            } */
         for (int k=0;k< p.maxLev+1 ;k++)
             {
-            nstates_lev(j,k) = p.vermadimcomul(indtemp1,indtemp2,k);
-            nstates_lev_each(j,k) = p.vermadim(indtemp1,indtemp2,k);
+            nstates_lev(counter,k) = p.vermadimcomul(indtemp1-1,indtemp2-1,k);
+            nstates_lev_each(counter,k) = p.vermadim(indtemp1-1,indtemp2-1,k);
             }
+        counter++;
         }
 
     MaxChiralVerma=0;
-    for(int j=0;j< p.subdim[subspace];j++)
+    for(int j=0;j< p.PairToIndex[subspace].size();j++)
         {
         if(nstates_lev(j,p.maxLev) > MaxChiralVerma)
             {
@@ -160,7 +166,24 @@ states::states(parameters& p, int subspace)
             {
             for(int j=0;j< p.subdim[subspace];j++)
                 {
-                if (std::div(p.finalsubspace(subspace,j),p.maxq).rem!=0)
+                std::pair< std::pair<int, int>, std::pair<int, int> > field = p.fields[p.finalsubspace(subspace,j)-1];
+                int indtemp1 = field.first.first; 
+                int indtemp2 = field.first.second;
+                int indtemp3 = field.second.first;
+                int indtemp4 = field.second.second;
+                for (int k=0;k<= p.maxLev;k++)
+                   {
+                   for(int k1=0;k1<= p.maxLev;k1++)
+                        {
+                        if (abs(k1-k)==l)
+                            {
+                            tempdim += p.vermadim(indtemp1-1,indtemp2-1,k)*p.vermadim(indtemp3-1,indtemp4-1,k1);
+                            }
+                        }
+                    }
+                }
+
+                /* if (std::div(p.finalsubspace(subspace,j),p.maxq).rem!=0)
                     {
                     int indtemp1 = std::div(p.finalsubspace(subspace,j), p.maxq).quot;
                     int indtemp2 = std::div(p.finalsubspace(subspace,j), p.maxq).rem-1;
@@ -189,8 +212,8 @@ states::states(parameters& p, int subspace)
                                 }
                             }
                         }     
-                    }
-                }
+                    } 
+                } */
 
             }
    
@@ -204,7 +227,24 @@ states::states(parameters& p, int subspace)
             {
             for(int j=0;j< p.subdim[subspace];j++)
                 {
-                if (std::div(p.finalsubspace(subspace,j),p.maxq).rem!=0)
+                std::pair< std::pair<int, int>, std::pair<int, int> > field = p.fields[p.finalsubspace(subspace,j)-1];
+                int indtemp1 = field.first.first;
+                int indtemp2 = field.first.second;
+                int indtemp3 = field.second.first;
+                int indtemp4 = field.second.second;
+                for (int k=0;k<= p.maxLev;k++)
+                    {
+                    for(int k1=0;k1<= p.maxLev;k1++)
+                        {
+                        if (abs(k1-k)==l)
+                            {
+                            tempdim += p.vermadim(indtemp1-1,indtemp2-1,k)*p.vermadim(indtemp3-1,indtemp4-1,k1);
+                            }
+                        }
+                    }
+                }
+
+                /* if (std::div(p.finalsubspace(subspace,j),p.maxq).rem!=0)
                     {
                     int indtemp1 = std::div(p.finalsubspace(subspace,j), p.maxq).quot;
                     int indtemp2 = std::div(p.finalsubspace(subspace,j), p.maxq).rem-1;
@@ -234,7 +274,7 @@ states::states(parameters& p, int subspace)
                             }
                         }
                     }
-                }
+                } */
             if(tempdim>MaxStates)
                 {
                 MaxStates=tempdim;
@@ -246,7 +286,8 @@ states::states(parameters& p, int subspace)
     state_eff_en=new double[MaxStates];
     state_left=new int[MaxStates];
     state_right=new int[MaxStates];
-    state_vmod=new int[MaxStates];
+    state_vmod_left=new int[MaxStates];
+    state_vmod_right=new int[MaxStates];
 
     for (int j=0;j<MaxStates;j++)
         {
@@ -254,7 +295,8 @@ states::states(parameters& p, int subspace)
         state_eff_en[j]=0.;
         state_left[j]=0;
         state_right[j]=0;
-        state_vmod[j]=0;
+        state_vmod_left[j]=0;
+        state_vmod_right[j]=0;
         }
 
 
@@ -266,7 +308,8 @@ states::~states()
     delete [] state_eff_en;
     delete [] state_left;
     delete [] state_right;
-    delete [] state_vmod;
+    delete [] state_vmod_left;
+    delete [] state_vmod_right;
     delete [] h;
     delete [] num_chir;
 }
@@ -299,8 +342,6 @@ void states::calculate_chiral(parameters& p, int subspace, filenames& fnames)
         storeKac.data[i]=0.;
         storeKac1.data[i]=0.;
         }
-
-
 
     /*determine partition of levels in order to denumerate chiral states*/
 
@@ -390,8 +431,8 @@ void states::calculate_chiral(parameters& p, int subspace, filenames& fnames)
     for ( int i=0; i<MaxNumGrade; i++)
         grade[i]=0.0;
 
-    tensor2D<long double> pot_norm(p.subdim[subspace],MaxChiralStates);
-    for(int i=0;i< p.subdim[subspace];++i) 
+    tensor2D<long double> pot_norm(p.IndexToPair[subspace].size(),MaxChiralStates);
+    for(int i=0;i< p.IndexToPair[subspace].size();++i) 
         {
         for(int l=0;l< max_num_chir;++l) 
             {
@@ -431,7 +472,7 @@ void states::calculate_chiral(parameters& p, int subspace, filenames& fnames)
     int end_l; 
     int* new0=new int[p.maxLev+1];
 
-    for(int i=0;i< p.subdim[subspace];++i) 
+    for(int i=0;i< p.IndexToPair[subspace].size();++i) 
         {
 
         ortho_flag = 0;
@@ -625,14 +666,14 @@ void states::calculate_chiral(parameters& p, int subspace, filenames& fnames)
 #ifdef MPI_PAR
     if (myrank_mpi == 0)
 #endif
-    std::cout << " Verma module " << p.finalsubspace(subspace,i) << " has " << num_chir[i] << " states " << std::endl;
+    std::cout << " Verma module (" << p.IndexToPair[subspace][i].first << "," << p.IndexToPair[subspace][i].second << ") has " << num_chir[i] << " states " << std::endl;
     }
 
 
     /*record norms of chiral states*/
 
 
-    for(int i=0;i< p.subdim[subspace];++i) 
+    for(int i=0;i< p.PairToIndex[subspace].size();++i) 
         {
         for(int l=0;l<num_chir[i];++l) 
             {
@@ -647,7 +688,7 @@ void states::calculate_chiral(parameters& p, int subspace, filenames& fnames)
         {
 #endif
 
-        for(int i=0;i< p.subdim[subspace];++i) 
+        for(int i=0;i< p.PairToIndex[subspace].size();++i) 
             {
             for (int k=0;k<= p.maxLev;++k) 
                 {
@@ -668,7 +709,7 @@ void states::calculate_chiral(parameters& p, int subspace, filenames& fnames)
                         {
 
                         // snprintf(fname,FNLEN,"ME/ME0_%d_%d_%d_%d_%d",(int)P,(int)P1,(int)R[i],(int)S[i],(int)cstate_lev[i][k]);
-                        snprintf(fname,100,"%s_v%d_l%d",fnames.OverlapName.c_str(),p.finalsubspace(subspace,i),cstate_lev(i,k));
+                        snprintf(fname,100,"%s_v%d_%d_l%d",fnames.OverlapName.c_str(),p.IndexToPair[subspace][i].first,p.IndexToPair[subspace][i].second,cstate_lev(i,k));
                         long double en = cstate_lev(i,k) + h[i] - p.C/24.;
 
                         if (new0[cstate_lev(i,k)] == 0) 
@@ -706,13 +747,13 @@ void states::calculate_chiral(parameters& p, int subspace, filenames& fnames)
     if (myrank_mpi == 0)
         {
 #endif
-        for(int i=0;i< p.subdim[subspace];++i) 
+        for(int i=0;i< p.PairToIndex[subspace].size();++i) 
             {
             count = 0;
             for(int j=p.minLev ;j<= p.maxLev;++j) 
                 {
                 //snprintf(fname,FNLEN,"States/States_%d_%d_%d_%d_%d",j,(int)P,(int)P1,(int)R[i],(int)S[i]);
-                snprintf(fname,100,"%s_v_%d_l%d",fnames.StateName.c_str(),p.finalsubspace(subspace,i),j);
+                snprintf(fname,100,"%s_v%d_%d_l%d",fnames.StateName.c_str(),p.IndexToPair[subspace][i].first, p.IndexToPair[subspace][i].second,j);
                 state_file = fopen(fname,"w");
                 count1 = 0;
                 while ((cstate_lev(i,count) == j) && (count < num_chir[i])) 
@@ -765,18 +806,24 @@ void states::calculate_nonchiral(parameters& p, int subspace, int mom)
             //en_cutoff = 60.;
             for(int i=0; i<p.subdim[subspace];++i) 
                 {
-                for(int i_l=0; i_l< num_chir[i];++i_l) 
+                int field_index = p.finalsubspace(subspace,i) - 1;
+                std::pair<int,int>  chiral = p.fields[field_index].first;
+                int chiral_index = p.PairToIndex[subspace][chiral];
+                std::pair<int,int>  antichiral = p.fields[field_index].second;  
+                int antichiral_index = p.PairToIndex[subspace][antichiral];
+                for(int i_l=0; i_l< num_chir[chiral_index];++i_l) 
                     {
-                    for(int i_r=0; i_r< num_chir[i];++i_r) 
+                    for(int i_r=0; i_r< num_chir[antichiral_index];++i_r) 
                         {
-                        if (abs((cstate_lev(i,i_l) - cstate_lev(i,i_r) )) == l) 
+                        if (abs((cstate_lev(chiral_index,i_l) - cstate_lev(antichiral_index,i_r) )) == l) 
                             {
                             //if ((cstate_lev[i][i_l]+cstate_lev[i][i_r]) < en_cutoff) 
                             //    {
-                                state_en[nstate] = h[i]*2. + cstate_lev(i,i_l)  + cstate_lev(i,i_r) + nstate*.00000000000001;
+                                state_en[nstate] = h[chiral_index] + h[antichiral_index] + cstate_lev(chiral_index,i_l)  + cstate_lev(antichiral_index,i_r) + nstate*.00000000000001;
                                 state_left[nstate] = i_l;
                                 state_right[nstate] = i_r;
-                                state_vmod[nstate] = i;
+                                state_vmod_left[nstate] = chiral_index;
+                                state_vmod_right[nstate] = antichiral_index;
                                 nstate++;
                             //    }
                             }
@@ -794,20 +841,26 @@ void states::calculate_nonchiral(parameters& p, int subspace, int mom)
         {
         //en_cutoff = 60.;
         nstate = 0; 
-        for(int i=0;i< p.subdim[subspace];++i) 
+        for(int i=0;i< p.PairToIndex[subspace].size();++i) 
             {
-            for(int i_l=0;i_l< num_chir[i];++i_l) 
+            int field_index = p.finalsubspace(subspace,i) - 1;
+            std::pair<int,int>  chiral = p.fields[field_index].first;
+            int chiral_index = p.PairToIndex[subspace][chiral];
+            std::pair<int,int>  antichiral = p.fields[field_index].second;
+            int antichiral_index = p.PairToIndex[subspace][antichiral];
+            for(int i_l=0;i_l< num_chir[chiral_index];++i_l) 
                 { 
-                for(int i_r=0;i_r< num_chir[i];++i_r) 
+                for(int i_r=0;i_r< num_chir[antichiral_index];++i_r) 
                     {
-                    if (abs((cstate_lev(i,i_l)-cstate_lev(i,i_r) )) == mom) 
+                    if (abs((cstate_lev(chiral_index,i_l)-cstate_lev(antichiral_index,i_r) )) == mom) 
                         { 
                         //if ((cstate_lev(i,i_l) + cstate_lev(i,i_r) ) < en_cutoff) 
                         //    {
-                            state_en[nstate] = h[i]*2. + cstate_lev(i,i_l) + cstate_lev(i,i_r) +nstate*.00000000000001;
+                            state_en[nstate] = h[chiral_index] + h[antichiral_index] + cstate_lev(chiral_index,i_l) + cstate_lev(antichiral_index,i_r) +nstate*.00000000000001;
                             state_left[nstate] = i_l;
                             state_right[nstate] = i_r;
-                            state_vmod[nstate] = i;
+                            state_vmod_left[nstate] = chiral_index;
+                            state_vmod_right[nstate] = antichiral_index;
                             nstate++;
                         //    }
                         }
@@ -824,7 +877,7 @@ void states::calculate_nonchiral(parameters& p, int subspace, int mom)
     // order states in terms of energy  
     unsigned long j,inc;
     long double v;  //v1;
-    int v2,v3,v4;
+    int v2_l,v2_r,v3,v4;
     inc = 1;
     do 
         {
@@ -838,7 +891,8 @@ void states::calculate_nonchiral(parameters& p, int subspace, int mom)
         for(int i=inc+1;i<=nstate;i++) 
             {
             v=state_en[i-1];
-            v2=state_vmod[i-1];
+            v2_l=state_vmod_left[i-1];
+            v2_r=state_vmod_right[i-1];
             v3=state_left[i-1];
             v4=state_right[i-1];
 
@@ -846,7 +900,8 @@ void states::calculate_nonchiral(parameters& p, int subspace, int mom)
             while (state_en[j-1-inc] > v) 
                 {
                 state_en[j-1]=state_en[j-1-inc];
-                state_vmod[j-1]=state_vmod[j-1-inc];
+                state_vmod_left[j-1]=state_vmod_left[j-1-inc];
+                state_vmod_right[j-1]=state_vmod_right[j-1-inc];
                 state_left[j-1]=state_left[j-1-inc];
                 state_right[j-1]=state_right[j-1-inc];
                 j -= inc;
@@ -854,16 +909,16 @@ void states::calculate_nonchiral(parameters& p, int subspace, int mom)
                     break;
                 }
             state_en[j-1]=v;
-            state_vmod[j-1]=v2;
+            state_vmod_left[j-1]=v2_l;
+            state_vmod_right[j-1]=v2_r;
             state_left[j-1]=v3;
             state_right[j-1]=v4;
             } 
         } while (inc > 1);
 
-
     // determine eff_energy as a function of state number
     double h_min = h[0];
-    for(int i=1;i<p.subdim[subspace] ;++i) 
+    for(int i=1;i<p.PairToIndex[subspace].size() ;++i) 
         {
         if (h[i] < h_min) 
             {
@@ -912,21 +967,20 @@ void states::calculate_nonchiral(parameters& p, int subspace, int mom)
         }
 
 
-
     // the following tensors are used only in sweep calculations
     if ( p.nSweep > 0 )
         {
-        tensor3D < int > state_left_lev_tmp(p.subdim[subspace],p.maxLev+1,MaxChiralVerma);
+        tensor3D < int > state_left_lev_tmp(p.PairToIndex[subspace].size(),p.maxLev+1,MaxChiralVerma);
         state_left_lev = state_left_lev_tmp;     
 
-        tensor3D < int > state_right_lev_tmp(p.subdim[subspace],p.maxLev+1,MaxChiralVerma);
+        tensor3D < int > state_right_lev_tmp(p.PairToIndex[subspace].size(),p.maxLev+1,MaxChiralVerma);
         state_right_lev = state_right_lev_tmp;
 
         //en_cutoff = 60.;
         //nstate = 0;
         int shiftl;
         int shiftr;
-        for(int i=0;i< p.subdim[subspace];++i)
+        for(int i=0;i< p.PairToIndex[subspace].size();++i)
             {
             for(int ilev=p.minLev; ilev<= p.maxLev;ilev++)
                 {
@@ -959,7 +1013,7 @@ void states::calculate_nonchiral(parameters& p, int subspace, int mom)
                 }
             }
 
-        tensor4D< int > state_nonchiral_lev_tmp(p.subdim[subspace], p.maxLev + 1, MaxChiralVerma, MaxChiralVerma);
+        tensor4D< int > state_nonchiral_lev_tmp(p.PairToIndex[subspace].size(), p.maxLev + 1, MaxChiralVerma, MaxChiralVerma);
         state_nonchiral_lev = state_nonchiral_lev_tmp;
 
         for (int i=0;i<nstate;i++)
@@ -1005,7 +1059,7 @@ void states::read_chiral(parameters& p, int subspace, filenames& fnames)
 
     tensor2D<long double> Kac(MaxKac,MaxKac);
     tensor2D<long double> storeKac(MaxKac,MaxKac);
-    tensor2D< int > me0_exists(p.subdim[subspace], p.maxLev+1);
+    tensor2D< int > me0_exists(p.PairToIndex[subspace].size(), p.maxLev+1);
 
     int count;
     int num;
@@ -1017,12 +1071,12 @@ void states::read_chiral(parameters& p, int subspace, filenames& fnames)
 #endif
     std::cout << " Reading states and overlap from file " << std::endl;
 
-    for (int i=0;i< p.subdim[subspace];++i) 
+    for (int i=0;i< p.PairToIndex[subspace].size();++i) 
         {
         count = 0;
         for(int j= p.minLev;j <= p.maxLev;++j) 
             {
-            snprintf(fname,100,"%s_v_%d_l%d",fnames.StateName.c_str(),p.finalsubspace(subspace,i),j);
+            snprintf(fname,100,"%s_v%d_%d_l%d",fnames.StateName.c_str(),p.IndexToPair[subspace][i].first, p.IndexToPair[subspace][i].second,j);
             state_file = fopen(fname,"r");
             status = fscanf(state_file,"%d",&num);
             while (num != -1) 
@@ -1055,11 +1109,11 @@ void states::read_chiral(parameters& p, int subspace, filenames& fnames)
     long double en;
     int eq_r, eq_s;
     long double temp;
-    for(int i=0;i< p.subdim[subspace];++i) 
+    for(int i=0;i< p.PairToIndex[subspace].size();++i) 
         {
         for(int l=0;l<= p.maxLev;++l) 
             {
-            snprintf(fname,100,"%s_v%d_l%d",fnames.OverlapName.c_str(),p.finalsubspace(subspace,i),l);
+            snprintf(fname,100,"%s_v%d_%d_l%d",fnames.OverlapName.c_str(),p.IndexToPair[subspace][i].first,p.IndexToPair[subspace][i].second,l);
             state_file = fopen(fname,"r");
             if ((state_file == NULL)) 
                 {
@@ -1086,7 +1140,7 @@ void states::read_chiral(parameters& p, int subspace, filenames& fnames)
 
     int nm;
     int mop;
-    for(int i=0;i< p.subdim[subspace];++i) 
+    for(int i=0;i< p.PairToIndex[subspace].size();++i) 
         {
         for(int l=0;l<num_chir[i];++l) /*modes to left of op*/
             {
@@ -1126,7 +1180,7 @@ void states::read_chiral(parameters& p, int subspace, filenames& fnames)
 
     /*obtain orthonormal states*/
     int index;
-    for(int i=0;i< p.subdim[subspace];++i) 
+    for(int i=0;i< p.PairToIndex[subspace].size();++i) 
         {
         for(int j=0;j<= p.maxLev;++j) 
             {
