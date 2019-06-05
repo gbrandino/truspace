@@ -124,8 +124,8 @@ parameters::parameters(const char* input_file_name)
     // done reading input file. Calculating relevant quantities
 
     // central charge
-    p = 5;
-    q = 6;
+    //p = 5;
+    //q = 6;
     C=1.0-6.0*std::pow(p-q,2)/double(p*q);
 
     if ( std::div(q-1,2).rem == 0 )
