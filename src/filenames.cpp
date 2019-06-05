@@ -43,7 +43,7 @@ filenames::filenames(parameters& p, int subspace)
     temp << "_p_" << p.p << "_q_" << p.q << "_minLev_" << p.minLev << "_maxLev_" << p.maxLev;
     for (int i=0; i< p.numPert; i++)
         {
-        temp << "_Per_" << p.r[i] << "_" << p.s[i] << "_c_" << p.pConst[i]; 
+        temp << "_Per_" << p.r[i] << /*"_" << p.s[i] <<*/ "_c_" << p.pConst[i]; 
         }
     temp << "_Subspace_" << subspace;
 
@@ -58,7 +58,7 @@ filenames::filenames(parameters& p, int subspace)
     temp2.str(" ");
     
     temp2 << "ExpVal_Op";
-    temp2 <<  "_phi_" << p.r_op << "_" << p.s_op << "_";
+    temp2 <<  "_phi_" << p.r_op << "_"; //<< p.s_op << "_";
     temp2 << temp.str();
     MeOpName = temp2.str();
     temp2.str(" ");
@@ -83,7 +83,7 @@ filenames::filenames(parameters& p, int subspace)
     for (int i=0; i < p.numPert; i++)
         {
         temp2 << "ME_chir" << temp.str();
-        temp2 << "_Op_phi_" << p.r[i] << "_" << p.s[i];
+        temp2 << "_Op_phi_" << p.r[i]; //<< "_" << p.s[i];
         MeChirName[i]= temp2.str();
         }
 

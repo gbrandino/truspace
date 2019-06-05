@@ -89,13 +89,11 @@ void NRG::run(parameters& p, Hamiltonian& H, filenames& fnames)
     liwork = t_iwork;
     work = new double[lwork];
     iwork = new int[liwork];
-
     dsyevr_(&jobz,&range,&uplo,&n,H.H.data,&lda,&vl,&vu,&il,&iu,&abstol,&ms,eigen,EigenVectors.data,&ldz,isuppz,work,&lwork,iwork,&liwork,&info);
     if (info > 0)
         {
         std::cerr << " Lapack problem. Error code: " << info << std::endl;
         }
-
     H.print_eigenValues(0,0,eigen,fnames.EigenName, H.Msize);
 
     if ( p.saveEigenvec and !p.NRG )

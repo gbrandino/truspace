@@ -53,7 +53,7 @@ class states
         double* state_eff_en; /**< Array contaning the effective energy of every nonchiral state */
         int* state_left;  /**< Array that, given the global index of nonchiral states, returns the index in the correct Verma module, for the bra state */
         int* state_right; /**< Array that, given the global index of nonchiral states, returns the index in the correct Verma module, for the ket state */
-        int* state_vmod;  /**< Array that, given the global index of nonchiral states, returns the index of the correct Verma module */
+        //int* state_vmod;  /**< Array that, given the global index of nonchiral states, returns the index of the correct Verma module */
         int* state_vmod_left;  /**< Array that, given the global index of nonchiral states, returns the index of the correct Verma module for the chiral part*/
         int* state_vmod_right;  /**< Array that, given the global index of nonchiral states, returns the index of the correct Verma module for the antichiral part*/
         long double* h; /**< array that contains the conformal dimension of the primary field labelling the verma module for each verma module in the subspace */

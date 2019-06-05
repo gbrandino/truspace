@@ -1018,7 +1018,8 @@ void states::calculate_nonchiral(parameters& p, int subspace, int mom)
 
         for (int i=0;i<nstate;i++)
             {   
-            int vmod=state_vmod[i];
+            int vmod=state_vmod_left[i];
+            std::cout << " correct here for sweep and nondiagonal models " << std::endl;
             int lev=cstate_lev(vmod,state_left[i]);
             int shift;
 

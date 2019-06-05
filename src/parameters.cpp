@@ -139,7 +139,7 @@ parameters::parameters(const char* input_file_name)
         maxp = (p-1)/2;
         } 
 
-    std::ifstream kac_table_file("potts_fields.dat");
+    std::ifstream kac_table_file("fields.dat");
 
     std::string line;
     std::vector<std::string>  fields_strings;
@@ -202,7 +202,7 @@ parameters::parameters(const char* input_file_name)
     kac_table_file.close();
 
     sparse_tensor3D<double> CptNonChiral;
-    std::ifstream structure_constant_file("potts_constants.dat");
+    std::ifstream structure_constant_file("constants.dat");
 
     // set structure constant to zero, such that only the one different from zero needs to be in the input file
     for(int i = 1; i <= n_fields; i++)

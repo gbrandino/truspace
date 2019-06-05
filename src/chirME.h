@@ -53,8 +53,8 @@ class chirME
           */
         void calculate_ExpVal(parameters& p, states& st, double* coeff, int size, int Momentum, std::string fname, double R);
 
-        tensor5D<std::pair <long double, long double> > me_chi_ortho; /**< Contains the chiral matrix element for each perturbing operator. Indexed as (perturbation_number, left Verma mod, right Verma mod, left states number, right states number) */
-        tensor4D<std::pair< long double, long double> > me_chi_ortho_op; /**< Contains the chiral matrix element for the operator whose expecation values are asked. Indexed as (left Verma mod, right Verma mod, left state number, right state number) */
+        tensor5D< std::pair<long double, long double> > me_chi_ortho; /**< Contains the chiral matrix element for each perturbing operator. Indexed as (perturbation_number, left Verma mod, right Verma mod, left states number, right states number) */
+        tensor4D< std::pair<long double, long double> > me_chi_ortho_op; /**< Contains the chiral matrix element for the operator whose expecation values are asked. Indexed as (left Verma mod, right Verma mod, left state number, right state number) */
 
     private:
         /** Default constructor is private, to prevent instantiation of invalid object.

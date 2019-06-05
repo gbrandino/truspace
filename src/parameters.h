@@ -63,8 +63,9 @@ class parameters
         int maxp;            /**< p size of Kac table. Calculated by the code */ 
         int maxq;            /**< q size of Kac table Calculated by the code*/
         int maxl;            /**< total size of Kac table Calculated by the code*/
-        int n_fields;        /**< Number of non-chiral fields read from file */
+        int n_fields;        /**< number of non-chiral fields read from file */
         int numspace;        /**< number of subspace found by analysing the system Calculated by the code*/
+        int currentSubspace; /**< contains the subspace currently being analysed*/
         int* maxNumStates;   /**< array containng the maximum number of states for a given level Calculated by the code*/
 
         std::vector<std::pair< std::pair< int, int >, std::pair< int, int> > > fields; /** vector that contains pairs of pairs of indexes, such the a non chiral field is indexed by a pair (r,s) (r',s') for the chiral and anti chiral component respectively, as read from input file */
@@ -79,8 +80,8 @@ class parameters
         std::vector< std::map < int, std::pair<int, int> > > IndexToPair; /**< Vector whose elements are map of the linear index of the chiral field and the correspoding pairs of indexes of fields (r,s), foreach subspace */
         tensor3D< int > vermadim;       /**< contains the number of states for each level of each verma module. The first two indeces are the r,s indeces of the primary field, the third is the level */
         tensor3D< int > vermadimcomul;  /**< contains the cumulative number of states up to each level of each verma module. The first two indeces are the r,s indeces of the primary field, the third is the level */
-        tensor2D<int> finalsubspace;  /**< contains the label of the verma module in each subspace. Calculated by the code */
-        tensor2D< int > intMatrix;      /**< contains the sketch of the interaction matrix, where each element is a verma module. Calculated by the code */
+        tensor2D<int> finalsubspace;  /**< contains the index of the non chiral fields in each subspace. Calculated by the code */
+        tensor2D< int > intMatrix;      /**< contains the sketch of the interaction matrix, where each element is a the tensor product of left and right verma module. Calculated by the code */
         int* subdim;                    /**< contains the number of vermamodule in a give symmetry subspace. Calculated by the code  */
         int* leveldim;                  /**< Contains the */ 
         tensor2D<int> subdimStates;     /**< contains the predicted number of predicted non-chiral states in each subspace, and at given momentum */

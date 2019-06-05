@@ -56,6 +56,7 @@ void worker::run(parameters& p)
     // iterate through the subspaces 
     for (int sub=0; sub < p.numspace; sub++)
         {
+        p.currentSubspace = sub;
 #ifdef MPI_PAR 
         if (myrank_mpi == 0)
             {
@@ -82,7 +83,10 @@ void worker::run(parameters& p)
         
         if ( p.calcExpVal )
             me.calculate_chirME_for_ExpVal(p, st, sub);
-
+#ifdef MPI_PAR 
+        if (myrank_mpi == 0)
+#endif
+        std::cout << " Done with chiral matrix elements calculation " << std::endl;
         // if all momentum subspaces needs to be diagonalized together do so, otherwise loop through momentum spaces
         if (p.allMomSubspace)
             {    
