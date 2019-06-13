@@ -118,6 +118,9 @@ parameters::parameters(const char* input_file_name)
 
     input_file>>onlyDiagExpV;  input_file.ignore(256, '\n');
     input_file>>saveEigenvec;  input_file.ignore(256, '\n');
+    input_file>>fields_file;   input_file.ignore(256, '\n');
+    input_file>>constants_file;   input_file.ignore(256, '\n');
+    std::cout << fields_file << std::endl;
 
     input_file.close();
 
@@ -139,7 +142,7 @@ parameters::parameters(const char* input_file_name)
         maxp = (p-1)/2;
         } 
 
-    std::ifstream kac_table_file("fields.dat");
+    std::ifstream kac_table_file(fields_file);
 
     std::string line;
     std::vector<std::string>  fields_strings;
@@ -202,7 +205,7 @@ parameters::parameters(const char* input_file_name)
     kac_table_file.close();
 
     sparse_tensor3D<double> CptNonChiral;
-    std::ifstream structure_constant_file("constants.dat");
+    std::ifstream structure_constant_file(constants_file);
 
     // set structure constant to zero, such that only the one different from zero needs to be in the input file
     for(int i = 1; i <= n_fields; i++)
@@ -426,6 +429,10 @@ void parameters::print() const
         std::cout << " Saving Eigenvector to file is enable" << std::endl;
         } 
     std::cout << std::endl;
+    std::cout << " Fields filename: " << fields_file << std::endl;
+    std::cout << " Constants filename: " << constants_file << std::endl;
+    std::cout << std::endl;
+
     std::cout << "-------------------------" << endl;
     std::cout << std::endl;
     std::cout << " Number of fields " << n_fields << endl;

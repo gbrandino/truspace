@@ -24,3 +24,5 @@
 7    r index of the operator to calculate matrix elements
 1    set to 1 to calculated only diagonal matrix elements (<i|phi|i>), 0 for full matrix elements calculation
 0    set to 1 to se save eigenvectors to file
+potts-fields.dat     filename of fields file
+potts-constants.dat  filename of the structure constants file

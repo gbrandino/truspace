@@ -15,6 +15,7 @@
 #include "sparse_tensor.h"
 #include <complex>
 #include <vector>
+#include <string>
 #include <map>
 
 /** Input parameter class. 
@@ -57,7 +58,9 @@ class parameters
         int s_op;           /**< s index of anti holomorphic component of the operator to calculate expectation values */
         bool onlyDiagExpV;   /**< True to calculate only diagonal expectation values, false for the full matrix */
         bool saveEigenvec;   /**< True to save eigenvectors to file, false not to save them */
-       
+        std::string fields_file;  /**< file name of the fields file */
+        std::string constants_file; /**< file name of the structure constants file */
+
         // objects calculated from input parameters
         double C;            /**< central charge. Calculated by the code */
         int maxp;            /**< p size of Kac table. Calculated by the code */ 
