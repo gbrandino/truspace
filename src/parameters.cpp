@@ -335,8 +335,7 @@ void parameters::print() const
 
     for (int i=0;i<numPert;i++)
         {
-        std::cout << " r index for perturbation " << i+1 << " ---> " << r[i] << std::endl;  
-        std::cout << " s index for perturbation " << i+1 << " ---> " << s[i] << std::endl;
+        std::cout << " index for perturbation " << i+1 << " ---> " << r[i] << std::endl;  
         std::cout << " Constant for perturbation "<< i+1 << " ---> " << pConst[i] << std::endl;;
         }
 
@@ -457,7 +456,7 @@ void parameters::print() const
         int s_tmp = fields[i].first.second;
         int r1_tmp = fields[i].second.first;
         int s1_tmp = fields[i].second.second;
-        std::cout << i << "| ( " << r_tmp << ", " << s_tmp << " ) ( " << r1_tmp << ", " << s1_tmp << " ) | ( " <<  fields_dimensions.at(i+1).first << " , " << fields_dimensions.at(i+1).second << " ) " << std::endl;
+        std::cout << i+1 << "| ( " << r_tmp << ", " << s_tmp << " ) ( " << r1_tmp << ", " << s1_tmp << " ) | ( " <<  fields_dimensions.at(i+1).first << " , " << fields_dimensions.at(i+1).second << " ) " << std::endl;
         }
     std::cout << std::endl;
     std::cout << " r max : " << maxp << std::endl;
@@ -476,7 +475,7 @@ void parameters::print() const
     std::cout << std::endl;
     for (int i=0;i<numPert;i++)
         {
-        std::cout << " phi_(" << r[i] << "," << s[i] << ")  " << std::endl;
+        std::cout << " phi_(" << r[i] << ")  " << std::endl;
         }
     std::cout << std::endl;
 

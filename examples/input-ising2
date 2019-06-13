@@ -1,0 +1,30 @@
+3    p
+4    q
+1    number of perturbations
+5    Maximum conformal level to include
+0    Minimum conformal level to include
+0    Maximum momentum considered
+0    Set 1 to diagonalize all momentum subspaces together 
+5   Maximum nunber of eigenvalues, eigenvectors and matrix elements printed in output file(s), 0 for all of them 
+2    index of first perturbation (as indexed in input data file)
+0.09  constant for first perturbation 
+3    index of second perturbation (as indexed in input data file)
+0.09  constant for second perturbation
+1   number of values of R
+0.6  increment at each R step
+8.0  starting value of R 
+500  number of states in the basic matrix for NRG
+250  number of states added in every NRG step
+1    set 1 for complete TCSA calculation, 0 to have just Kac table structure constants and subspace analysis
+0    set 1 for NRG, 0 for complete trucated hamiltonian diagonalization
+0    number of NRG sweep. Set 0 for basic NRG
+0    set 1 to save states to file, 0 not to save them
+0    set 1 to read saved state from file, 0 to calculate them
+0    set 1 to save chiral matrix element to file, 0 not to save them
+0    set 1 to read saved matrix elements from file, 0 to calculate them
+0    set 1 to calculate matrix element of a particular primary operator
+2    r index of the operator to calculate matrix elements
+1    set to 1 to calculated only diagonal matrix elements (<i|phi|i>), 0 for full matrix elements calculation
+0    set to 1 to se save eigenvectors to file
+ising-fields.dat     filename of fields file
+ising-constants.dat  filename of the structure constants file
