@@ -20,7 +20,7 @@
 0    set 1 to read saved state from file, 0 to calculate them
 0    set 1 to save chiral matrix element to file, 0 not to save them
 0    set 1 to read saved matrix elements from file, 0 to calculate them
-0    set 1 to calculate matrix element of a particular primary operator
+1    set 1 to calculate matrix element of a particular field
 7    index of the operator to calculate matrix elements
 1    set to 1 to calculated only diagonal matrix elements (<i|phi|i>), 0 for full matrix elements calculation
 0    set to 1 to se save eigenvectors to file
