@@ -67,7 +67,7 @@ int partitions(int k)
 /** 
  * Original determine_partion routine, was giving big memory problem. Kept for reference
  */
-/*int determine_partition(int level, tensor2D<int>&  results)
+int determine_partition(int level, tensor2D<int>&  results)
 {
 
     int num,  flag, total;
@@ -121,10 +121,10 @@ int partitions(int k)
         }
 
     return total;
-}*/
+}
 
 
-int determine_partition(int n, tensor2D<int>&  results)
+/*int determine_partition(int n, tensor2D<int>&  results)
 {
 
     int* v;
@@ -139,7 +139,7 @@ int determine_partition(int n, tensor2D<int>&  results)
 
 
 void  part(int n, int* v, int level, tensor2D<int>&  results, int& count){
-    int first; /* first is before last */
+    int first; // first is before last 
 
     if(n<1) return;
     v[level]=n;
@@ -152,10 +152,10 @@ void  part(int n, int* v, int level, tensor2D<int>&  results, int& count){
     first=(level==0) ? 1 : v[level-1];
 
     for(int i=first;i<=n/2;i++){
-        v[level]=i; /* replace last */
+        v[level]=i; // replace last
         part(n-i, v, level+1, results,count);
     }
-}
+}*/
 
 
 
