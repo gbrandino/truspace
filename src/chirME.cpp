@@ -335,7 +335,7 @@ void chirME::calculate_chirME_for_ExpVal(parameters& p, states& st, int subspace
         {
         int R_op;
         int S_op;
-        int Del_op; 
+        double Del_op; 
 
         if ( chirality == 0 )
             {
