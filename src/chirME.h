@@ -52,6 +52,12 @@ class chirME
           * @param[in] R value of the radius R
           */
         void calculate_ExpVal(parameters& p, states& st, double* coeff, int size, int Momentum, std::string fname, double R);
+        /** Routine to compare fields, as expressed as pairs of pair
+         * @param[in] f1 pair of pair describing the first field
+         * @param[in] f2 pair of pair describing the second field
+         * return bool. True if all pairs match
+         */
+        bool compare_fields( std::pair<std::pair <int,int>, std::pair <int,int> > f1,  std::pair<std::pair <int,int>, std::pair <int,int> > f2);
 
         tensor5D< std::pair<long double, long double> > me_chi_ortho; /**< Contains the chiral matrix element for each perturbing operator. Indexed as (perturbation_number, left Verma mod, right Verma mod, left states number, right states number) */
         tensor4D< std::pair<long double, long double> > me_chi_ortho_op; /**< Contains the chiral matrix element for the operator whose expecation values are asked. Indexed as (left Verma mod, right Verma mod, left state number, right state number) */
