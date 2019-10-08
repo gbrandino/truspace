@@ -120,7 +120,6 @@ parameters::parameters(const char* input_file_name)
     input_file>>saveEigenvec;  input_file.ignore(256, '\n');
     input_file>>fields_file;   input_file.ignore(256, '\n');
     input_file>>constants_file;   input_file.ignore(256, '\n');
-    std::cout << fields_file << std::endl;
 
     input_file.close();
 
@@ -727,6 +726,7 @@ void parameters::analyse_subspaces()
         for (int i=0;i<numspace;i++)
             {
             int tempdim=0;
+            int vermaCounter = 0;
             for(int mom=0;mom<=maxMomentum;mom++)
                 {
                 for(int j=0;j<subdim[i];j++)
@@ -735,20 +735,24 @@ void parameters::analyse_subspaces()
                     int s_tmp = fields[finalsubspace(i,j) - 1].first.second;
                     std::pair <int, int > tmp_pair(r_tmp, s_tmp);
                     if ( PairToIndex[i].find(tmp_pair) == PairToIndex[i].end() ) {
-                        PairToIndex[i][tmp_pair] = 1;
-                    } else {
-                        PairToIndex[i][tmp_pair] += 1;
+                        //PairToIndex[i][tmp_pair] = 1;
+                        PairToIndex[i][tmp_pair] = vermaCounter++;
                     } 
+                    //else {
+                    //   PairToIndex[i][tmp_pair] += 1;
+                    //} 
 
 
                     int r1_tmp = fields[finalsubspace(i,j) - 1].second.first;
                     int s1_tmp = fields[finalsubspace(i,j) - 1].second.second;
                     std::pair <int, int > tmp1_pair(r1_tmp, s1_tmp); 
                     if ( PairToIndex[i].find(tmp1_pair) == PairToIndex[i].end() ) {
-                        PairToIndex[i][tmp1_pair] = 1;
-                    } else {
-                        PairToIndex[i][tmp1_pair] += 1;
-                    }
+                        //PairToIndex[i][tmp1_pair] = 1;
+                        PairToIndex[i][tmp_pair] = vermaCounter++;
+                    } 
+                    //else {
+                    //   PairToIndex[i][tmp1_pair] += 1;
+                    //}
 
 
                     for (int k=0;k<=maxLev;k++)
@@ -771,6 +775,7 @@ void parameters::analyse_subspaces()
         for (int i=0;i<numspace;i++)
             {
             int tempdim=0;
+            int vermaCounter = 0;
             for(int mom=0;mom<= maxMomentum;mom++)
                 {
                 tempdim=0;
@@ -780,20 +785,24 @@ void parameters::analyse_subspaces()
                     int s_tmp = fields[finalsubspace(i,j) - 1].first.second;
                     std::pair <int, int > tmp_pair(r_tmp, s_tmp);
                     if ( PairToIndex[i].find(tmp_pair) == PairToIndex[i].end() ) {
-                        PairToIndex[i][tmp_pair] = 1;
-                    } else {
-                        PairToIndex[i][tmp_pair] += 1;
-                    }
+                        //PairToIndex[i][tmp_pair] = 1;
+                        PairToIndex[i][tmp_pair] = vermaCounter++;
+                    } 
+                    //else {
+                    //PairToIndex[i][tmp_pair] += 1;
+                    //}
 
 
                     int r1_tmp = fields[finalsubspace(i,j) - 1].second.first;
                     int s1_tmp = fields[finalsubspace(i,j) - 1].second.second;
                     std::pair <int, int > tmp1_pair(r1_tmp, s1_tmp);
                     if ( PairToIndex[i].find(tmp1_pair) == PairToIndex[i].end() ) {
-                        PairToIndex[i][tmp1_pair] = 1;
-                    } else {
-                        PairToIndex[i][tmp1_pair] += 1;
-                    }     
+                        //PairToIndex[i][tmp1_pair] = 1;
+                        PairToIndex[i][tmp_pair] = vermaCounter++;
+                    } 
+                    //else {
+                    //   PairToIndex[i][tmp1_pair] += 1;
+                    //}     
 
 
 
