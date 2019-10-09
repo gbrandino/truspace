@@ -970,6 +970,7 @@ void states::calculate_nonchiral(parameters& p, int subspace, int mom)
     // the following tensors are used only in sweep calculations
     if ( p.nSweep > 0 )
         {
+        /* the following part is correct only for zero momentum states and diagonal partion function 
         tensor3D < int > state_left_lev_tmp(p.PairToIndex[subspace].size(),p.maxLev+1,MaxChiralVerma);
         state_left_lev = state_left_lev_tmp;     
 
@@ -1037,7 +1038,7 @@ void states::calculate_nonchiral(parameters& p, int subspace, int mom)
 
             state_nonchiral_lev(vmod,lev,ii,jj)=i;
             }
-
+            */
         } // closing if ( p.nSweep > 0 )
         
 }

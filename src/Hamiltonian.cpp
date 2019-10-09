@@ -304,6 +304,9 @@ void Hamiltonian::NRG_block_D(int iteration)
 void Hamiltonian::sweep_block_BC(int iteration, double* coeff, double* coeffSweep, int NRGspacesize, int NRGstoresize)
 {
 
+    /* 
+
+    // The following part is correct only for zero momentum states and diagonal partition functions
     int subsizeMax = 0;
     for ( int i = 0; i<p.subdim[subspace]; ++i)
         {
@@ -314,7 +317,6 @@ void Hamiltonian::sweep_block_BC(int iteration, double* coeff, double* coeffSwee
             }
         }
 
-    std::cout << " SWEEP IS WRONG RIGHT NOW! BLOCKS m1 AND m2 ARE TAKING ONLY CHIRAL PART OF THE OPERATOR!!!! FIX!!!! " << std::endl;
     tensor6D<double> m1(p.numPert, p.subdim[subspace], p.subdim[subspace], p.maxLev+1, p.maxLev+1, subsizeMax*subsizeMax);
     tensor6D<double> m2(p.numPert, p.subdim[subspace], p.subdim[subspace], p.maxLev+1, p.maxLev+1, subsizeMax*subsizeMax);
 
@@ -430,8 +432,79 @@ void Hamiltonian::sweep_block_BC(int iteration, double* coeff, double* coeffSwee
 
     cblas_dgemm(CblasRowMajor,CblasNoTrans,CblasTrans,p.Nsize,p.Nstep,NRGspacesize,1.0,coeff,NRGspacesize,H_part,NRGspacesize,0.0,H_part2,p.Nstep);    
 
-    delete [] H_part;
+    delete [] H_part;  */
 
+    // basic version for non diagonal model / higher momentum states
+    double* H_part = new double[p.Nsize * NRGstoresize ];   
+    for (int i=0; i<p.Nsize*NRGstoresize; i++)
+       H_part[i] = 0.0;
+
+    for (int pert=0; pert < p.numPert; pert++)
+        {
+        double c = p.pConst[pert]*2.*pi*pow(R/2./pi,1.- (p.deltas[pert].first + p.deltas[pert].second));
+
+        for(int i=0;i < p.Nsize;++i)
+            {
+            //for(int j=0;j < p.Nstep;++j)
+            //    {
+                for(int k=0; k < NRGspacesize;++k )
+                    {
+                    for (int  k1=0; k1 < NRGstoresize; ++k1)
+                        {
+                        double temp;
+                        int st_vmod_left = st.state_vmod_left[k];
+                        int st_vmod_right = st.state_vmod_right[k];
+                        int st_left = st.state_left[k];
+                        int st_right = st.state_right[k];
+                        int st_vmodk_left = st.state_vmod_left[k1];
+                        int st_vmodk_right = st.state_vmod_right[k1];
+                        if( (st.cstate_lev(st_vmod_left,st_left) - st.cstate_lev(st_vmod_right, st_right)) == (st.cstate_lev(st_vmodk_left,st.state_left[k1]) - st.cstate_lev(st_vmodk_right, st.state_right[k1])))
+                            {
+                    // Kac_vmod_{right,left}_{i,j} contains the Kac indexes of the chiral and antichiral components, as oppposed to st_vmod_{left,right} which contain the LINEAR index in the SUBSPACE
+                    // of the chiral and antichiral component
+                            std::pair <int,int> vmod_left_j  = p.IndexToPair[p.currentSubspace][st_vmod_left];
+                            std::pair <int,int> vmod_right_j = p.IndexToPair[p.currentSubspace][st_vmod_right];
+                            std::pair <int,int> vmod_left_k  = p.IndexToPair[p.currentSubspace][st_vmodk_left];
+                            std::pair <int,int> vmod_right_k = p.IndexToPair[p.currentSubspace][st_vmodk_right];
+
+                            int field_j = -1;
+                            int field_k = -1;
+                            for (int f = 0; f < p.n_fields; f++)
+                                {
+                                if( p.fields[f] == std::make_pair(vmod_left_j, vmod_right_j) ){
+                                    field_j = f+1;
+                                }
+                                if( p.fields[f] == std::make_pair(vmod_left_k, vmod_right_k) ){
+                                    field_k = f+1;
+                                }
+                            }
+                            if (field_j == -1 || field_k == -1){
+                                std::cout << " Error, fields not found! " << field_j << " " << field_k << std::endl;
+                            }
+
+                            long double SCtmp = p.cptsmall(field_j, p.r_op, field_k);
+                            temp = me.me_chi_ortho(pert, st_vmod_left, st_vmodk_left, st_left, st.state_left[k1]).first;
+                            temp *= SCtmp * me.me_chi_ortho(pert, st_vmod_right, st_vmodk_right, st_right, st.state_right[k1]).second;
+                            }
+                        else
+                            {
+                            temp=0.;
+                            }
+                        H_part[i*NRGstoresize + k1] += c * coeff[i*NRGspacesize + k] *temp;
+                        }
+                    }
+                }
+            //}
+        }
+
+    double* H_part2 = new double[p.Nsize*p.Nstep ];
+
+    cblas_dgemm(CblasRowMajor,CblasNoTrans,CblasTrans,p.Nsize,p.Nstep,NRGstoresize,1.0,H_part,NRGstoresize,coeffSweep,NRGstoresize,0.0,H_part2,p.Nstep);
+
+    delete [] H_part;
+    // basic version till here
+ 
+    //conformal energy contribution
     double* coefftemp= new double[p.Nsize*NRGstoresize];
     for (int i=0;i < p.Nsize;++i)
         {
@@ -446,6 +519,7 @@ void Hamiltonian::sweep_block_BC(int iteration, double* coeff, double* coeffSwee
 
     delete [] coefftemp;
 
+    //sum up perturbation and conformal contribution
     for (int i=0; i < p.Nsize;i++)
         {
         for (int j=0; j < p.Nstep;j++)
