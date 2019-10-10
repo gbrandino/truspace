@@ -51,10 +51,13 @@ void matrix_elements::calculate(parameters& p, filenames& fnames, states& st)
         {
             int q_i = st.state_quantum_number[i];
             int q_j = st.state_quantum_number[j];
-            if (q_i == q_j)
-                me_unperturbed(0,i,j) = p.m * p.pConst[0]*p.pConst[0]/6;              //the factor L^2 is added later on
-            else
-                me_unperturbed(0,i,j) = p.m * p.pConst[0]*p.pConst[0]/((2*PI)*(2*PI))* cos(PI*(i-j))/((i-j)*(i-j));
+            if (q_i == q_j){
+                me_unperturbed(0,i,j) = p.m * p.pConst[0]*p.pConst[0]/24;              //the factor L^2 is added later on
+            }
+            else{
+                int fact = (q_i - q_j)%2 == 0? 1 : -1;
+                me_unperturbed(0,i,j) = p.m * p.pConst[0]*p.pConst[0]/((2*PI)*(2*PI))* fact/((q_i-q_j)*(q_i-q_j));
+            }
         }
     }
 
@@ -68,10 +71,13 @@ void matrix_elements::calculate_for_ExpVal(parameters& p, states& st)
         {
             int q_i = st.state_quantum_number[i];
             int q_j = st.state_quantum_number[j];
-            if (q_i == q_j)
-                me_unperturbed_for_expval(i,j) = p.m * p.pConst[0]*p.pConst[0]/6;              //the factor L^2 is added later on
-            else
-                me_unperturbed_for_expval(i,j) = p.m * p.pConst[0]*p.pConst[0]/((2*PI)*(2*PI))* cos(PI*(i-j))/((i-j)*(i-j));
+            if (q_i == q_j){
+                me_unperturbed_for_expval(i,j) = p.m * p.pConst[0]*p.pConst[0]/24;              //the factor L^2 is added later on
+            }
+            else{
+                int fact = (q_i - q_j)%2 == 0? 1 : -1;
+                me_unperturbed_for_expval(i,j) = p.m * p.pConst[0]*p.pConst[0]/((2*PI)*(2*PI))* fact/((q_i-q_j)*(q_i-q_j));
+            }
         }
     }
 
