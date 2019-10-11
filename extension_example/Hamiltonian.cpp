@@ -89,8 +89,8 @@ void Hamiltonian::init()
                     {
                     H(i,j) += R*R * me.me_unperturbed(pert,i,j);
                     }
-            // diagonal elements (check 2pi factor)
-            H(i,i) += st.state_en[i]/(R*R);
+            // diagonal elements 
+            H(i,i) += st.state_en[i]/(R*R)/p.numPert;
     
             }
         }

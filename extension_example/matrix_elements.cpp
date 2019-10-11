@@ -55,8 +55,8 @@ void matrix_elements::calculate(parameters& p, filenames& fnames, states& st)
                 me_unperturbed(0,i,j) = p.m * p.pConst[0]*p.pConst[0]/24;              //the factor L^2 is added later on
             }
             else{
-                int fact = (q_i - q_j)%2 == 0? 1 : -1;
-                me_unperturbed(0,i,j) = p.m * p.pConst[0]*p.pConst[0]/((2*PI)*(2*PI))* fact/((q_i-q_j)*(q_i-q_j));
+                int fact = abs(q_i - q_j)%2 == 0? 1 : -1;
+                me_unperturbed(0,i,j) = p.m * p.pConst[0]*p.pConst[0]/((2*PI)*(2*PI))* fact/((q_i-q_j)*(q_i-q_j));   //the factor L^2 is added later on
             }
         }
     }
@@ -75,8 +75,8 @@ void matrix_elements::calculate_for_ExpVal(parameters& p, states& st)
                 me_unperturbed_for_expval(i,j) = p.m * p.pConst[0]*p.pConst[0]/24;              //the factor L^2 is added later on
             }
             else{
-                int fact = (q_i - q_j)%2 == 0? 1 : -1;
-                me_unperturbed_for_expval(i,j) = p.m * p.pConst[0]*p.pConst[0]/((2*PI)*(2*PI))* fact/((q_i-q_j)*(q_i-q_j));
+                int fact = abs(q_i - q_j)%2 == 0? 1 : -1;
+                me_unperturbed_for_expval(i,j) = p.m * p.pConst[0]*p.pConst[0]/((2*PI)*(2*PI))* fact/((q_i-q_j)*(q_i-q_j));   //the factor L^2 is added later on
             }
         }
     }

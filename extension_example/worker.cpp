@@ -99,11 +99,11 @@ void worker::run(parameters& p)
         for ( int r=0; r < p.rSteps; r++)
             {
             double R = p.rStart + r*p.rInc;
-            H_iter.R = R;//R*2.*pi;  //constant to match old results
+            H_iter.R = R;
 #ifdef MPI_PAR 
             if (myrank_mpi == 0)
 #endif                    
-                std::cout << " System size value: " << r << " (" << H_iter.R << ")" << std::endl;
+                std::cout << " Current system size : " << H_iter.R << std::endl;
                 nrg.run(p, H_iter, fnames);
             }
             
