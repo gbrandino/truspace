@@ -14,6 +14,42 @@
 #include <iomanip>
 #include "config.h"
 
+double Int_XsquareCosAxCosBx ( double a, double b, double x)
+{
+
+    return 1/2. * (   ((pow(a,2) * pow(x,2)  - 2*a*b*pow(x,2) + pow(b,2) * pow(x,2) - 2 ) * sin ( x * (a - b) ) ) / pow (a - b, 3) 
+                    + ((pow(a,2) * pow(x,2)  + 2*a*b*pow(x,2) + pow(b,2) * pow(x,2) - 2 ) * sin ( x * (a + b) ) ) / pow (a + b, 3)   
+                    + (2 * x * cos(x*(a - b))) / pow(a - b,2) +
+                    + (2 * x * cos(x*(a + b))) / pow(a + b,2) );
+
+}
+
+double Int_XsquareSinAxSinBx ( double a, double b, double x)
+{
+
+    return 1/2. * (   ((pow(a,2) * pow(x,2)  - 2*a*b*pow(x,2) + pow(b,2) * pow(x,2) - 2 ) * sin ( x * (a - b) ) ) / pow (a - b, 3)  
+                    - ((pow(a,2) * pow(x,2)  + 2*a*b*pow(x,2) + pow(b,2) * pow(x,2) - 2 ) * sin ( x * (a + b) ) ) / pow (a + b, 3) 
+                    + (2 * x * cos(x*(a - b))) / pow(a - b,2)  
+                    - (2 * x * cos(x*(a + b))) / pow(a + b,2) );
+
+}
+
+
+double Int_XsquareCosAxCosAx ( double a, double x)
+{   
+
+    return ( 4 * pow(a,3) * pow(x,3) + (6*pow(a,2)*pow(x,2) - 3) * sin(2*a*x) + 6*a*x*cos(2*a*x)) / (24 * pow(a,3));
+
+}
+
+
+double Int_XsquareSinAxSinAx ( double a, double x)
+{
+
+    return ( 4 * pow(a,3) * pow(x,3) - (6*pow(a,2)*pow(x,2) - 3) * sin(2*a*x) - 6*a*x*cos(2*a*x)) / (24 * pow(a,3));
+
+}
+
 matrix_elements::matrix_elements()
 {
 
@@ -47,40 +83,86 @@ void matrix_elements::calculate(parameters& p, filenames& fnames, states& st)
     // here we are using just one pertubationm but the example is written such that it should be easily extended to multiple ones
     for (int i = 0; i < st.nstate; i++)
     {
+        bool i_even = false;
+        if (i%2 == 0)
+            i_even = true;
         for (int j = 0; j < st.nstate; j++)
         {
-            int q_i = st.state_quantum_number[i];
-            int q_j = st.state_quantum_number[j];
-            if (q_i == q_j){
-                me_unperturbed(0,i,j) = p.m * p.pConst[0]*p.pConst[0]/24;              //the factor L^2 is added later on
+            bool j_even = false;
+            if (j%2 == 0)
+                j_even = true;
+            double q_i = st.state_quantum_number[i];
+            double q_j = st.state_quantum_number[j];
+            if (( i_even and !j_even ) or (!i_even and j_even)){
+                me_unperturbed(0,i,j) = 0.;
             }
-            else{
-                int fact = abs(q_i - q_j)%2 == 0? 1 : -1;
-                me_unperturbed(0,i,j) = p.m * p.pConst[0]*p.pConst[0]/((2*PI)*(2*PI))* fact/((q_i-q_j)*(q_i-q_j));   //the factor L^2 is added later on
+            if ( i_even and j_even)  {
+                if (fabs(q_i - q_j) < 0.000001){
+                    me_unperturbed(0,i,j) = 2 *p.m * pow(p.pConst[0],2)/2 *  (Int_XsquareCosAxCosAx(q_i, 1/2.0) - Int_XsquareCosAxCosAx(q_i, -1/2.0));  //the factor L^2 is added later on
+                    }
+                else if (fabs(q_i + q_j) < 0.000001){
+                    me_unperturbed(0,i,j) = 2 * p.m * pow(p.pConst[0],2)/2 *  (Int_XsquareCosAxCosAx(q_i, 1/2.0) - Int_XsquareCosAxCosAx(q_i, -1/2.0));
+                    }
+                else{
+                    me_unperturbed(0,i,j) = 2 * p.m * pow(p.pConst[0],2)/2 *  (Int_XsquareCosAxCosBx(q_i, q_j, 1/2.0) - Int_XsquareCosAxCosBx(q_i, q_j, -1/2.0));
+                    }
+            }
+            if ( !i_even and !j_even)  {
+                if (fabs(q_i - q_j) < 0.000001){
+                    me_unperturbed(0,i,j) = 2 * p.m * pow(p.pConst[0],2)/2 *  (Int_XsquareSinAxSinAx(q_i, 1/2.0) - Int_XsquareSinAxSinAx(q_i, -1/2.0));  //the factor L^2 is added later on
+                    }
+                else if (fabs(q_i + q_j) < 0.000001){
+                    me_unperturbed(0,i,j) = - 2 * p.m * pow(p.pConst[0],2)/2 *  (Int_XsquareSinAxSinAx(q_i, 1/2.0) - Int_XsquareSinAxSinAx(q_i, -1/2.0));
+                    }
+                else{
+                    me_unperturbed(0,i,j) = 2 * p.m * pow(p.pConst[0],2)/2 *  (Int_XsquareSinAxSinBx(q_i, q_j, 1/2.0) - Int_XsquareSinAxSinBx(q_i, q_j, -1/2.0));
+                    }
             }
         }
     }
-
 }
 
 void matrix_elements::calculate_for_ExpVal(parameters& p, states& st)
 {
     for (int i = 0; i < st.nstate; i++)
     {
+        bool i_even = false;
+        if (i%2 == 0)
+            i_even = true;
         for (int j = 0; j < st.nstate; j++)
         {
-            int q_i = st.state_quantum_number[i];
-            int q_j = st.state_quantum_number[j];
-            if (q_i == q_j){
-                me_unperturbed_for_expval(i,j) = p.m * p.pConst[0]*p.pConst[0]/24;              //the factor L^2 is added later on
+            bool j_even = false;
+            if (j%2 == 0)
+                j_even = true;
+            double q_i = st.state_quantum_number[i];
+            double q_j = st.state_quantum_number[j];
+            if (( i_even and !j_even ) or (!i_even and j_even)){
+                me_unperturbed(0,i,j) = 0.;
             }
-            else{
-                int fact = abs(q_i - q_j)%2 == 0? 1 : -1;
-                me_unperturbed_for_expval(i,j) = p.m * p.pConst[0]*p.pConst[0]/((2*PI)*(2*PI))* fact/((q_i-q_j)*(q_i-q_j));   //the factor L^2 is added later on
+            if ( i_even and j_even)  {
+                if (fabs(q_i - q_j) < 0.000001){
+                    me_unperturbed_for_expval(i,j) = 2 *p.m * pow(p.pConst[0],2)/2 *  (Int_XsquareCosAxCosAx(q_i, 1/2.0) - Int_XsquareCosAxCosAx(q_i, -1/2.0));  //the factor L^2 is added later on
+                    }
+                else if (fabs(q_i + q_j) < 0.000001){ 
+                    me_unperturbed_for_expval(i,j) = 2 * p.m * pow(p.pConst[0],2)/2 *  (Int_XsquareCosAxCosAx(q_i, 1/2.0) - Int_XsquareCosAxCosAx(q_i, -1/2.0));
+                    }
+                else{
+                    me_unperturbed_for_expval(i,j) = 2 * p.m * pow(p.pConst[0],2)/2 *  (Int_XsquareCosAxCosBx(q_i, q_j, 1/2.0) - Int_XsquareCosAxCosBx(q_i, q_j, -1/2.0));
+                    }
+            }
+            if ( !i_even and !j_even)  {
+                if (fabs(q_i - q_j) < 0.000001){
+                    me_unperturbed_for_expval(i,j) = 2 * p.m * pow(p.pConst[0],2)/2 *  (Int_XsquareSinAxSinAx(q_i, 1/2.0) - Int_XsquareSinAxSinAx(q_i, -1/2.0));  //the factor L^2 is added later on
+                    }
+                else if (fabs(q_i + q_j) < 0.000001){ 
+                    me_unperturbed_for_expval(i,j) = - 2 * p.m * pow(p.pConst[0],2)/2 *  (Int_XsquareSinAxSinAx(q_i, 1/2.0) - Int_XsquareSinAxSinAx(q_i, -1/2.0));
+                    }
+                else{
+                    me_unperturbed_for_expval(i,j) = 2 * p.m * pow(p.pConst[0],2)/2 *  (Int_XsquareSinAxSinBx(q_i, q_j, 1/2.0) - Int_XsquareSinAxSinBx(q_i, q_j, -1/2.0));
+                    }
             }
         }
     }
-
 
 }
 

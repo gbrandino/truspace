@@ -37,7 +37,7 @@ class states
         
             int nstate;    /**< Size of the truncated Hilbert Space **/
             double* state_en; /**< Array contaning the unperturbed energy of every state */
-            int* state_quantum_number; /**< Array contaning the quantum number that identifies the state */
+            double* state_quantum_number; /**< Array contaning the quantum number that identifies the state */
 
     private:
         states();

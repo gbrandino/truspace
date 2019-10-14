@@ -28,9 +28,9 @@ states::states(parameters& p)
     MPI_Comm_size(MPI_COMM_WORLD, &nprocs_mpi);
 #endif
 
-    nstate = (p.maxLev - p.minLev + 1)* 2;
+    nstate = (p.maxLev - p.minLev + 1)* 2 ;
     state_en=new double[nstate];
-    state_quantum_number=new int[nstate];
+    state_quantum_number=new double[nstate];
 
     for (int j=0;j<nstate; j++)
         {
@@ -63,11 +63,12 @@ void states::calculate(parameters& p)
     
     for (int i = p.minLev; i <= p.maxLev; i++)
     {
-        state_quantum_number[ (i - p.minLev)* 2 ] = i;
-        state_quantum_number[ (i - p.minLev)* 2 + 1 ] = -i;
-        double en = p.hbar * p.hbar / 2 / p.m * (2*PI*i)*(2*PI*i);  // the size factor L^2 is put later, since we are looping on it
+        state_quantum_number[ (i - p.minLev)* 2 ]     = ( 2 * i - 1) * PI;
+        state_quantum_number[ (i - p.minLev)* 2 + 1 ] = ( 2 * i    ) * PI;
+        double en =  p.hbar * p.hbar / 2 / p.m * (PI*(2*i-1))*(PI*(2*i-1)); // the size factor L^2 is put later, since we are looping on it
+        double en2  = p.hbar * p.hbar / 2 / p.m * (2*PI*i)*(2*PI*i);
         state_en[ (i - p.minLev)* 2 ] =  en;
-        state_en[ (i - p.minLev)* 2 + 1 ] = en;
+        state_en[ (i - p.minLev)* 2 + 1 ] = en2;
     }
 
 }
