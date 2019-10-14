@@ -9,7 +9,7 @@
 
 #include "parameters.h"
 #include "tensors.h"
-#include "chirME.h"
+#include "matrix_elements.h"
 #include "states.h"
 #include <string>
 
@@ -30,11 +30,9 @@ class Hamiltonian
         tensor2D< double > H; /**< Tensor2D holding the Hamiltonian matrix elements */
         int Msize; /**< Size of the Global Hamiltonian matrix */
         double R;  /**< Current value of the system size R */
-        int Momentum; /**< Current momentum subspace. */
         parameters& p; /**< Reference to parameters object */
         states& st; /**< Reference to state object */
-        chirME& me; /**< Reference to chirMe object */
-        int subspace; /**< Current symmetry subspace */
+        matrix_elements& me; /**< Reference to chirMe object */
         int descH[9]; /**< BLACS descriptor of the distributed Hamiltonian */
         int ictxt;   /**< BLACS context */
         int rowH;   /**< Number of row of local slice of Hamiltonian matrix */
@@ -52,17 +50,16 @@ class Hamiltonian
          * Allocates the correct size of the tensor H, which hold the Hamiltonian matrix elements.
          * @param[in] p Reference to a parameter object.
          * @param[in] st Reference to a state object.
-         * @param[in] me Reference to a chirME object.
-         * @param[in] subspace Integer descrbing the subspace currently under investigation.
+         * @param[in] me Reference to a matrix_elements object.
          */
 
-        Hamiltonian(parameters& p, states& st, chirME& me, int subspace);
+        Hamiltonian(parameters& p, states& st, matrix_elements& me);
         /** Destructor
          */
         ~Hamiltonian();
         /** Initializes the first iteration Hamiltonian.
          *  The first iteration hamiltonian has conformal energy on diagonal and expectation value of the perturbing operator(s) on the conformal states and stores it in the tensor H.
-         *  Internally, it uses the state object member and the chirME object member
+         *  Internally, it uses the state object member and the matrix_elements object member
          */
         void init();
 

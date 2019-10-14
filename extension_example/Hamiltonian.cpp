@@ -173,7 +173,7 @@ void Hamiltonian::NRG_block_D(int iteration)
                 H(i + p.Nsize, j + p.Nsize) += R*R * me.me_unperturbed(0,ishift, jshift);
                 }
 
-            // diagonal elements (check 2pi factor)
+            // diagonal elements
             H(i + p.Nsize, i + p.Nsize ) += st.state_en[shift + i]/(R*R)/p.numPert;
 
             }

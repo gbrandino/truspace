@@ -101,7 +101,7 @@ void NRG::run(parameters& p, Hamiltonian& H, filenames& fnames)
     lwork = (int)work[0];
     delete [] work;  
     work = new double[lwork];
-
+    std::cout << "ssdfs " << lwork << std::endl;
     //pdsyev_( &jobz, &uplo, &n, H.H.data, &ione, &ione, H.descH, eigen, EigenVectors.data, &ione, &ione, descZ, work, &lwork, &info );
     pdsyevd_( &jobz, &uplo, &n, H.H.data, &ione, &ione, H.descH, eigen, EigenVectors.data, &ione, &ione, descZ, work, &lwork, iwork, &liwork, &info );
     if (info > 0 and myrank_mpi == 0)
@@ -120,7 +120,7 @@ void NRG::run(parameters& p, Hamiltonian& H, filenames& fnames)
     if ( p.calcExpVal and !p.NRG)
         {
         if (myrank_mpi == 0)
-            H.me.calculate_ExpVal(p, H.st, EigenVectors.data, H.Msize, H.Momentum, fnames.MeOpName, H.R);
+            H.me.calculate_ExpVal(p, H.st, EigenVectors.data, H.Msize, fnames.MeOpName, H.R);
         MPI_Barrier(MPI_COMM_WORLD);
         }
 
@@ -539,7 +539,7 @@ void NRG::run(parameters& p, Hamiltonian& H, filenames& fnames)
                 if ( p.calcExpVal)
                     {
                     if (myrank_mpi == 0)                
-                        H.me.calculate_ExpVal(p, H.st, coeff, newSize, H.Momentum, fnames.MeOpName, H.R);
+                        H.me.calculate_ExpVal(p, H.st, coeff, newSize, fnames.MeOpName, H.R);
                     MPI_Barrier(MPI_COMM_WORLD);
                     }
     

@@ -30,17 +30,14 @@ class Hamiltonian
         tensor2D< double > H; /**< Tensor2D holding the Hamiltonian matrix elements */
         int Msize; /**< Size of the Hamiltonian matrix */
         double R;  /**< Current value of the system size R */
-        int Momentum; /**< Current momentum subspace. */
         parameters& p; /**< Reference to parameters object */
         states& st; /**< Reference to state obejct */
         matrix_elements& me; /**< Reference to chirMe object */
-        int subspace; /**< Current symmetry subspace */
         /** Constructor. 
          * Allocates the correct size of the tensor H, which hold the Hamiltonian matrix elements.
          * @param[in] p Reference to a parameter object.
          * @param[in] st Reference to a state object.
          * @param[in] me Reference to a matrix_elements object.
-         * @param[in] subspace Integer descrbing the subspace currently under investigation.
          */
 
         Hamiltonian(parameters& p, states& st, matrix_elements& me);
