@@ -15,4 +15,4 @@
  *  @param[out] subdim Array that contains the number of Verma module in each subspace
  *  @param[out] numspace Number of subspace found 
  */
-void  blockrec(int maxl,tensor2D< complex <long double> >& a, tensor2D< int>& finalsubspace, int *subdim,int &numspace);
+void  blockrec(int maxl,tensor2D< double >& a, tensor2D< int>& finalsubspace, int *subdim,int &numspace);

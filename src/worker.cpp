@@ -53,61 +53,10 @@ void worker::run(parameters& p)
 #endif
 
 
-    // checking if structure constants are real, not to have to implement additional hermitian matrix diagonalization
-    int rflag=0;
-    for (int i=0;i< p.maxp;i++)
-        {
-        for (int i1=0;i1<p.maxq;i1++)
-            {
-            for (int j=0;j< p.maxp;j++)
-                {
-                for (int j1=0;j1< p.maxq;j1++)
-                    { 
-                    for (int k=0;k< p.maxp;k++)
-                        {
-                        for (int k1=0;k1< p.maxq;k1++)
-                            {
-                            if (abs(p.cpt(i,i1,j,j1,k,k1) - std::conj(p.cpt(i,i1,j,j1,k,k1)))>0.0000000001)
-                                {
-#ifdef MPI_PAR 
-                                if (myrank_mpi == 0)
-                                    {
-#endif
-                                    std::cout << std::endl;
-                                    std::cout<<" Warining - complex structure constant, the TCSA code can't handle that - quitting" << std::endl;
-                                    std::exit(1);
-#ifdef MPI_PAR 
-                                   }
-                                MPI_Finalize(); 
-#endif
-
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-    if (rflag==0)
-        {
-#ifdef MPI_PAR 
-        if (myrank_mpi == 0)
-            {
-#endif
-            std::cout << std::endl;
-            std::cout << " Real structure constant, everything is fine :) " << std::endl;
-            std::cout << std::endl;
-#ifdef MPI_PAR 
-            }
-#endif
-
-        }
-
-
     // iterate through the subspaces 
     for (int sub=0; sub < p.numspace; sub++)
         {
+        p.currentSubspace = sub;
 #ifdef MPI_PAR 
         if (myrank_mpi == 0)
             {
@@ -134,7 +83,10 @@ void worker::run(parameters& p)
         
         if ( p.calcExpVal )
             me.calculate_chirME_for_ExpVal(p, st, sub);
-
+#ifdef MPI_PAR 
+        if (myrank_mpi == 0)
+#endif
+        std::cout << " Done with chiral matrix elements calculation " << std::endl;
         // if all momentum subspaces needs to be diagonalized together do so, otherwise loop through momentum spaces
         if (p.allMomSubspace)
             {    

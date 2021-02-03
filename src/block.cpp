@@ -8,7 +8,7 @@
 #include "tensors.h" 
 #include <complex>
 
-void  blockrec(int maxl,tensor2D< std::complex <long double> >& a, tensor2D< int>& finalsubspace,int *subdim,int &numspace)
+void  blockrec(int maxl,tensor2D< double >& a, tensor2D< int>& finalsubspace,int *subdim,int &numspace)
 {
 
     int flag1,flagc,flags;
