@@ -4,7 +4,7 @@
  */
 
 #include "Hamiltonian.h"
-#include "parameters.h"
+#include "minimal_model_parameters.h"
 #include "tensors.h"
 #include "chirME.h"
 #include "states.h"
@@ -21,7 +21,7 @@ Hamiltonian::~Hamiltonian()
 }
 
 
-Hamiltonian::Hamiltonian(parameters& p_in, states& st_in, chirME& me_in, int sub)
+Hamiltonian::Hamiltonian(minimal_model_parameters& p_in, states& st_in, chirME& me_in, int sub)
 :
 p(p_in),
 st(st_in),

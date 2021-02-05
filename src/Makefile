@@ -8,10 +8,10 @@ LAPACK_LIB=
 SCALAPACK_LIB=${ROOT}/scalapack-2.0.0/libscalapack.a
 MPICXX= mpicxx
 
-CFLAGS=-I${CLN}/include -I${GINAC}/include -I${BLAS}/include -std=c++11 -fopenmp -O2 
+CFLAGS=-I${CLN}/include -I${GINAC}/include -I${BLAS}/include -std=c++11 -fopenmp -g #-O2 
 LIBS= -L${GINAC}/lib/ -lginac -L${CLN}/lib/ -lcln -L${BLAS}/lib/  ${BLAS_LIB}  -L${LAPACK}/lib/ ${LAPACK_LIB}  -lpthread -lstdc++ -fopenmp
-SRC= parameters.cpp characters.cpp cpt.cpp gamma.cpp block.cpp worker.cpp element_computation.cpp states.cpp diag.cpp filenames.cpp chirME.cpp Hamiltonian.cpp NRG.cpp
-SRC_MPI=parameters.cpp characters.cpp cpt.cpp gamma.cpp block.cpp worker.cpp element_computation.cpp states.cpp diag.cpp filenames.cpp chirME.cpp Hamiltonian_MPI.cpp NRG_MPI.cpp
+SRC= parameters.cpp characters.cpp cpt.cpp gamma.cpp block.cpp worker.cpp element_computation.cpp states.cpp diag.cpp filenames.cpp chirME.cpp Hamiltonian.cpp NRG.cpp minimal_model_parameters.cpp
+SRC_MPI=parameters.cpp characters.cpp cpt.cpp gamma.cpp block.cpp worker.cpp element_computation.cpp states.cpp diag.cpp filenames.cpp chirME.cpp Hamiltonian_MPI.cpp NRG_MPI.cpp minimal_model_parameters.cpp
 OBJS=$(SRC:.cpp=.o)
 OBJS_MPI=$(SRC_MPI:.cpp=.o)
 

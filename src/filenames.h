@@ -7,7 +7,7 @@
 
 #ifndef FILENAMES_H
 #define FILENAMES_H
-#include "parameters.h"
+#include "minimal_model_parameters.h"
 
 /** Output filenames helper class. 
  *  Initializes and holds all the output file names, based on input paramters
@@ -19,7 +19,7 @@ class filenames
         /** Constructor
          * @param[in] A reference to a parameters object
          */
-        filenames(parameters&, int);
+        filenames(minimal_model_parameters&, int);
         ~filenames();
 
         // outfiles and dump files

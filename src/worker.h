@@ -13,7 +13,7 @@
 #ifndef WORKER_H
 #define WORKER_H
 
-#include "parameters.h"
+#include "minimal_model_parameters.h"
 
 /** Driver Class for states, matrix element and NRG calculation. 
  *  It takes care of 
@@ -37,7 +37,7 @@ class worker
         /** 
          * @paramp[in] p paramerts object
          */    
-        void run(parameters& p);
+        void run(minimal_model_parameters& p);
 
 };
 #endif

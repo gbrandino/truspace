@@ -4,7 +4,7 @@
  * \date November 2017
  */
 #include "filenames.h"
-#include "parameters.h"
+#include "minimal_model_parameters.h"
 #include <string>
 #include <sstream>
 #include <iostream>
@@ -27,7 +27,7 @@ filenames::~filenames()
 }
 
 
-filenames::filenames(parameters& p, int subspace)
+filenames::filenames(minimal_model_parameters& p, int subspace)
 {
 
 #ifdef MPI_PAR

@@ -45,7 +45,6 @@
  */
 
 #include "states.h"
-#include "parameters.h"
 #include "characters.h"
 #include "config.h"
 #include "cpt.h"
@@ -63,7 +62,7 @@ states::states()
 
 }
 
-states::states(parameters& p, int subspace)
+states::states(minimal_model_parameters& p, int subspace)
 {
 #ifdef MPI_PAR
     int myrank_mpi,nprocs_mpi;
@@ -314,7 +313,7 @@ states::~states()
     delete [] num_chir;
 }
 
-void states::calculate_chiral(parameters& p, int subspace, filenames& fnames)
+void states::calculate_chiral(minimal_model_parameters& p, int subspace, filenames& fnames)
 {
     // MaxPart and MaxNumGrade are (at least for now) global constant 
     // defined in config.h
@@ -788,7 +787,7 @@ void states::calculate_chiral(parameters& p, int subspace, filenames& fnames)
 }
 
 
-void states::calculate_nonchiral(parameters& p, int subspace, int mom)
+void states::calculate_nonchiral(minimal_model_parameters& p, int subspace, int mom)
 {
 #ifdef MPI_PAR
     int myrank_mpi,nprocs_mpi;
@@ -1044,7 +1043,7 @@ void states::calculate_nonchiral(parameters& p, int subspace, int mom)
 }
 
 
-void states::read_chiral(parameters& p, int subspace, filenames& fnames)
+void states::read_chiral(minimal_model_parameters& p, int subspace, filenames& fnames)
 {
 #ifdef MPI_PAR
     int myrank_mpi,nprocs_mpi;

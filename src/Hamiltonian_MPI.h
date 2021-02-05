@@ -7,7 +7,7 @@
 #ifndef HAMILTONIAN_H
 #define HAMILTONIAN_H
 
-#include "parameters.h"
+#include "minimal_model_parameters.h"
 #include "tensors.h"
 #include "chirME.h"
 #include "states.h"
@@ -31,7 +31,7 @@ class Hamiltonian
         int Msize; /**< Size of the Global Hamiltonian matrix */
         double R;  /**< Current value of the system size R */
         int Momentum; /**< Current momentum subspace. */
-        parameters& p; /**< Reference to parameters object */
+        minimal_model_parameters& p; /**< Reference to parameters object */
         states& st; /**< Reference to state object */
         chirME& me; /**< Reference to chirMe object */
         int subspace; /**< Current symmetry subspace */

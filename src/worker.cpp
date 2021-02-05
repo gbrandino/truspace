@@ -11,7 +11,7 @@
  */
 #include "worker.h"
 #include "tensors.h"
-#include "parameters.h"
+#include "minimal_model_parameters.h"
 #include "characters.h"
 #include "states.h"
 #include "filenames.h"
@@ -44,7 +44,7 @@ worker::~worker()
 }
 
 
-void worker::run(parameters& p)
+void worker::run(minimal_model_parameters& p)
 {
 #ifdef MPI_PAR
     int myrank_mpi,nprocs_mpi;

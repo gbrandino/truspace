@@ -102,7 +102,7 @@ void NRG::run(parameters& p, Hamiltonian& H, filenames& fnames)
         }
     if ( p.calcExpVal and !p.NRG)
         {
-        H.me.calculate_ExpVal(p, H.st, EigenVectors.data, H.Msize, H.Momentum, fnames.MeOpName, H.R);
+        H.me.calculate_ExpVal(&p, H.st, EigenVectors.data, H.Msize, H.Momentum, fnames.MeOpName, H.R);
         }
 
 
@@ -410,7 +410,7 @@ void NRG::run(parameters& p, Hamiltonian& H, filenames& fnames)
                     H.print_eigenVectors(coeff, fnames.EigenVectName, newSize);
 
                 if ( p.calcExpVal )
-                    H.me.calculate_ExpVal(p, H.st, coeff, newSize, H.Momentum, fnames.MeOpName, H.R);
+                    H.me.calculate_ExpVal(&p, H.st, coeff, newSize, H.Momentum, fnames.MeOpName, H.R);
     
                 }
 

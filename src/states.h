@@ -7,7 +7,7 @@
 
 #ifndef STATES_H
 #define STATES_H
-#include "parameters.h"
+#include "minimal_model_parameters.h"
 #include "filenames.h"
 
 /** Class that contains and calculates chiral states by removing null vectors from each verma module
@@ -19,7 +19,7 @@ class states
          * @param[in] p Reference to a parameters object
          * @param[in] subspace Subspace to work on
          */
-        states(parameters& p, int subspace);
+        states(minimal_model_parameters& p, int subspace);
         /** Destructor 
          */
         ~states();
@@ -29,20 +29,20 @@ class states
          * @param[in] subspace Subspace to work on
          * @param[in] fname Reference to a filenames object
          */ 
-        void calculate_chiral(parameters& p, int subspace, filenames& fname );        
+        void calculate_chiral(minimal_model_parameters& p, int subspace, filenames& fname );        
         /** Routine to calculate nonchiral states, stored internally in the object itself.
          * @param[in] p Reference to a parameters object
          * @param[in] subspace Subspace to work on
          * @param[in] mom Momentum subspace to work on
          */
-        void calculate_nonchiral(parameters& p, int subspace, int mom);
+        void calculate_nonchiral(minimal_model_parameters& p, int subspace, int mom);
      
         /** Routine to read chiral states from file, stored internally in the object itself.
          * @param[in] p Reference to a parameters object
          * @param[in] subspace Subspace to work on
          * @param[in] fname Reference to a filenames object
          */
-        void read_chiral(parameters& p, int subspace, filenames& fname);
+        void read_chiral(minimal_model_parameters& p, int subspace, filenames& fname);
         
 
         int MaxChiralStates; /**< The maximum number of chiral states, calculated from character. Used for array allocation */

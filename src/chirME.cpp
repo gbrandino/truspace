@@ -5,7 +5,7 @@
  */
 
 #include "chirME.h"
-#include "parameters.h"
+#include "minimal_model_parameters.h"
 #include "states.h"
 #include "tensors.h"
 #include "filenames.h"
@@ -25,7 +25,7 @@ chirME::~chirME()
 
 }
 
-chirME::chirME(parameters& p, states& st, int subspace)
+chirME::chirME(minimal_model_parameters& p, states& st, int subspace)
 {
     tensor5D< std::pair<long double, long double> > me_chi_ortho_tmp(p.numPert, p.IndexToPair[subspace].size(),p.IndexToPair[subspace].size(), st.MaxChiralStates, st.MaxChiralStates );
     me_chi_ortho = me_chi_ortho_tmp;
@@ -44,7 +44,7 @@ chirME::chirME(parameters& p, states& st, int subspace)
  * 
  */
 
-void chirME::calculate_or_read_chirME(parameters& p, filenames& fnames, states& st, int subspace)
+void chirME::calculate_or_read_chirME(minimal_model_parameters& p, filenames& fnames, states& st, int subspace)
 {
 
     long double grade[MaxNumGrade];
@@ -316,7 +316,7 @@ void chirME::calculate_or_read_chirME(parameters& p, filenames& fnames, states& 
 
 }
 
-void chirME::calculate_chirME_for_ExpVal(parameters& p, states& st, int subspace)
+void chirME::calculate_chirME_for_ExpVal(minimal_model_parameters& p, states& st, int subspace)
 {
     // calculation of chiral matrix element for the operator in the expectation values
     long double grade[MaxNumGrade], temp, temp1;
@@ -439,10 +439,12 @@ void chirME::calculate_chirME_for_ExpVal(parameters& p, states& st, int subspace
 }
 
 
-void chirME::calculate_ExpVal(parameters& p, states& st, double* coeff, int size, int Momentum, std::string fname, double R)
+void chirME::calculate_ExpVal(parameters* in_p, states& st, double* coeff, int size, int Momentum, std::string fname, double R)
 {
     //calculating Expectation values on perturbed eigenstates
     
+    minimal_model_parameters* p = (minimal_model_parameters*)in_p;
+
     std::ofstream me_op_output;
     if ( Momentum == -1)
         {
@@ -456,9 +458,9 @@ void chirME::calculate_ExpVal(parameters& p, states& st, double* coeff, int size
         }
 
 
-    if ( p.onlyDiagExpV)
+    if ( p->onlyDiagExpV)
         {
-        for (int i=0; i < p.maxEigen; ++i)
+        for (int i=0; i < p->maxEigen; ++i)
             {
             double temp=0;
             for (int ii=0; ii < size; ++ii)
@@ -488,24 +490,24 @@ void chirME::calculate_ExpVal(parameters& p, states& st, double* coeff, int size
                     int st_vmodj_left = st.state_vmod_left[jj];
                     int st_vmodj_right = st.state_vmod_right[jj];
                     int jshift = jj;
-                    std::pair <int,int> vmod_left_ii  = p.IndexToPair[p.currentSubspace][st_vmod_left];
-                    std::pair <int,int> vmod_right_ii = p.IndexToPair[p.currentSubspace][st_vmod_right];
-                    std::pair <int,int> vmod_left_jj  = p.IndexToPair[p.currentSubspace][st_vmodj_left];
-                    std::pair <int,int> vmod_right_jj = p.IndexToPair[p.currentSubspace][st_vmodj_right];
+                    std::pair <int,int> vmod_left_ii  = p->IndexToPair[p->currentSubspace][st_vmod_left];
+                    std::pair <int,int> vmod_right_ii = p->IndexToPair[p->currentSubspace][st_vmod_right];
+                    std::pair <int,int> vmod_left_jj  = p->IndexToPair[p->currentSubspace][st_vmodj_left];
+                    std::pair <int,int> vmod_right_jj = p->IndexToPair[p->currentSubspace][st_vmodj_right];
                     int field_ii = -1;
                     int field_jj = -1;
-                    for (int f = 0; f < p.n_fields; f++)
+                    for (int f = 0; f < p->n_fields; f++)
                     {
                         //if( p.fields[i] == std::make_pair(vmod_left_ii, vmod_right_ii) ){
-                        if (compare_fields(p.fields[f], std::make_pair(vmod_left_ii, vmod_right_ii) ) ) {
+                        if (compare_fields(p->fields[f], std::make_pair(vmod_left_ii, vmod_right_ii) ) ) {
                             field_ii = f+1;
                         }
                         //if( p.fields[i] == std::make_pair(vmod_left_jj, vmod_right_jj) ){
-                        if (compare_fields(p.fields[f], std::make_pair(vmod_left_ii, vmod_right_ii) ) ) {
+                        if (compare_fields(p->fields[f], std::make_pair(vmod_left_ii, vmod_right_ii) ) ) {
                             field_jj = f+1;
                         }
                     }
-                    long double SCtmp = p.cptsmall(field_ii, p.r_op, field_jj);
+                    long double SCtmp = p->cptsmall(field_ii, p->r_op, field_jj);
 
                     double temp1 = me_chi_ortho_op(st_vmod_left, st_vmodj_left, st_left, st.state_left[jshift]).first;
                     temp1 *= me_chi_ortho_op(st_vmod_right, st_vmodj_right, st_right, st.state_right[jshift]).second;
@@ -518,9 +520,9 @@ void chirME::calculate_ExpVal(parameters& p, states& st, double* coeff, int size
         }
     else
         {
-        for (int i=0; i < p.maxEigen; ++i)
+        for (int i=0; i < p->maxEigen; ++i)
             {
-            for (int j=0; j < p.maxEigen; ++j)
+            for (int j=0; j < p->maxEigen; ++j)
                 {
                 double temp=0;
                 for (int ii=0; ii < size; ++ii)
@@ -534,24 +536,24 @@ void chirME::calculate_ExpVal(parameters& p, states& st, double* coeff, int size
                         int st_vmodj_left = st.state_vmod_left[jj];
                         int st_vmodj_right = st.state_vmod_right[jj];
                         int jshift = jj;
-                        std::pair <int,int> vmod_left_ii  = p.IndexToPair[p.currentSubspace][ii];
-                        std::pair <int,int> vmod_right_ii = p.IndexToPair[p.currentSubspace][ii];
-                        std::pair <int,int> vmod_left_jj  = p.IndexToPair[p.currentSubspace][jj];
-                        std::pair <int,int> vmod_right_jj = p.IndexToPair[p.currentSubspace][jj];
+                        std::pair <int,int> vmod_left_ii  = p->IndexToPair[p->currentSubspace][ii];
+                        std::pair <int,int> vmod_right_ii = p->IndexToPair[p->currentSubspace][ii];
+                        std::pair <int,int> vmod_left_jj  = p->IndexToPair[p->currentSubspace][jj];
+                        std::pair <int,int> vmod_right_jj = p->IndexToPair[p->currentSubspace][jj];
                         int field_ii;
                         int field_jj;
-                        for (int f = 0; f < p.n_fields; f++)
+                        for (int f = 0; f < p->n_fields; f++)
                         {
                             //if( p.fields[i] == std::make_pair(vmod_left_ii, vmod_right_ii) ){
-                            if (compare_fields(p.fields[f], std::make_pair(vmod_left_ii, vmod_right_ii) ) ) {
+                            if (compare_fields(p->fields[f], std::make_pair(vmod_left_ii, vmod_right_ii) ) ) {
                                 field_ii = f+1;
                             }
                             //if( p.fields[i] == std::make_pair(vmod_left_jj, vmod_right_jj) ){
-                            if (compare_fields(p.fields[f], std::make_pair(vmod_left_jj, vmod_right_jj) ) ) {
+                            if (compare_fields(p->fields[f], std::make_pair(vmod_left_jj, vmod_right_jj) ) ) {
                                 field_jj = f+1;
                             }
                         }
-                        long double SCtmp = p.cptsmall(field_ii, p.r_op, field_jj);
+                        long double SCtmp = p->cptsmall(field_ii, p->r_op, field_jj);
 
                         double temp1 = me_chi_ortho_op(st_vmod_left, st_vmodj_left, st_left, st.state_left[jshift]).first;
                         temp1 *= me_chi_ortho_op(st_vmod_right, st_vmodj_right, st_right, st.state_right[jshift]).second;
