@@ -5,7 +5,7 @@
  */
 
 #include "matrix_elements.h"
-#include "parameters.h"
+#include "custom_parameters.h"
 #include "states.h"
 #include "tensors.h"
 #include "filenames.h"
@@ -60,7 +60,7 @@ matrix_elements::~matrix_elements()
 
 }
 
-matrix_elements::matrix_elements(parameters& p, states& st)
+matrix_elements::matrix_elements(custom_parameters& p, states& st)
 {
     tensor3D< double > me_unperturbed_tmp(p.numPert, st.nstate, st.nstate );
     me_unperturbed = me_unperturbed_tmp;
@@ -77,7 +77,7 @@ matrix_elements::matrix_elements(parameters& p, states& st)
  * This routine calculates chiral matrix elements for all the perturbing operators as well and the operator for the calculation of expectation values. 
  */
 
-void matrix_elements::calculate(parameters& p, filenames& fnames, states& st)
+void matrix_elements::calculate(custom_parameters& p, filenames& fnames, states& st)
 {
 
     // here we are using just one pertubationm but the example is written such that it should be easily extended to multiple ones
@@ -122,7 +122,7 @@ void matrix_elements::calculate(parameters& p, filenames& fnames, states& st)
     }
 }
 
-void matrix_elements::calculate_for_ExpVal(parameters& p, states& st)
+void matrix_elements::calculate_for_ExpVal(custom_parameters& p, states& st)
 {
     for (int i = 0; i < st.nstate; i++)
     {
@@ -167,15 +167,16 @@ void matrix_elements::calculate_for_ExpVal(parameters& p, states& st)
 }
 
 
-void matrix_elements::calculate_ExpVal(parameters& p, states& st, double* coeff, int size, std::string fname, double R)
+void matrix_elements::calculate_ExpVal(parameters* in_p, states& st, double* coeff, int size, std::string fname, double R)
 {
+    custom_parameters* p = (custom_parameters*)in_p;
     //calculating Expectation values on perturbed eigenstates
     std::ofstream me_op_output;
     me_op_output.open(fname.c_str(), std::ofstream::out | std::ofstream::app);
 
-    if ( p.onlyDiagExpV)
+    if ( p->onlyDiagExpV)
         {
-        for (int i=0; i < p.maxEigen; ++i)
+        for (int i=0; i < p->maxEigen; ++i)
             {
             double temp=0;
             for (int ii=0; ii < size; ++ii)
@@ -191,9 +192,9 @@ void matrix_elements::calculate_ExpVal(parameters& p, states& st, double* coeff,
         }
     else
         {
-        for (int i=0; i < p.maxEigen; ++i)
+        for (int i=0; i < p->maxEigen; ++i)
             {
-            for (int j=0; j < p.maxEigen; ++j)
+            for (int j=0; j < p->maxEigen; ++j)
                 {
                 double temp=0;
                 for (int ii=0; ii < size; ++ii)

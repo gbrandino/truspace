@@ -152,6 +152,10 @@ parameters::parameters(nrg_input_file_name)
         n_lines++;
     }
 
+    if (n_lines == 0){
+        std::cout << " Fields file empty or not found " << std::endl;
+        exit(0);
+    }
     n_fields = n_lines;
 
 
@@ -224,6 +228,10 @@ parameters::parameters(nrg_input_file_name)
             pch2 = strtok (NULL, ",");
             }
         CptNonChiral.set(indexes[0], indexes[1], indexes[2]) = atof(tmp[1].c_str());
+    }
+    if (n_lines == 0){
+       std::cout << " Constants file empty or not found " << std::endl; 
+       exit(0);
     }
     //temporary tensor, used to properly allocate Kac now that we know the sizes
     tensor2D<double> Kac_temp(maxp,maxq);

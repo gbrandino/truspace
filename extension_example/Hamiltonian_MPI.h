@@ -7,7 +7,7 @@
 #ifndef HAMILTONIAN_H
 #define HAMILTONIAN_H
 
-#include "parameters.h"
+#include "custom_parameters.h"
 #include "tensors.h"
 #include "matrix_elements.h"
 #include "states.h"
@@ -30,7 +30,7 @@ class Hamiltonian
         tensor2D< double > H; /**< Tensor2D holding the Hamiltonian matrix elements */
         int Msize; /**< Size of the Global Hamiltonian matrix */
         double R;  /**< Current value of the system size R */
-        parameters& p; /**< Reference to parameters object */
+        custom_parameters& p; /**< Reference to parameters object */
         states& st; /**< Reference to state object */
         matrix_elements& me; /**< Reference to chirMe object */
         int descH[9]; /**< BLACS descriptor of the distributed Hamiltonian */
@@ -53,7 +53,7 @@ class Hamiltonian
          * @param[in] me Reference to a matrix_elements object.
          */
 
-        Hamiltonian(parameters& p, states& st, matrix_elements& me);
+        Hamiltonian(custom_parameters& p, states& st, matrix_elements& me);
         /** Destructor
          */
         ~Hamiltonian();

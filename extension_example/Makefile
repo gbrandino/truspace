@@ -10,8 +10,8 @@ MPICXX= mpicxx
 
 CFLAGS=-I${CLN}/include -I${GINAC}/include -I${BLAS}/include -std=c++11 -fopenmp -O2 
 LIBS= -L${GINAC}/lib/ -lginac -L${CLN}/lib/ -lcln -L${BLAS}/lib/  ${BLAS_LIB}  -L${LAPACK}/lib/ ${LAPACK_LIB}  -lpthread -lstdc++ -fopenmp
-SRC= parameters.cpp worker.cpp states.cpp filenames.cpp matrix_elements.cpp Hamiltonian.cpp NRG.cpp
-SRC_MPI=parameters.cpp worker.cpp states.cpp filenames.cpp matrix_elements.cpp Hamiltonian_MPI.cpp NRG_MPI.cpp
+SRC= parameters.cpp worker.cpp states.cpp filenames.cpp matrix_elements.cpp Hamiltonian.cpp NRG.cpp custom_parameters.cpp
+SRC_MPI=parameters.cpp worker.cpp states.cpp filenames.cpp matrix_elements.cpp Hamiltonian_MPI.cpp NRG_MPI.cpp custom_parameters.cpp
 OBJS=$(SRC:.cpp=.o)
 OBJS_MPI=$(SRC_MPI:.cpp=.o)
 

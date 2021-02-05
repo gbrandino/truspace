@@ -8,7 +8,7 @@
  */
 
 #include <iostream>
-#include "parameters.h"
+#include "custom_parameters.h"
 #include "worker.h"
 #ifdef MPI_PAR
 #include <mpi.h>
@@ -24,10 +24,10 @@ int main(int argc, char** argv)
 #endif
 
 #ifdef MPI_PAR
-    if (argc<2)
+    if (argc<3)
         {
         if (myrank_mpi==0)
-            std::cout<<" Usage: " << argv[0] << " [input file name] " << std::endl;
+            std::cout<<" Usage: " << argv[0] << " [model input file name]  [nrg input file name]" << std::endl;
         MPI_Finalize();
         std::exit(0);
         }
@@ -39,17 +39,17 @@ int main(int argc, char** argv)
         std::exit(0);
         }
 #else
-    if (argc<2)
+    if (argc<3)
         {
-        std::cout<<" Usage: " << argv[0] << " [input file name] " << std::endl;
+        std::cout<<" Usage: " << argv[0] << " [input file name] [nrg input file name]" << std::endl;
         std::exit(0);
         }
 #endif
 
     // Create parameter object from the given input file
-    parameters par(argv[1]);
+    custom_parameters par(argv[1], argv[2]);
 
-    // Print recap of input, structure constants, subspace analysis,  and Verma modules dimensions
+    // Print recap of input and subspace analysis
 #ifdef MPI_PAR
     if (myrank_mpi==0)
 #endif

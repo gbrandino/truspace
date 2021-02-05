@@ -11,7 +11,7 @@
 #ifndef WORKER_H
 #define WORKER_H
 
-#include "parameters.h"
+#include "custom_parameters.h"
 
 /** Driver Class for states, matrix element and NRG calculation. 
  *  It takes care of 
@@ -33,7 +33,7 @@ class worker
         /** 
          * @paramp[in] p paramerts object
          */    
-        void run(parameters& p);
+        void run(custom_parameters& p);
 
 };
 #endif

@@ -6,7 +6,7 @@
  */
 
 #include "states.h"
-#include "parameters.h"
+#include "custom_parameters.h"
 #include "config.h"
 #include <iostream>
 #ifdef MPI_PAR
@@ -20,7 +20,7 @@ states::states()
 
 }
 
-states::states(parameters& p)
+states::states(custom_parameters& p)
 {
 #ifdef MPI_PAR
     int myrank_mpi,nprocs_mpi;
@@ -45,7 +45,7 @@ states::~states()
     delete [] state_quantum_number;
 }
 
-void states::calculate(parameters& p)
+void states::calculate(custom_parameters& p)
 {
     // MaxPart and MaxNumGrade are (at least for now) global constant 
     // defined in config.h

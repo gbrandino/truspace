@@ -4,7 +4,7 @@
  */
 
 #include "Hamiltonian.h"
-#include "parameters.h"
+#include "custom_parameters.h"
 #include "tensors.h"
 #include "matrix_elements.h"
 #include "states.h"
@@ -22,7 +22,7 @@ Hamiltonian::~Hamiltonian()
 }
 
 
-Hamiltonian::Hamiltonian(parameters& p_in, states& st_in, matrix_elements& me_in)
+Hamiltonian::Hamiltonian(custom_parameters& p_in, states& st_in, matrix_elements& me_in)
 :
 p(p_in),
 st(st_in),

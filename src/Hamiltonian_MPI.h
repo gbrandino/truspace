@@ -56,7 +56,7 @@ class Hamiltonian
          * @param[in] subspace Integer descrbing the subspace currently under investigation.
          */
 
-        Hamiltonian(parameters& p, states& st, chirME& me, int subspace);
+        Hamiltonian(minimal_model_parameters& p, states& st, chirME& me, int subspace);
         /** Destructor
          */
         ~Hamiltonian();

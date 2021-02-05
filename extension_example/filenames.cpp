@@ -25,7 +25,7 @@ filenames::~filenames()
 }
 
 
-filenames::filenames(parameters& p)
+filenames::filenames(custom_parameters& p)
 {
 
 #ifdef MPI_PAR

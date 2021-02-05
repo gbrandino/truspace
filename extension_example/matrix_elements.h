@@ -7,7 +7,7 @@
 
 #ifndef MATRIX_ELEMENTS_H
 #define MATRIX_ELEMENTS_H
-#include "parameters.h"
+#include "custom_parameters.h"
 #include "states.h"
 #include "tensors.h"
 #include "filenames.h"
@@ -21,7 +21,7 @@ class matrix_elements
           * @param[in] p Reference to a paramters object
           * @param[in] st Reference to a states object
           */
-        matrix_elements(parameters& p, states& st);
+        matrix_elements(custom_parameters& p, states& st);
 
         /** Destructor 
           */
@@ -32,13 +32,13 @@ class matrix_elements
           * @param[in] fnames Reference to a filenames object
           * @param[in] st Reference to a states object
           */
-        void calculate(parameters& p, filenames& fnames, states& st);
+        void calculate(custom_parameters& p, filenames& fnames, states& st);
  
         /** Routine that calculates chiral matrix element for the operator whose expectation values are asked 
           * @param[in] p Reference to a paramters object
           * @param[in] st Reference to a states object
           */
-        void calculate_for_ExpVal(parameters& p, states& st);
+        void calculate_for_ExpVal(custom_parameters& p, states& st);
  
         /** Routine that calculates the expectation value on the eigenvectors of the perturbed system of the given operator
           * @param[in] p Reference to a paramters object
@@ -48,7 +48,7 @@ class matrix_elements
           * @param[in] fname Output file name
           * @param[in] value of the system size 
           */
-        void calculate_ExpVal(parameters& p, states& st, double* coeff, int size, std::string fname, double R);
+        void calculate_ExpVal(parameters* p, states& st, double* coeff, int size, std::string fname, double R);
 
         tensor3D< double > me_unperturbed; /**< Contains the matrix element for the each of the perturbation */
         tensor2D< double > me_unperturbed_for_expval; /**< Contains the matrix element for the operator whose expecation values are asked */

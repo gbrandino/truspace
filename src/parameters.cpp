@@ -11,9 +11,6 @@
 #include "config.h"
 #include "parameters.h"
 #include "tensors.h"
-#include "cpt.h"
-#include "characters.h"
-#include "block.h"
 #include "sparse_tensor.h"
 #include <iostream>
 #include <fstream>

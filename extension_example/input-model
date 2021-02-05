@@ -1,0 +1,7 @@
+500    Highest unperturbed state to include
+1    Lowest unperturbed state to include
+1    Coupling constant
+10   Number of different system size to explore
+1    Increment of the system size
+7  Intial system size
+1    set 1 for complete TCSA calculation, 0 to have just space info

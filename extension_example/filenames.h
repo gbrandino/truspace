@@ -7,7 +7,7 @@
 
 #ifndef FILENAMES_H
 #define FILENAMES_H
-#include "parameters.h"
+#include "custom_parameters.h"
 #include <string>
 
 /** Output filenames helper class. 
@@ -20,7 +20,7 @@ class filenames
         /** Constructor
          * @param[in] A reference to a parameters object
          */
-        filenames(parameters&);
+        filenames(custom_parameters&);
         ~filenames();
 
         // outfiles and dump files

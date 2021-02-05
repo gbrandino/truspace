@@ -42,7 +42,7 @@ worker::~worker()
 }
 
 
-void worker::run(parameters& p)
+void worker::run(custom_parameters& p)
 {
 #ifdef MPI_PAR
     int myrank_mpi,nprocs_mpi;

@@ -7,7 +7,7 @@
 
 #ifndef STATES_H
 #define STATES_H
-#include "parameters.h"
+#include "custom_parameters.h"
 #include "filenames.h"
 
 /** Class that contains and calculates chiral states by removing null vectors from each verma module
@@ -18,7 +18,7 @@ class states
         /** Constructor 
          * @param[in] p Reference to a parameters object
          */
-        states(parameters& p);
+        states(custom_parameters& p);
         /** Destructor 
          */
         ~states();
@@ -28,7 +28,7 @@ class states
          * @param[in] subspace Subspace to work on
          * @param[in] fname Reference to a filenames object
          */ 
-        void calculate(parameters& p);        
+        void calculate(custom_parameters& p);        
         /** Routine to calculate nonchiral states, stored internally in the object itself.
          * @param[in] p Reference to a parameters object
          * @param[in] subspace Subspace to work on
