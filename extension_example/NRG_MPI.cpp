@@ -101,7 +101,6 @@ void NRG::run(parameters& p, Hamiltonian& H, filenames& fnames)
     lwork = (int)work[0];
     delete [] work;  
     work = new double[lwork];
-    std::cout << "ssdfs " << lwork << std::endl;
     //pdsyev_( &jobz, &uplo, &n, H.H.data, &ione, &ione, H.descH, eigen, EigenVectors.data, &ione, &ione, descZ, work, &lwork, &info );
     pdsyevd_( &jobz, &uplo, &n, H.H.data, &ione, &ione, H.descH, eigen, EigenVectors.data, &ione, &ione, descZ, work, &lwork, iwork, &liwork, &info );
     if (info > 0 and myrank_mpi == 0)
