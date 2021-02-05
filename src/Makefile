@@ -17,7 +17,7 @@ OBJS_MPI=$(SRC_MPI:.cpp=.o)
 
 all : truspace.x  fields_and_structure_constants.x
 
-mpi : truspace_mpi.x
+mpi : truspace_mpi.x fields_and_structure_constants.x
 
 $(OBJS): %.o : %.cpp %.h config.h
 	$(CXX) $(CFLAGS) -c $<
