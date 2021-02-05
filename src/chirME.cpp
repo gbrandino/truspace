@@ -439,21 +439,21 @@ void chirME::calculate_chirME_for_ExpVal(minimal_model_parameters& p, states& st
 }
 
 
-void chirME::calculate_ExpVal(parameters* in_p, states& st, double* coeff, int size, int Momentum, std::string fname, double R)
+void chirME::calculate_ExpVal(parameters* in_p, states& st, double* coeff, int size, std::string fname, double R)
 {
     //calculating Expectation values on perturbed eigenstates
     
     minimal_model_parameters* p = (minimal_model_parameters*)in_p;
 
     std::ofstream me_op_output;
-    if ( Momentum == -1)
+    if ( p->momentum == -1)
         {
         me_op_output.open(fname.c_str(), std::ofstream::out | std::ofstream::app);
         }
     else
         {
         std::stringstream temp;
-        temp << fname << "_Mom_" << Momentum;
+        temp << fname << "_Mom_" << p->momentum;
         me_op_output.open(temp.str().c_str(), std::ofstream::out | std::ofstream::app);
         }
 

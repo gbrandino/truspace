@@ -47,11 +47,10 @@ class chirME
           * @param[in] st Reference to a states object
           * @param[in] coeff Matrix containing the eigenvectors of the perturbed system in rows
           * @param[in] size Number of components of each eigenvectors (size of the computational basis)
-          * @param[in] Momentum Momentum subspace
           * @param[in] fname Output file name
           * @param[in] R value of the radius R
           */
-        void calculate_ExpVal(parameters* p, states& st, double* coeff, int size, int Momentum, std::string fname, double R);
+        void calculate_ExpVal(parameters* p, states& st, double* coeff, int size, std::string fname, double R);
         /** Routine to compare fields, as expressed as pairs of pair
          * @param[in] f1 pair of pair describing the first field
          * @param[in] f2 pair of pair describing the second field
