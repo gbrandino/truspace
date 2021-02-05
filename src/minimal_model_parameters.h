@@ -35,8 +35,7 @@ class minimal_model_parameters : public parameters
         int numPert;         /**< number of pertubations */
         int maxLev;          /**< Maximum conformal level to include */
         int minLev;          /**< Minimum conformal level to include (usually 0) */
-        int maxMomentum;     /**< Maximum momentum considered */
-        bool allMomSubspace; /**< True to diagonalize all momentum subspaces together. Useful for calculation of momentum-carrying operator matrix elements.  False diagonalize momentum subspaces separately. */
+        int momentum;         /**< Momeuntum subspace considered */
         int* r;              /**< array containing Kac r index of perturbations */
         int* s;              /**< array containing Kac s index of perturbations */
         std::pair<double,double>* deltas;      /**< array containing chiral conformal dimensions of each perturbation */

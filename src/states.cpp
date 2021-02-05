@@ -158,72 +158,8 @@ states::states(minimal_model_parameters& p, int subspace)
         }
 
 
-    if (p.allMomSubspace)
-        {   
-        int tempdim=0;
-        for (int l=0;l<= p.maxMomentum;l++)
-            {
-            for(int j=0;j< p.subdim[subspace];j++)
-                {
-                std::pair< std::pair<int, int>, std::pair<int, int> > field = p.fields[p.finalsubspace(subspace,j)-1];
-                int indtemp1 = field.first.first; 
-                int indtemp2 = field.first.second;
-                int indtemp3 = field.second.first;
-                int indtemp4 = field.second.second;
-                for (int k=0;k<= p.maxLev;k++)
-                   {
-                   for(int k1=0;k1<= p.maxLev;k1++)
-                        {
-                        if (abs(k1-k)==l)
-                            {
-                            tempdim += p.vermadim(indtemp1-1,indtemp2-1,k)*p.vermadim(indtemp3-1,indtemp4-1,k1);
-                            }
-                        }
-                    }
-                }
-
-                /* if (std::div(p.finalsubspace(subspace,j),p.maxq).rem!=0)
-                    {
-                    int indtemp1 = std::div(p.finalsubspace(subspace,j), p.maxq).quot;
-                    int indtemp2 = std::div(p.finalsubspace(subspace,j), p.maxq).rem-1;
-                    for (int k=0;k<= p.maxLev;k++)
-                        {
-                        for(int k1=0;k1<= p.maxLev;k1++)
-                            {
-                            if (abs(k1-k)==l)
-                                {
-                                tempdim += p.vermadim(indtemp1,indtemp2,k)*p.vermadim(indtemp1,indtemp2,k1);
-                                }
-                            }
-                        }
-                    }
-                else
-                    {
-                    int indtemp1 = std::div(p.finalsubspace(subspace,j),p.maxq).quot-1;
-                    int indtemp2 = p.maxq-1;
-                    for (int k=0;k<= p.maxLev;k++)
-                        {
-                        for(int k1=0;k1<= p.maxLev;k1++)
-                            {
-                            if (abs(k1-k)==l)
-                                { 
-                                tempdim += p.vermadim(indtemp1,indtemp2,k)*p.vermadim(indtemp1,indtemp2,k1);
-                                }
-                            }
-                        }     
-                    } 
-                } */
-
-            }
-   
-        MaxStates=tempdim;
-        }
-    else
-        {
         int tempdim = 0;
         MaxStates = 0;
-        for (int l=0;l<= p.maxMomentum;l++)
-            {
             for(int j=0;j< p.subdim[subspace];j++)
                 {
                 std::pair< std::pair<int, int>, std::pair<int, int> > field = p.fields[p.finalsubspace(subspace,j)-1];
@@ -235,7 +171,7 @@ states::states(minimal_model_parameters& p, int subspace)
                     {
                     for(int k1=0;k1<= p.maxLev;k1++)
                         {
-                        if (abs(k1-k)==l)
+                        if (abs(k1-k)==p.momentum)
                             {
                             tempdim += p.vermadim(indtemp1-1,indtemp2-1,k)*p.vermadim(indtemp3-1,indtemp4-1,k1);
                             }
@@ -278,8 +214,6 @@ states::states(minimal_model_parameters& p, int subspace)
                 {
                 MaxStates=tempdim;
                 }
-            }
-        }
 
     state_en=new double[MaxStates];
     state_eff_en=new double[MaxStates];
@@ -800,8 +734,6 @@ void states::calculate_nonchiral(minimal_model_parameters& p, int subspace, int 
     if(mom == -1)
         {
         nstate = 0;
-        for (int l=0;l<= p.maxMomentum;l++)
-            {
             //en_cutoff = 60.;
             for(int i=0; i<p.subdim[subspace];++i) 
                 {
@@ -814,7 +746,7 @@ void states::calculate_nonchiral(minimal_model_parameters& p, int subspace, int 
                     {
                     for(int i_r=0; i_r< num_chir[antichiral_index];++i_r) 
                         {
-                        if (abs((cstate_lev(chiral_index,i_l) - cstate_lev(antichiral_index,i_r) )) == l) 
+                        if (abs((cstate_lev(chiral_index,i_l) - cstate_lev(antichiral_index,i_r) )) == p.momentum) 
                             {
                             //if ((cstate_lev[i][i_l]+cstate_lev[i][i_r]) < en_cutoff) 
                             //    {
@@ -829,12 +761,11 @@ void states::calculate_nonchiral(minimal_model_parameters& p, int subspace, int 
                         }
                     }
                 }
-            }
        
 #ifdef MPI_PAR
     if (myrank_mpi == 0)
 #endif  
-        std::cout << " Number of states up to momentum "<< p.maxMomentum << " for the current subspace  "<< nstate << std::endl;
+        std::cout << " Number of states of momentum "<< p.momentum << " for the current subspace  "<< nstate << std::endl;
         }
     else
         {
@@ -869,7 +800,7 @@ void states::calculate_nonchiral(minimal_model_parameters& p, int subspace, int 
 #ifdef MPI_PAR
     if (myrank_mpi == 0)
 #endif
-        std::cout << " Number of states with momentum "<< mom << " for the current subspace  "<< nstate << std::endl;
+        std::cout << " Number of states with momentum "<< p.momentum << " for the current subspace  "<< nstate << std::endl;
         }
 
 

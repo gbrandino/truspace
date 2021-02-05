@@ -53,8 +53,7 @@ parameters::parameters(nrg_input_file_name)
     model_input_file>>numPert;  model_input_file.ignore(256, '\n');
     model_input_file>>maxLev;  model_input_file.ignore(256, '\n');
     model_input_file>>minLev;  model_input_file.ignore(256, '\n');
-    model_input_file>>maxMomentum;  model_input_file.ignore(256, '\n');
-    model_input_file>>allMomSubspace;  model_input_file.ignore(256, '\n');
+    model_input_file>>momentum;  model_input_file.ignore(256, '\n');
     r = new int[numPert];
     s = new int[numPert];
     deltas=new std::pair<double, double>[numPert];
@@ -294,17 +293,10 @@ void minimal_model_parameters::print() const
     std::cout << " Maximum conformal level considered ---> " << maxLev << std::endl;
     std::cout << " Minimum conformal level considered ---> " << minLev << std::endl;
 
-    if (allMomSubspace)
-        {
-        std::cout << " Calculating spectrum up to momentum " << maxMomentum << " in separeted subspaces " << std::endl;
-        }
-    else
-        {
-        std::cout << " Calculating spectrum up to momentum " << maxMomentum << " in 1 subspace " << std::endl;
-        }
+    std::cout << " Calculating spectrum for momentum subspace " << momentum << std::endl;
 
     // sweep cannot handle (for now) nonzero momentum states
-    if(maxMomentum>0 and NRG )
+    if(momentum>0 and NRG )
         {
         std::cout << " Warning: sweep cannot handle nonzero momentum states, setting number of sweeps to 0 ( normal NRG )" << std::endl;
         }
@@ -596,24 +588,11 @@ void minimal_model_parameters::print() const
     std::cout << std::endl;
 
 
-    if (allMomSubspace)
+    for (int i=0;i<numspace;i++)
         {
-        for (int i=0;i<numspace;i++)
-            {
-            std::cout << " Subspace "<<i+1<<" should include "<< subdimStates(i,0) <<" states "<<std::endl << std::endl;
-            }
-        }
-    else
-        {
-        for (int i=0;i<numspace;i++)
-            {
-            for(int mom=0;mom<= maxMomentum;mom++)
-                {
-                std::cout << " Subspace "<<i+1<<", momentum "<<mom <<" should include "<< subdimStates(i,mom) <<" states "<< std::endl;
-                }
-            std::cout << std::endl;
-            } 
-        }
+        std::cout << " Subspace "<<i+1<<", momentum "<< momentum <<" should include "<< subdimStates(i,0) <<" states "<< std::endl;
+        std::cout << std::endl;
+        } 
 
 }
 
@@ -681,7 +660,7 @@ void minimal_model_parameters::analyse_subspaces()
     //Calculation of independent subspaces
     blockrec(n_fields,a,finalsubspace,subdim,numspace);
  
-    tensor2D<int>  subdimStates_temp(numspace,maxMomentum+1);
+    tensor2D<int>  subdimStates_temp(numspace,1);
     subdimStates = subdimStates_temp;
 
     //calculation of the number of independet states at each level in each verma module*/
@@ -707,63 +686,10 @@ void minimal_model_parameters::analyse_subspaces()
     std::vector< std::map < int, std::pair<int, int> > > IndexToPair_tmp(numspace);
     IndexToPair = IndexToPair_tmp;
 
-    if (allMomSubspace)
-        {
         for (int i=0;i<numspace;i++)
             {
             int tempdim=0;
             int vermaCounter = 0;
-            for(int mom=0;mom<=maxMomentum;mom++)
-                {
-                for(int j=0;j<subdim[i];j++)
-                    {
-                    int r_tmp = fields[finalsubspace(i,j) - 1].first.first;
-                    int s_tmp = fields[finalsubspace(i,j) - 1].first.second;
-                    std::pair <int, int > tmp_pair(r_tmp, s_tmp);
-                    if ( PairToIndex[i].find(tmp_pair) == PairToIndex[i].end() ) {
-                        //PairToIndex[i][tmp_pair] = 1;
-                        PairToIndex[i][tmp_pair] = vermaCounter++;
-                    } 
-                    //else {
-                    //   PairToIndex[i][tmp_pair] += 1;
-                    //} 
-
-
-                    int r1_tmp = fields[finalsubspace(i,j) - 1].second.first;
-                    int s1_tmp = fields[finalsubspace(i,j) - 1].second.second;
-                    std::pair <int, int > tmp1_pair(r1_tmp, s1_tmp); 
-                    if ( PairToIndex[i].find(tmp1_pair) == PairToIndex[i].end() ) {
-                        //PairToIndex[i][tmp1_pair] = 1;
-                        PairToIndex[i][tmp_pair] = vermaCounter++;
-                    } 
-                    //else {
-                    //   PairToIndex[i][tmp1_pair] += 1;
-                    //}
-
-
-                    for (int k=0;k<=maxLev;k++)
-                        {
-                        for (int k1=0;k1<=maxLev;k1++)
-                            {
-                            if(abs(k-k1) == mom)
-                                {
-                                tempdim=tempdim+vermadim(r_tmp-1, s_tmp-1, k)*vermadim(r1_tmp-1, s1_tmp-1, k1);
-                                }
-                            }          
-                        }
-                    }
-                }
-            subdimStates(i,0) = tempdim;
-            }
-        }
-    else
-        {
-        for (int i=0;i<numspace;i++)
-            {
-            int tempdim=0;
-            int vermaCounter = 0;
-            for(int mom=0;mom<= maxMomentum;mom++)
-                {
                 tempdim=0;
                 for(int j=0;j<subdim[i];j++)
                     {
@@ -796,17 +722,15 @@ void minimal_model_parameters::analyse_subspaces()
                         {
                         for (int k1=0;k1<=maxLev;k1++)
                             {
-                            if(abs(k-k1)==mom)
+                            if(abs(k-k1) == momentum)
                                 {
                                 tempdim=tempdim+vermadim(r_tmp-1, s_tmp-1, k)*vermadim(r1_tmp-1, s1_tmp-1, k1);
                                 }
                             }
                         }
                     }
-                subdimStates(i,mom)  = tempdim;
-                }
+                subdimStates(i,0)  = tempdim;
             }
-        }
 
         for (int i=0;i<numspace;i++)
             {

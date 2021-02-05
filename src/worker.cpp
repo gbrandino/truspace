@@ -87,67 +87,30 @@ void worker::run(minimal_model_parameters& p)
         if (myrank_mpi == 0)
 #endif
         std::cout << " Done with chiral matrix elements calculation " << std::endl;
-        // if all momentum subspaces needs to be diagonalized together do so, otherwise loop through momentum spaces
-        if (p.allMomSubspace)
-            {    
-            // all momentum subspaces diagonalized together
-            st.calculate_nonchiral(p,sub,-1);
-            Hamiltonian H_iter(p, st, me, sub);
-            H_iter.Momentum = -1;
-            NRG nrg;
+        st.calculate_nonchiral(p,sub, p.momentum);
+        Hamiltonian H_iter(p, st, me, sub);
+        H_iter.Momentum = p.momentum;
+        NRG nrg;
 #ifdef MPI_PAR 
-            if (myrank_mpi == 0)
-                {
+        if (myrank_mpi == 0)
+            {
 #endif
             std::cout << std::endl;
-            std::cout << " ------------------------------ " << std::endl;
-            std::cout << " Diagonalization of Hamiltonian " << std::endl;
+            std::cout << " --------------------------------------------- " << std::endl;
+            std::cout << " Diagonalization of Hamiltonian for momentum " << p.momentum  << std::endl;
 #ifdef MPI_PAR 
-                }
-#endif
-
-            for ( int r=0; r < p.rSteps; r++)
-                {
-                double R = p.rStart + r*p.rInc;
-                H_iter.R = R;//R*2.*pi; //constant to match old results
-#ifdef MPI_PAR 
-                if (myrank_mpi == 0)
-#endif
-                    std::cout << " R value: " << r << " (" << H_iter.R << ")" << std::endl;  
-                nrg.run(p, H_iter,fnames);  
-                }
             }
-        else
-            {
-            // loop through momentum subspaces
-            for ( int mom=0; mom <= p.maxMomentum; mom++)
-                {
-                st.calculate_nonchiral(p,sub, mom);
-                Hamiltonian H_iter(p, st, me, sub);
-                H_iter.Momentum = mom;
-                NRG nrg;
-#ifdef MPI_PAR 
-            if (myrank_mpi == 0)
-                {
-#endif
-                std::cout << std::endl;
-                std::cout << " --------------------------------------------- " << std::endl;
-                std::cout << " Diagonalization of Hamiltonian for momentum " << mom  << std::endl;
-#ifdef MPI_PAR 
-                }
 #endif
 
-                for ( int r=0; r < p.rSteps; r++)
-                    {
-                    double R = p.rStart + r*p.rInc;
-                    H_iter.R = R;//R*2.*pi;  //constant to match old results
+        for ( int r=0; r < p.rSteps; r++)
+             {
+             double R = p.rStart + r*p.rInc;
+             H_iter.R = R;//R*2.*pi;  //constant to match old results
 #ifdef MPI_PAR 
-                    if (myrank_mpi == 0)
+             if (myrank_mpi == 0)
 #endif                    
-                        std::cout << " R value: " << r << " (" << H_iter.R << ")" << std::endl;
-                    nrg.run(p, H_iter, fnames);
-                    }
-                }
+                std::cout << " R value: " << r << " (" << H_iter.R << ")" << std::endl;
+            nrg.run(p, H_iter, fnames);
             }
             
 
