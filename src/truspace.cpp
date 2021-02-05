@@ -24,10 +24,10 @@ int main(int argc, char** argv)
 #endif
 
 #ifdef MPI_PAR
-    if (argc<2)
+    if (argc<3)
         {
         if (myrank_mpi==0)
-            std::cout<<" Usage: " << argv[0] << " [input file name] " << std::endl;
+            std::cout<<" Usage: " << argv[0] << " [model input file name] [ nrg input file] " << std::endl;
         MPI_Finalize();
         std::exit(0);
         }
@@ -41,15 +41,13 @@ int main(int argc, char** argv)
 #else
     if (argc<2)
         {
-        std::cout<<" Usage: " << argv[0] << " [input file name] " << std::endl;
+        std::cout<<" Usage: " << argv[0] << " [model input file name] [ nrg input file]"  << std::endl;
         std::exit(0);
         }
 #endif
 
     // Create parameter object from the given input file
-    parameters par(argv[1]);
-    // Check which modular partion functions are available
-    par.calculate_partition_functions();
+    parameters par(argv[1], argv[2]);
     // Analyse subspace (also calculates structure constans, necessary for subspace analysis 
     par.analyse_subspaces(); 
     // Print recap of input, structure constants, subspace analysis,  and Verma modules dimensions

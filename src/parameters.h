@@ -34,7 +34,6 @@ class parameters
         int numPert;         /**< number of pertubations */
         int maxLev;          /**< Maximum conformal level to include */
         int minLev;          /**< Minimum conformal level to include (usually 0) */
-        int PartitionFunc;   /**< Which partition function to use. 0 for diagonal one*/
         int maxMomentum;     /**< Maximum momentum considered */
         bool allMomSubspace; /**< True to diagonalize all momentum subspaces together. Useful for calculation of momentum-carrying operator matrix elements.  False diagonalize momentum subspaces separately. */
         int maxEigen;        /**< Maximum number of eigenvalues printed in the output file. */
@@ -92,17 +91,14 @@ class parameters
 
         // class methods
         /** Constructor
-         * @param[in] The name of the input file
+         * @param[in] The name of the model input file
+         * @param[in] The name of the nrg input file
          */
-        parameters(const char*);
+        parameters(const char*, const char*);
         
         /** Prints the input paramters, Verma modules size, Hilbert space size, subspace analysis and structure constant. <em> Needs to be called after analyse_subspaces() </em>
          */
         void print() const;
-
-        /** Calculates the available modular invariant partition function for the current p and q
-        */
-        void calculate_partition_functions();
 
         /** Calculates Verma modules size, Hilbert space size, subspace analysis and structure constant.
          */

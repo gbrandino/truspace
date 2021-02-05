@@ -38,93 +38,102 @@ parameters::~parameters()
 }
 
 
-parameters::parameters(const char* input_file_name)
+parameters::parameters(const char* model_input_file_name, const char* nrg_input_file_name)
 {
-    std::ifstream input_file;
+    std::ifstream model_input_file;
     int tmp;
 
-    input_file.open(input_file_name);
+    model_input_file.open(model_input_file_name);
 
     // reading input paramters from file. Only first elements of each line is read, the rest of the line is ignored and can be used for comments        
-    input_file>>p;  input_file.ignore(256, '\n');
-    input_file>>q;  input_file.ignore(256, '\n'); 
-    input_file>>numPert;  input_file.ignore(256, '\n');
-    input_file>>maxLev;  input_file.ignore(256, '\n');
-    input_file>>minLev;  input_file.ignore(256, '\n');
-    input_file>>PartitionFunc;  input_file.ignore(256, '\n');
-    input_file>>maxMomentum;  input_file.ignore(256, '\n');
-    input_file>>allMomSubspace;  input_file.ignore(256, '\n');
-    input_file>>maxEigen;  input_file.ignore(256, '\n');
-
+    model_input_file>>p;  model_input_file.ignore(256, '\n');
+    model_input_file>>q;  model_input_file.ignore(256, '\n'); 
+    model_input_file>>numPert;  model_input_file.ignore(256, '\n');
+    model_input_file>>maxLev;  model_input_file.ignore(256, '\n');
+    model_input_file>>minLev;  model_input_file.ignore(256, '\n');
+    model_input_file>>maxMomentum;  model_input_file.ignore(256, '\n');
+    model_input_file>>allMomSubspace;  model_input_file.ignore(256, '\n');
     r = new int[numPert];
     s = new int[numPert];
     deltas=new std::pair<double, double>[numPert];
     pConst=new double[numPert];
     for (int i=0;i<numPert;i++)
         {
-        input_file>>r[i];  input_file.ignore(256, '\n');
+        model_input_file>>r[i];  model_input_file.ignore(256, '\n');
         //input_file>>s[i];  input_file.ignore(256, '\n');
-        input_file>>pConst[i];  input_file.ignore(256, '\n');
+        model_input_file>>pConst[i];  model_input_file.ignore(256, '\n');
         }
 
-    input_file>>rSteps;  input_file.ignore(256, '\n');
-    input_file>>rInc; input_file.ignore(256, '\n');   
-    input_file>>rStart; input_file.ignore(256, '\n'); 
-    input_file>>Nsize; input_file.ignore(256, '\n');  
-    input_file>>Nstep;  input_file.ignore(256, '\n');
+    model_input_file>>rSteps;  model_input_file.ignore(256, '\n');
+    model_input_file>>rInc; model_input_file.ignore(256, '\n');   
+    model_input_file>>rStart; model_input_file.ignore(256, '\n'); 
 
 
-    input_file>>tmp; input_file.ignore(256, '\n');
+    model_input_file>>tmp; model_input_file.ignore(256, '\n');
     if (tmp == 0) 
         TCSA=false;
     else
         TCSA=true;
 
-    input_file>>tmp; input_file.ignore(256, '\n');
-    if (tmp == 0)
-        NRG=false;
-    else
-        NRG=true;
-
-    input_file>>nSweep;  input_file.ignore(256, '\n');
-
-    input_file>>tmp; input_file.ignore(256, '\n');
+    model_input_file>>tmp; model_input_file.ignore(256, '\n');
     if (tmp == 0)
         SAVE_STATES=false;
     else
         SAVE_STATES=true;
 
-    input_file>>tmp; input_file.ignore(256, '\n');
+    model_input_file>>tmp; model_input_file.ignore(256, '\n');
     if (tmp == 0)
         READ_STATES=false;
     else
         READ_STATES=true;
 
-    input_file>>tmp; input_file.ignore(256, '\n');
+    model_input_file>>tmp; model_input_file.ignore(256, '\n');
     if (tmp == 0)
         SAVE_ME=false;
     else
         SAVE_ME=true;
 
-    input_file>>tmp; input_file.ignore(256, '\n');
+    model_input_file>>tmp; model_input_file.ignore(256, '\n');
     if (tmp == 0)
         READ_ME=false;
     else
         READ_ME=true;
 
-    input_file>>calcExpVal;  input_file.ignore(256, '\n');
+    model_input_file>>calcExpVal;  model_input_file.ignore(256, '\n');
 
-    input_file>>r_op;  input_file.ignore(256, '\n');
+    model_input_file>>r_op;  model_input_file.ignore(256, '\n');
     //input_file>>s_op;  input_file.ignore(256, '\n');
 
-    input_file>>onlyDiagExpV;  input_file.ignore(256, '\n');
-    input_file>>saveEigenvec;  input_file.ignore(256, '\n');
-    input_file>>fields_file;   input_file.ignore(256, '\n');
-    input_file>>constants_file;   input_file.ignore(256, '\n');
+    model_input_file>>onlyDiagExpV;  model_input_file.ignore(256, '\n');
+    model_input_file>>fields_file;   model_input_file.ignore(256, '\n');
+    model_input_file>>constants_file;   model_input_file.ignore(256, '\n');
 
-    input_file.close();
+    model_input_file.close();
 
-    // done reading input file. Calculating relevant quantities
+    // done reading model input file. 
+
+    std::ifstream nrg_input_file;
+
+    nrg_input_file.open(nrg_input_file_name);
+
+    nrg_input_file>>maxEigen;  nrg_input_file.ignore(256, '\n');
+    nrg_input_file>>Nsize; nrg_input_file.ignore(256, '\n');
+    nrg_input_file>>Nstep;  nrg_input_file.ignore(256, '\n');
+    nrg_input_file>>tmp; nrg_input_file.ignore(256, '\n');
+    if (tmp == 0)
+        NRG=false;
+    else
+        NRG=true;
+
+    nrg_input_file>>nSweep;  nrg_input_file.ignore(256, '\n');
+    nrg_input_file>>saveEigenvec;  nrg_input_file.ignore(256, '\n');
+
+
+
+    nrg_input_file.close();    
+
+    // done reading nrg input file. 
+    // Calculating relevant quantities
 
     // central charge
     //p = 5;
@@ -308,7 +317,6 @@ void parameters::print() const
     std::cout << " Number of perturbations ---> " << numPert << std::endl;
     std::cout << " Maximum conformal level considered ---> " << maxLev << std::endl;
     std::cout << " Minimum conformal level considered ---> " << minLev << std::endl;
-    std::cout << " Which partition function to use    ---> " << PartitionFunc << std::endl;
 
     if (allMomSubspace)
         {
@@ -632,105 +640,6 @@ void parameters::print() const
         }
 
 }
-
-void parameters::calculate_partition_functions()
-{
-    int rho;
-
-    // A_2rho+2, Dp-1
-    std::vector<int> rList1;
-    std::vector<int> rList2;
-    std::vector<character> characterList;
-    std::vector<character> filteredCharacterList;
-
-    if ( (q - 2) % 4 == 0 ){
-        rho = (q - 2) / 4;
-        for (int rIndex = 1;  rIndex < 4 * rho + 2; rIndex++)
-            {
-            if ( rIndex % 2 == 1 and rIndex != 2 * rho + 1)
-                rList1.push_back(rIndex);
-            }
-
-        for (int rIndex = 1; rIndex < 2 * rho; rIndex++)
-            {
-            if ( rIndex % 2 == 1)
-                rList2.push_back(rIndex);
-            }
-
-        /*for(std::vector<int>::iterator it = rList1.begin(); it != rList1.end(); ++it) {
-            std::cout << *it << std::endl;
-        }
-
-        for(std::vector<int>::iterator it = rList2.begin(); it != rList2.end(); ++it) {
-            std::cout << *it << std::endl;
-        }*/
-
-
-            for (int sIndex = 1; sIndex < p; sIndex++)
-                {
-                for(std::vector<int>::iterator it = rList1.begin(); it != rList1.end(); ++it) {
-                    int rIndex = *it;
-                    character chi = character( sIndex, rIndex, sIndex, rIndex, 1);
-                    characterList.push_back(chi);
-                }
-
-                character chi = character(sIndex, 2*rho + 1, sIndex, 2*rho + 1, 2);
-                characterList.push_back(chi);
-
-                for(std::vector<int>::iterator it = rList2.begin(); it != rList2.end(); ++it) {
-                    int rIndex = *it;
-                    character chi = character(sIndex, rIndex, sIndex, 4*rho + 2 - rIndex, 1);
-                    characterList.push_back(chi);
-                    character chistar  = character(sIndex, 4*rho + 2 -rIndex, sIndex, rIndex, 1);
-                    characterList.push_back(chistar);
-    
-                    }   
-                }
-
-            // Use symmetry of Kac Table
-            for(std::vector<character>::iterator it = characterList.begin(); it != characterList.end(); ++it) {
-                if ((*it).indexesL.first > (p - 1) / 2)
-                    (*it).indexesL = std::make_pair(p - (*it).indexesL.first, q - (*it).indexesL.second);
-                if ((*it).indexesR.first > (p - 1) / 2)
-                    (*it).indexesR = std::make_pair(p - (*it).indexesR.first, q - (*it).indexesR.second);
-
-            }
-
-            for(std::vector<character>::iterator it = characterList.begin(); it != characterList.end(); ++it) {
-                bool found = false;
-                for(std::vector<character>::iterator it2 = filteredCharacterList.begin(); it2 != filteredCharacterList.end(); ++it2) {
-                    if (compareCharacter(*it, *it2))
-                        {
-                        (*it2).multeplicity += (*it).multeplicity;
-                        found = true;
-                        }
-                    }
-                if (!found)
-                    filteredCharacterList.push_back(*it);
-                }
-            
-            for(std::vector<character>::iterator it2 = filteredCharacterList.begin(); it2 != filteredCharacterList.end(); ++it2) {
-                (*it2).multeplicity /= 2;
-            }
-
-            
-            for(std::vector<character>::iterator it = filteredCharacterList.begin(); it != filteredCharacterList.end(); ++it) {
-                std::cout << (*it).indexesL.first << (*it).indexesL.second << " ) ( " << (*it).indexesR.first << (*it).indexesR.second << " ) " << (*it).multeplicity  <<std::endl;
-                }
-
-
-        }
-
-
-    if ( (p - 2) % 4 == 0 ){
-        rho = (p - 2) / 4;
-        std::cout << " rho = " << rho;
-        }
-
-    
-
-}
-
 
 void parameters::analyse_subspaces()
 {
