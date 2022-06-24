@@ -2,7 +2,7 @@
 ROOTDIR=$PWD
 CLN=cln-1.3.4
 GINAC=ginac-1.7.1
-BLAS=OpenBLAS-0.2.19
+BLAS=OpenBLAS-0.3.17
 SCALAPACK=scalapack-2.0.0
 
 if [ -z "$CC" ]

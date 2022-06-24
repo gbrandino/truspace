@@ -298,7 +298,7 @@ Known issues
 
 .. [3] M. Beria, G.P. Brandino, L. Lepori, R. M. Konik, G. Sierra - Nuclear Physics B, 2013
 
-.. [4] A. Coser, M. Beria, G. P. Brandino2, R. M. Konik and G. Mussardo J. Stat. Mech. (2014) P12010  
+.. [4] A. Coser, M. Beria, G. P. Brandino, R. M. Konik and G. Mussardo J. Stat. Mech. (2014) P12010  
 
 .. |delta| unicode:: 0x3B4 
 

@@ -1,7 +1,9 @@
 #include <iostream>
-#include "cpt.cpp"
+#include <fstream>
+#include <sstream>
+#include <complex>
+#include "cpt.h"
 #include "tensors.h"
-
 int main(int argc, char** argv)
 {
 
@@ -40,10 +42,15 @@ int main(int argc, char** argv)
     tensor2D<double> Kac(maxp,maxq);
     
     //temporary tensor, used to properly allocate cpt now that we know the sizes
-    tensor6D< complex<long double>  > cpt(maxp, maxq, maxp, maxq, maxp, maxq);
+    tensor6D< std::complex<long double>  > cpt(maxp, maxq, maxp, maxq, maxp, maxq);
 
     //temporary tensor, used to properly allocate cptsmall now that we know the sizes
-    tensor3D< complex<long double>  > cptsmall(maxl, maxl, maxl);
+    tensor3D< std::complex<long double>  > cptsmall(maxl, maxl, maxl);
+
+    std::stringstream fields_out_filename;
+    fields_out_filename << "p_" << p << "_q_" << q << "_fields_diagonal.dat";
+    std::ofstream fields_outstream(fields_out_filename.str().c_str(), std::ofstream::out);
+
 
     // filling Kac table with primary fields weight
     for (int i=1;i<=maxp;i++)
@@ -51,11 +58,13 @@ int main(int argc, char** argv)
         for (int j=1;j<=maxq;j++)
             {
             Kac(i-1,j-1)=hrs((long double)i,(long double)j,p,q);
+            fields_outstream << i << "," << j << "," << i << "," << j << " # " << Kac(i-1,j-1) << std::endl;
             }
         }
+    fields_outstream.close();
 
 
-    complex<long double> tdot;
+    std::complex<long double> tdot;
 
     // Filling cpt tensord with structure constants. 
     // The tensor is indexed in the usual way with 6 indexes, that are the r,s Kac index for each field 
@@ -75,22 +84,22 @@ int main(int argc, char** argv)
                         for (int k1=0; k1<maxq; k1++)
                             {               
                             tdot=dot((int)p,(int)q,i1+1,i+1,j1+1,j+1,k1+1,k+1);//123
-                            if (isnan(real(tdot)) or isinf(real(tdot)) or isnan(imag(tdot)) or isinf(imag(tdot)) )
+                            if (std::isnan(real(tdot)) or std::isinf(real(tdot)) or std::isnan(imag(tdot)) or std::isinf(imag(tdot)) )
                                 {
                                 tdot=dot((int)p,(int)q,i1+1,i+1,k1+1,k+1,j1+1,j+1);   //132
-                                if (isnan(real(tdot)) or isinf(real(tdot)) or isnan(imag(tdot)) or isinf(imag(tdot)) )
+                                if (std::isnan(real(tdot)) or std::isinf(real(tdot)) or std::isnan(imag(tdot)) or std::isinf(imag(tdot)) )
                                    {
                                    tdot=dot((int)p,(int)q,j1+1,j+1,i1+1,i+1,k1+1,k+1);  //213
-                                   if (isnan(real(tdot)) or isinf(real(tdot)) or isnan(imag(tdot)) or isinf(imag(tdot)) )
+                                   if (std::isnan(real(tdot)) or std::isinf(real(tdot)) or std::isnan(imag(tdot)) or std::isinf(imag(tdot)) )
                                       {
                                       tdot=dot((int)p,(int)q,j1+1,j+1,k1+1,k+1,i1+1,i+1);  //231  
-                                      if (isnan(real(tdot)) || isinf(real(tdot)) || isnan(imag(tdot)) or isinf(imag(tdot)) )
+                                      if (std::isnan(real(tdot)) || std::isinf(real(tdot)) || std::isnan(imag(tdot)) or std::isinf(imag(tdot)) )
                                          {
                                          tdot=dot((int)p,(int)q,k1+1,k+1,j1+1,j+1,i1+1,i+1); //321
-                                         if (isnan(real(tdot)) or isinf(real(tdot)) or isnan(imag(tdot)) or isinf(imag(tdot)) )
+                                         if (std::isnan(real(tdot)) or std::isinf(real(tdot)) or std::isnan(imag(tdot)) or std::isinf(imag(tdot)) )
                                             {
                                             tdot=dot((int)p,(int)q,k1+1,k+1,i1+1,i+1,j1+1,j+1); //312 
-                                            if (isnan(real(tdot)) or isinf(real(tdot)) or isnan(imag(tdot)) or isinf(imag(tdot)) ) 
+                                            if (std::isnan(real(tdot)) or std::isinf(real(tdot)) or std::isnan(imag(tdot)) or std::isinf(imag(tdot)) ) 
                                                {
                                                std::cerr << "  ERROR, structure constants are either NaN of infinite" << std::endl;
                                                std::exit(1);
@@ -108,6 +117,10 @@ int main(int argc, char** argv)
             }
         } 
 
+
+    std::stringstream cptsmall_out_filename;
+    cptsmall_out_filename << "p_" << p << "_q_" << q << "_constant.dat";
+    std::ofstream cptsmall_outstream(cptsmall_out_filename.str().c_str(), std::ofstream::out);
 
     // Filling cptsmall tensord with structure constants. 
     // The tensor is indexed using 3 indexes, so each field is labelled by a single integer, that is its position in the Kac table, counting in row_major order
@@ -131,22 +144,22 @@ int main(int argc, char** argv)
                         for (int k1=0;k1<maxq;k1++)
                             {
                             tdot=dot((int)p,(int)q,i1+1,i+1,j1+1,j+1,k1+1,k+1);//123
-                            if (isnan(real(tdot)) || isinf(real(tdot)) || isnan(imag(tdot)) || isinf(imag(tdot)) )
+                            if (std::isnan(real(tdot)) || std::isinf(real(tdot)) || std::isnan(imag(tdot)) || std::isinf(imag(tdot)) )
                                 {
                                 tdot=dot((int)p,(int)q,i1+1,i+1,k1+1,k+1,j1+1,j+1);   //132
-                                if (isnan(real(tdot)) || isinf(real(tdot)) || isnan(imag(tdot)) || isinf(imag(tdot)) )
+                                if (std::isnan(real(tdot)) || std::isinf(real(tdot)) || std::isnan(imag(tdot)) || std::isinf(imag(tdot)) )
                                     {
                                     tdot=dot((int)p,(int)q,j1+1,j+1,i1+1,i+1,k1+1,k+1);  //213
-                                    if (isnan(real(tdot)) || isinf(real(tdot)) || isnan(imag(tdot)) || isinf(imag(tdot)) )
+                                    if (std::isnan(real(tdot)) || std::isinf(real(tdot)) || std::isnan(imag(tdot)) || std::isinf(imag(tdot)) )
                                         {
                                         tdot=dot((int)p,(int)q,j1+1,j+1,k1+1,k+1,i1+1,i+1);  //231  
-                                        if (isnan(real(tdot)) || isinf(real(tdot)) || isnan(imag(tdot)) || isinf(imag(tdot)) )
+                                        if (std::isnan(real(tdot)) || std::isinf(real(tdot)) || std::isnan(imag(tdot)) || std::isinf(imag(tdot)) )
                                             {
                                             tdot=dot((int)p,(int)q,k1+1,k+1,j1+1,j+1,i1+1,i+1); //321
-                                            if (isnan(real(tdot)) || isinf(real(tdot)) || isnan(imag(tdot)) || isinf(imag(tdot)) )
+                                            if (std::isnan(real(tdot)) || std::isinf(real(tdot)) || std::isnan(imag(tdot)) || std::isinf(imag(tdot)) )
                                                 {
                                                 tdot=dot((int)p,(int)q,k1+1,k+1,i1+1,i+1,j1+1,j+1); //312 
-                                                if (isnan(real(tdot)) || isinf(real(tdot)) || isnan(imag(tdot)) || isinf(imag(tdot)) )
+                                                if (std::isnan(real(tdot)) || std::isinf(real(tdot)) || std::isnan(imag(tdot)) || std::isinf(imag(tdot)) )
                                                     {
                                                     std::cerr <<"WARNING, structure constants are either NaN of infinite" << std::endl;
                                                     std::exit(1);
@@ -157,7 +170,11 @@ int main(int argc, char** argv)
                                     }
                                 }
 
-                            cptsmall(ai,bi,ci)=tdot; 
+                            cptsmall(ai,bi,ci)=tdot;
+                            //std::cout << typeid(tdot.real).name() << std::endl;
+                            //std::cout << tdot.real() << std::endl; 
+                            if (std::abs(tdot.real()) > 1e-16 )
+                                cptsmall_outstream << ai + 1  << "," << bi + 1 << "," << ci + 1 << "|" << std::real(tdot) << std::endl;
                             ci=ci+1;
                             }
                         }
@@ -168,10 +185,14 @@ int main(int argc, char** argv)
             }
         } 
 
+    cptsmall_outstream.close();
 
-    std::cout << "-------------------------" << endl;
+    std::cout << "-------------------------" << std::endl;
+    std::cout << " Mininal model ( " << p <<  ", "  << q <<  " ) " << std::endl;
     std::cout << std::endl;
-    std::cout << " Number of primary fields " << maxl << endl;
+    std::cout << " Central charge " << C << std::endl;
+    std::cout << std::endl;
+    std::cout << " Number of primary fields " << maxl << std::endl;
     std::cout << std::endl;
     std::cout << "   Reduced Kac table" << std::endl;
    
