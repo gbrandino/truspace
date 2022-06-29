@@ -8,21 +8,21 @@
 #ifndef CHIRME_H
 #define CHIRME_H
 #include "minimal_model_parameters.h"
-#include "states.h"
+#include "minimal_model_states.h"
+#include "matrix_elements.h"
 #include "tensors.h"
-#include "filenames.h"
+#include "minimal_model_filenames.h"
 
 /** Class that contains the chiral matrix elements of perturbing operators and of the operator to calculate expectation values
  */
-class chirME
+class chirME : public matrix_elements
 {
     public:
         /** Constructor 
           * @param[in] p Reference to a paramters object
           * @param[in] st Reference to a states object
-          * @param[in] subspace Index of the subspace to work on
           */
-        chirME(minimal_model_parameters& p, states& st, int subspace);
+        chirME(minimal_model_parameters& p, minimal_model_states& st);
         /** Destructor 
           */
         ~chirME();
@@ -30,17 +30,15 @@ class chirME
           * @param[in] p Reference to a paramters object
           * @param[in] fnames Reference to a filenames object
           * @param[in] st Reference to a states object
-          * @param[in] subspace Index of the subspace to work on
           */
 
-        void calculate_or_read_chirME(minimal_model_parameters& p, filenames& fnames, states& st, int subspace);
+        void calculate_or_read_chirME(minimal_model_parameters& p, minimal_model_filenames& fnames, minimal_model_states& st);
  
         /** Routine that calculates chiral matrix element for the operator whose expectation values are asked 
           * @param[in] p Reference to a paramters object
           * @param[in] st Reference to a states object
-          * @param[in] subspace Index of the subspace to work on
           */
-        void calculate_chirME_for_ExpVal(minimal_model_parameters& p, states& st, int subspace);
+        void calculate_chirME_for_ExpVal(minimal_model_parameters& p, minimal_model_states& st);
  
         /** Routine that calculates the expectation value on the eigenvectors of the perturbed system of the given operator
           * @param[in] p Reference to a paramters object
@@ -50,7 +48,7 @@ class chirME
           * @param[in] fname Output file name
           * @param[in] R value of the radius R
           */
-        void calculate_ExpVal(parameters* p, states& st, double* coeff, int size, std::string fname, double R);
+        void calculate_ExpVal(parameters& p, states& st, double* coeff, int size, std::string fname, double R);
         /** Routine to compare fields, as expressed as pairs of pair
          * @param[in] f1 pair of pair describing the first field
          * @param[in] f2 pair of pair describing the second field

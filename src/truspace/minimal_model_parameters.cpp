@@ -8,7 +8,7 @@
  *  \date November 2017
  */
 
-#include "config.h"
+#include "minimal_model_config.h"
 #include "minimal_model_parameters.h"
 #include "tensors.h"
 #include "cpt.h"

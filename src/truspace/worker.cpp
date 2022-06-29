@@ -13,17 +13,17 @@
 #include "tensors.h"
 #include "minimal_model_parameters.h"
 #include "characters.h"
-#include "states.h"
-#include "filenames.h"
+#include "minimal_model_states.h"
+#include "minimal_model_filenames.h"
 #include "chirME.h"
 #ifdef MPI_PAR
-#include "Hamiltonian_MPI.h"
+#include "minimal_model_Hamiltonian_MPI.h"
 #include "NRG_MPI.h"
 #else
-#include "Hamiltonian.h"
+#include "minimal_model_Hamiltonian.h"
 #include "NRG.h"
 #endif
-#include "config.h"
+#include "minimal_model_config.h"
 #include <complex>
 #include <iostream>
 #ifdef MPI_PAR
@@ -71,24 +71,24 @@ void worker::run(minimal_model_parameters& p)
 #endif
 
 
-        states st(p,sub);
-        filenames fnames(p,sub);
+        minimal_model_states st(p);
+        minimal_model_filenames fnames(p);
         if (p.READ_STATES)
             st.read_chiral(p, sub, fnames);
         else
-            st.calculate_chiral(p,sub, fnames);
+            st.calculate_chiral(p, sub, fnames);
 
-        chirME me(p,st,sub);
-        me.calculate_or_read_chirME(p,fnames,st, sub);
+        chirME me(p,st);
+        me.calculate_or_read_chirME(p,fnames,st);
         
         if ( p.calcExpVal )
-            me.calculate_chirME_for_ExpVal(p, st, sub);
+            me.calculate_chirME_for_ExpVal(p, st);
 #ifdef MPI_PAR 
         if (myrank_mpi == 0)
 #endif
         std::cout << " Done with chiral matrix elements calculation " << std::endl;
-        st.calculate_nonchiral(p,sub, p.momentum);
-        Hamiltonian H_iter(p, st, me, sub);
+        st.calculate_nonchiral(p, sub, p.momentum);
+        minimal_model_Hamiltonian H_iter(p, st, me);
         H_iter.Momentum = p.momentum;
         NRG nrg;
 #ifdef MPI_PAR 

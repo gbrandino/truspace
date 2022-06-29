@@ -7,7 +7,7 @@
 
 #ifndef FILENAMES_H
 #define FILENAMES_H
-#include "minimal_model_parameters.h"
+#include "parameters.h"
 
 /** Output filenames helper class. 
  *  Initializes and holds all the output file names, based on input paramters
@@ -19,7 +19,7 @@ class filenames
         /** Constructor
          * @param[in] A reference to a parameters object
          */
-        filenames(minimal_model_parameters&, int);
+        filenames(parameters&);
         ~filenames();
 
         // outfiles and dump files
@@ -29,9 +29,9 @@ class filenames
         std::string MeOpName;           /**< File name of Expectation value on the final eigenstates*/
         std::string StateName;          /**< File name of states file */
         std::string OverlapName;        /**< File name of file holding the overlap of states */
-        std::string* MeChirName;        /**< File name(s) of chiral matrix element file */
-    private:
-        /** Default constructor is private, to prevent instantiation of invalid object.
+        //std::string* MeChirName;        /**< File name(s) of chiral matrix element file */
+    protected:
+        /** Default constructor is protected, to prevent instantiation of invalid object.
          */
         filenames();
 

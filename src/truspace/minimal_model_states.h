@@ -5,24 +5,24 @@
  * \date November 2017
  */
 
-#ifndef STATES_H
-#define STATES_H
+#ifndef MINIMAL_MODEL_STATES_H
+#define MINIMAL_MODEL_STATES_H
+#include "states.h"
 #include "minimal_model_parameters.h"
 #include "filenames.h"
 
 /** Class that contains and calculates chiral states by removing null vectors from each verma module
  */
-class states
+class minimal_model_states: public states
 {
     public:
         /** Constructor 
          * @param[in] p Reference to a parameters object
-         * @param[in] subspace Subspace to work on
          */
-        states(minimal_model_parameters& p, int subspace);
+        minimal_model_states(minimal_model_parameters& p);
         /** Destructor 
          */
-        ~states();
+        ~minimal_model_states();
    
         /** Routine to calculate chiral states, stored internally in the object itself.
          * @param[in] p Reference to a parameters object
@@ -78,7 +78,7 @@ class states
     //    char statename[100];
 
     private:
-        states();
+        minimal_model_states();
 
        
 };

@@ -3,7 +3,7 @@
  * \authors Giuseppe Piero Brandino - eXact-lab s.r.l.
  * \date November 2017
  */
-#include "filenames.h"
+#include "minimal_model_filenames.h"
 #include "minimal_model_parameters.h"
 #include <string>
 #include <sstream>
@@ -12,14 +12,14 @@
 #include <mpi.h>
 #endif
 
-filenames::filenames()
+minimal_model_filenames::minimal_model_filenames()
 {
 
 
 }
 
 
-filenames::~filenames()
+minimal_model_filenames::~minimal_model_filenames()
 {
 
     delete [] MeChirName;
@@ -27,7 +27,7 @@ filenames::~filenames()
 }
 
 
-filenames::filenames(minimal_model_parameters& p, int subspace)
+minimal_model_filenames::minimal_model_filenames(minimal_model_parameters& p)
 {
 
 #ifdef MPI_PAR
@@ -45,7 +45,7 @@ filenames::filenames(minimal_model_parameters& p, int subspace)
         {
         temp << "_Per_" << p.r[i] << /*"_" << p.s[i] <<*/ "_c_" << p.pConst[i]; 
         }
-    temp << "_Subspace_" << subspace;
+    temp << "_Subspace_" << p.currentSubspace;
 
     temp2 << "Eigenvalues" << temp.str();
     EigenName = temp2.str();

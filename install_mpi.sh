@@ -45,8 +45,8 @@ CLN_LIBS="-L$ROOTDIR/dep/$CLN/lib -lcln" CLN_CFLAGS=-I$ROOTDIR/dep/$CLN/include 
 cd $ROOTDIR/$BLAS  && \ 
 make FC=$FC  && make install PREFIX=$ROOTDIR/dep/$BLAS  && \
 cd $ROOTDIR/$SCALAPACK  && \
-BLASDIR=$ROOTDIR/$BLAS/lib make  && \
-cd $ROOTDIR/src  && \ 
-make mpi  && \
-cp truspace_mpi.x $ROOTDIR/
+BLASDIR=$ROOTDIR/dep/$BLAS/lib make  && \
+cd $ROOTDIR/src/nrg && make mpi \
+cd $ROOTDIR/src/nrg && make mpi\
+cd $ROOTDIR/src/truspace_extension_example && make mpi
 

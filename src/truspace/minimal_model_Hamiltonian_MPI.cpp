@@ -3,32 +3,31 @@
  * \date November 2017
  */
 
-#include "Hamiltonian_MPI.h"
+#include "minimal_model_Hamiltonian_MPI.h"
 #include "minimal_model_parameters.h"
 #include "tensors.h"
 #include "chirME.h"
-#include "states.h"
-#include "config.h"
+#include "minimal_model_states.h"
+#include "minimal_model_config.h"
 #include <mpi.h>
 #include "scalapack.h"
 #include <cblas.h>
 #include <iostream>
 #include <fstream>
 #include <iomanip>
+#include <cstring>
 
-Hamiltonian::~Hamiltonian()
+minimal_model_Hamiltonian::~minimal_model_Hamiltonian()
 {
     delete [] Offset;
 }
 
 
-Hamiltonian::Hamiltonian(minimal_model_parameters& p_in, states& st_in, chirME& me_in, int sub)
+minimal_model_Hamiltonian::minimal_model_Hamiltonian(minimal_model_parameters& p_in, minimal_model_states& st_in, chirME& me_in)
 :
-p(p_in),
-st(st_in),
-me(me_in),
-subspace(sub)
+Hamiltonian(p_in, st_in, me_in)
 {
+    minimal_model_states& st_der = dynamic_cast<minimal_model_states&>(st);
     // init blacs grid
     int nb=NB;
     int iam;
@@ -46,7 +45,7 @@ subspace(sub)
 
     if (!p.NRG)
         {
-        Msize = st.nstate;
+        Msize = st_der.nstate;
         rowH    = numroc_( &Msize, &nb, &myrow, &izero, &nprow );
         colH    = numroc_( &Msize, &nb, &mycol, &izero, &npcol );
         tensor2D< double> H_tmp(rowH, colH);
@@ -135,8 +134,11 @@ subspace(sub)
 
 }
 
-void Hamiltonian::init()
+void minimal_model_Hamiltonian::init()
 {
+    minimal_model_parameters& p_der = dynamic_cast<minimal_model_parameters&>(p);
+    minimal_model_states& st_der = dynamic_cast<minimal_model_states&>(st);
+    chirME& me_der = dynamic_cast<chirME&>(me);
 
     for (int i=0;i<rowH*colH;i++)
          {
@@ -157,39 +159,42 @@ void Hamiltonian::init()
 
     MPI_Barrier(MPI_COMM_WORLD);
 
-    for (int pert=0; pert < p.numPert; pert++)
+    for (int pert=0; pert < p_der.numPert; pert++)
         {
         //effective strength of each perturbation
-        double c = p.pConst[pert]*2.*pi*pow(R/2./pi,1.-(p.deltas[pert].first + p.deltas[pert].second)); 
+        double c = p_der.pConst[pert]*2.*pi*pow(R/2./pi,1.-(p_der.deltas[pert].first + p_der.deltas[pert].second)); 
 
         //for(int i=0; i < Msize; ++i) 
         for(int i=Offset[myrank_mpi]; i < Offset[myrank_mpi+1]; ++i)
             {
-            int st_vmod_left = st.state_vmod_left[i];
-            int st_vmod_right = st.state_vmod_right[i];
-            int st_left = st.state_left[i];
-            int st_right  = st.state_right[i];
-            std::pair <int,int> vmod_left_i  = p.IndexToPair[p.currentSubspace][st_vmod_left];
-            std::pair <int,int> vmod_right_i = p.IndexToPair[p.currentSubspace][st_vmod_right];
+            int st_vmod_left = st_der.state_vmod_left[i];
+            int st_vmod_right = st_der.state_vmod_right[i];
+            int st_left = st_der.state_left[i];
+            int st_right  = st_der.state_right[i];
+            std::pair <int,int> vmod_left_i  = p_der.IndexToPair[p_der.currentSubspace][st_vmod_left];
+            std::pair <int,int> vmod_right_i = p_der.IndexToPair[p_der.currentSubspace][st_vmod_right];
 
             //off-diagonal elements
             for(int j=0; j < Msize; ++j)
             //for(int j=localOffsetCol; j < localOffsetCol + colH; ++j) 
                 {
-                if( ( st.cstate_lev(st.state_vmod_left[i],st.state_left[i]) - st.cstate_lev(st.state_vmod_right[i],st.state_right[i]) )==( st.cstate_lev(st.state_vmod_left[j],st.state_left[j]) - st.cstate_lev(st.state_vmod_right[j],st.state_right[j]) ) )
+                if( ( st_der.cstate_lev(st_der.state_vmod_left[i],st_der.state_left[i]) - \
+                      st_der.cstate_lev(st_der.state_vmod_right[i],st_der.state_right[i]) )== \
+                    ( st_der.cstate_lev(st_der.state_vmod_left[j],st_der.state_left[j]) - \
+                      st_der.cstate_lev(st_der.state_vmod_right[j],st_der.state_right[j]) ) )
                     {
-                    int st_vmodj_left = st.state_vmod_left[j];
-                    int st_vmodj_right = st.state_vmod_right[j];
-                    std::pair <int,int> vmod_left_j  = p.IndexToPair[p.currentSubspace][st_vmodj_left];
-                    std::pair <int,int> vmod_right_j = p.IndexToPair[p.currentSubspace][st_vmodj_right];
+                    int st_vmodj_left = st_der.state_vmod_left[j];
+                    int st_vmodj_right = st_der.state_vmod_right[j];
+                    std::pair <int,int> vmod_left_j  = p_der.IndexToPair[p_der.currentSubspace][st_vmodj_left];
+                    std::pair <int,int> vmod_right_j = p_der.IndexToPair[p_der.currentSubspace][st_vmodj_right];
                     int field_i = -1;
                     int field_j = -1;
-                    for (int f = 0; f < p.n_fields; f++)
+                    for (int f = 0; f < p_der.n_fields; f++)
                     {
-                        if (p.fields[f] == std::make_pair(vmod_left_i,vmod_right_i) ){
+                        if (p_der.fields[f] == std::make_pair(vmod_left_i,vmod_right_i) ){
                             field_i = f+1;
                         }
-                        if (p.fields[f] == std::make_pair(vmod_left_j,vmod_right_j) ){
+                        if (p_der.fields[f] == std::make_pair(vmod_left_j,vmod_right_j) ){
                             field_j = f+1;
                         }
                     }
@@ -199,14 +204,14 @@ void Hamiltonian::init()
                     if (field_j == -1){
                         std::cout << " Error, field not found! " << field_j << " (" << vmod_left_j.first << "," << vmod_left_j.second << ") (" << vmod_right_j.first << "," << vmod_right_j.second <<  ")"<< std::endl;
                     }
-                    long double SCtmp = p.cptsmall(field_i, p.r_op, field_j);
+                    long double SCtmp = p_der.cptsmall(field_i, p_der.r_op, field_j);
 
-                    double temp = me.me_chi_ortho(pert, st_vmod_left, st_vmodj_left, st_left, st.state_left[j]).first;
-                    temp *= me.me_chi_ortho(pert, st_vmod_right, st_vmodj_right, st_right, st.state_right[j]).second;
+                    double temp = me_der.me_chi_ortho(pert, st_vmod_left, st_vmodj_left, st_left, st_der.state_left[j]).first;
+                    temp *= me_der.me_chi_ortho(pert, st_vmod_right, st_vmodj_right, st_right, st_der.state_right[j]).second;
                     tempH[ (i- Offset[myrank_mpi])*Msize + j] += SCtmp * c * temp;
                     }
                 if ( i==j )
-                    tempH[ (i-Offset[myrank_mpi])*Msize + i] += 2.*pi/R*(st.state_en[i]-p.C/12.)/p.numPert;
+                    tempH[ (i-Offset[myrank_mpi])*Msize + i] += 2.*pi/R*(st_der.state_en[i]-p_der.C/12.) / p_der.numPert;
                 }
             }
         } 
@@ -259,7 +264,7 @@ void Hamiltonian::init()
 
 }
 
-void Hamiltonian::NRG_block_A(double* eigenvalues)
+void minimal_model_Hamiltonian::NRG_block_A(double* eigenvalues)
 {
     // called first, clears the entire Hamiltonian, then stores the eigenvalues on the diagonal 
     // for the Nsize*Nsize submatrix
@@ -278,15 +283,18 @@ void Hamiltonian::NRG_block_A(double* eigenvalues)
 
 }
 
-void Hamiltonian::NRG_block_BC(int iteration, double* coeff)
+void minimal_model_Hamiltonian::NRG_block_BC(int iteration, double* coeff)
 {
+    minimal_model_parameters& p_der = dynamic_cast<minimal_model_parameters&>(p);
+    minimal_model_states& st_der = dynamic_cast<minimal_model_states&>(st);
+    chirME& me_der = dynamic_cast<chirME&>(me);
     // all ranks calculate block B-C. This could probably be parallelized, even though the speed up could be irrelevant
     int shift = p.Nsize + p.Nstep*iteration;
     double* me_needed = new double[p.Nstep*shift];
     double* results = new double[p.Nstep*p.Nsize];
-    for (int pert=0; pert < p.numPert; pert++)
+    for (int pert=0; pert < p_der.numPert; pert++)
         {
-        double c = p.pConst[pert]*2.*pi*pow(R/2./pi,1.-(p.deltas[pert].first + p.deltas[pert].second));
+        double c = p_der.pConst[pert]*2.*pi*pow(R/2./pi,1.-(p_der.deltas[pert].first + p_der.deltas[pert].second));
         
         for(int j=0;j < p.Nstep;++j) 
             {
@@ -295,28 +303,29 @@ void Hamiltonian::NRG_block_BC(int iteration, double* coeff)
             for(int k=0; k < shift;++k) 
                 {
                 double temp;
-                int st_vmod_left = st.state_vmod_left[jshift];
-                int st_vmod_right = st.state_vmod_right[jshift];
-                int st_left = st.state_left[jshift];
-                int st_right = st.state_right[jshift];
-                int st_vmodk_left = st.state_vmod_left[k];
-                int st_vmodk_right = st.state_vmod_right[k];
+                int st_vmod_left = st_der.state_vmod_left[jshift];
+                int st_vmod_right = st_der.state_vmod_right[jshift];
+                int st_left = st_der.state_left[jshift];
+                int st_right = st_der.state_right[jshift];
+                int st_vmodk_left = st_der.state_vmod_left[k];
+                int st_vmodk_right = st_der.state_vmod_right[k];
 
-                if( (st.cstate_lev(st_vmod_left,st_left) - st.cstate_lev(st_vmod_right, st_right)) == (st.cstate_lev(st_vmodk_left,st.state_left[k]) - st.cstate_lev(st_vmodk_right, st.state_right[k])))
+                if( (st_der.cstate_lev(st_vmod_left,st_left) - st_der.cstate_lev(st_vmod_right, st_right)) == \
+                    (st_der.cstate_lev(st_vmodk_left,st_der.state_left[k]) - st_der.cstate_lev(st_vmodk_right, st_der.state_right[k])))
                     {
-                    std::pair <int,int> vmod_left_j  = p.IndexToPair[p.currentSubspace][st_vmod_left];
-                    std::pair <int,int> vmod_right_j = p.IndexToPair[p.currentSubspace][st_vmod_right];
-                    std::pair <int,int> vmod_left_k  = p.IndexToPair[p.currentSubspace][st_vmodk_left];
-                    std::pair <int,int> vmod_right_k = p.IndexToPair[p.currentSubspace][st_vmodk_right];
+                    std::pair <int,int> vmod_left_j  = p_der.IndexToPair[p_der.currentSubspace][st_vmod_left];
+                    std::pair <int,int> vmod_right_j = p_der.IndexToPair[p_der.currentSubspace][st_vmod_right];
+                    std::pair <int,int> vmod_left_k  = p_der.IndexToPair[p_der.currentSubspace][st_vmodk_left];
+                    std::pair <int,int> vmod_right_k = p_der.IndexToPair[p_der.currentSubspace][st_vmodk_right];
 
                     int field_j = -1;
                     int field_k = -1;
-                    for (int f = 0; f < p.n_fields; f++)
+                    for (int f = 0; f < p_der.n_fields; f++)
                     {
-                        if( p.fields[f] == std::make_pair(vmod_left_j, vmod_right_j) ){
+                        if( p_der.fields[f] == std::make_pair(vmod_left_j, vmod_right_j) ){
                             field_j = f+1;
                         }
-                        if( p.fields[f] == std::make_pair(vmod_left_k, vmod_right_k) ){
+                        if( p_der.fields[f] == std::make_pair(vmod_left_k, vmod_right_k) ){
                             field_k = f+1;
                         }
                     }
@@ -324,10 +333,10 @@ void Hamiltonian::NRG_block_BC(int iteration, double* coeff)
                         std::cout << " Error, fields not found! " << field_j << " " << field_k << std::endl;
                     }
 
-                    long double SCtmp = p.cptsmall(field_j, p.r_op, field_k);
+                    long double SCtmp = p_der.cptsmall(field_j, p_der.r_op, field_k);
 
-                    temp = me.me_chi_ortho(pert,st_vmod_left,st_vmodk_left,st_left,st.state_left[k]).first;
-                    temp *= SCtmp * me.me_chi_ortho(pert,st_vmod_right,st_vmodk_right,st_right,st.state_right[k]).second;
+                    temp = me_der.me_chi_ortho(pert,st_vmod_left,st_vmodk_left,st_left,st_der.state_left[k]).first;
+                    temp *= SCtmp * me_der.me_chi_ortho(pert,st_vmod_right,st_vmodk_right,st_right,st_der.state_right[k]).second;
                     }
                 else
                     {
@@ -360,46 +369,52 @@ void Hamiltonian::NRG_block_BC(int iteration, double* coeff)
     delete [] me_needed;
 }
 
-void Hamiltonian::NRG_block_D(int iteration)
+void minimal_model_Hamiltonian::NRG_block_D(int iteration)
 {
+    minimal_model_parameters& p_der = dynamic_cast<minimal_model_parameters&>(p);
+    minimal_model_states& st_der = dynamic_cast<minimal_model_states&>(st);
+    chirME& me_der = dynamic_cast<chirME&>(me);
+
     double* tempD = new double[p.Nstep*p.Nstep];
     for(int i=0; i < p.Nstep*p.Nstep; ++i)
         tempD[i] = 0.0;
 
     // all ranks calculate block D
-    for (int pert=0; pert < p.numPert; pert++)
+    for (int pert=0; pert < p_der.numPert; pert++)
         {
         //effective strength of each perturbation
-        double c = p.pConst[pert]*2.*pi*pow(R/2./pi,1.- (p.deltas[pert].first + p.deltas[pert].second) );
+        double c = p_der.pConst[pert]*2.*pi*pow(R/2./pi,1.- (p_der.deltas[pert].first + p_der.deltas[pert].second) );
         int shift = p.Nsize + p.Nstep*iteration;
         for(int i=0; i < p.Nstep; ++i)
             {
             int ishift = shift + i; 
-            int st_vmod_left = st.state_vmod_left[ishift];
-            int st_vmod_right = st.state_vmod_right[ishift];
-            int st_left = st.state_left[ishift];
-            int st_right  = st.state_right[ishift];
-            std::pair <int,int> vmod_left_i  = p.IndexToPair[p.currentSubspace][st_vmod_left];
-            std::pair <int,int> vmod_right_i = p.IndexToPair[p.currentSubspace][st_vmod_right];
+            int st_vmod_left = st_der.state_vmod_left[ishift];
+            int st_vmod_right = st_der.state_vmod_right[ishift];
+            int st_left = st_der.state_left[ishift];
+            int st_right= st_der.state_right[ishift];
+            std::pair <int,int> vmod_left_i  = p_der.IndexToPair[p_der.currentSubspace][st_vmod_left];
+            std::pair <int,int> vmod_right_i = p_der.IndexToPair[p_der.currentSubspace][st_vmod_right];
 
             //off-diagonal elements
             for(int j=0; j < p.Nstep; ++j)
                 {
                 int jshift = shift + j;
-                if( ( st.cstate_lev(st_vmod_left, st_left) - st.cstate_lev(st_vmod_right, st_right) )==( st.cstate_lev(st.state_vmod_left[jshift],st.state_left[jshift]) - st.cstate_lev(st.state_vmod_right[jshift],st.state_right[jshift]) ) )
+                if( ( st_der.cstate_lev(st_vmod_left, st_left) - st_der.cstate_lev(st_vmod_right, st_right) )== \
+                    ( st_der.cstate_lev(st_der.state_vmod_left[jshift],st_der.state_left[jshift]) - \
+                      st_der.cstate_lev(st_der.state_vmod_right[jshift],st_der.state_right[jshift]) ) )
                     {
-                    int st_vmodj_left = st.state_vmod_left[jshift];
-                    int st_vmodj_right = st.state_vmod_right[jshift];
-                    std::pair <int,int> vmod_left_j  = p.IndexToPair[p.currentSubspace][st_vmodj_left];
-                    std::pair <int,int> vmod_right_j = p.IndexToPair[p.currentSubspace][st_vmodj_right];
+                    int st_vmodj_left = st_der.state_vmod_left[jshift];
+                    int st_vmodj_right = st_der.state_vmod_right[jshift];
+                    std::pair <int,int> vmod_left_j  = p_der.IndexToPair[p_der.currentSubspace][st_vmodj_left];
+                    std::pair <int,int> vmod_right_j = p_der.IndexToPair[p_der.currentSubspace][st_vmodj_right];
                     int field_i = -1;
                     int field_j = -1;
-                    for (int f = 0; f < p.n_fields; f++)
+                    for (int f = 0; f < p_der.n_fields; f++)
                     {
-                        if (p.fields[f] == std::make_pair(vmod_left_i,vmod_right_i) ){
+                        if (p_der.fields[f] == std::make_pair(vmod_left_i,vmod_right_i) ){
                             field_i = f+1;
                         }
-                        if (p.fields[f] == std::make_pair(vmod_left_j,vmod_right_j) ){
+                        if (p_der.fields[f] == std::make_pair(vmod_left_j,vmod_right_j) ){
                             field_j = f+1;
                         }
                     }
@@ -409,16 +424,16 @@ void Hamiltonian::NRG_block_D(int iteration)
                     if (field_j == -1){
                         std::cout << " Error, field not found! " << field_j << " (" << vmod_left_j.first << "," << vmod_left_j.second << ") (" << vmod_right_j.first << "," << vmod_right_j.second <<  ")"<< std::endl;
                     }
-                    long double SCtmp = p.cptsmall(field_i, p.r_op, field_j);
+                    long double SCtmp = p_der.cptsmall(field_i, p_der.r_op, field_j);
 
-                    double temp = me.me_chi_ortho(pert, st_vmod_left, st_vmodj_left, st_left, st.state_left[jshift]).first;
-                    temp *= me.me_chi_ortho(pert, st_vmod_right, st_vmodj_right, st_right, st.state_right[jshift]).second;
+                    double temp = me_der.me_chi_ortho(pert, st_vmod_left, st_vmodj_left, st_left, st_der.state_left[jshift]).first;
+                    temp *= me_der.me_chi_ortho(pert, st_vmod_right, st_vmodj_right, st_right, st_der.state_right[jshift]).second;
                     tempD[i*p.Nstep + j] +=  (SCtmp*c*temp); 
                     }
                 }
 
             // diagonal elements (check 2pi factor)
-            tempD[i*p.Nstep + i] += 2.*pi/R*(st.state_en[shift + i]-p.C/12.)/p.numPert;
+            tempD[i*p.Nstep + i] += 2.*pi/R*(st_der.state_en[shift + i]-p_der.C/12.)/p_der.numPert;
             }
         }
 
@@ -438,48 +453,51 @@ void Hamiltonian::NRG_block_D(int iteration)
 }
  
 
-void Hamiltonian::sweep_block_BC(int iteration, double* coeff, double* coeffSweep, int NRGspacesize, int NRGstoresize)
+void minimal_model_Hamiltonian::sweep_block_BC(int iteration, double* coeff, double* coeffSweep, int NRGspacesize, int NRGstoresize)
 {
+    minimal_model_parameters& p_der = dynamic_cast<minimal_model_parameters&>(p);
+    minimal_model_states& st_der = dynamic_cast<minimal_model_states&>(st);
+    chirME& me_der = dynamic_cast<chirME&>(me);
 
     int subsizeMax = 0;
-    for ( int i = 0; i<p.subdim[subspace]; ++i)
+    for ( int i = 0; i<p_der.subdim[p_der.currentSubspace]; ++i)
         {
-        for (int j = 0; j<=p.maxLev; ++j)
+        for (int j = 0; j<=p_der.maxLev; ++j)
             {
-            if ( st.nstates_lev_each( i, j) > subsizeMax)
-                subsizeMax = st.nstates_lev_each(i, j);
+            if ( st_der.nstates_lev_each( i, j) > subsizeMax)
+                subsizeMax = st_der.nstates_lev_each(i, j);
             }
         }
 
-    tensor6D<double> m1(p.numPert, p.subdim[subspace], p.subdim[subspace], p.maxLev+1, p.maxLev+1, subsizeMax*subsizeMax);
-    tensor6D<double> m2(p.numPert, p.subdim[subspace], p.subdim[subspace], p.maxLev+1, p.maxLev+1, subsizeMax*subsizeMax);
+    tensor6D<double> m1(p_der.numPert, p_der.subdim[p_der.currentSubspace], p_der.subdim[p_der.currentSubspace], p_der.maxLev+1, p_der.maxLev+1, subsizeMax*subsizeMax);
+    tensor6D<double> m2(p_der.numPert, p_der.subdim[p_der.currentSubspace], p_der.subdim[p_der.currentSubspace], p_der.maxLev+1, p_der.maxLev+1, subsizeMax*subsizeMax);
 
     //storing relevant chiral matrix elements
-    for ( int pert=0; pert<p.numPert; ++pert)
+    for ( int pert=0; pert<p_der.numPert; ++pert)
         {
-        for ( int vmod2=0; vmod2 < p.subdim[subspace]; ++vmod2)
+        for ( int vmod2=0; vmod2 < p_der.subdim[p_der.currentSubspace]; ++vmod2)
             {
-            for ( int lev2=p.minLev; lev2 <=p.maxLev; ++lev2)
+            for ( int lev2=p_der.minLev; lev2 <=p_der.maxLev; ++lev2)
                 {
-                 for ( int vmod=0; vmod < p.subdim[subspace]; ++vmod)
+                 for ( int vmod=0; vmod < p_der.subdim[p_der.currentSubspace]; ++vmod)
                     {
-                    for ( int lev=p.minLev; lev <=p.maxLev; ++lev)
+                    for ( int lev=p_der.minLev; lev <=p_der.maxLev; ++lev)
                         {
-                        int subsize = st.nstates_lev_each(vmod,lev);
-                        int subsize2 = st.nstates_lev_each(vmod2,lev2);
+                        int subsize = st_der.nstates_lev_each(vmod,lev);
+                        int subsize2 = st_der.nstates_lev_each(vmod2,lev2);
                         if (subsize!=0 and subsize2!=0)
                             {
                             for (int ii=0;ii<subsize2;ii++)
                                 {
                                 for (int jj=0;jj<subsize;jj++)
                                     {
-                                    int ind1 = st.state_left_lev(vmod2,lev2,ii);
-                                    int ind2 = st.state_left_lev(vmod,lev,jj);
-                                    m1(pert, vmod2, vmod, lev2, lev, ii*subsize+jj)=me.me_chi_ortho(pert, vmod2, vmod, ind1, ind2).first;
+                                    int ind1 = st_der.state_left_lev(vmod2,lev2,ii);
+                                    int ind2 = st_der.state_left_lev(vmod,lev,jj);
+                                    m1(pert, vmod2, vmod, lev2, lev, ii*subsize+jj)=me_der.me_chi_ortho(pert, vmod2, vmod, ind1, ind2).first;
                                         
-                                    ind1 = st.state_right_lev(vmod2, lev2, ii);
-                                    ind2 = st.state_right_lev(vmod, lev, jj);
-                                    m2(pert, vmod2, vmod, lev2, lev, ii*subsize+jj) = me.me_chi_ortho(pert, vmod2, vmod, ind1, ind2).second;
+                                    ind1 = st_der.state_right_lev(vmod2, lev2, ii);
+                                    ind2 = st_der.state_right_lev(vmod, lev, jj);
+                                    m2(pert, vmod2, vmod, lev2, lev, ii*subsize+jj) = me_der.me_chi_ortho(pert, vmod2, vmod, ind1, ind2).second;
                                     }
                                 }
                             }
@@ -501,16 +519,16 @@ void Hamiltonian::sweep_block_BC(int iteration, double* coeff, double* coeffSwee
     for (int state=0;state < p.Nstep;state++)
         {
         //double temp=0.; 
-        for ( int vmod2=0; vmod2 < p.subdim[subspace]; ++vmod2)
+        for ( int vmod2=0; vmod2 < p_der.subdim[p_der.currentSubspace]; ++vmod2)
             {
-            for (int lev2 = p.minLev; lev2 <= p.maxLev; ++lev2)
+            for (int lev2 = p_der.minLev; lev2 <= p_der.maxLev; ++lev2)
                 {
-                int subsize2 = st.nstates_lev_each(vmod2,lev2);
-                for ( int vmod=0; vmod < p.subdim[subspace]; ++vmod)
+                int subsize2 = st_der.nstates_lev_each(vmod2,lev2);
+                for ( int vmod=0; vmod < p_der.subdim[p_der.currentSubspace]; ++vmod)
                     {
-                    for(int lev = p.minLev ; lev<= p.maxLev; ++lev)
+                    for(int lev = p_der.minLev ; lev<= p_der.maxLev; ++lev)
                         {
-                        int subsize = st.nstates_lev_each(vmod,lev);
+                        int subsize = st_der.nstates_lev_each(vmod,lev);
                         if (subsize!=0 and subsize2!=0)
                             {
                             coeffSweep_j=new double[subsize*subsize];
@@ -518,9 +536,9 @@ void Hamiltonian::sweep_block_BC(int iteration, double* coeff, double* coeffSwee
                                 {
                                 for (int jj=0;jj<subsize;jj++)
                                     {
-                                    if (st.state_nonchiral_lev(vmod, lev, ii, jj) < NRGstoresize)
+                                    if (st_der.state_nonchiral_lev(vmod, lev, ii, jj) < NRGstoresize)
                                         {
-                                        coeffSweep_j[ii*subsize+jj] = coeffSweep[ state*NRGstoresize + st.state_nonchiral_lev(vmod,lev,ii,jj) ];
+                                        coeffSweep_j[ii*subsize+jj] = coeffSweep[ state*NRGstoresize + st_der.state_nonchiral_lev(vmod,lev,ii,jj) ];
                                         }
                                     else
                                         {
@@ -530,7 +548,7 @@ void Hamiltonian::sweep_block_BC(int iteration, double* coeff, double* coeffSwee
                                 }
 
 
-                            for(int pert=0; pert < p.numPert; ++pert)
+                            for(int pert=0; pert < p_der.numPert; ++pert)
                                 {
                                 results=new double[subsize*subsize2];
                                 results2=new double[subsize2*subsize2];
@@ -538,12 +556,12 @@ void Hamiltonian::sweep_block_BC(int iteration, double* coeff, double* coeffSwee
                                 cblas_dgemm(CblasRowMajor,CblasNoTrans,CblasNoTrans,subsize2,subsize,subsize,1.0,&m1(pert,vmod2,vmod,lev2,lev,0),subsize,coeffSweep_j,subsize,0.0,results,subsize);
                                 cblas_dgemm(CblasRowMajor,CblasNoTrans,CblasTrans,subsize2,subsize2,subsize,1.0,results,subsize,&m2(pert,vmod2,vmod,lev2,lev,0),subsize,0.0,results2,subsize2);
 
-                                double c = p.pConst[pert]*2.*pi*pow(R/2./pi,1.-(p.deltas[pert].first + p.deltas[pert].second));
+                                double c = p_der.pConst[pert]*2.*pi*pow(R/2./pi,1.-(p_der.deltas[pert].first + p_der.deltas[pert].second));
                                 for (int ii=0;ii<subsize2;ii++)
                                     {
                                     for (int jj=0;jj<subsize2;jj++)
                                         {
-                                        int ind1 = st.state_nonchiral_lev(vmod2, lev2, ii, jj);
+                                        int ind1 = st_der.state_nonchiral_lev(vmod2, lev2, ii, jj);
                                         if (ind1 < NRGspacesize)
                                             {
                                             H_part[state*NRGspacesize+ind1] += c*results2[ii*subsize2+jj];
@@ -573,7 +591,7 @@ void Hamiltonian::sweep_block_BC(int iteration, double* coeff, double* coeffSwee
         {
         for (int k=0; k < NRGstoresize;k++)
             {
-            coefftemp[i*NRGstoresize + k]=coeff[i*NRGspacesize+k]*(2.*pi/R*(st.state_en[k]-p.C/12.));
+            coefftemp[i*NRGstoresize + k]=coeff[i*NRGspacesize+k]*(2.*pi/R*(st_der.state_en[k]-p_der.C/12.));
             }
         }
 
@@ -610,8 +628,9 @@ void Hamiltonian::sweep_block_BC(int iteration, double* coeff, double* coeffSwee
 
 
 
-void Hamiltonian::print_eigenValues(int iteration, int sweep, double* eigenValues, std::string fname, int maxState)
+void minimal_model_Hamiltonian::print_eigenValues(int iteration, int sweep, double* eigenValues, std::string fname, int maxState)
 {
+    minimal_model_states& st_der = dynamic_cast<minimal_model_states&>(st);
 
     std::ofstream eigen_output;
     if ( Momentum == -1)
@@ -625,7 +644,7 @@ void Hamiltonian::print_eigenValues(int iteration, int sweep, double* eigenValue
         eigen_output.open(temp.str().c_str(), std::ofstream::out | std::ofstream::app);
         }
 
-    eigen_output << iteration  << " " << sweep << " " << std::setiosflags(std::ios::fixed) << std::setprecision(14) << st.state_eff_en[maxState] << " " << R << " ";
+    eigen_output << iteration  << " " << sweep << " " << std::setiosflags(std::ios::fixed) << std::setprecision(14) << st_der.state_eff_en[maxState] << " " << R << " ";
 
     for (int i=0; i < p.maxEigen; ++i)
         {
@@ -636,7 +655,7 @@ void Hamiltonian::print_eigenValues(int iteration, int sweep, double* eigenValue
 
 }
 
-void Hamiltonian::print_eigenVectors(double* eigenVectors, std::string fname, int size)
+void minimal_model_Hamiltonian::print_eigenVectors(double* eigenVectors, std::string fname, int size)
 {
 
     if(myrank_mpi == 0)

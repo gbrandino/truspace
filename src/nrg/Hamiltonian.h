@@ -7,9 +7,9 @@
 #ifndef HAMILTONIAN_H
 #define HAMILTONIAN_H
 
-#include "minimal_model_parameters.h"
+#include "parameters.h"
 #include "tensors.h"
-#include "chirME.h"
+#include "matrix_elements.h"
 #include "states.h"
 #include <string>
 
@@ -28,26 +28,13 @@ class Hamiltonian
 {
     public: 
         tensor2D< double > H; /**< Tensor2D holding the Hamiltonian matrix elements */
-        int Msize; /**< Size of the Global Hamiltonian matrix */
+        int Msize; /**< Size of the Hamiltonian matrix */
         double R;  /**< Current value of the system size R */
-        int Momentum; /**< Current momentum subspace. */
-        minimal_model_parameters& p; /**< Reference to parameters object */
-        states& st; /**< Reference to state object */
-        chirME& me; /**< Reference to chirMe object */
-        int subspace; /**< Current symmetry subspace */
-        int descH[9]; /**< BLACS descriptor of the distributed Hamiltonian */
-        int ictxt;   /**< BLACS context */
-        int rowH;   /**< Number of row of local slice of Hamiltonian matrix */
-        int colH;   /**< Number of columns of local slice of Hamiltonian matrix */
-        int localOffsetRow; /**< Row ffset of the Hamiltonian matrix for the current process in the BLACS grid */
-        int localOffsetCol; /**< Col ffset of the Hamiltonian matrix for the current process in the BLACS grid */
-        int myrank_mpi;  /**< Processor ID for MPI */
-        int nprocs_mpi;  /**< Number of MPI processes */
-        int* Offset;     /**< Array containing the offset for each process, used for the distributed calculation of the Hamiltonian */
-        int nprow;  /**< Number of processes per row in the BLACS grid */
-        int npcol;  /**< Number of processes per col in the BLACS grid */
-        int myrow;  /**< Row ID of the current process in the BLACS grid */
-        int mycol;  /**< Col ID of the current process in the BLACS grid */
+        //int Momentum; /**< Current momentum subspace. */
+        parameters& p; /**< Reference to parameters object */
+        states& st; /**< Reference to state obejct */
+        matrix_elements& me; /**< Reference to chirMe object */
+        //int subspace; /**< Current symmetry subspace */
         /** Constructor. 
          * Allocates the correct size of the tensor H, which hold the Hamiltonian matrix elements.
          * @param[in] p Reference to a parameter object.
@@ -56,15 +43,15 @@ class Hamiltonian
          * @param[in] subspace Integer descrbing the subspace currently under investigation.
          */
 
-        Hamiltonian(minimal_model_parameters& p, states& st, chirME& me, int subspace);
+        Hamiltonian(parameters& p, states& st, matrix_elements& me);
         /** Destructor
          */
-        ~Hamiltonian();
+        virtual ~Hamiltonian();
         /** Initializes the first iteration Hamiltonian.
          *  The first iteration hamiltonian has conformal energy on diagonal and expectation value of the perturbing operator(s) on the conformal states and stores it in the tensor H.
          *  Internally, it uses the state object member and the chirME object member
          */
-        void init();
+        virtual void init() = 0;
 
         /** Routine to print eigenvalues to file.
          * @param[in] iteration NRG iteration number.
@@ -74,34 +61,34 @@ class Hamiltonian
          * @param[in] maxState Integer describing the maximum state considered in the current NRG iteration. Used to define effective energy of the truncation.
  
          */ 
-        void print_eigenValues(int iteration, int sweep, double* eigenvalues, std::string fname, int maxState);
+        virtual void print_eigenValues(int iteration, int sweep, double* eigenvalues, std::string fname, int maxState) = 0;
 
         /** Routine to print eigenvectors to file.
          * @param[in] eigenvectors Matrix containing the eigenvectors to print, one per row
          * @param[in] fname std::string containing the file name to print. Usually, a member variable of filenames.
          * @param[in] size Number of component of each eigenvectors (row size of the eigenvectors array(.
          */
-        void print_eigenVectors(double* eigenvectors, std::string fname, int size);
+        virtual void print_eigenVectors(double* eigenvectors, std::string fname, int size) = 0;
 
         /** Routine to fill the top left corner of the NRG matrix (A block). 
          * The top left corner of the NRG/Sweep matrix usually contains the eigenvaues of the previous iteration on the diagonal, 0 otherwise
          *
          * @param[in]  eigenvalues Array containing the eigenvalues of the previous NRG iteration.
          */
-        void NRG_block_A(double* eigenvalues);
+        virtual void NRG_block_A(double* eigenvalues) = 0;
         
         /** Routine to fill the bottom left and top right corners of the NRG matrix (B and C blocks).
          * The the bottom left and top right corners contain the expectaion value of the perturbing operator(s) between previous step eigenstates and the newly added states of the computational basis.
          * @param[in] iteration Index of the NRG iteration
          * @param[in] coeff Matrix containing the eigenvectors of the previous NRG iteration, one per row
          */
-        void NRG_block_BC(int iteration, double* coeff);
+        virtual void NRG_block_BC(int iteration, double* coeff) = 0;
 
         /** Routine to fill the bottom right corner of the NRG matrix (D block).
          *  The bottom right corner contains the expectaion value of the perturbing operator(s) on the newly added states of the computational basis
          *  @param[in] iteration Index of the NRG iteration
          */
-        void NRG_block_D(int iteration);
+        virtual void NRG_block_D(int iteration) = 0;
   
         /** Routine to fill the bottom left and top right corners of the Sweep  matrix (B and C blocks).
          *  The the bottom left and top right corners contain the expectaion value of the Hamiltonian between previous step eigenstates and eigenstates of the previous step same iteration
@@ -111,10 +98,10 @@ class Hamiltonian
          *  @param[in] NRGspacesize Current size of the NRG hilbert space, i.e. the number of components of eigenvectors in coeff
          *  @param[in] NRGspacesize Size of the NRG hilbert space at the previous sweep same NRG iteration, i.e. the number of components of eigenvectors in coeffSweep
          */
-        void sweep_block_BC(int iteration, double* coeff, double* coeffSweep, int NRGspacesize, int NRGstoresize);
+        virtual void sweep_block_BC(int iteration, double* coeff, double* coeffSweep, int NRGspacesize, int NRGstoresize) = 0;
 
-    private:
-        /** Default constructor is private, to prevent instantiation of invalid object.
+    protected:
+        /** Default constructor is protected, to prevent instantiation of invalid object.
          */ 
         Hamiltonian();
 

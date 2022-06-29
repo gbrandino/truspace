@@ -120,7 +120,7 @@ void NRG::run(parameters& p, Hamiltonian& H, filenames& fnames)
     if ( p.calcExpVal and !p.NRG)
         {
         if (myrank_mpi == 0)
-            H.me.calculate_ExpVal(&p, H.st, EigenVectors.data, H.Msize, fnames.MeOpName, H.R);
+            H.me.calculate_ExpVal(p, H.st, EigenVectors.data, H.Msize, fnames.MeOpName, H.R);
         MPI_Barrier(MPI_COMM_WORLD);
         }
 
@@ -539,7 +539,7 @@ void NRG::run(parameters& p, Hamiltonian& H, filenames& fnames)
                 if ( p.calcExpVal)
                     {
                     if (myrank_mpi == 0)                
-                        H.me.calculate_ExpVal(&p, H.st, coeff, newSize, fnames.MeOpName, H.R);
+                        H.me.calculate_ExpVal(p, H.st, coeff, newSize, fnames.MeOpName, H.R);
                     MPI_Barrier(MPI_COMM_WORLD);
                     }
     

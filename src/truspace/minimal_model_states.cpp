@@ -44,9 +44,9 @@
  * last revision: November 2016
  */
 
-#include "states.h"
+#include "minimal_model_states.h"
 #include "characters.h"
-#include "config.h"
+#include "minimal_model_config.h"
 #include "cpt.h"
 #include "element_computation.h"
 #include "diag.h"
@@ -55,14 +55,13 @@
 #include <mpi.h>
 #endif
 
-
-states::states()
+minimal_model_states::minimal_model_states()
 {
-
 
 }
 
-states::states(minimal_model_parameters& p, int subspace)
+
+minimal_model_states::minimal_model_states(minimal_model_parameters& p)
 {
 #ifdef MPI_PAR
     int myrank_mpi,nprocs_mpi;
@@ -75,54 +74,54 @@ states::states(minimal_model_parameters& p, int subspace)
         {
         temp=temp+partitions(j);
         }
-    MaxChiralStates = p.PairToIndex[subspace].size()*temp+100;
+    MaxChiralStates = p.PairToIndex[p.currentSubspace].size()*temp+100;
 
     // we cannot use initialization list to allocate tensors like cstate_ortho_modecoeff, because MaxChiralStates is calculated in this functions. 
     // Calculate it outside this function seems conceptually strange
-    tensor3D< long double > cstate_ortho_modecoeff_tmp(p.PairToIndex[subspace].size(),MaxChiralStates, MaxChiralStates); // probably enough cstate_ortho_modecoeff_tmp(p.PairToIndex[subspace].size(),MaxChiralStates, MaxChiralStates/2)
+    tensor3D< long double > cstate_ortho_modecoeff_tmp(p.PairToIndex[p.currentSubspace].size(),MaxChiralStates, MaxChiralStates); // probably enough cstate_ortho_modecoeff_tmp(p.PairToIndex[subspace].size(),MaxChiralStates, MaxChiralStates/2)
     cstate_ortho_modecoeff = cstate_ortho_modecoeff_tmp;
 
-    tensor2D< long double > norm_tmp(p.PairToIndex[subspace].size(),MaxChiralStates);
+    tensor2D< long double > norm_tmp(p.PairToIndex[p.currentSubspace].size(),MaxChiralStates);
     norm = norm_tmp;
 
-    tensor3D< long double > cstate_mode_tmp(p.PairToIndex[subspace].size(),MaxChiralStates, MaxNumGrade);
+    tensor3D< long double > cstate_mode_tmp(p.PairToIndex[p.currentSubspace].size(),MaxChiralStates, MaxNumGrade);
     cstate_mode = cstate_mode_tmp;
 
-    tensor2D< long double > cstate_norm_tmp(p.PairToIndex[subspace].size(),MaxChiralStates);
+    tensor2D< long double > cstate_norm_tmp(p.PairToIndex[p.currentSubspace].size(),MaxChiralStates);
     cstate_norm =  cstate_norm_tmp;
    
-    tensor2D< int > cstate_lev_tmp(p.PairToIndex[subspace].size(),MaxChiralStates);
+    tensor2D< int > cstate_lev_tmp(p.PairToIndex[p.currentSubspace].size(),MaxChiralStates);
     cstate_lev =  cstate_lev_tmp;     
 
-    tensor2D< int > cstate_nmode_tmp(p.PairToIndex[subspace].size(),MaxChiralStates);
+    tensor2D< int > cstate_nmode_tmp(p.PairToIndex[p.currentSubspace].size(),MaxChiralStates);
     cstate_nmode =  cstate_nmode_tmp;
 
-    tensor2D< int > cstate_ortho_lev_tmp(p.PairToIndex[subspace].size(),MaxChiralStates);
+    tensor2D< int > cstate_ortho_lev_tmp(p.PairToIndex[p.currentSubspace].size(),MaxChiralStates);
     cstate_ortho_lev =  cstate_ortho_lev_tmp;
 
-    tensor2D< int > cstate_ortho_nmode_tmp(p.PairToIndex[subspace].size(),MaxChiralStates);
+    tensor2D< int > cstate_ortho_nmode_tmp(p.PairToIndex[p.currentSubspace].size(),MaxChiralStates);
     cstate_ortho_nmode =  cstate_ortho_nmode_tmp;
 
-    tensor3D< int > cstate_ortho_mode_tmp(p.PairToIndex[subspace].size(),MaxChiralStates,MaxChiralStates); // probably enough cstate_ortho_mode_tmp(p.PairToIndex[subspace].size(),MaxChiralStates, MaxChiralStates/2)
+    tensor3D< int > cstate_ortho_mode_tmp(p.PairToIndex[p.currentSubspace].size(),MaxChiralStates,MaxChiralStates); // probably enough cstate_ortho_mode_tmp(p.PairToIndex[subspace].size(),MaxChiralStates, MaxChiralStates/2)
     cstate_ortho_mode =  cstate_ortho_mode_tmp; 
 
-    tensor3D< long double > me_chi_0_tmp(p.PairToIndex[subspace].size(),MaxChiralStates, MaxChiralStates);
+    tensor3D< long double > me_chi_0_tmp(p.PairToIndex[p.currentSubspace].size(),MaxChiralStates, MaxChiralStates);
     me_chi_0 = me_chi_0_tmp;
 
-    tensor2D< int > nstates_lev_tmp(p.PairToIndex[subspace].size(), p.maxLev + 1) ;
+    tensor2D< int > nstates_lev_tmp(p.PairToIndex[p.currentSubspace].size(), p.maxLev + 1) ;
     nstates_lev = nstates_lev_tmp;
     
-    tensor2D< int > nstates_lev_each_tmp(p.PairToIndex[subspace].size(), p.maxLev + 1) ;
+    tensor2D< int > nstates_lev_each_tmp(p.PairToIndex[p.currentSubspace].size(), p.maxLev + 1) ;
     nstates_lev_each = nstates_lev_each_tmp;   
 
     /*determine the conformal dimesions of the primary field labelling the verma module for each verma module in the subspace*/
-    h= new long double[p.PairToIndex[subspace].size()];
-    num_chir= new int[p.PairToIndex[subspace].size()];
+    h= new long double[p.PairToIndex[p.currentSubspace].size()];
+    num_chir= new int[p.PairToIndex[p.currentSubspace].size()];
 
     std::map < std::pair < int, int>, int >::iterator it;
     int counter = 0;
     //for(int j=0;j<p.PairToIndex[subspace].size();j++)
-    for(it = p.PairToIndex[subspace].begin(); it != p.PairToIndex[subspace].end(); it++)
+    for(it = p.PairToIndex[p.currentSubspace].begin(); it != p.PairToIndex[p.currentSubspace].end(); it++)
         {
         int indtemp1 = it->first.first;
         int indtemp2 = it->first.second;
@@ -149,7 +148,7 @@ states::states(minimal_model_parameters& p, int subspace)
         }
 
     MaxChiralVerma=0;
-    for(int j=0;j< p.PairToIndex[subspace].size();j++)
+    for(int j=0;j< p.PairToIndex[p.currentSubspace].size();j++)
         {
         if(nstates_lev(j,p.maxLev) > MaxChiralVerma)
             {
@@ -160,9 +159,9 @@ states::states(minimal_model_parameters& p, int subspace)
 
         int tempdim = 0;
         MaxStates = 0;
-            for(int j=0;j< p.subdim[subspace];j++)
+            for(int j=0;j< p.subdim[p.currentSubspace];j++)
                 {
-                std::pair< std::pair<int, int>, std::pair<int, int> > field = p.fields[p.finalsubspace(subspace,j)-1];
+                std::pair< std::pair<int, int>, std::pair<int, int> > field = p.fields[p.finalsubspace(p.currentSubspace,j)-1];
                 int indtemp1 = field.first.first;
                 int indtemp2 = field.first.second;
                 int indtemp3 = field.second.first;
@@ -235,7 +234,7 @@ states::states(minimal_model_parameters& p, int subspace)
 
 }
 
-states::~states()
+minimal_model_states::~minimal_model_states()
 {
     delete [] state_en;
     delete [] state_eff_en;
@@ -247,7 +246,7 @@ states::~states()
     delete [] num_chir;
 }
 
-void states::calculate_chiral(minimal_model_parameters& p, int subspace, filenames& fnames)
+void minimal_model_states::calculate_chiral(minimal_model_parameters& p, int subspace, filenames& fnames)
 {
     // MaxPart and MaxNumGrade are (at least for now) global constant 
     // defined in config.h
@@ -721,7 +720,7 @@ void states::calculate_chiral(minimal_model_parameters& p, int subspace, filenam
 }
 
 
-void states::calculate_nonchiral(minimal_model_parameters& p, int subspace, int mom)
+void minimal_model_states::calculate_nonchiral(minimal_model_parameters& p, int subspace, int mom)
 {
 #ifdef MPI_PAR
     int myrank_mpi,nprocs_mpi;
@@ -974,7 +973,7 @@ void states::calculate_nonchiral(minimal_model_parameters& p, int subspace, int 
 }
 
 
-void states::read_chiral(minimal_model_parameters& p, int subspace, filenames& fnames)
+void minimal_model_states::read_chiral(minimal_model_parameters& p, int subspace, filenames& fnames)
 {
 #ifdef MPI_PAR
     int myrank_mpi,nprocs_mpi;

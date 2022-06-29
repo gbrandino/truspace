@@ -46,10 +46,10 @@ class parameters
 
         /** Destructor
          */
-        ~parameters();
+        virtual ~parameters();
     protected:
 
-        /** Default constructor is private, to prevent instantiation of invalid object.
+        /** Default constructor is protected, to prevent instantiation of invalid object.
          */
         parameters();
 };

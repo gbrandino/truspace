@@ -6,7 +6,7 @@
 #include "diag.h"
 #include "tensors.h"
 #include <math.h>
-#include "config.h"
+#include "minimal_model_config.h"
 
 void diag::shell_ld(unsigned long n,long double d[],long double* r[])
 {
