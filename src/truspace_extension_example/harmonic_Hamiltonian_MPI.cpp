@@ -1,14 +1,14 @@
-/** Hamiltonian class file. 
+/** harmonic_Hamiltonian class file. 
  * \authors Giuseppe Piero Brandino - eXact-lab s.r.l.
  * \date November 2017
  */
 
-#include "Hamiltonian_MPI.h"
+#include "harmonic_Hamiltonian_MPI.h"
 #include "custom_parameters.h"
 #include "tensors.h"
-#include "matrix_elements.h"
-#include "states.h"
-#include "config.h"
+#include "harmonic_matrix_elements.h"
+#include "harmonic_states.h"
+#include "custom_config.h"
 #include <mpi.h>
 #include "scalapack.h"
 #include <cmath>
@@ -16,18 +16,17 @@
 #include <iostream>
 #include <fstream>
 #include <iomanip>
+#include <cstring>
 
-Hamiltonian::~Hamiltonian()
+harmonic_Hamiltonian::~harmonic_Hamiltonian()
 {
     delete [] Offset;
 }
 
 
-Hamiltonian::Hamiltonian(custom_parameters& p_in, states& st_in, matrix_elements& me_in)
+harmonic_Hamiltonian::harmonic_Hamiltonian(custom_parameters& p_in, harmonic_states& st_in, harmonic_matrix_elements& me_in)
 :
-p(p_in),
-st(st_in),
-me(me_in)
+Hamiltonian(p_in, st_in, me_in)
 {
     // init blacs grid
     int nb=NB;
@@ -135,8 +134,11 @@ me(me_in)
 
 }
 
-void Hamiltonian::init()
+void harmonic_Hamiltonian::init()
 {
+    custom_parameters& p_der = dynamic_cast<custom_parameters&>(p);
+    harmonic_states& st_der = dynamic_cast<harmonic_states&>(st);
+    harmonic_matrix_elements& me_der = dynamic_cast<harmonic_matrix_elements&>(me);
 
     for (int i=0;i<rowH*colH;i++)
          {
@@ -157,16 +159,16 @@ void Hamiltonian::init()
 
     MPI_Barrier(MPI_COMM_WORLD);
 
-    for (int pert=0; pert < p.numPert; pert++)
+    for (int pert=0; pert < p_der.numPert; pert++)
         {
         for(int i=Offset[myrank_mpi]; i < Offset[myrank_mpi+1]; ++i)
             {
             for(int j=0; j < Msize; ++j)
                     {
-                    tempH[ (i- Offset[myrank_mpi])*Msize + j] += R*R * me.me_unperturbed(pert,i,j);
+                    tempH[ (i- Offset[myrank_mpi])*Msize + j] += R*R * me_der.me_unperturbed(pert,i,j);
                     }
             // diagonal elements
-            tempH[ (i- Offset[myrank_mpi])*Msize + i] += st.state_en[i]/(R*R)/p.numPert;
+            tempH[ (i- Offset[myrank_mpi])*Msize + i] += st_der.state_en[i]/(R*R)/p_der.numPert;
             }
         } 
 
@@ -220,7 +222,7 @@ void Hamiltonian::init()
 
 }
 
-void Hamiltonian::NRG_block_A(double* eigenvalues)
+void harmonic_Hamiltonian::NRG_block_A(double* eigenvalues)
 {
     // called first, clears the entire Hamiltonian, then stores the eigenvalues on the diagonal 
     // for the Nsize*Nsize submatrix
@@ -239,13 +241,17 @@ void Hamiltonian::NRG_block_A(double* eigenvalues)
 
 }
 
-void Hamiltonian::NRG_block_BC(int iteration, double* coeff)
+void harmonic_Hamiltonian::NRG_block_BC(int iteration, double* coeff)
 {
+    custom_parameters& p_der = dynamic_cast<custom_parameters&>(p);
+    harmonic_states& st_der = dynamic_cast<harmonic_states&>(st);
+    harmonic_matrix_elements& me_der = dynamic_cast<harmonic_matrix_elements&>(me);
+
     // all ranks calculate block B-C. This could probably be parallelized, even though the speed up could be irrelevant
     int shift = p.Nsize + p.Nstep*iteration;
     double* me_needed = new double[p.Nstep*shift];
     double* results = new double[p.Nstep*p.Nsize];
-    for (int pert=0; pert < p.numPert; pert++)
+    for (int pert=0; pert < p_der.numPert; pert++)
         {
         for(int j=0;j < p.Nstep;++j) 
             {
@@ -253,7 +259,7 @@ void Hamiltonian::NRG_block_BC(int iteration, double* coeff)
             int jshift1 = j*shift;
             for(int k=0; k < shift;++k) 
                 {
-                me_needed[jshift1+k]= R*R*me.me_unperturbed(pert,jshift,k);
+                me_needed[jshift1+k]= R*R*me_der.me_unperturbed(pert,jshift,k);
                 }
             }
 
@@ -280,14 +286,18 @@ void Hamiltonian::NRG_block_BC(int iteration, double* coeff)
     delete [] me_needed;
 }
 
-void Hamiltonian::NRG_block_D(int iteration)
+void harmonic_Hamiltonian::NRG_block_D(int iteration)
 {
+    custom_parameters& p_der = dynamic_cast<custom_parameters&>(p);
+    harmonic_states& st_der = dynamic_cast<harmonic_states&>(st);
+    harmonic_matrix_elements& me_der = dynamic_cast<harmonic_matrix_elements&>(me);
+
     double* tempD = new double[p.Nstep*p.Nstep];
     for(int i=0; i < p.Nstep*p.Nstep; ++i)
         tempD[i] = 0.0;
 
     // all ranks calculate block D
-    for (int pert=0; pert < p.numPert; pert++)
+    for (int pert=0; pert < p_der.numPert; pert++)
         {
         int shift = p.Nsize + p.Nstep*iteration;
         for(int i=0; i < p.Nstep; ++i)
@@ -297,10 +307,10 @@ void Hamiltonian::NRG_block_D(int iteration)
             for(int j=0; j < p.Nstep; ++j)
                 {
                 int jshift = shift + j;
-                tempD[i*p.Nstep + j] += R*R * me.me_unperturbed(0,ishift, jshift);
+                tempD[i*p.Nstep + j] += R*R * me_der.me_unperturbed(0,ishift, jshift);
                 }
             // diagonal elements
-            tempD[i*p.Nstep + i] += st.state_en[shift + i]/(R*R)/p.numPert; 
+            tempD[i*p.Nstep + i] += st_der.state_en[shift + i]/(R*R)/p_der.numPert; 
             }
         }
 
@@ -320,14 +330,18 @@ void Hamiltonian::NRG_block_D(int iteration)
 }
  
 
-void Hamiltonian::sweep_block_BC(int iteration, double* coeff, double* coeffSweep, int NRGspacesize, int NRGstoresize)
+void harmonic_Hamiltonian::sweep_block_BC(int iteration, double* coeff, double* coeffSweep, int NRGspacesize, int NRGstoresize)
 {
+    custom_parameters& p_der = dynamic_cast<custom_parameters&>(p);
+    harmonic_states& st_der = dynamic_cast<harmonic_states&>(st);
+    harmonic_matrix_elements& me_der = dynamic_cast<harmonic_matrix_elements&>(me);
+
     // all ranks calculate block B-C. This could probably be parallelized, the speed up in sweep could be useful
     double* H_part = new double[p.Nsize * NRGstoresize ];
     for (int i=0; i<p.Nsize*NRGstoresize; i++)
        H_part[i] = 0.0;
 
-    for (int pert=0; pert < p.numPert; pert++)
+    for (int pert=0; pert < p_der.numPert; pert++)
         {
 
         for(int i=0;i < p.Nsize;++i)
@@ -338,7 +352,7 @@ void Hamiltonian::sweep_block_BC(int iteration, double* coeff, double* coeffSwee
                     {
                     for (int  k1=0; k1 < NRGstoresize; ++k1)
                         {
-                        H_part[i*NRGstoresize + k1] += R*R * coeff[i*NRGspacesize + k] *me.me_unperturbed(pert,k,k1);
+                        H_part[i*NRGstoresize + k1] += R*R * coeff[i*NRGspacesize + k] *me_der.me_unperturbed(pert,k,k1);
                         }
                     }
                 }
@@ -357,7 +371,7 @@ void Hamiltonian::sweep_block_BC(int iteration, double* coeff, double* coeffSwee
         {
         for (int k=0; k < NRGstoresize;k++)
             {
-            coefftemp[i*NRGstoresize + k]=coeff[i*NRGspacesize+k]*st.state_en[k]/(R*R);
+            coefftemp[i*NRGstoresize + k]=coeff[i*NRGspacesize+k]*st_der.state_en[k]/(R*R);
             }
         }
 
@@ -394,7 +408,7 @@ void Hamiltonian::sweep_block_BC(int iteration, double* coeff, double* coeffSwee
 
 
 
-void Hamiltonian::print_eigenValues(int iteration, int sweep, double* eigenValues, std::string fname, int maxState)
+void harmonic_Hamiltonian::print_eigenValues(int iteration, int sweep, double* eigenValues, std::string fname, int maxState)
 {
 
     std::ofstream eigen_output;
@@ -411,7 +425,7 @@ void Hamiltonian::print_eigenValues(int iteration, int sweep, double* eigenValue
 
 }
 
-void Hamiltonian::print_eigenVectors(double* eigenVectors, std::string fname, int size)
+void harmonic_Hamiltonian::print_eigenVectors(double* eigenVectors, std::string fname, int size)
 {
 
     if(myrank_mpi == 0)

@@ -1,16 +1,17 @@
-/** @file Hamiltonian.h
+/** @file harmonic_Hamiltonian_MPI.h
  * \brief Hamiltonian class file. 
  * \authors Giuseppe Piero Brandino - eXact-lab s.r.l.
  * \date November 2017
  */
 
-#ifndef HAMILTONIAN_H
-#define HAMILTONIAN_H
+#ifndef HARMONIC_HAMILTONIAN_H
+#define HARMONIC_HAMILTONIAN_H
 
+#include "Hamiltonian_MPI.h"
 #include "custom_parameters.h"
 #include "tensors.h"
-#include "matrix_elements.h"
-#include "states.h"
+#include "harmonic_matrix_elements.h"
+#include "harmonic_states.h"
 #include <string>
 
 /** Hamiltonian Class.  
@@ -24,26 +25,19 @@
  * 
  * Where A is a matrix of size parameters::Nsize**2, B and C are of size  parameters::Nsize* parameters::Nstep and C is of size parameters::Nstep**2
  */
-class Hamiltonian
+class harmonic_Hamiltonian : public Hamiltonian
 {
     public: 
-        tensor2D< double > H; /**< Tensor2D holding the Hamiltonian matrix elements */
-        int Msize; /**< Size of the Hamiltonian matrix */
-        double R;  /**< Current value of the system size R */
-        custom_parameters& p; /**< Reference to parameters object */
-        states& st; /**< Reference to state obejct */
-        matrix_elements& me; /**< Reference to chirMe object */
         /** Constructor. 
          * Allocates the correct size of the tensor H, which hold the Hamiltonian matrix elements.
          * @param[in] p Reference to a parameter object.
          * @param[in] st Reference to a state object.
          * @param[in] me Reference to a matrix_elements object.
          */
-
-        Hamiltonian(custom_parameters& p, states& st, matrix_elements& me);
+        harmonic_Hamiltonian(custom_parameters& p, harmonic_states& st, harmonic_matrix_elements& me);
         /** Destructor
          */
-        ~Hamiltonian();
+        ~harmonic_Hamiltonian();
         /** Initializes the first iteration Hamiltonian.
          *  The first iteration hamiltonian has conformal energy on diagonal and expectation value of the perturbing operator(s) on the conformal states and stores it in the tensor H.
          *  Internally, it uses the state object member and the matrix_elements object member
@@ -100,7 +94,7 @@ class Hamiltonian
     private:
         /** Default constructor is private, to prevent instantiation of invalid object.
          */ 
-        Hamiltonian();
+        harmonic_Hamiltonian();
 
 };
 

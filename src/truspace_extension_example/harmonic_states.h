@@ -1,27 +1,29 @@
-/** @file states.h
+/** @file harmonic_states.h
  * \brief Class that contains and calculates states 
  *
  * \author Giuseppe Piero Brandino - eXact-lab s.r.l., Robert Konik - BNL
  * \date October 2019
  */
 
-#ifndef STATES_H
-#define STATES_H
+#ifndef HARMONIC_STATES_H
+#define HARMONIC_STATES_H
+#include "states.h"
 #include "custom_parameters.h"
-#include "filenames.h"
+#include "harmonic_filenames.h"
+
 
 /** Class that contains and calculates chiral states by removing null vectors from each verma module
  */
-class states
+class harmonic_states : public states
 {
     public:
         /** Constructor 
          * @param[in] p Reference to a parameters object
          */
-        states(custom_parameters& p);
+        harmonic_states(custom_parameters& p);
         /** Destructor 
          */
-        ~states();
+        ~harmonic_states();
    
         /** Routine to calculate chiral states, stored internally in the object itself.
          * @param[in] p Reference to a parameters object
@@ -35,12 +37,11 @@ class states
          * @param[in] mom Momentum subspace to work on
         */
         
-            int nstate;    /**< Size of the truncated Hilbert Space **/
-            double* state_en; /**< Array contaning the unperturbed energy of every state */
-            double* state_quantum_number; /**< Array contaning the quantum number that identifies the state */
+        double* state_en; /**< Array contaning the unperturbed energy of every state */
+        double* state_quantum_number; /**< Array contaning the quantum number that identifies the state */
 
     private:
-        states();
+        harmonic_states();
 
 };
 #endif 

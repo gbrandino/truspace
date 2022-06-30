@@ -4,7 +4,7 @@
  *  \date October 2019
  */
 
-#include "config.h"
+#include "custom_config.h"
 #include "custom_parameters.h"
 #include <iostream>
 #include <fstream>

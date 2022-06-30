@@ -5,22 +5,22 @@
  * last revision: October 2019
  */
 
-#include "states.h"
+#include "harmonic_states.h"
 #include "custom_parameters.h"
-#include "config.h"
+#include "custom_config.h"
 #include <iostream>
 #ifdef MPI_PAR
 #include <mpi.h>
 #endif
 
 
-states::states()
+harmonic_states::harmonic_states()
 {
 
 
 }
 
-states::states(custom_parameters& p)
+harmonic_states::harmonic_states(custom_parameters& p)
 {
 #ifdef MPI_PAR
     int myrank_mpi,nprocs_mpi;
@@ -39,13 +39,13 @@ states::states(custom_parameters& p)
         }
 }
 
-states::~states()
+harmonic_states::~harmonic_states()
 {
     delete [] state_en;
     delete [] state_quantum_number;
 }
 
-void states::calculate(custom_parameters& p)
+void harmonic_states::calculate(custom_parameters& p)
 {
     // MaxPart and MaxNumGrade are (at least for now) global constant 
     // defined in config.h

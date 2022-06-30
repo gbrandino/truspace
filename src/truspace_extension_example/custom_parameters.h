@@ -22,7 +22,7 @@ class custom_parameters : public parameters
         int rSteps;          /**< number of values of the system size*/
         double rInc;         /**< increment of system size at each step */
         double rStart;       /**< initial value of the system size */
-        bool TCSA;           /**< True for diagonalization, false to have just Kac table structure constants and subspace analysis */
+        bool TCSA;           /**< True for diagonalization, false to have just the size of the Hilbert space */
         bool saveEigenvec;   /**< True to save eigenvectors to file, false not to save them */
     
         // we hard code here the value of m and hbar

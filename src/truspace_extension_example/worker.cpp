@@ -10,19 +10,19 @@
  * \date November 2017
  */
 #include "worker.h"
-#include "parameters.h"
-#include "states.h"
-#include "filenames.h"
+#include "custom_parameters.h"
+#include "harmonic_states.h"
+#include "harmonic_filenames.h"
 #include "tensors.h"
-#include "matrix_elements.h"
+#include "harmonic_matrix_elements.h"
 #ifdef MPI_PAR
-#include "Hamiltonian_MPI.h"
+#include "harmonic_Hamiltonian_MPI.h"
 #include "NRG_MPI.h"
 #else
-#include "Hamiltonian.h"
+#include "harmonic_Hamiltonian.h"
 #include "NRG.h"
 #endif
-#include "config.h"
+#include "custom_config.h"
 #include <iostream>
 #ifdef MPI_PAR
 #include <mpi.h>
@@ -64,14 +64,14 @@ void worker::run(custom_parameters& p)
         }
 #endif
 
-    states st(p);
-    filenames fnames(p);
+    harmonic_states st(p);
+    harmonic_filenames fnames(p);
 
     // calculate states
     st.calculate(p);
 
     // calculate matrix elements
-    matrix_elements me(p,st);
+    harmonic_matrix_elements me(p,st);
 
     me.calculate(p,fnames,st);
         
@@ -82,7 +82,7 @@ void worker::run(custom_parameters& p)
     if (myrank_mpi == 0)
 #endif
          std::cout << " Done with matrix elements calculation " << std::endl;
-         Hamiltonian H_iter(p, st, me);
+         harmonic_Hamiltonian H_iter(p, st, me);
 
          NRG nrg;
 #ifdef MPI_PAR 

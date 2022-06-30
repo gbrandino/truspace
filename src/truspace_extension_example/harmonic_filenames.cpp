@@ -3,8 +3,8 @@
  * \authors Giuseppe Piero Brandino - eXact-lab s.r.l.
  * \date November 2017
  */
-#include "filenames.h"
-#include "parameters.h"
+#include "harmonic_filenames.h"
+#include "custom_parameters.h"
 #include <string>
 #include <sstream>
 #include <iostream>
@@ -12,20 +12,20 @@
 #include <mpi.h>
 #endif
 
-filenames::filenames()
+harmonic_filenames::harmonic_filenames()
 {
 
 
 }
 
 
-filenames::~filenames()
+harmonic_filenames::~harmonic_filenames()
 {
 
 }
 
 
-filenames::filenames(custom_parameters& p)
+harmonic_filenames::harmonic_filenames(custom_parameters& p)
 {
 
 #ifdef MPI_PAR
