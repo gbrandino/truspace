@@ -30,7 +30,6 @@ minimal_model_parameters::minimal_model_parameters()
 minimal_model_parameters::~minimal_model_parameters()
 {
     delete [] r;
-    delete [] s;
     delete [] deltas;
     delete [] pConst;
     delete [] subdim;
@@ -55,13 +54,11 @@ parameters::parameters(nrg_input_file_name)
     model_input_file>>minLev;  model_input_file.ignore(256, '\n');
     model_input_file>>momentum;  model_input_file.ignore(256, '\n');
     r = new int[numPert];
-    s = new int[numPert];
     deltas=new std::pair<double, double>[numPert];
     pConst=new double[numPert];
     for (int i=0;i<numPert;i++)
         {
         model_input_file>>r[i];  model_input_file.ignore(256, '\n');
-        //input_file>>s[i];  input_file.ignore(256, '\n');
         model_input_file>>pConst[i];  model_input_file.ignore(256, '\n');
         }
 
@@ -102,7 +99,6 @@ parameters::parameters(nrg_input_file_name)
 
 
     model_input_file>>r_op;  model_input_file.ignore(256, '\n');
-    //input_file>>s_op;  input_file.ignore(256, '\n');
 
     model_input_file>>fields_file;   model_input_file.ignore(256, '\n');
     model_input_file>>constants_file;   model_input_file.ignore(256, '\n');
@@ -393,7 +389,7 @@ void minimal_model_parameters::print() const
     if (calcExpVal)
         {
         std::cout << " Calculation of matrix elements of ";
-        std::cout << "phi_(" << r_op << "," << s_op << ")";
+        std::cout << "phi_(" << r_op << ")";
         }
 
     if(calcExpVal)

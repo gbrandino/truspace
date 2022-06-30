@@ -36,8 +36,7 @@ class minimal_model_parameters : public parameters
         int maxLev;          /**< Maximum conformal level to include */
         int minLev;          /**< Minimum conformal level to include (usually 0) */
         int momentum;         /**< Momeuntum subspace considered */
-        int* r;              /**< array containing Kac r index of perturbations */
-        int* s;              /**< array containing Kac s index of perturbations */
+        int* r;              /**< array containing the index of perturbations as listed in the fields file  */
         std::pair<double,double>* deltas;      /**< array containing chiral conformal dimensions of each perturbation */
         double* pConst;      /**< array containing the constant for each perturbation */
         int rSteps;          /**< number of values of the radius to be considered */
@@ -48,8 +47,7 @@ class minimal_model_parameters : public parameters
         bool READ_STATES;    /**< True to read computationale basis from file, false to calculate them */ 
         bool SAVE_ME;        /**< True to save chiral matrix element of perturbing fields to file, false not to save them */
         bool READ_ME;        /**< True to read chiral matrix element of perturbing fields to file, false to calculate them */
-        int r_op;           /**< r index of anti holomorphic component of the operator to calculate expectation values */
-        int s_op;           /**< s index of anti holomorphic component of the operator to calculate expectation values */
+        int r_op;           /**< r index of the operator to calculate expectation values as listed in the fields file */
         std::string fields_file;  /**< file name of the fields file */
         std::string constants_file; /**< file name of the structure constants file */
 

@@ -65,6 +65,7 @@ void chirME::calculate_or_read_chirME(minimal_model_parameters& p, minimal_model
     int eq_r;
     int eq_s;
     int status;
+
     if (p.READ_ME)
         {
         for (int pert = 0; pert < p.numPert; ++pert)
