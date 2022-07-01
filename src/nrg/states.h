@@ -23,7 +23,7 @@ class states
          */
         virtual ~states();
 
-    int nstate;       /**< The total number of state in the trucated Hilbert space*/
+    	int nstate;       /**< The total number of state in the trucated Hilbert space*/
 
 
     protected:

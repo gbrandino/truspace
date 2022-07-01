@@ -48,7 +48,6 @@ class minimal_model_states: public states
         int MaxChiralStates; /**< The maximum number of chiral states, calculated from character. Used for array allocation */
         int MaxChiralVerma; /**< The maximum number of chiral states in a Verma module, calculated from character. Used for array allocation */
         int MaxStates;    /**< The maximum number of nonchiral states, calculated from character. Used for array allocation */
-        int nstate;       /**< The total number of nonchiral states in the subspace */
         double* state_en; /**< Array contaning the conformal energy of every nonchiral state */
         double* state_eff_en; /**< Array contaning the effective energy of every nonchiral state */
         int* state_left;  /**< Array that, given the global index of nonchiral states, returns the index in the correct Verma module, for the bra state */

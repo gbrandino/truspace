@@ -204,7 +204,7 @@ void minimal_model_Hamiltonian::init()
                     if (field_j == -1){
                         std::cout << " Error, field not found! " << field_j << " (" << vmod_left_j.first << "," << vmod_left_j.second << ") (" << vmod_right_j.first << "," << vmod_right_j.second <<  ")"<< std::endl;
                     }
-                    long double SCtmp = p_der.cptsmall(field_i, p_der.r_op, field_j);
+                    long double SCtmp = p_der.cptsmall(field_i, p_der.r[pert], field_j);
 
                     double temp = me_der.me_chi_ortho(pert, st_vmod_left, st_vmodj_left, st_left, st_der.state_left[j]).first;
                     temp *= me_der.me_chi_ortho(pert, st_vmod_right, st_vmodj_right, st_right, st_der.state_right[j]).second;
@@ -333,7 +333,7 @@ void minimal_model_Hamiltonian::NRG_block_BC(int iteration, double* coeff)
                         std::cout << " Error, fields not found! " << field_j << " " << field_k << std::endl;
                     }
 
-                    long double SCtmp = p_der.cptsmall(field_j, p_der.r_op, field_k);
+                    long double SCtmp = p_der.cptsmall(field_j, p_der.r[pert], field_k);
 
                     temp = me_der.me_chi_ortho(pert,st_vmod_left,st_vmodk_left,st_left,st_der.state_left[k]).first;
                     temp *= SCtmp * me_der.me_chi_ortho(pert,st_vmod_right,st_vmodk_right,st_right,st_der.state_right[k]).second;
@@ -424,7 +424,7 @@ void minimal_model_Hamiltonian::NRG_block_D(int iteration)
                     if (field_j == -1){
                         std::cout << " Error, field not found! " << field_j << " (" << vmod_left_j.first << "," << vmod_left_j.second << ") (" << vmod_right_j.first << "," << vmod_right_j.second <<  ")"<< std::endl;
                     }
-                    long double SCtmp = p_der.cptsmall(field_i, p_der.r_op, field_j);
+                    long double SCtmp = p_der.cptsmall(field_i, p_der.r[pert], field_j);
 
                     double temp = me_der.me_chi_ortho(pert, st_vmod_left, st_vmodj_left, st_left, st_der.state_left[jshift]).first;
                     temp *= me_der.me_chi_ortho(pert, st_vmod_right, st_vmodj_right, st_right, st_der.state_right[jshift]).second;
