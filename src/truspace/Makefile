@@ -11,7 +11,6 @@ NRG_LIB_MPI=  -L${ROOT}/lib -lnrg_mpi
 MPICXX= mpicxx
 
 CFLAGS=-I${CLN}/include -I${GINAC}/include -I${BLAS}/include -I${ROOT}/include -std=c++11 -fopenmp -O2
-CFLAGS_NRG= -fPIC
 LIBS= -L${GINAC}/lib/ -lginac -L${CLN}/lib/ -lcln -L${BLAS}/lib/  ${BLAS_LIB}  -L${LAPACK}/lib/ ${LAPACK_LIB} -lpthread -lstdc++ -fopenmp
 SRC=characters.cpp cpt.cpp block.cpp worker.cpp element_computation.cpp minimal_model_states.cpp diag.cpp minimal_model_filenames.cpp chirME.cpp minimal_model_parameters.cpp
 SRC_FIELD= gamma.cpp cpt.cpp

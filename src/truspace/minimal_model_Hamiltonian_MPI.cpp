@@ -459,133 +459,77 @@ void minimal_model_Hamiltonian::sweep_block_BC(int iteration, double* coeff, dou
     minimal_model_states& st_der = dynamic_cast<minimal_model_states&>(st);
     chirME& me_der = dynamic_cast<chirME&>(me);
 
-    int subsizeMax = 0;
-    for ( int i = 0; i<p_der.subdim[p_der.currentSubspace]; ++i)
-        {
-        for (int j = 0; j<=p_der.maxLev; ++j)
-            {
-            if ( st_der.nstates_lev_each( i, j) > subsizeMax)
-                subsizeMax = st_der.nstates_lev_each(i, j);
-            }
-        }
+    double* H_part = new double[p.Nsize * NRGstoresize ];   
+    for (int i=0; i<p.Nsize*NRGstoresize; i++)
+       H_part[i] = 0.0;
 
-    tensor6D<double> m1(p_der.numPert, p_der.subdim[p_der.currentSubspace], p_der.subdim[p_der.currentSubspace], p_der.maxLev+1, p_der.maxLev+1, subsizeMax*subsizeMax);
-    tensor6D<double> m2(p_der.numPert, p_der.subdim[p_der.currentSubspace], p_der.subdim[p_der.currentSubspace], p_der.maxLev+1, p_der.maxLev+1, subsizeMax*subsizeMax);
-
-    //storing relevant chiral matrix elements
-    for ( int pert=0; pert<p_der.numPert; ++pert)
+    for (int pert=0; pert < p_der.numPert; pert++)
         {
-        for ( int vmod2=0; vmod2 < p_der.subdim[p_der.currentSubspace]; ++vmod2)
+        double c = p_der.pConst[pert]*2.*pi*pow(R/2./pi,1.- (p_der.deltas[pert].first + p_der.deltas[pert].second));
+
+        for(int i=0;i < p.Nsize;++i)
             {
-            for ( int lev2=p_der.minLev; lev2 <=p_der.maxLev; ++lev2)
-                {
-                 for ( int vmod=0; vmod < p_der.subdim[p_der.currentSubspace]; ++vmod)
+            //for(int j=0;j < p.Nstep;++j)
+            //    {
+                for(int k=0; k < NRGspacesize;++k )
                     {
-                    for ( int lev=p_der.minLev; lev <=p_der.maxLev; ++lev)
+                    for (int  k1=0; k1 < NRGstoresize; ++k1)
                         {
-                        int subsize = st_der.nstates_lev_each(vmod,lev);
-                        int subsize2 = st_der.nstates_lev_each(vmod2,lev2);
-                        if (subsize!=0 and subsize2!=0)
+                        double temp;
+                        int st_vmod_left = st_der.state_vmod_left[k];
+                        int st_vmod_right = st_der.state_vmod_right[k];
+                        int st_left = st_der.state_left[k];
+                        int st_right = st_der.state_right[k];
+                        int st_vmodk_left = st_der.state_vmod_left[k1];
+                        int st_vmodk_right = st_der.state_vmod_right[k1];
+                        if( (st_der.cstate_lev(st_vmod_left,st_left) - st_der.cstate_lev(st_vmod_right, st_right)) == \
+                            (st_der.cstate_lev(st_vmodk_left,st_der.state_left[k1]) - st_der.cstate_lev(st_vmodk_right, st_der.state_right[k1])))
                             {
-                            for (int ii=0;ii<subsize2;ii++)
+                    // Kac_vmod_{right,left}_{i,j} contains the Kac indexes of the chiral and antichiral components, as oppposed to st_vmod_{left,right} which contain the LINEAR index in the SUBSPACE
+                    // of the chiral and antichiral component
+                            std::pair <int,int> vmod_left_j  = p_der.IndexToPair[p_der.currentSubspace][st_vmod_left];
+                            std::pair <int,int> vmod_right_j = p_der.IndexToPair[p_der.currentSubspace][st_vmod_right];
+                            std::pair <int,int> vmod_left_k  = p_der.IndexToPair[p_der.currentSubspace][st_vmodk_left];
+                            std::pair <int,int> vmod_right_k = p_der.IndexToPair[p_der.currentSubspace][st_vmodk_right];
+
+                            int field_j = -1;
+                            int field_k = -1;
+                            for (int f = 0; f < p_der.n_fields; f++)
                                 {
-                                for (int jj=0;jj<subsize;jj++)
-                                    {
-                                    int ind1 = st_der.state_left_lev(vmod2,lev2,ii);
-                                    int ind2 = st_der.state_left_lev(vmod,lev,jj);
-                                    m1(pert, vmod2, vmod, lev2, lev, ii*subsize+jj)=me_der.me_chi_ortho(pert, vmod2, vmod, ind1, ind2).first;
-                                        
-                                    ind1 = st_der.state_right_lev(vmod2, lev2, ii);
-                                    ind2 = st_der.state_right_lev(vmod, lev, jj);
-                                    m2(pert, vmod2, vmod, lev2, lev, ii*subsize+jj) = me_der.me_chi_ortho(pert, vmod2, vmod, ind1, ind2).second;
-                                    }
+                                if( p_der.fields[f] == std::make_pair(vmod_left_j, vmod_right_j) ){
+                                    field_j = f+1;
+                                }
+                                if( p_der.fields[f] == std::make_pair(vmod_left_k, vmod_right_k) ){
+                                    field_k = f+1;
                                 }
                             }
+                            if (field_j == -1 || field_k == -1){
+                                std::cout << " Error, fields not found! " << field_j << " " << field_k << std::endl;
+                            }
+
+                            long double SCtmp = p_der.cptsmall(field_j, p_der.r[pert], field_k);
+                            temp = me_der.me_chi_ortho(pert, st_vmod_left, st_vmodk_left, st_left, st_der.state_left[k1]).first;
+                            temp *= SCtmp * me_der.me_chi_ortho(pert, st_vmod_right, st_vmodk_right, st_right, st_der.state_right[k1]).second;
+                            }
+                        else
+                            {
+                            temp=0.;
+                            }
+                        H_part[i*NRGstoresize + k1] += c * coeff[i*NRGspacesize + k] *temp;
                         }
                     }
                 }
-            }
+            //}
         }
-   
-
-    double* coeffSweep_j;
-    double* results;
-    double* results2;
-    double* H_part= new double[p.Nstep*NRGspacesize];
-
-    for (int i=0; i<p.Nstep*NRGspacesize; ++i)
-        H_part[i]=0.;        
-
-    for (int state=0;state < p.Nstep;state++)
-        {
-        //double temp=0.; 
-        for ( int vmod2=0; vmod2 < p_der.subdim[p_der.currentSubspace]; ++vmod2)
-            {
-            for (int lev2 = p_der.minLev; lev2 <= p_der.maxLev; ++lev2)
-                {
-                int subsize2 = st_der.nstates_lev_each(vmod2,lev2);
-                for ( int vmod=0; vmod < p_der.subdim[p_der.currentSubspace]; ++vmod)
-                    {
-                    for(int lev = p_der.minLev ; lev<= p_der.maxLev; ++lev)
-                        {
-                        int subsize = st_der.nstates_lev_each(vmod,lev);
-                        if (subsize!=0 and subsize2!=0)
-                            {
-                            coeffSweep_j=new double[subsize*subsize];
-                            for (int ii=0;ii<subsize;ii++)
-                                {
-                                for (int jj=0;jj<subsize;jj++)
-                                    {
-                                    if (st_der.state_nonchiral_lev(vmod, lev, ii, jj) < NRGstoresize)
-                                        {
-                                        coeffSweep_j[ii*subsize+jj] = coeffSweep[ state*NRGstoresize + st_der.state_nonchiral_lev(vmod,lev,ii,jj) ];
-                                        }
-                                    else
-                                        {
-                                        coeffSweep_j[ii*subsize+jj]=0.;
-                                        }
-                                    }
-                                }
-
-
-                            for(int pert=0; pert < p_der.numPert; ++pert)
-                                {
-                                results=new double[subsize*subsize2];
-                                results2=new double[subsize2*subsize2];
-
-                                cblas_dgemm(CblasRowMajor,CblasNoTrans,CblasNoTrans,subsize2,subsize,subsize,1.0,&m1(pert,vmod2,vmod,lev2,lev,0),subsize,coeffSweep_j,subsize,0.0,results,subsize);
-                                cblas_dgemm(CblasRowMajor,CblasNoTrans,CblasTrans,subsize2,subsize2,subsize,1.0,results,subsize,&m2(pert,vmod2,vmod,lev2,lev,0),subsize,0.0,results2,subsize2);
-
-                                double c = p_der.pConst[pert]*2.*pi*pow(R/2./pi,1.-(p_der.deltas[pert].first + p_der.deltas[pert].second));
-                                for (int ii=0;ii<subsize2;ii++)
-                                    {
-                                    for (int jj=0;jj<subsize2;jj++)
-                                        {
-                                        int ind1 = st_der.state_nonchiral_lev(vmod2, lev2, ii, jj);
-                                        if (ind1 < NRGspacesize)
-                                            {
-                                            H_part[state*NRGspacesize+ind1] += c*results2[ii*subsize2+jj];
-                                            }
-                                        }
-                                    }
-                                delete [] results;
-                                delete [] results2;
-                                }//closing loop over perturbation
-                            delete [] coeffSweep_j;
-                            }//closing if
-                        } //closing loop over level -->lev
-                    }// closing loop over verma modules -->vmod
-                } // closing loop over lev -->lev2
-            } // closing loop over verma modules --> vmod2
-        } //closing loop over state 
-     
 
     double* H_part2 = new double[p.Nsize*p.Nstep ];
 
-    cblas_dgemm(CblasRowMajor,CblasNoTrans,CblasTrans,p.Nsize,p.Nstep,NRGspacesize,1.0,coeff,NRGspacesize,H_part,NRGspacesize,0.0,H_part2,p.Nstep);    
+    cblas_dgemm(CblasRowMajor,CblasNoTrans,CblasTrans,p.Nsize,p.Nstep,NRGstoresize,1.0,H_part,NRGstoresize,coeffSweep,NRGstoresize,0.0,H_part2,p.Nstep);
 
     delete [] H_part;
-
+    // basic version till here
+ 
+    //conformal energy contribution
     double* coefftemp= new double[p.Nsize*NRGstoresize];
     for (int i=0;i < p.Nsize;++i)
         {
@@ -600,6 +544,7 @@ void minimal_model_Hamiltonian::sweep_block_BC(int iteration, double* coeff, dou
 
     delete [] coefftemp;
 
+    //sum up perturbation and conformal contribution
     for (int i=0; i < p.Nsize;i++)
         {
         for (int j=0; j < p.Nstep;j++)
