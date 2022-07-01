@@ -19,6 +19,8 @@ OBJS=$(SRC:.cpp=.o)
 #OBJS_MPI=$(SRC_MPI:.cpp=.o)
 OBJS_FIELD=$(SRC_FIELD:.cpp=.o)
 
+.PHONY: clean test test_mpi
+
 all : truspace.x  fields_and_structure_constants.x
 
 mpi : truspace_mpi.x fields_and_structure_constants.x
@@ -52,4 +54,17 @@ fields_and_structure_constants.x : fields_and_structure_constants.cpp $(OBJS_FIE
 clean:
 	rm -f *.x *.o
 
+test:
+	@rm ${ROOT}/test/Eigenvalues_p_3_q_4_minLev_0_maxLev_10_Per_2_c_0.09_Subspace_0_Mom_0 || true
+	@rm ${ROOT}/test/FINAL_Eigenvalues_p_3_q_4_minLev_0_maxLev_10_Per_2_c_0.09_Subspace_0_Mom_0 || true
+	@rm ${ROOT}/test/store* || true
+	@cp truspace.x ${ROOT}/test/ && cd ${ROOT}/test/ && ./truspace.x input-ising-model input-ising-nrg > /dev/null
+	@${ROOT}/test/compare.py ${ROOT}/test/Eigenvalues_p_3_q_4_minLev_0_maxLev_10_Per_2_c_0.09_Subspace_0_Mom_0 ${ROOT}/test/serial/Eigenvalues_p_3_q_4_minLev_0_maxLev_10_Per_2_c_0.09_Subspace_0_Mom_0 || echo Test failed!
+
+test_mpi:
+	@rm ${ROOT}/test/Eigenvalues_p_3_q_4_minLev_0_maxLev_10_Per_2_c_0.09_Subspace_0_Mom_0 || true
+	@rm ${ROOT}/test/FINAL_Eigenvalues_p_3_q_4_minLev_0_maxLev_10_Per_2_c_0.09_Subspace_0_Mom_0 || true
+	@rm ${ROOT}/test/store* || true
+	@cp truspace_mpi.x ${ROOT}/test/ && cd ${ROOT}/test/ && mpirun -np 4 ./truspace_mpi.x input-ising-model input-ising-nrg > /dev/null
+	@${ROOT}/test/compare.py ${ROOT}/test/Eigenvalues_p_3_q_4_minLev_0_maxLev_10_Per_2_c_0.09_Subspace_0_Mom_0 ${ROOT}/test/mpi/Eigenvalues_p_3_q_4_minLev_0_maxLev_10_Per_2_c_0.09_Subspace_0_Mom_0 || echo Test failed!
 
