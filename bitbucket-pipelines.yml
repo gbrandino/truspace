@@ -33,7 +33,7 @@ pipelines:
           - self.hosted
           - linux
         script:
-          - cd src/truspace && make test
+          - /bin/bash cd src/truspace && make test
     #- step:
         #name: Lint
         #script:
