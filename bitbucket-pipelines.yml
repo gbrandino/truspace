@@ -10,11 +10,10 @@ image: gcc:10.2
 pipelines:
   default:
     - step:
+        name: Build and Run
         runs-on:
           - self.hosted
           - linux
-    - step:
-        name: Build and Run
         script:
           - apt update && apt -y install texinfo
           - /bin/bash ./install.sh 
@@ -23,6 +22,9 @@ pipelines:
           #- make distcheck 
     - step:
         name: Test
+        runs-on:
+          - self.hosted
+          - linux
         script:
           - cd src/truspace && make test
     #- step:
