@@ -22,6 +22,7 @@ pipelines:
           - apt-get -y install texinfo 
           - apt-get -y install gfortran
           - apt-get -y install build-essential
+          - apt-get -y install python
           - /bin/bash ./install.sh 
           #- cd src/nrg && make serial && cd src/truspace && make serial
           # Execute your C++ application after compilation to check success
