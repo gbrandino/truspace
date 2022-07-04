@@ -10,6 +10,14 @@ image: gcc:10.2
 pipelines:
   default:
     - step:
+        name: Build and Run
+        script:
+          - /bin/bash ./install.sh 
+          - cd src/nrg && make serial
+          - cd src/truspace && make serial
+          # Execute your C++ application after compilation to check success
+          #- make distcheck 
+    - step:
         name: Test
         script:
           - cd src/truspace && make test
@@ -18,11 +26,4 @@ pipelines:
         #script:
           # apt update && apt -y install cppcheck && cppcheck .
           #- make lint
-    - step:
-        name: Build and Run
-        script:
-          - /bin/bash ./install.sh 
-          - cd src/nrg && make serial
-          - cd src/truspace && make serial
-          # Execute your C++ application after compilation to check success
-          #- make distcheck 
+
