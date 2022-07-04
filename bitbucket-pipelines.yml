@@ -18,8 +18,9 @@ pipelines:
         script:
           - apt-get update
           - export DEBIAN_FRONTEND=noninteractive
-          - apt-get install -y tzdata
-          - apt -y install texinfo 
+          - apt-get -y install tzdata
+          - apt-get -y install texinfo 
+          - apt-get -y install gfortran
           - /bin/bash ./install.sh 
           #- cd src/nrg && make serial && cd src/truspace && make serial
           # Execute your C++ application after compilation to check success
