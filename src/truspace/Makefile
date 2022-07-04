@@ -21,7 +21,7 @@ OBJS_FIELD=$(SRC_FIELD:.cpp=.o)
 
 .PHONY: clean test test_mpi
 
-all : truspace.x  fields_and_structure_constants.x
+serial: truspace.x  fields_and_structure_constants.x
 
 mpi : truspace_mpi.x fields_and_structure_constants.x
 
