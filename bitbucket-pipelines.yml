@@ -12,6 +12,7 @@ pipelines:
     - step:
         name: Build and Run
         script:
+          - apt update && apt -y install texinfo
           - /bin/bash ./install.sh 
           - cd src/nrg && make serial
           - cd src/truspace && make serial
