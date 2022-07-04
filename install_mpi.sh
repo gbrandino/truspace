@@ -46,7 +46,7 @@ cd $ROOTDIR/$BLAS  && \
 make FC=$FC  && make install PREFIX=$ROOTDIR/dep/$BLAS  && \
 cd $ROOTDIR/$SCALAPACK  && \
 BLASDIR=$ROOTDIR/dep/$BLAS/lib make  && \
-cd $ROOTDIR/src/nrg && make mpi \
-cd $ROOTDIR/src/nrg && make mpi\
+cd $ROOTDIR/src/nrg && make mpi && \
+cd $ROOTDIR/src/truspace && make mpi && \
 cd $ROOTDIR/src/truspace_extension_example && make mpi
 
