@@ -1,0 +1,28 @@
+# Template C++ Application
+
+# This template allows you to validate your C++ application.
+# The workflow allows running tests and code linting on the default branch.
+
+
+image: gcc:10.2
+
+
+pipelines:
+  default:
+    - step:
+        name: Test
+        script:
+          - cd src/truspace && make test
+    #- step:
+        #name: Lint
+        #script:
+          # apt update && apt -y install cppcheck && cppcheck .
+          #- make lint
+    - step:
+        name: Build and Run
+        script:
+          - /bin/bash ./install.sh 
+          - cd src/nrg && make serial
+          - cd src/truspace && make serial
+          # Execute your C++ application after compilation to check success
+          #- make distcheck 
