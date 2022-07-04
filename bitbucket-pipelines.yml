@@ -24,16 +24,10 @@ pipelines:
           - apt-get -y install build-essential
           - apt-get -y install python
           - /bin/bash ./install.sh 
+          - /bin/bash ./run_test.sh
           #- cd src/nrg && make serial && cd src/truspace && make serial
           # Execute your C++ application after compilation to check success
           #- make distcheck 
-    - step:
-        name: Test
-        runs-on:
-          - self.hosted
-          - linux
-        script:
-          - /bin/bash ./run_test.sh 
     #- step:
         #name: Lint
         #script:
