@@ -4,7 +4,8 @@
 # The workflow allows running tests and code linting on the default branch.
 
 
-image: atlassian/default_image:3 
+image: 
+  name: atlassian/default_image:3 
 
 
 pipelines:
