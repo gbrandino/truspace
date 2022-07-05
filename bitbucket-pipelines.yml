@@ -22,15 +22,8 @@ pipelines:
           - apt-get -y install texinfo 
           - apt-get -y install gfortran
           - apt-get -y install build-essential
-          - apt-get -y install python
+          - apt-get -y install python3
+          - apt-get -y install python3-pip
+          - pip3 install numpy pytest
           - /bin/bash ./install.sh 
           - /bin/bash ./run_test.sh
-          #- cd src/nrg && make serial && cd src/truspace && make serial
-          # Execute your C++ application after compilation to check success
-          #- make distcheck 
-    #- step:
-        #name: Lint
-        #script:
-          # apt update && apt -y install cppcheck && cppcheck .
-          #- make lint
-

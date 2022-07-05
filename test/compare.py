@@ -1,36 +1,24 @@
-#! /bin/python
+#!/usr/bin/env python3
 import sys
-
-file1 = []
-file2 = []
-with open(sys.argv[1]) as fp:
-    line = fp.readline()
-    while line:
-        line2 = line.rstrip(" \n")
-        tmp = line2.split(" ")
-        tmp2 = [float(x) for x in tmp]
-        file1.append(tmp2)
-        line = fp.readline()
-
-with open(sys.argv[1]) as fp:
-    line = fp.readline()
-    while line:
-        line2 = line.rstrip(" \n")
-        tmp = line2.split(" ")
-        tmp2 = [float(x) for x in tmp]
-        file2.append(tmp2)
-        line = fp.readline()
-
-
-
-
+import unittest
 import numpy as np
-file1 = np.genfromtxt(sys.argv[1], delimiter=' ', dtype=np.double)
-file2 = np.genfromtxt(sys.argv[2], delimiter=' ', dtype=np.double)
+import os
 
-diff = np.abs(file1 - file2)
-equal = not np.any(diff > 1e-14)
-if equal:
-    sys.exit(0)
-else:
-    sys.exit(1)
+filename = 'Eigenvalues_p_3_q_4_minLev_0_maxLev_10_Per_2_c_0.09_Subspace_0_Mom_0'
+filepath1 = os.getcwd() + '/../../test/' + filename
+filepath2 = os.getcwd() + '/../../test/serial/' + filename
+
+
+class TestTruspace(unittest.TestCase):
+
+    def runTest(self):
+        file1 = np.genfromtxt(filepath1, delimiter=' ', dtype=np.double)
+        file2 = np.genfromtxt(filepath2, delimiter=' ', dtype=np.double)
+
+        diff = np.abs(file1 - file2)
+        equal = not np.any(diff > 1e-14)
+        self.assertEqual(equal, True)
+
+
+if __name__ == '__main__':
+    unittest.TextTestRunner().run(TestTruspace())
