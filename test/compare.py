@@ -17,7 +17,7 @@ class TestTruspace(unittest.TestCase):
         print(file1)
         print(file2)
         diff = np.abs(file1 - file2)
-        equal = not np.any(diff > 1e-14)
+        equal = not np.any(diff > 1e-7)
         self.assertEqual(equal, True)
 
 
