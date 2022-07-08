@@ -81,7 +81,7 @@ The available classes are
 
 The model-agnostic nature of the NRG class should allow easy extension of the current code to other Quantum Hamiltonians.
 
-Full class documentation available at https://gbrandino.bitbucket.io/truspace/
+Full class documentation available at https://truspacedevelopers.bitbucket.io/ 
 
 Building TruSpace
 -------------------
