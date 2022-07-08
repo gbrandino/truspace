@@ -9,7 +9,7 @@
 
 #ifndef MINIMAL_MODEL_CONFIG_H
 #define MINIMAL_MODEL_CONFIG_H
-#define VERSION "1.0.0"
+#define VERSION "2.0.0"
 
 /** \def MaxPart
  *  \brief Maximum number of partitions of integers ( so the maxium possible number of different strings of lowering opertaros ) in a chiral expectation value.

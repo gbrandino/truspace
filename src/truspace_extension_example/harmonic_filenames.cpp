@@ -1,5 +1,5 @@
 /** Output filenames helper class. 
- *   - Contains the filenames helper class 
+ *   - Contains the customized filenames helper class 
  * \authors Giuseppe Piero Brandino - eXact-lab s.r.l.
  * \date November 2017
  */
@@ -24,7 +24,9 @@ harmonic_filenames::~harmonic_filenames()
 
 }
 
-
+/** Here the filenames strings are generated, typically using combination
+ * of input parameters
+ **/
 harmonic_filenames::harmonic_filenames(custom_parameters& p)
 {
 

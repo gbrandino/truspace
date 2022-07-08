@@ -1,5 +1,5 @@
 /** @file sparse_tensors.h 
- * \brief Set of helper templates class to manage 2D, 3D, 4D, 5D, 6D tensors 
+ * \brief Set of helper templates class to manage 3D, 6D tensors 
  * 
  * This classes do not provide an allocator. They are allocated automatically using the costum constructor tesor?D( int int ....)
  * The default constructor can be used, but only to create dummy tensors, that needs to be assigned using the assignment operator (=)

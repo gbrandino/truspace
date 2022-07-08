@@ -1,4 +1,4 @@
-/** @file parameters.h
+/** @file minimal_model_parameters.h
  * \brief Input parameter class, derived from parameters, with model-specific data 
  * Big fuzzy object that contains 
  *   - input paramenter
@@ -81,10 +81,10 @@ class minimal_model_parameters : public parameters
 
         // class methods
         /** Constructor
-         * @param[in] The name of the model input file
-         * @param[in] The name of the nrg input file
+         * @param[in] modelfilename The name of the model input file
+         * @param[in] nrgfilename of the nrg input file
          */
-        minimal_model_parameters(const char*, const char*);
+        minimal_model_parameters(const char* modelfilename, const char* nrgfilename);
         
         /** Prints the input paramters, Verma modules size, Hilbert space size, subspace analysis and structure constant. <em> Needs to be called after analyse_subspaces() </em>
          */

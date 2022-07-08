@@ -1,5 +1,5 @@
-\hypertarget{classNRG}{}\section{N\+RG Class Reference}
-\label{classNRG}\index{N\+RG@{N\+RG}}
+\hypertarget{classNRG}{}\doxysection{N\+RG Class Reference}
+\label{classNRG}\index{NRG@{NRG}}
 
 
 Class that handles exact diagonalization, \mbox{\hyperlink{classNRG}{N\+RG}} and Sweep in a model-\/agnostic way ( as much as possible )  
@@ -9,7 +9,7 @@ Class that handles exact diagonalization, \mbox{\hyperlink{classNRG}{N\+RG}} and
 
 {\ttfamily \#include $<$N\+R\+G.\+h$>$}
 
-\subsection*{Public Member Functions}
+\doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\hyperlink{classNRG_a6bf501546b1e832d3252e4309c4a23b4}{N\+RG}} ()
@@ -18,32 +18,42 @@ Class that handles exact diagonalization, \mbox{\hyperlink{classNRG}{N\+RG}} and
 \mbox{\hyperlink{classNRG_a63d1da6ac2d6d5e4b9ace89aa28a2f1b}{$\sim$\+N\+RG}} ()
 \begin{DoxyCompactList}\small\item\em Destructor. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classNRG_a0cdebccf7b1db2cd43c5516dbc4a2d99}{run}} (\mbox{\hyperlink{classparameters}{parameters}} \&p, \mbox{\hyperlink{classHamiltonian}{Hamiltonian}} \&H, \mbox{\hyperlink{classfilenames}{filenames}} \&fnames)
+\begin{DoxyCompactList}\small\item\em Routine that perfoms exact diagonalization, \mbox{\hyperlink{classNRG}{N\+RG}} or Sweep according to the input file. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classNRG_a6bf501546b1e832d3252e4309c4a23b4}\label{classNRG_a6bf501546b1e832d3252e4309c4a23b4}} 
+\mbox{\hyperlink{classNRG_a6bf501546b1e832d3252e4309c4a23b4}{N\+RG}} ()
+\begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classNRG_a63d1da6ac2d6d5e4b9ace89aa28a2f1b}\label{classNRG_a63d1da6ac2d6d5e4b9ace89aa28a2f1b}} 
+\mbox{\hyperlink{classNRG_a63d1da6ac2d6d5e4b9ace89aa28a2f1b}{$\sim$\+N\+RG}} ()
+\begin{DoxyCompactList}\small\item\em Destructor. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classNRG_a0cdebccf7b1db2cd43c5516dbc4a2d99}{run}} (\mbox{\hyperlink{classparameters}{parameters}} \&p, \mbox{\hyperlink{classHamiltonian}{Hamiltonian}} \&H, \mbox{\hyperlink{classfilenames}{filenames}} \&fnames)
 \begin{DoxyCompactList}\small\item\em Routine that perfoms exact diagonalization, \mbox{\hyperlink{classNRG}{N\+RG}} or Sweep according to the input file. \end{DoxyCompactList}\end{DoxyCompactItemize}
-\subsection*{Public Attributes}
+\doxysubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{classNRG_a6bb2f06a95bd934c9ba334ec7bb1a383}\label{classNRG_a6bb2f06a95bd934c9ba334ec7bb1a383}} 
-\mbox{\hyperlink{classtensor2D}{tensor2D}}$<$ double $>$ {\bfseries Eigen\+Vectors}
-\item 
+\mbox{\Hypertarget{classNRG_a537f962921c03bdd2c69a7f478d86e09}\label{classNRG_a537f962921c03bdd2c69a7f478d86e09}} 
+\mbox{\hyperlink{classtensor2D}{tensor2D}}$<$ double $>$ \mbox{\hyperlink{classNRG_a537f962921c03bdd2c69a7f478d86e09}{Eigen\+Vectors}}
+\begin{DoxyCompactList}\small\item\em Tensor holding the eigenvectors of the last diagonalization. \end{DoxyCompactList}\item 
 int \mbox{\hyperlink{classNRG_a7a05492a4430738de19fe40e86b82fa6}{N\+Iters}}
 \begin{DoxyCompactList}\small\item\em Number of \mbox{\hyperlink{classNRG}{N\+RG}} iteration to perform. \end{DoxyCompactList}\item 
 int \mbox{\hyperlink{classNRG_a9b274aa64283108388dfe2fa6883a848}{N\+Sweeps}}
 \begin{DoxyCompactList}\small\item\em Number of Sweep to perform. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
-\subsection{Detailed Description}
+\doxysubsection{Detailed Description}
 Class that handles exact diagonalization, \mbox{\hyperlink{classNRG}{N\+RG}} and Sweep in a model-\/agnostic way ( as much as possible ) 
 
-\subsection{Constructor \& Destructor Documentation}
+\doxysubsection{Constructor \& Destructor Documentation}
 \mbox{\Hypertarget{classNRG_a6bf501546b1e832d3252e4309c4a23b4}\label{classNRG_a6bf501546b1e832d3252e4309c4a23b4}} 
-\index{N\+RG@{N\+RG}!N\+RG@{N\+RG}}
-\index{N\+RG@{N\+RG}!N\+RG@{N\+RG}}
-\subsubsection{\texorpdfstring{N\+R\+G()}{NRG()}}
+\index{NRG@{NRG}!NRG@{NRG}}
+\index{NRG@{NRG}!NRG@{NRG}}
+\doxysubsubsection{\texorpdfstring{NRG()}{NRG()}}
 {\footnotesize\ttfamily N\+R\+G\+::\+N\+RG (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 
 
 Constructor. 
+
+Class that handles exact diagonalization, \mbox{\hyperlink{classNRG}{N\+RG}} and Sweep in a model-\/agnostic way ( as much as possible ) -\/ M\+PI Parallel Version using scalapack/pblas.
 
 Class that handles exact diagonalization, \mbox{\hyperlink{classNRG}{N\+RG}} and Sweep in a model-\/agnostic way ( as much as possible )
 
@@ -55,11 +65,11 @@ November 2017
 \end{DoxyDate}
 
 
-\subsection{Member Function Documentation}
+\doxysubsection{Member Function Documentation}
 \mbox{\Hypertarget{classNRG_a0cdebccf7b1db2cd43c5516dbc4a2d99}\label{classNRG_a0cdebccf7b1db2cd43c5516dbc4a2d99}} 
-\index{N\+RG@{N\+RG}!run@{run}}
-\index{run@{run}!N\+RG@{N\+RG}}
-\subsubsection{\texorpdfstring{run()}{run()}}
+\index{NRG@{NRG}!run@{run}}
+\index{run@{run}!NRG@{NRG}}
+\doxysubsubsection{\texorpdfstring{run()}{run()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
 {\footnotesize\ttfamily void N\+R\+G\+::run (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classparameters}{parameters}} \&}]{p,  }\item[{\mbox{\hyperlink{classHamiltonian}{Hamiltonian}} \&}]{H,  }\item[{\mbox{\hyperlink{classfilenames}{filenames}} \&}]{fnames }\end{DoxyParamCaption})}
 
 
@@ -68,20 +78,39 @@ Routine that perfoms exact diagonalization, \mbox{\hyperlink{classNRG}{N\+RG}} o
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\tt in}  & {\em p} & Reference to a parameter object \\
+\mbox{\texttt{ in}}  & {\em p} & Reference to a parameter object \\
 \hline
-\mbox{\tt in}  & {\em H} & Reference to an \mbox{\hyperlink{classHamiltonian}{Hamiltonian}} object \\
+\mbox{\texttt{ in}}  & {\em H} & Reference to an \mbox{\hyperlink{classHamiltonian}{Hamiltonian}} object \\
 \hline
-\mbox{\tt in}  & {\em fnames} & Reference to a filenames object \\
+\mbox{\texttt{ in}}  & {\em fnames} & Reference to a filenames object \\
 \hline
 \end{DoxyParams}
-diagonalize \mbox{\hyperlink{classHamiltonian}{Hamiltonian}} and sort for relevant states 
+\mbox{\Hypertarget{classNRG_a0cdebccf7b1db2cd43c5516dbc4a2d99}\label{classNRG_a0cdebccf7b1db2cd43c5516dbc4a2d99}} 
+\index{NRG@{NRG}!run@{run}}
+\index{run@{run}!NRG@{NRG}}
+\doxysubsubsection{\texorpdfstring{run()}{run()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void N\+R\+G\+::run (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classparameters}{parameters}} \&}]{p,  }\item[{\mbox{\hyperlink{classHamiltonian}{Hamiltonian}} \&}]{H,  }\item[{\mbox{\hyperlink{classfilenames}{filenames}} \&}]{fnames }\end{DoxyParamCaption})}
 
-\subsection{Member Data Documentation}
+
+
+Routine that perfoms exact diagonalization, \mbox{\hyperlink{classNRG}{N\+RG}} or Sweep according to the input file. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em p} & Reference to a parameter object \\
+\hline
+\mbox{\texttt{ in}}  & {\em H} & Reference to an \mbox{\hyperlink{classHamiltonian}{Hamiltonian}} object \\
+\hline
+\mbox{\texttt{ in}}  & {\em fnames} & Reference to a filenames object \\
+\hline
+\end{DoxyParams}
+diagonalize \mbox{\hyperlink{classHamiltonian}{Hamiltonian}} and sort for relevant states
+
+\doxysubsection{Member Data Documentation}
 \mbox{\Hypertarget{classNRG_a7a05492a4430738de19fe40e86b82fa6}\label{classNRG_a7a05492a4430738de19fe40e86b82fa6}} 
-\index{N\+RG@{N\+RG}!N\+Iters@{N\+Iters}}
-\index{N\+Iters@{N\+Iters}!N\+RG@{N\+RG}}
-\subsubsection{\texorpdfstring{N\+Iters}{NIters}}
+\index{NRG@{NRG}!NIters@{NIters}}
+\index{NIters@{NIters}!NRG@{NRG}}
+\doxysubsubsection{\texorpdfstring{NIters}{NIters}}
 {\footnotesize\ttfamily int N\+R\+G\+::\+N\+Iters}
 
 
@@ -89,9 +118,9 @@ diagonalize \mbox{\hyperlink{classHamiltonian}{Hamiltonian}} and sort for releva
 Number of \mbox{\hyperlink{classNRG}{N\+RG}} iteration to perform. 
 
 Calculated by the code. \mbox{\Hypertarget{classNRG_a9b274aa64283108388dfe2fa6883a848}\label{classNRG_a9b274aa64283108388dfe2fa6883a848}} 
-\index{N\+RG@{N\+RG}!N\+Sweeps@{N\+Sweeps}}
-\index{N\+Sweeps@{N\+Sweeps}!N\+RG@{N\+RG}}
-\subsubsection{\texorpdfstring{N\+Sweeps}{NSweeps}}
+\index{NRG@{NRG}!NSweeps@{NSweeps}}
+\index{NSweeps@{NSweeps}!NRG@{NRG}}
+\doxysubsubsection{\texorpdfstring{NSweeps}{NSweeps}}
 {\footnotesize\ttfamily int N\+R\+G\+::\+N\+Sweeps}
 
 
@@ -102,5 +131,7 @@ Read from input file.
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{NRG_8h}{N\+R\+G.\+h}}\item 
-N\+R\+G.\+cpp\end{DoxyCompactItemize}
+nrg/\mbox{\hyperlink{NRG_8h}{N\+R\+G.\+h}}\item 
+nrg/\mbox{\hyperlink{NRG__MPI_8h}{N\+R\+G\+\_\+\+M\+P\+I.\+h}}\item 
+nrg/N\+R\+G.\+cpp\item 
+nrg/N\+R\+G\+\_\+\+M\+P\+I.\+cpp\end{DoxyCompactItemize}

@@ -1,4 +1,4 @@
-\hypertarget{classworker}{}\section{worker Class Reference}
+\hypertarget{classworker}{}\doxysection{worker Class Reference}
 \label{classworker}\index{worker@{worker}}
 
 
@@ -9,7 +9,7 @@ Driver Class for states, matrix element and \mbox{\hyperlink{classNRG}{N\+RG}} c
 
 {\ttfamily \#include $<$worker.\+h$>$}
 
-\subsection*{Public Member Functions}
+\doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{classworker_a7bd845810dd8185384e37405ef322b7d}\label{classworker_a7bd845810dd8185384e37405ef322b7d}} 
@@ -18,12 +18,19 @@ Driver Class for states, matrix element and \mbox{\hyperlink{classNRG}{N\+RG}} c
 \mbox{\Hypertarget{classworker_ae34952f078699922bd79de0506995a47}\label{classworker_ae34952f078699922bd79de0506995a47}} 
 \mbox{\hyperlink{classworker_ae34952f078699922bd79de0506995a47}{$\sim$worker}} ()
 \begin{DoxyCompactList}\small\item\em Default destructor. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classworker_aad45e74b9cdc1cdf0ab979d5354ada69}\label{classworker_aad45e74b9cdc1cdf0ab979d5354ada69}} 
-void \mbox{\hyperlink{classworker_aad45e74b9cdc1cdf0ab979d5354ada69}{run}} (\mbox{\hyperlink{classparameters}{parameters}} \&p)
-\begin{DoxyCompactList}\small\item\em \mbox{[}in\mbox{]} p paramerts object \end{DoxyCompactList}\end{DoxyCompactItemize}
+void \mbox{\hyperlink{classworker_a456282fe869b1e59de35d7bd0958f981}{run}} (\mbox{\hyperlink{classminimal__model__parameters}{minimal\+\_\+model\+\_\+parameters}} \&p)
+\item 
+\mbox{\Hypertarget{classworker_a7bd845810dd8185384e37405ef322b7d}\label{classworker_a7bd845810dd8185384e37405ef322b7d}} 
+\mbox{\hyperlink{classworker_a7bd845810dd8185384e37405ef322b7d}{worker}} ()
+\begin{DoxyCompactList}\small\item\em Default constructor. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classworker_ae34952f078699922bd79de0506995a47}\label{classworker_ae34952f078699922bd79de0506995a47}} 
+\mbox{\hyperlink{classworker_ae34952f078699922bd79de0506995a47}{$\sim$worker}} ()
+\begin{DoxyCompactList}\small\item\em Default destructor. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classworker_a4c3c9bb9c5250acff3e10d623df305b3}{run}} (\mbox{\hyperlink{classcustom__parameters}{custom\+\_\+parameters}} \&p)
+\end{DoxyCompactItemize}
 
 
-\subsection{Detailed Description}
+\doxysubsection{Detailed Description}
 Driver Class for states, matrix element and \mbox{\hyperlink{classNRG}{N\+RG}} calculation. 
 
 It takes care of
@@ -38,11 +45,48 @@ It takes care of
 Giuseppe Piero Brandino -\/ e\+Xact-\/lab s.\+r.\+l. 
 \end{DoxyAuthor}
 \begin{DoxyDate}{Date}
-November 2017 
+November 2017
 \end{DoxyDate}
+It takes care of
+\begin{DoxyItemize}
+\item calling \mbox{\hyperlink{classNRG}{N\+RG}} routine for each value of the changing paramters ( system size L in this case)
+\item calculating Matrix element on the eigenstates found
+\end{DoxyItemize}
+
+\begin{DoxyAuthor}{Author}
+Giuseppe Piero Brandino -\/ e\+Xact-\/lab s.\+r.\+l. 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+October 2019 
+\end{DoxyDate}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classworker_a4c3c9bb9c5250acff3e10d623df305b3}\label{classworker_a4c3c9bb9c5250acff3e10d623df305b3}} 
+\index{worker@{worker}!run@{run}}
+\index{run@{run}!worker@{worker}}
+\doxysubsubsection{\texorpdfstring{run()}{run()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void worker\+::run (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classcustom__parameters}{custom\+\_\+parameters}} \&}]{p }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em p} & paramerts object \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classworker_a456282fe869b1e59de35d7bd0958f981}\label{classworker_a456282fe869b1e59de35d7bd0958f981}} 
+\index{worker@{worker}!run@{run}}
+\index{run@{run}!worker@{worker}}
+\doxysubsubsection{\texorpdfstring{run()}{run()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void worker\+::run (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classminimal__model__parameters}{minimal\+\_\+model\+\_\+parameters}} \&}]{p }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em p} & paramerts object \\
+\hline
+\end{DoxyParams}
 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{worker_8h}{worker.\+h}}\item 
-worker.\+cpp\end{DoxyCompactItemize}
+truspace/\mbox{\hyperlink{worker_8h}{worker.\+h}}\item 
+truspace/worker.\+cpp\end{DoxyCompactItemize}

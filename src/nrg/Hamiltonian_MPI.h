@@ -31,11 +31,9 @@ class Hamiltonian
         tensor2D< double > H; /**< Tensor2D holding the Hamiltonian matrix elements */
         int Msize; /**< Size of the Global Hamiltonian matrix */
         double R;  /**< Current value of the system size R */
-        //int Momentum; /**< Current momentum subspace. */
         parameters& p; /**< Reference to parameters object */
         states& st; /**< Reference to state object */
         matrix_elements& me; /**< Reference to chirMe object */
-        //int subspace; /**< Current symmetry subspace */
         int descH[9]; /**< BLACS descriptor of the distributed Hamiltonian */
         int ictxt;   /**< BLACS context */
         int rowH;   /**< Number of row of local slice of Hamiltonian matrix */
@@ -49,15 +47,15 @@ class Hamiltonian
         int npcol;  /**< Number of processes per col in the BLACS grid */
         int myrow;  /**< Row ID of the current process in the BLACS grid */
         int mycol;  /**< Col ID of the current process in the BLACS grid */
+
         /** Constructor. 
          * Allocates the correct size of the tensor H, which hold the Hamiltonian matrix elements.
-         * @param[in] p Reference to a parameter object.
-         * @param[in] st Reference to a state object.
-         * @param[in] me Reference to a chirME object.
-         * @param[in] subspace Integer descrbing the subspace currently under investigation.
+         * @param[in] p_in Reference to a parameter object.
+         * @param[in] st_in Reference to a state object.
+         * @param[in] me_in Reference to a chirME object.
          */
 
-        Hamiltonian(parameters& p, states& st, matrix_elements& me);
+        Hamiltonian(parameters& p_in, states& st_in, matrix_elements& me_in);
         /** Destructor
          */
         virtual ~Hamiltonian();
@@ -69,7 +67,7 @@ class Hamiltonian
 
         /** Routine to print eigenvalues to file.
          * @param[in] iteration NRG iteration number.
-         * @param[in] sweeep Sweep iteration.
+         * @param[in] sweep Sweep iteration.
          * @param[in] eigenvalues Array containing the eigenvalues to print.
          * @param[in] fname std::string containing the file name to print. Usually, a member variable of filenames.
          * @param[in] maxState Integer describing the maximum state considered in the current NRG iteration. Used to define effective energy of the truncation.
@@ -110,7 +108,7 @@ class Hamiltonian
          *  @param[in] coeff Matrix containing the eigenvectors of the previous NRG iteration, one per row
          *  @param[in] coeffSweep Matrix containing the eigenvectors of the previous sweep and same NRG iteration, one per row
          *  @param[in] NRGspacesize Current size of the NRG hilbert space, i.e. the number of components of eigenvectors in coeff
-         *  @param[in] NRGspacesize Size of the NRG hilbert space at the previous sweep same NRG iteration, i.e. the number of components of eigenvectors in coeffSweep
+         *  @param[in] NRGstoresize Size of the NRG hilbert space at the previous sweep same NRG iteration, i.e. the number of components of eigenvectors in coeffSweep
          */
         virtual void sweep_block_BC(int iteration, double* coeff, double* coeffSweep, int NRGspacesize, int NRGstoresize) = 0;
 

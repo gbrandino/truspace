@@ -1,4 +1,4 @@
-/** @file matrix_elements.h 
+/** @file harmonic_matrix_elements.h 
  * Class that contains the matrix elements of perturbing operators and operator to calculate expectation values 
  *
  * authors: Giuseppe Piero Brandino - eXact-lab s.r.l., Robert Konik - BNL
@@ -14,6 +14,7 @@
 #include "harmonic_filenames.h"
 
 /** Class that contains the chiral matrix elements of perturbing operators and of the operator to calculate expectation values
+ * All the methods needs to be implemented, since they are virtual in the base class
  */
 class harmonic_matrix_elements : public matrix_elements
 {
@@ -47,7 +48,7 @@ class harmonic_matrix_elements : public matrix_elements
           * @param[in] coeff Matrix containing the eigenvectors of the perturbed system in rows
           * @param[in] size Number of components of each eigenvectors (size of the computational basis)
           * @param[in] fname Output file name
-          * @param[in] value of the system size 
+          * @param[in] R Value of the system size 
           */
         void calculate_ExpVal(parameters& p, states& st, double* coeff, int size, std::string fname, double R);
 

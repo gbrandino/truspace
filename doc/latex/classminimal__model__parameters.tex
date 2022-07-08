@@ -1,0 +1,305 @@
+\hypertarget{classminimal__model__parameters}{}\doxysection{minimal\+\_\+model\+\_\+parameters Class Reference}
+\label{classminimal__model__parameters}\index{minimal\_model\_parameters@{minimal\_model\_parameters}}
+
+
+Input parameter class, derived from parameters, with model-\/specific data Big fuzzy object that contains.  
+
+
+
+
+{\ttfamily \#include $<$minimal\+\_\+model\+\_\+parameters.\+h$>$}
+
+Inheritance diagram for minimal\+\_\+model\+\_\+parameters\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classminimal__model__parameters}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classminimal__model__parameters_a5b8b6dc44918c75fc5278688f70f6a4e}{minimal\+\_\+model\+\_\+parameters}} (const char $\ast$modelfilename, const char $\ast$nrgfilename)
+\begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classminimal__model__parameters_a589555102465fce9a8d7441d0d05d4b9}{print}} () const
+\begin{DoxyCompactList}\small\item\em Prints the input paramters, Verma modules size, Hilbert space size, subspace analysis and structure constant. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classminimal__model__parameters_a4e5ad82e87b6081b96e9e59d84f8fe41}\label{classminimal__model__parameters_a4e5ad82e87b6081b96e9e59d84f8fe41}} 
+void \mbox{\hyperlink{classminimal__model__parameters_a4e5ad82e87b6081b96e9e59d84f8fe41}{analyse\+\_\+subspaces}} ()
+\begin{DoxyCompactList}\small\item\em Calculates Verma modules size, Hilbert space size, subspace analysis and structure constant. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classminimal__model__parameters_a5b5a9289819ec29f96a4cfcc118c48fa}\label{classminimal__model__parameters_a5b5a9289819ec29f96a4cfcc118c48fa}} 
+\mbox{\hyperlink{classminimal__model__parameters_a5b5a9289819ec29f96a4cfcc118c48fa}{$\sim$minimal\+\_\+model\+\_\+parameters}} ()
+\begin{DoxyCompactList}\small\item\em Destructor. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classminimal__model__parameters_a8cfc6b418d0344bce79638fe3533f761}\label{classminimal__model__parameters_a8cfc6b418d0344bce79638fe3533f761}} 
+int \mbox{\hyperlink{classminimal__model__parameters_a8cfc6b418d0344bce79638fe3533f761}{p}}
+\begin{DoxyCompactList}\small\item\em p index in Kac matrix \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classminimal__model__parameters_a74b5dedb1ee29af3cb9fb00ce2aa2c88}\label{classminimal__model__parameters_a74b5dedb1ee29af3cb9fb00ce2aa2c88}} 
+int \mbox{\hyperlink{classminimal__model__parameters_a74b5dedb1ee29af3cb9fb00ce2aa2c88}{q}}
+\begin{DoxyCompactList}\small\item\em q index in Kac matrix \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classminimal__model__parameters_a923c658a64abef9bf3a7ceb3e9fb7390}\label{classminimal__model__parameters_a923c658a64abef9bf3a7ceb3e9fb7390}} 
+int \mbox{\hyperlink{classminimal__model__parameters_a923c658a64abef9bf3a7ceb3e9fb7390}{num\+Pert}}
+\begin{DoxyCompactList}\small\item\em number of pertubations \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classminimal__model__parameters_a800f2100e36cef8509aec70862404f47}\label{classminimal__model__parameters_a800f2100e36cef8509aec70862404f47}} 
+int \mbox{\hyperlink{classminimal__model__parameters_a800f2100e36cef8509aec70862404f47}{max\+Lev}}
+\begin{DoxyCompactList}\small\item\em Maximum conformal level to include. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classminimal__model__parameters_a45289b9f7a2a8bd38e07293934bc4df5}\label{classminimal__model__parameters_a45289b9f7a2a8bd38e07293934bc4df5}} 
+int \mbox{\hyperlink{classminimal__model__parameters_a45289b9f7a2a8bd38e07293934bc4df5}{min\+Lev}}
+\begin{DoxyCompactList}\small\item\em Minimum conformal level to include (usually 0) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classminimal__model__parameters_af74f23e424aee02cd090ffd6961e27ae}\label{classminimal__model__parameters_af74f23e424aee02cd090ffd6961e27ae}} 
+int \mbox{\hyperlink{classminimal__model__parameters_af74f23e424aee02cd090ffd6961e27ae}{momentum}}
+\begin{DoxyCompactList}\small\item\em Momeuntum subspace considered. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classminimal__model__parameters_a177464f1cbd21a99346b5563319645f9}\label{classminimal__model__parameters_a177464f1cbd21a99346b5563319645f9}} 
+int $\ast$ \mbox{\hyperlink{classminimal__model__parameters_a177464f1cbd21a99346b5563319645f9}{r}}
+\begin{DoxyCompactList}\small\item\em array containing the index of perturbations as listed in the fields file ~\newline
+ \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classminimal__model__parameters_a0b97dd692a43f1d6b9968d05f5c137de}\label{classminimal__model__parameters_a0b97dd692a43f1d6b9968d05f5c137de}} 
+std\+::pair$<$ double, double $>$ $\ast$ \mbox{\hyperlink{classminimal__model__parameters_a0b97dd692a43f1d6b9968d05f5c137de}{deltas}}
+\begin{DoxyCompactList}\small\item\em array containing chiral conformal dimensions of each perturbation \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classminimal__model__parameters_a67ef9d686583fbe69b855871d2b0c18a}\label{classminimal__model__parameters_a67ef9d686583fbe69b855871d2b0c18a}} 
+double $\ast$ \mbox{\hyperlink{classminimal__model__parameters_a67ef9d686583fbe69b855871d2b0c18a}{p\+Const}}
+\begin{DoxyCompactList}\small\item\em array containing the constant for each perturbation \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classminimal__model__parameters_a2e9948fbb9c95a1da11517aa49e689a1}\label{classminimal__model__parameters_a2e9948fbb9c95a1da11517aa49e689a1}} 
+int \mbox{\hyperlink{classminimal__model__parameters_a2e9948fbb9c95a1da11517aa49e689a1}{r\+Steps}}
+\begin{DoxyCompactList}\small\item\em number of values of the radius to be considered \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classminimal__model__parameters_a1b4584414f90bbce65719e9014a3abae}\label{classminimal__model__parameters_a1b4584414f90bbce65719e9014a3abae}} 
+double \mbox{\hyperlink{classminimal__model__parameters_a1b4584414f90bbce65719e9014a3abae}{r\+Inc}}
+\begin{DoxyCompactList}\small\item\em increment of radius at each step \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classminimal__model__parameters_a55e074cacce63a3b3732b1de8c07ec6f}\label{classminimal__model__parameters_a55e074cacce63a3b3732b1de8c07ec6f}} 
+double \mbox{\hyperlink{classminimal__model__parameters_a55e074cacce63a3b3732b1de8c07ec6f}{r\+Start}}
+\begin{DoxyCompactList}\small\item\em initial value of the radius \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classminimal__model__parameters_a6281bf77ea8a511f5706759e416a3760}\label{classminimal__model__parameters_a6281bf77ea8a511f5706759e416a3760}} 
+bool \mbox{\hyperlink{classminimal__model__parameters_a6281bf77ea8a511f5706759e416a3760}{T\+C\+SA}}
+\begin{DoxyCompactList}\small\item\em True for diagonalization, false to have just Kac table structure constants and subspace analysis. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classminimal__model__parameters_abe678324fcdf1de725490eda39d00440}\label{classminimal__model__parameters_abe678324fcdf1de725490eda39d00440}} 
+bool \mbox{\hyperlink{classminimal__model__parameters_abe678324fcdf1de725490eda39d00440}{S\+A\+V\+E\+\_\+\+S\+T\+A\+T\+ES}}
+\begin{DoxyCompactList}\small\item\em True to save computationale basis to file, false not to save them. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classminimal__model__parameters_a29b806f7933a5e8a06293a0c740e7832}\label{classminimal__model__parameters_a29b806f7933a5e8a06293a0c740e7832}} 
+bool \mbox{\hyperlink{classminimal__model__parameters_a29b806f7933a5e8a06293a0c740e7832}{R\+E\+A\+D\+\_\+\+S\+T\+A\+T\+ES}}
+\begin{DoxyCompactList}\small\item\em True to read computationale basis from file, false to calculate them. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classminimal__model__parameters_a0f1a3aa206ae22eadeeb77ce98c11fe9}\label{classminimal__model__parameters_a0f1a3aa206ae22eadeeb77ce98c11fe9}} 
+bool \mbox{\hyperlink{classminimal__model__parameters_a0f1a3aa206ae22eadeeb77ce98c11fe9}{S\+A\+V\+E\+\_\+\+ME}}
+\begin{DoxyCompactList}\small\item\em True to save chiral matrix element of perturbing fields to file, false not to save them. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classminimal__model__parameters_a9594fe23e5804dc552f5d87b86327bd2}\label{classminimal__model__parameters_a9594fe23e5804dc552f5d87b86327bd2}} 
+bool \mbox{\hyperlink{classminimal__model__parameters_a9594fe23e5804dc552f5d87b86327bd2}{R\+E\+A\+D\+\_\+\+ME}}
+\begin{DoxyCompactList}\small\item\em True to read chiral matrix element of perturbing fields to file, false to calculate them. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classminimal__model__parameters_a1e41fcaf7a525dbce6370912ed74ba1c}\label{classminimal__model__parameters_a1e41fcaf7a525dbce6370912ed74ba1c}} 
+int \mbox{\hyperlink{classminimal__model__parameters_a1e41fcaf7a525dbce6370912ed74ba1c}{r\+\_\+op}}
+\begin{DoxyCompactList}\small\item\em r index of the operator to calculate expectation values as listed in the fields file \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classminimal__model__parameters_aae92c2a3cb1b060df08279e960b00c4b}\label{classminimal__model__parameters_aae92c2a3cb1b060df08279e960b00c4b}} 
+std\+::string \mbox{\hyperlink{classminimal__model__parameters_aae92c2a3cb1b060df08279e960b00c4b}{fields\+\_\+file}}
+\begin{DoxyCompactList}\small\item\em file name of the fields file \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classminimal__model__parameters_a14db5bc16d2d4641317ff558bc6a45bd}\label{classminimal__model__parameters_a14db5bc16d2d4641317ff558bc6a45bd}} 
+std\+::string \mbox{\hyperlink{classminimal__model__parameters_a14db5bc16d2d4641317ff558bc6a45bd}{constants\+\_\+file}}
+\begin{DoxyCompactList}\small\item\em file name of the structure constants file \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{classminimal__model__parameters_aaafa4193f3c61ffd1e57fec6a82d9f6e}{C}}
+\begin{DoxyCompactList}\small\item\em central charge. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classminimal__model__parameters_a4d0e090a386b3c6058c1a4c68c14fdff}{maxp}}
+\begin{DoxyCompactList}\small\item\em p size of Kac table. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classminimal__model__parameters_aa9128a7937e197ed8d0123013fb73205}\label{classminimal__model__parameters_aa9128a7937e197ed8d0123013fb73205}} 
+int \mbox{\hyperlink{classminimal__model__parameters_aa9128a7937e197ed8d0123013fb73205}{maxq}}
+\begin{DoxyCompactList}\small\item\em q size of Kac table Calculated by the code \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classminimal__model__parameters_a18e0bc27ac7c80eeed4ef109026f9341}\label{classminimal__model__parameters_a18e0bc27ac7c80eeed4ef109026f9341}} 
+int \mbox{\hyperlink{classminimal__model__parameters_a18e0bc27ac7c80eeed4ef109026f9341}{maxl}}
+\begin{DoxyCompactList}\small\item\em total size of Kac table Calculated by the code \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classminimal__model__parameters_a5b2381734e78aea8666b14d1b2f8ab65}\label{classminimal__model__parameters_a5b2381734e78aea8666b14d1b2f8ab65}} 
+int \mbox{\hyperlink{classminimal__model__parameters_a5b2381734e78aea8666b14d1b2f8ab65}{n\+\_\+fields}}
+\begin{DoxyCompactList}\small\item\em number of non-\/chiral fields read from file \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classminimal__model__parameters_a3195d2a913869c3d255e611c23c469d5}\label{classminimal__model__parameters_a3195d2a913869c3d255e611c23c469d5}} 
+int \mbox{\hyperlink{classminimal__model__parameters_a3195d2a913869c3d255e611c23c469d5}{numspace}}
+\begin{DoxyCompactList}\small\item\em number of subspace found by analysing the system Calculated by the code \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classminimal__model__parameters_a673f2dbb085db392ba13cd43ac64915b}\label{classminimal__model__parameters_a673f2dbb085db392ba13cd43ac64915b}} 
+int \mbox{\hyperlink{classminimal__model__parameters_a673f2dbb085db392ba13cd43ac64915b}{current\+Subspace}}
+\begin{DoxyCompactList}\small\item\em contains the subspace currently being analysed \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classminimal__model__parameters_ac826c4c5385555a1586a063db59a7e30}\label{classminimal__model__parameters_ac826c4c5385555a1586a063db59a7e30}} 
+int $\ast$ \mbox{\hyperlink{classminimal__model__parameters_ac826c4c5385555a1586a063db59a7e30}{max\+Num\+States}}
+\begin{DoxyCompactList}\small\item\em array containng the maximum number of states for a given level Calculated by the code \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classminimal__model__parameters_a091b10405748088ab51cc8d55f74115a}\label{classminimal__model__parameters_a091b10405748088ab51cc8d55f74115a}} 
+std\+::vector$<$ std\+::pair$<$ std\+::pair$<$ int, int $>$, std\+::pair$<$ int, int $>$ $>$ $>$ {\bfseries fields}
+\item 
+\mbox{\Hypertarget{classminimal__model__parameters_a0bb7a02df65711d2b4a28e3092460ba1}\label{classminimal__model__parameters_a0bb7a02df65711d2b4a28e3092460ba1}} 
+std\+::map$<$ int, std\+::pair$<$ double, double $>$ $>$ \mbox{\hyperlink{classminimal__model__parameters_a0bb7a02df65711d2b4a28e3092460ba1}{fields\+\_\+dimensions}}
+\begin{DoxyCompactList}\small\item\em vector that contains pairs of pairs of indexes, such the a non chiral field is indexed by a pair (r,s) (r\textquotesingle{},s\textquotesingle{}) for the chiral and anti chiral component respectively, as read from input file \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classtensor2D}{tensor2D}}$<$ double $>$ \mbox{\hyperlink{classminimal__model__parameters_a7dd70e3076d6429b402b4b13c9b62dd3}{Kac}}
+\begin{DoxyCompactList}\small\item\em map that contains the non chiral fields conformal dimesions. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsparse__tensor6D}{sparse\+\_\+tensor6D}}$<$ double $>$ \mbox{\hyperlink{classminimal__model__parameters_ab061b33d930c9209e1f8a715e9ae4c44}{cpt}}
+\begin{DoxyCompactList}\small\item\em Structure constant of the model. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsparse__tensor3D}{sparse\+\_\+tensor3D}}$<$ double $>$ \mbox{\hyperlink{classminimal__model__parameters_a2fd1c71b8ab78f46593f1bbecd836f52}{cptsmall}}
+\begin{DoxyCompactList}\small\item\em Structure constants of the model, indexed with field index. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classminimal__model__parameters_a3c8fba6fe0e66b3581cdfe3419c7b92e}\label{classminimal__model__parameters_a3c8fba6fe0e66b3581cdfe3419c7b92e}} 
+std\+::vector$<$ std\+::map$<$ std\+::pair$<$ int, int $>$, int $>$ $>$ \mbox{\hyperlink{classminimal__model__parameters_a3c8fba6fe0e66b3581cdfe3419c7b92e}{Pair\+To\+Index}}
+\begin{DoxyCompactList}\small\item\em Vector whose elements are map of pairs of indexes of fields (r,s) and the corresponding linear index of the chiral field, foreach subspace. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classminimal__model__parameters_a7e155e650b7ef337f494088b40dc4c1f}\label{classminimal__model__parameters_a7e155e650b7ef337f494088b40dc4c1f}} 
+std\+::vector$<$ std\+::map$<$ int, std\+::pair$<$ int, int $>$ $>$ $>$ \mbox{\hyperlink{classminimal__model__parameters_a7e155e650b7ef337f494088b40dc4c1f}{Index\+To\+Pair}}
+\begin{DoxyCompactList}\small\item\em Vector whose elements are map of the linear index of the chiral field and the correspoding pairs of indexes of fields (r,s), foreach subspace. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classtensor3D}{tensor3D}}$<$ int $>$ \mbox{\hyperlink{classminimal__model__parameters_a7cee2f7f43cd49a93e5c0a8663d542ca}{vermadim}}
+\begin{DoxyCompactList}\small\item\em contains the number of states for each level of each verma module. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classtensor3D}{tensor3D}}$<$ int $>$ \mbox{\hyperlink{classminimal__model__parameters_afb2f318b00754054bb60a1673f25ece7}{vermadimcomul}}
+\begin{DoxyCompactList}\small\item\em contains the cumulative number of states up to each level of each verma module. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classtensor2D}{tensor2D}}$<$ int $>$ \mbox{\hyperlink{classminimal__model__parameters_a51077797f59b83fca0c961d5b086599a}{finalsubspace}}
+\begin{DoxyCompactList}\small\item\em contains the index of the non chiral fields in each subspace. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classtensor2D}{tensor2D}}$<$ int $>$ \mbox{\hyperlink{classminimal__model__parameters_a6218544c5cae55191da8178d1e039288}{int\+Matrix}}
+\begin{DoxyCompactList}\small\item\em contains the sketch of the interaction matrix, where each element is a the tensor product of left and right verma module. \end{DoxyCompactList}\item 
+int $\ast$ \mbox{\hyperlink{classminimal__model__parameters_a3212d4ee76c51d6f9067cdd27aa9a9d7}{subdim}}
+\begin{DoxyCompactList}\small\item\em contains the number of vermamodule in a give symmetry subspace. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classminimal__model__parameters_a4fb28924d3b923fc1054c855495fec6f}\label{classminimal__model__parameters_a4fb28924d3b923fc1054c855495fec6f}} 
+int $\ast$ \mbox{\hyperlink{classminimal__model__parameters_a4fb28924d3b923fc1054c855495fec6f}{leveldim}}
+\begin{DoxyCompactList}\small\item\em Contains the. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classminimal__model__parameters_a4e2b7887c529aa9c9d6ee3372458ffa2}\label{classminimal__model__parameters_a4e2b7887c529aa9c9d6ee3372458ffa2}} 
+\mbox{\hyperlink{classtensor2D}{tensor2D}}$<$ int $>$ \mbox{\hyperlink{classminimal__model__parameters_a4e2b7887c529aa9c9d6ee3372458ffa2}{subdim\+States}}
+\begin{DoxyCompactList}\small\item\em contains the predicted number of predicted non-\/chiral states in each subspace, and at given momentum \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+Input parameter class, derived from parameters, with model-\/specific data Big fuzzy object that contains. 
+
+
+\begin{DoxyItemize}
+\item input paramenter
+\item Kac table
+\item structure constant
+\item verma module in each subspace 
+\end{DoxyItemize}
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classminimal__model__parameters_a5b8b6dc44918c75fc5278688f70f6a4e}\label{classminimal__model__parameters_a5b8b6dc44918c75fc5278688f70f6a4e}} 
+\index{minimal\_model\_parameters@{minimal\_model\_parameters}!minimal\_model\_parameters@{minimal\_model\_parameters}}
+\index{minimal\_model\_parameters@{minimal\_model\_parameters}!minimal\_model\_parameters@{minimal\_model\_parameters}}
+\doxysubsubsection{\texorpdfstring{minimal\_model\_parameters()}{minimal\_model\_parameters()}}
+{\footnotesize\ttfamily minimal\+\_\+model\+\_\+parameters\+::minimal\+\_\+model\+\_\+parameters (\begin{DoxyParamCaption}\item[{const char $\ast$}]{modelfilename,  }\item[{const char $\ast$}]{nrgfilename }\end{DoxyParamCaption})}
+
+
+
+Constructor. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em modelfilename} & The name of the model input file \\
+\hline
+\mbox{\texttt{ in}}  & {\em nrgfilename} & of the nrg input file \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classminimal__model__parameters_a589555102465fce9a8d7441d0d05d4b9}\label{classminimal__model__parameters_a589555102465fce9a8d7441d0d05d4b9}} 
+\index{minimal\_model\_parameters@{minimal\_model\_parameters}!print@{print}}
+\index{print@{print}!minimal\_model\_parameters@{minimal\_model\_parameters}}
+\doxysubsubsection{\texorpdfstring{print()}{print()}}
+{\footnotesize\ttfamily void minimal\+\_\+model\+\_\+parameters\+::print (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Prints the input paramters, Verma modules size, Hilbert space size, subspace analysis and structure constant. 
+
+{\itshape  Needs to be called after \mbox{\hyperlink{classminimal__model__parameters_a4e5ad82e87b6081b96e9e59d84f8fe41}{analyse\+\_\+subspaces()}} } 
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classminimal__model__parameters_aaafa4193f3c61ffd1e57fec6a82d9f6e}\label{classminimal__model__parameters_aaafa4193f3c61ffd1e57fec6a82d9f6e}} 
+\index{minimal\_model\_parameters@{minimal\_model\_parameters}!C@{C}}
+\index{C@{C}!minimal\_model\_parameters@{minimal\_model\_parameters}}
+\doxysubsubsection{\texorpdfstring{C}{C}}
+{\footnotesize\ttfamily double minimal\+\_\+model\+\_\+parameters\+::C}
+
+
+
+central charge. 
+
+Calculated by the code \mbox{\Hypertarget{classminimal__model__parameters_ab061b33d930c9209e1f8a715e9ae4c44}\label{classminimal__model__parameters_ab061b33d930c9209e1f8a715e9ae4c44}} 
+\index{minimal\_model\_parameters@{minimal\_model\_parameters}!cpt@{cpt}}
+\index{cpt@{cpt}!minimal\_model\_parameters@{minimal\_model\_parameters}}
+\doxysubsubsection{\texorpdfstring{cpt}{cpt}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classsparse__tensor6D}{sparse\+\_\+tensor6D}}$<$double$>$ minimal\+\_\+model\+\_\+parameters\+::cpt}
+
+
+
+Structure constant of the model. 
+
+Calculated by the code \mbox{\Hypertarget{classminimal__model__parameters_a2fd1c71b8ab78f46593f1bbecd836f52}\label{classminimal__model__parameters_a2fd1c71b8ab78f46593f1bbecd836f52}} 
+\index{minimal\_model\_parameters@{minimal\_model\_parameters}!cptsmall@{cptsmall}}
+\index{cptsmall@{cptsmall}!minimal\_model\_parameters@{minimal\_model\_parameters}}
+\doxysubsubsection{\texorpdfstring{cptsmall}{cptsmall}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classsparse__tensor3D}{sparse\+\_\+tensor3D}}$<$double$>$ minimal\+\_\+model\+\_\+parameters\+::cptsmall}
+
+
+
+Structure constants of the model, indexed with field index. 
+
+Read from input file \mbox{\Hypertarget{classminimal__model__parameters_a51077797f59b83fca0c961d5b086599a}\label{classminimal__model__parameters_a51077797f59b83fca0c961d5b086599a}} 
+\index{minimal\_model\_parameters@{minimal\_model\_parameters}!finalsubspace@{finalsubspace}}
+\index{finalsubspace@{finalsubspace}!minimal\_model\_parameters@{minimal\_model\_parameters}}
+\doxysubsubsection{\texorpdfstring{finalsubspace}{finalsubspace}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtensor2D}{tensor2D}}$<$int$>$ minimal\+\_\+model\+\_\+parameters\+::finalsubspace}
+
+
+
+contains the index of the non chiral fields in each subspace. 
+
+Calculated by the code \mbox{\Hypertarget{classminimal__model__parameters_a6218544c5cae55191da8178d1e039288}\label{classminimal__model__parameters_a6218544c5cae55191da8178d1e039288}} 
+\index{minimal\_model\_parameters@{minimal\_model\_parameters}!intMatrix@{intMatrix}}
+\index{intMatrix@{intMatrix}!minimal\_model\_parameters@{minimal\_model\_parameters}}
+\doxysubsubsection{\texorpdfstring{intMatrix}{intMatrix}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtensor2D}{tensor2D}}$<$ int $>$ minimal\+\_\+model\+\_\+parameters\+::int\+Matrix}
+
+
+
+contains the sketch of the interaction matrix, where each element is a the tensor product of left and right verma module. 
+
+Calculated by the code \mbox{\Hypertarget{classminimal__model__parameters_a7dd70e3076d6429b402b4b13c9b62dd3}\label{classminimal__model__parameters_a7dd70e3076d6429b402b4b13c9b62dd3}} 
+\index{minimal\_model\_parameters@{minimal\_model\_parameters}!Kac@{Kac}}
+\index{Kac@{Kac}!minimal\_model\_parameters@{minimal\_model\_parameters}}
+\doxysubsubsection{\texorpdfstring{Kac}{Kac}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtensor2D}{tensor2D}}$<$double$>$ minimal\+\_\+model\+\_\+parameters\+::\+Kac}
+
+
+
+map that contains the non chiral fields conformal dimesions. 
+
+Given the index of a non chiral field, as from the input file, it return a pair of double, the chiral and anti chiral conformal dimension of the corresponding field Contains the Kac table, meaning the weight of primary fields, indexed with standard r,s indeces \mbox{\Hypertarget{classminimal__model__parameters_a4d0e090a386b3c6058c1a4c68c14fdff}\label{classminimal__model__parameters_a4d0e090a386b3c6058c1a4c68c14fdff}} 
+\index{minimal\_model\_parameters@{minimal\_model\_parameters}!maxp@{maxp}}
+\index{maxp@{maxp}!minimal\_model\_parameters@{minimal\_model\_parameters}}
+\doxysubsubsection{\texorpdfstring{maxp}{maxp}}
+{\footnotesize\ttfamily int minimal\+\_\+model\+\_\+parameters\+::maxp}
+
+
+
+p size of Kac table. 
+
+Calculated by the code \mbox{\Hypertarget{classminimal__model__parameters_a3212d4ee76c51d6f9067cdd27aa9a9d7}\label{classminimal__model__parameters_a3212d4ee76c51d6f9067cdd27aa9a9d7}} 
+\index{minimal\_model\_parameters@{minimal\_model\_parameters}!subdim@{subdim}}
+\index{subdim@{subdim}!minimal\_model\_parameters@{minimal\_model\_parameters}}
+\doxysubsubsection{\texorpdfstring{subdim}{subdim}}
+{\footnotesize\ttfamily int$\ast$ minimal\+\_\+model\+\_\+parameters\+::subdim}
+
+
+
+contains the number of vermamodule in a give symmetry subspace. 
+
+Calculated by the code ~\newline
+ \mbox{\Hypertarget{classminimal__model__parameters_a7cee2f7f43cd49a93e5c0a8663d542ca}\label{classminimal__model__parameters_a7cee2f7f43cd49a93e5c0a8663d542ca}} 
+\index{minimal\_model\_parameters@{minimal\_model\_parameters}!vermadim@{vermadim}}
+\index{vermadim@{vermadim}!minimal\_model\_parameters@{minimal\_model\_parameters}}
+\doxysubsubsection{\texorpdfstring{vermadim}{vermadim}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtensor3D}{tensor3D}}$<$ int $>$ minimal\+\_\+model\+\_\+parameters\+::vermadim}
+
+
+
+contains the number of states for each level of each verma module. 
+
+The first two indeces are the r,s indeces of the primary field, the third is the level \mbox{\Hypertarget{classminimal__model__parameters_afb2f318b00754054bb60a1673f25ece7}\label{classminimal__model__parameters_afb2f318b00754054bb60a1673f25ece7}} 
+\index{minimal\_model\_parameters@{minimal\_model\_parameters}!vermadimcomul@{vermadimcomul}}
+\index{vermadimcomul@{vermadimcomul}!minimal\_model\_parameters@{minimal\_model\_parameters}}
+\doxysubsubsection{\texorpdfstring{vermadimcomul}{vermadimcomul}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtensor3D}{tensor3D}}$<$ int $>$ minimal\+\_\+model\+\_\+parameters\+::vermadimcomul}
+
+
+
+contains the cumulative number of states up to each level of each verma module. 
+
+The first two indeces are the r,s indeces of the primary field, the third is the level 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+truspace/\mbox{\hyperlink{minimal__model__parameters_8h}{minimal\+\_\+model\+\_\+parameters.\+h}}\item 
+truspace/minimal\+\_\+model\+\_\+parameters.\+cpp\end{DoxyCompactItemize}

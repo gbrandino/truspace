@@ -1,5 +1,5 @@
 /** @file harmonic_Hamiltonian_MPI.h
- * \brief Hamiltonian class file. 
+ * \brief harmonic_Hamiltonian class file. 
  * \authors Giuseppe Piero Brandino - eXact-lab s.r.l.
  * \date November 2017
  */
@@ -24,6 +24,8 @@
  * | C | D |
  * 
  * Where A is a matrix of size parameters::Nsize**2, B and C are of size  parameters::Nsize* parameters::Nstep and C is of size parameters::Nstep**2
+ * 
+ * All the methods needs to be implemented, since they are virtual in the base class
  */
 class harmonic_Hamiltonian : public Hamiltonian
 {
@@ -46,7 +48,7 @@ class harmonic_Hamiltonian : public Hamiltonian
 
         /** Routine to print eigenvalues to file.
          * @param[in] iteration NRG iteration number.
-         * @param[in] sweeep Sweep iteration.
+         * @param[in] sweep Sweep iteration.
          * @param[in] eigenvalues Array containing the eigenvalues to print.
          * @param[in] fname std::string containing the file name to print. Usually, a member variable of filenames.
          * @param[in] maxState Integer describing the maximum state considered in the current NRG iteration. Used to define effective energy of the truncation.
@@ -87,7 +89,7 @@ class harmonic_Hamiltonian : public Hamiltonian
          *  @param[in] coeff Matrix containing the eigenvectors of the previous NRG iteration, one per row
          *  @param[in] coeffSweep Matrix containing the eigenvectors of the previous sweep and same NRG iteration, one per row
          *  @param[in] NRGspacesize Current size of the NRG hilbert space, i.e. the number of components of eigenvectors in coeff
-         *  @param[in] NRGspacesize Size of the NRG hilbert space at the previous sweep same NRG iteration, i.e. the number of components of eigenvectors in coeffSweep
+         *  @param[in] NRGstoresize Size of the NRG hilbert space at the previous sweep same NRG iteration, i.e. the number of components of eigenvectors in coeffSweep
          */
         void sweep_block_BC(int iteration, double* coeff, double* coeffSweep, int NRGspacesize, int NRGstoresize);
 

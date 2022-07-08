@@ -36,9 +36,9 @@ class parameters
 
         // class methods
         /** Constructor
-         * @param[in] The name of the nrg input file
+         * @param[in] nrgfilename The name of the nrg input file
          */
-        parameters(const char*);
+        parameters(const char* nrgfilename);
         
         /** Prints the input paramters, Verma modules size, Hilbert space size, subspace analysis and structure constant. <em> Needs to be called after analyse_subspaces() </em>
          */

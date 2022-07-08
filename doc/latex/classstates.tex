@@ -1,109 +1,50 @@
-\hypertarget{classstates}{}\section{states Class Reference}
+\hypertarget{classstates}{}\doxysection{states Class Reference}
 \label{classstates}\index{states@{states}}
 
 
-Class that contains and calculates chiral states by removing null vectors from each verma module.  
+Class that contains states.  
 
 
 
 
 {\ttfamily \#include $<$states.\+h$>$}
 
-\subsection*{Public Member Functions}
+Inheritance diagram for states\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classstates}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{classstates_ae206bf8fa4a70fc320f801b49580b079}{states}} (\mbox{\hyperlink{classparameters}{parameters}} \&p, int subspace)
+\mbox{\hyperlink{classstates_a230457e4d707b4ab82b3f1be84d06439}{states}} (\mbox{\hyperlink{classparameters}{parameters}} \&p)
 \begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classstates_aaf08681a42c3435c65ebbec0eba43909}\label{classstates_aaf08681a42c3435c65ebbec0eba43909}} 
-\mbox{\hyperlink{classstates_aaf08681a42c3435c65ebbec0eba43909}{$\sim$states}} ()
-\begin{DoxyCompactList}\small\item\em Destructor. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{classstates_a90f229e41fc4ce3bcacc454c6b81c39e}{calculate\+\_\+chiral}} (\mbox{\hyperlink{classparameters}{parameters}} \&p, int subspace, \mbox{\hyperlink{classfilenames}{filenames}} \&fname)
-\begin{DoxyCompactList}\small\item\em Routine to calculate chiral states, stored internally in the object itself. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{classstates_a29ea9504b3dad8e9f4044d1024eed240}{calculate\+\_\+nonchiral}} (\mbox{\hyperlink{classparameters}{parameters}} \&p, int subspace, int mom)
-\begin{DoxyCompactList}\small\item\em Routine to calculate nonchiral states, stored internally in the object itself. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{classstates_a3cd13c3362fd88e1c6d36cd05568c2e6}{read\+\_\+chiral}} (\mbox{\hyperlink{classparameters}{parameters}} \&p, int subspace, \mbox{\hyperlink{classfilenames}{filenames}} \&fname)
-\begin{DoxyCompactList}\small\item\em Routine to read chiral states from file, stored internally in the object itself. \end{DoxyCompactList}\end{DoxyCompactItemize}
-\subsection*{Public Attributes}
+virtual \mbox{\hyperlink{classstates_aaf08681a42c3435c65ebbec0eba43909}{$\sim$states}} ()
+\begin{DoxyCompactList}\small\item\em Destructor. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
-int \mbox{\hyperlink{classstates_ad9f623f5c27359984c385d12246543ee}{Max\+Chiral\+States}}
-\begin{DoxyCompactList}\small\item\em The maximum number of chiral states, calculated from character. \end{DoxyCompactList}\item 
-int \mbox{\hyperlink{classstates_a2fd5c64306f9528249a66332949c12ac}{Max\+Chiral\+Verma}}
-\begin{DoxyCompactList}\small\item\em The maximum number of chiral states in a Verma module, calculated from character. \end{DoxyCompactList}\item 
-int \mbox{\hyperlink{classstates_a9ce5621c6ba0f68a02cf9f2356bf10ae}{Max\+States}}
-\begin{DoxyCompactList}\small\item\em The maximum number of nonchiral states, calculated from character. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classstates_aa88673e024742468db1794e624eed296}\label{classstates_aa88673e024742468db1794e624eed296}} 
 int \mbox{\hyperlink{classstates_aa88673e024742468db1794e624eed296}{nstate}}
-\begin{DoxyCompactList}\small\item\em The total number of nonchiral states in the subspace. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classstates_a641347c618e932049bc123e97a3c796e}\label{classstates_a641347c618e932049bc123e97a3c796e}} 
-double $\ast$ \mbox{\hyperlink{classstates_a641347c618e932049bc123e97a3c796e}{state\+\_\+en}}
-\begin{DoxyCompactList}\small\item\em Array contaning the conformal energy of every nonchiral state. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classstates_ac50f77179eb8d80b4341fa670711502f}\label{classstates_ac50f77179eb8d80b4341fa670711502f}} 
-double $\ast$ \mbox{\hyperlink{classstates_ac50f77179eb8d80b4341fa670711502f}{state\+\_\+eff\+\_\+en}}
-\begin{DoxyCompactList}\small\item\em Array contaning the effective energy of every nonchiral state. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classstates_aba89bd2b4ecfaabfc02a226c19c7d582}\label{classstates_aba89bd2b4ecfaabfc02a226c19c7d582}} 
-int $\ast$ \mbox{\hyperlink{classstates_aba89bd2b4ecfaabfc02a226c19c7d582}{state\+\_\+left}}
-\begin{DoxyCompactList}\small\item\em Array that, given the global index of nonchiral states, returns the index in the correct Verma module, for the bra state. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classstates_a769aa6377596298548567ffe58a5a3d9}\label{classstates_a769aa6377596298548567ffe58a5a3d9}} 
-int $\ast$ \mbox{\hyperlink{classstates_a769aa6377596298548567ffe58a5a3d9}{state\+\_\+right}}
-\begin{DoxyCompactList}\small\item\em Array that, given the global index of nonchiral states, returns the index in the correct Verma module, for the ket state. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classstates_ad596910b4ed0fa16dd2df911500ede4b}\label{classstates_ad596910b4ed0fa16dd2df911500ede4b}} 
-int $\ast$ \mbox{\hyperlink{classstates_ad596910b4ed0fa16dd2df911500ede4b}{state\+\_\+vmod}}
-\begin{DoxyCompactList}\small\item\em Array that, given the global index of nonchiral states, returns the index of the correct Verma module. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classstates_ad52e2a0a460917d4ef6b9a0013a15977}\label{classstates_ad52e2a0a460917d4ef6b9a0013a15977}} 
-long double $\ast$ \mbox{\hyperlink{classstates_ad52e2a0a460917d4ef6b9a0013a15977}{h}}
-\begin{DoxyCompactList}\small\item\em array that contains the conformal dimension of the primary field labelling the verma module for each verma module in the subspace \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classstates_ab00e7f127fe77b9e2980f62c3f4b79fd}\label{classstates_ab00e7f127fe77b9e2980f62c3f4b79fd}} 
-\mbox{\hyperlink{classtensor3D}{tensor3D}}$<$ long double $>$ \mbox{\hyperlink{classstates_ab00e7f127fe77b9e2980f62c3f4b79fd}{cstate\+\_\+ortho\+\_\+modecoeff}}
-\begin{DoxyCompactList}\small\item\em 3D Tensor containing the coefficient of orthogonal conformal states on the non-\/orthogonal basis \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classstates_a54c223108d7c04e84816e2bcb77708e7}\label{classstates_a54c223108d7c04e84816e2bcb77708e7}} 
-\mbox{\hyperlink{classtensor3D}{tensor3D}}$<$ long double $>$ \mbox{\hyperlink{classstates_a54c223108d7c04e84816e2bcb77708e7}{me\+\_\+chi\+\_\+0}}
-\begin{DoxyCompactList}\small\item\em 3D Tensor containing the overlaps of conformal states, used to remove null vectors \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classstates_a6099951efd7606d46a5562457173e74f}\label{classstates_a6099951efd7606d46a5562457173e74f}} 
-\mbox{\hyperlink{classtensor2D}{tensor2D}}$<$ long double $>$ \mbox{\hyperlink{classstates_a6099951efd7606d46a5562457173e74f}{norm}}
-\begin{DoxyCompactList}\small\item\em 2D Tensor containing norms of \end{DoxyCompactList}\item 
-\mbox{\hyperlink{classtensor3D}{tensor3D}}$<$ long double $>$ \mbox{\hyperlink{classstates_a3a4d267e7509e9a51e0c5650be07ba86}{cstate\+\_\+mode}}
-\begin{DoxyCompactList}\small\item\em 3D Tensor that contains the strings of lowering operators that define a non-\/orthogonal chiral state. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classstates_af7a42babeb7eeaa78548e6d0fdf36ec9}\label{classstates_af7a42babeb7eeaa78548e6d0fdf36ec9}} 
-\mbox{\hyperlink{classtensor2D}{tensor2D}}$<$ long double $>$ \mbox{\hyperlink{classstates_af7a42babeb7eeaa78548e6d0fdf36ec9}{cstate\+\_\+norm}}
-\begin{DoxyCompactList}\small\item\em Norm of conformal chiral states. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classstates_a8346a505acfbcfd83461c1275e3288a8}\label{classstates_a8346a505acfbcfd83461c1275e3288a8}} 
-int $\ast$ \mbox{\hyperlink{classstates_a8346a505acfbcfd83461c1275e3288a8}{num\+\_\+chir}}
-\begin{DoxyCompactList}\small\item\em Array to store the number of chiral non-\/null states at each level. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{classtensor2D}{tensor2D}}$<$ int $>$ \mbox{\hyperlink{classstates_aeb29a6d5bbafca73664173b805e8eb4c}{cstate\+\_\+lev}}
-\begin{DoxyCompactList}\small\item\em Array that returns the level of a chiral non-\/orthogonal states, given its index. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{classtensor2D}{tensor2D}}$<$ int $>$ \mbox{\hyperlink{classstates_a769e49acef70da6a1b0fd16b25c944c0}{cstate\+\_\+nmode}}
-\begin{DoxyCompactList}\small\item\em Array that returns the number of modes for a chiral non-\/orthogonal states , given its index. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{classtensor2D}{tensor2D}}$<$ int $>$ \mbox{\hyperlink{classstates_a0cfdb42ede7f6bfff8bf0b98f0a8062c}{cstate\+\_\+ortho\+\_\+lev}}
-\begin{DoxyCompactList}\small\item\em Array that returns the level of a chiral orthogonal states, given its index. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{classtensor2D}{tensor2D}}$<$ int $>$ \mbox{\hyperlink{classstates_acc63cc2e7bb1faa1588e5e22b1fe1331}{cstate\+\_\+ortho\+\_\+nmode}}
-\begin{DoxyCompactList}\small\item\em Array that returns the number of modes for a chiral orthogonal states, given its index. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{classtensor3D}{tensor3D}}$<$ int $>$ \mbox{\hyperlink{classstates_adc4808a10cb6b1bfaae1e8997cc6091f}{cstate\+\_\+ortho\+\_\+mode}}
-\begin{DoxyCompactList}\small\item\em 3D Tensor that contains the strings of lowering operators that define an orthogonal chiral state. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classstates_a4c2e1225fb41d35f3a6309febe173a27}\label{classstates_a4c2e1225fb41d35f3a6309febe173a27}} 
-int \mbox{\hyperlink{classstates_a4c2e1225fb41d35f3a6309febe173a27}{Max\+Kac}}
-\begin{DoxyCompactList}\small\item\em Stores the size of the Kac determinant at each level. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{classtensor2D}{tensor2D}}$<$ int $>$ \mbox{\hyperlink{classstates_a771dde8a39178ed6bcafacb734c327fb}{nstates\+\_\+lev}}
-\begin{DoxyCompactList}\small\item\em Number of chiral state up to a given level. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{classtensor2D}{tensor2D}}$<$ int $>$ \mbox{\hyperlink{classstates_a1da92e42269b0663e192fadc88bdcf62}{nstates\+\_\+lev\+\_\+each}}
-\begin{DoxyCompactList}\small\item\em Number of chiral states in each level. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{classtensor3D}{tensor3D}}$<$ int $>$ \mbox{\hyperlink{classstates_a44ddcfa6809e22fd40444aad635bbe1c}{state\+\_\+right\+\_\+lev}}
-\begin{DoxyCompactList}\small\item\em Used only with sweep. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{classtensor3D}{tensor3D}}$<$ int $>$ \mbox{\hyperlink{classstates_aad0b1b93b447d966fb038d23f9108437}{state\+\_\+left\+\_\+lev}}
-\begin{DoxyCompactList}\small\item\em Used only with sweep. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{classtensor4D}{tensor4D}}$<$ int $>$ \mbox{\hyperlink{classstates_ac3ec1abff37aff02fc5d871a70b2053f}{state\+\_\+nonchiral\+\_\+lev}}
-\begin{DoxyCompactList}\small\item\em Used only with sweep. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em The total number of state in the trucated Hilbert space. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classstates_ae36ad89a8a33bebde6ed8dcb9abe6c60}{states}} ()
+\begin{DoxyCompactList}\small\item\em States class file. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
-\subsection{Detailed Description}
-Class that contains and calculates chiral states by removing null vectors from each verma module. 
+\doxysubsection{Detailed Description}
+Class that contains states. 
 
-\subsection{Constructor \& Destructor Documentation}
-\mbox{\Hypertarget{classstates_ae206bf8fa4a70fc320f801b49580b079}\label{classstates_ae206bf8fa4a70fc320f801b49580b079}} 
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classstates_a230457e4d707b4ab82b3f1be84d06439}\label{classstates_a230457e4d707b4ab82b3f1be84d06439}} 
 \index{states@{states}!states@{states}}
 \index{states@{states}!states@{states}}
-\subsubsection{\texorpdfstring{states()}{states()}}
-{\footnotesize\ttfamily states\+::states (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classparameters}{parameters}} \&}]{p,  }\item[{int}]{subspace }\end{DoxyParamCaption})}
+\doxysubsubsection{\texorpdfstring{states()}{states()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily states\+::states (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classparameters}{parameters}} \&}]{p }\end{DoxyParamCaption})}
 
 
 
@@ -111,217 +52,28 @@ Constructor.
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\tt in}  & {\em p} & Reference to a parameters object \\
-\hline
-\mbox{\tt in}  & {\em subspace} & Subspace to work on \\
+\mbox{\texttt{ in}}  & {\em p} & Reference to a parameters object \\
 \hline
 \end{DoxyParams}
+\mbox{\Hypertarget{classstates_ae36ad89a8a33bebde6ed8dcb9abe6c60}\label{classstates_ae36ad89a8a33bebde6ed8dcb9abe6c60}} 
+\index{states@{states}!states@{states}}
+\index{states@{states}!states@{states}}
+\doxysubsubsection{\texorpdfstring{states()}{states()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily states\+::states (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
 
 
-\subsection{Member Function Documentation}
-\mbox{\Hypertarget{classstates_a90f229e41fc4ce3bcacc454c6b81c39e}\label{classstates_a90f229e41fc4ce3bcacc454c6b81c39e}} 
-\index{states@{states}!calculate\+\_\+chiral@{calculate\+\_\+chiral}}
-\index{calculate\+\_\+chiral@{calculate\+\_\+chiral}!states@{states}}
-\subsubsection{\texorpdfstring{calculate\+\_\+chiral()}{calculate\_chiral()}}
-{\footnotesize\ttfamily void states\+::calculate\+\_\+chiral (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classparameters}{parameters}} \&}]{p,  }\item[{int}]{subspace,  }\item[{\mbox{\hyperlink{classfilenames}{filenames}} \&}]{fname }\end{DoxyParamCaption})}
 
+States class file. 
 
+\begin{DoxyAuthor}{Authors}
+Giuseppe Piero Brandino -\/ e\+Xact-\/lab s.\+r.\+l. 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+June 2022 
+\end{DoxyDate}
 
-Routine to calculate chiral states, stored internally in the object itself. 
-
-
-\begin{DoxyParams}[1]{Parameters}
-\mbox{\tt in}  & {\em p} & Reference to a parameters object \\
-\hline
-\mbox{\tt in}  & {\em subspace} & Subspace to work on \\
-\hline
-\mbox{\tt in}  & {\em fname} & Reference to a filenames object \\
-\hline
-\end{DoxyParams}
-\mbox{\Hypertarget{classstates_a29ea9504b3dad8e9f4044d1024eed240}\label{classstates_a29ea9504b3dad8e9f4044d1024eed240}} 
-\index{states@{states}!calculate\+\_\+nonchiral@{calculate\+\_\+nonchiral}}
-\index{calculate\+\_\+nonchiral@{calculate\+\_\+nonchiral}!states@{states}}
-\subsubsection{\texorpdfstring{calculate\+\_\+nonchiral()}{calculate\_nonchiral()}}
-{\footnotesize\ttfamily void states\+::calculate\+\_\+nonchiral (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classparameters}{parameters}} \&}]{p,  }\item[{int}]{subspace,  }\item[{int}]{mom }\end{DoxyParamCaption})}
-
-
-
-Routine to calculate nonchiral states, stored internally in the object itself. 
-
-
-\begin{DoxyParams}[1]{Parameters}
-\mbox{\tt in}  & {\em p} & Reference to a parameters object \\
-\hline
-\mbox{\tt in}  & {\em subspace} & Subspace to work on \\
-\hline
-\mbox{\tt in}  & {\em mom} & Momentum subspace to work on \\
-\hline
-\end{DoxyParams}
-\mbox{\Hypertarget{classstates_a3cd13c3362fd88e1c6d36cd05568c2e6}\label{classstates_a3cd13c3362fd88e1c6d36cd05568c2e6}} 
-\index{states@{states}!read\+\_\+chiral@{read\+\_\+chiral}}
-\index{read\+\_\+chiral@{read\+\_\+chiral}!states@{states}}
-\subsubsection{\texorpdfstring{read\+\_\+chiral()}{read\_chiral()}}
-{\footnotesize\ttfamily void states\+::read\+\_\+chiral (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classparameters}{parameters}} \&}]{p,  }\item[{int}]{subspace,  }\item[{\mbox{\hyperlink{classfilenames}{filenames}} \&}]{fname }\end{DoxyParamCaption})}
-
-
-
-Routine to read chiral states from file, stored internally in the object itself. 
-
-
-\begin{DoxyParams}[1]{Parameters}
-\mbox{\tt in}  & {\em p} & Reference to a parameters object \\
-\hline
-\mbox{\tt in}  & {\em subspace} & Subspace to work on \\
-\hline
-\mbox{\tt in}  & {\em fname} & Reference to a filenames object \\
-\hline
-\end{DoxyParams}
-
-
-\subsection{Member Data Documentation}
-\mbox{\Hypertarget{classstates_aeb29a6d5bbafca73664173b805e8eb4c}\label{classstates_aeb29a6d5bbafca73664173b805e8eb4c}} 
-\index{states@{states}!cstate\+\_\+lev@{cstate\+\_\+lev}}
-\index{cstate\+\_\+lev@{cstate\+\_\+lev}!states@{states}}
-\subsubsection{\texorpdfstring{cstate\+\_\+lev}{cstate\_lev}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classtensor2D}{tensor2D}}$<$ int $>$ states\+::cstate\+\_\+lev}
-
-
-
-Array that returns the level of a chiral non-\/orthogonal states, given its index. 
-
-The first index runs on Verma modules in the subspace, the second is the index of the chiral state \mbox{\Hypertarget{classstates_a3a4d267e7509e9a51e0c5650be07ba86}\label{classstates_a3a4d267e7509e9a51e0c5650be07ba86}} 
-\index{states@{states}!cstate\+\_\+mode@{cstate\+\_\+mode}}
-\index{cstate\+\_\+mode@{cstate\+\_\+mode}!states@{states}}
-\subsubsection{\texorpdfstring{cstate\+\_\+mode}{cstate\_mode}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classtensor3D}{tensor3D}}$<$ long double $>$ states\+::cstate\+\_\+mode}
-
-
-
-3D Tensor that contains the strings of lowering operators that define a non-\/orthogonal chiral state. 
-
-The first index runs on Verma modules in the subspace, the second is the index of the chiral state. The third on the string of indeces \mbox{\Hypertarget{classstates_a769e49acef70da6a1b0fd16b25c944c0}\label{classstates_a769e49acef70da6a1b0fd16b25c944c0}} 
-\index{states@{states}!cstate\+\_\+nmode@{cstate\+\_\+nmode}}
-\index{cstate\+\_\+nmode@{cstate\+\_\+nmode}!states@{states}}
-\subsubsection{\texorpdfstring{cstate\+\_\+nmode}{cstate\_nmode}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classtensor2D}{tensor2D}}$<$ int $>$ states\+::cstate\+\_\+nmode}
-
-
-
-Array that returns the number of modes for a chiral non-\/orthogonal states , given its index. 
-
-The first index runs on Verma modules in the subspace, the second is the index of the chiral state \mbox{\Hypertarget{classstates_a0cfdb42ede7f6bfff8bf0b98f0a8062c}\label{classstates_a0cfdb42ede7f6bfff8bf0b98f0a8062c}} 
-\index{states@{states}!cstate\+\_\+ortho\+\_\+lev@{cstate\+\_\+ortho\+\_\+lev}}
-\index{cstate\+\_\+ortho\+\_\+lev@{cstate\+\_\+ortho\+\_\+lev}!states@{states}}
-\subsubsection{\texorpdfstring{cstate\+\_\+ortho\+\_\+lev}{cstate\_ortho\_lev}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classtensor2D}{tensor2D}}$<$ int $>$ states\+::cstate\+\_\+ortho\+\_\+lev}
-
-
-
-Array that returns the level of a chiral orthogonal states, given its index. 
-
-The first index runs on Verma modules in the subspace, the second is the index of the chiral state \mbox{\Hypertarget{classstates_adc4808a10cb6b1bfaae1e8997cc6091f}\label{classstates_adc4808a10cb6b1bfaae1e8997cc6091f}} 
-\index{states@{states}!cstate\+\_\+ortho\+\_\+mode@{cstate\+\_\+ortho\+\_\+mode}}
-\index{cstate\+\_\+ortho\+\_\+mode@{cstate\+\_\+ortho\+\_\+mode}!states@{states}}
-\subsubsection{\texorpdfstring{cstate\+\_\+ortho\+\_\+mode}{cstate\_ortho\_mode}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classtensor3D}{tensor3D}}$<$ int $>$ states\+::cstate\+\_\+ortho\+\_\+mode}
-
-
-
-3D Tensor that contains the strings of lowering operators that define an orthogonal chiral state. 
-
-The first index runs on Verma modules in the subspace, the second is the index of the chiral state. The third on the string of indeces \mbox{\Hypertarget{classstates_acc63cc2e7bb1faa1588e5e22b1fe1331}\label{classstates_acc63cc2e7bb1faa1588e5e22b1fe1331}} 
-\index{states@{states}!cstate\+\_\+ortho\+\_\+nmode@{cstate\+\_\+ortho\+\_\+nmode}}
-\index{cstate\+\_\+ortho\+\_\+nmode@{cstate\+\_\+ortho\+\_\+nmode}!states@{states}}
-\subsubsection{\texorpdfstring{cstate\+\_\+ortho\+\_\+nmode}{cstate\_ortho\_nmode}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classtensor2D}{tensor2D}}$<$ int $>$ states\+::cstate\+\_\+ortho\+\_\+nmode}
-
-
-
-Array that returns the number of modes for a chiral orthogonal states, given its index. 
-
-The first index runs on Verma modules in the subspace, the second is the index of the chiral state \mbox{\Hypertarget{classstates_ad9f623f5c27359984c385d12246543ee}\label{classstates_ad9f623f5c27359984c385d12246543ee}} 
-\index{states@{states}!Max\+Chiral\+States@{Max\+Chiral\+States}}
-\index{Max\+Chiral\+States@{Max\+Chiral\+States}!states@{states}}
-\subsubsection{\texorpdfstring{Max\+Chiral\+States}{MaxChiralStates}}
-{\footnotesize\ttfamily int states\+::\+Max\+Chiral\+States}
-
-
-
-The maximum number of chiral states, calculated from character. 
-
-Used for array allocation \mbox{\Hypertarget{classstates_a2fd5c64306f9528249a66332949c12ac}\label{classstates_a2fd5c64306f9528249a66332949c12ac}} 
-\index{states@{states}!Max\+Chiral\+Verma@{Max\+Chiral\+Verma}}
-\index{Max\+Chiral\+Verma@{Max\+Chiral\+Verma}!states@{states}}
-\subsubsection{\texorpdfstring{Max\+Chiral\+Verma}{MaxChiralVerma}}
-{\footnotesize\ttfamily int states\+::\+Max\+Chiral\+Verma}
-
-
-
-The maximum number of chiral states in a Verma module, calculated from character. 
-
-Used for array allocation \mbox{\Hypertarget{classstates_a9ce5621c6ba0f68a02cf9f2356bf10ae}\label{classstates_a9ce5621c6ba0f68a02cf9f2356bf10ae}} 
-\index{states@{states}!Max\+States@{Max\+States}}
-\index{Max\+States@{Max\+States}!states@{states}}
-\subsubsection{\texorpdfstring{Max\+States}{MaxStates}}
-{\footnotesize\ttfamily int states\+::\+Max\+States}
-
-
-
-The maximum number of nonchiral states, calculated from character. 
-
-Used for array allocation \mbox{\Hypertarget{classstates_a771dde8a39178ed6bcafacb734c327fb}\label{classstates_a771dde8a39178ed6bcafacb734c327fb}} 
-\index{states@{states}!nstates\+\_\+lev@{nstates\+\_\+lev}}
-\index{nstates\+\_\+lev@{nstates\+\_\+lev}!states@{states}}
-\subsubsection{\texorpdfstring{nstates\+\_\+lev}{nstates\_lev}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classtensor2D}{tensor2D}}$<$ int $>$ states\+::nstates\+\_\+lev}
-
-
-
-Number of chiral state up to a given level. 
-
-The first index runs on Verma modules in the subspace, the second on levels \mbox{\Hypertarget{classstates_a1da92e42269b0663e192fadc88bdcf62}\label{classstates_a1da92e42269b0663e192fadc88bdcf62}} 
-\index{states@{states}!nstates\+\_\+lev\+\_\+each@{nstates\+\_\+lev\+\_\+each}}
-\index{nstates\+\_\+lev\+\_\+each@{nstates\+\_\+lev\+\_\+each}!states@{states}}
-\subsubsection{\texorpdfstring{nstates\+\_\+lev\+\_\+each}{nstates\_lev\_each}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classtensor2D}{tensor2D}}$<$ int $>$ states\+::nstates\+\_\+lev\+\_\+each}
-
-
-
-Number of chiral states in each level. 
-
-The first index runs on Verma modules in the subspace, the second on levels \mbox{\Hypertarget{classstates_aad0b1b93b447d966fb038d23f9108437}\label{classstates_aad0b1b93b447d966fb038d23f9108437}} 
-\index{states@{states}!state\+\_\+left\+\_\+lev@{state\+\_\+left\+\_\+lev}}
-\index{state\+\_\+left\+\_\+lev@{state\+\_\+left\+\_\+lev}!states@{states}}
-\subsubsection{\texorpdfstring{state\+\_\+left\+\_\+lev}{state\_left\_lev}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classtensor3D}{tensor3D}}$<$ int $>$ states\+::state\+\_\+left\+\_\+lev}
-
-
-
-Used only with sweep. 
-
-Tensor that given the verma module, the level and the index inside a level return the global index of the states of the chiral level in the verma module, for the chiral part \mbox{\Hypertarget{classstates_ac3ec1abff37aff02fc5d871a70b2053f}\label{classstates_ac3ec1abff37aff02fc5d871a70b2053f}} 
-\index{states@{states}!state\+\_\+nonchiral\+\_\+lev@{state\+\_\+nonchiral\+\_\+lev}}
-\index{state\+\_\+nonchiral\+\_\+lev@{state\+\_\+nonchiral\+\_\+lev}!states@{states}}
-\subsubsection{\texorpdfstring{state\+\_\+nonchiral\+\_\+lev}{state\_nonchiral\_lev}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classtensor4D}{tensor4D}}$<$ int $>$ states\+::state\+\_\+nonchiral\+\_\+lev}
-
-
-
-Used only with sweep. 
-
-Tensor that given the verma module, the level of a non chiral states, and the index of its chiral and antichiral components gives the index on the non chiral state in the global indexing \mbox{\Hypertarget{classstates_a44ddcfa6809e22fd40444aad635bbe1c}\label{classstates_a44ddcfa6809e22fd40444aad635bbe1c}} 
-\index{states@{states}!state\+\_\+right\+\_\+lev@{state\+\_\+right\+\_\+lev}}
-\index{state\+\_\+right\+\_\+lev@{state\+\_\+right\+\_\+lev}!states@{states}}
-\subsubsection{\texorpdfstring{state\+\_\+right\+\_\+lev}{state\_right\_lev}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classtensor3D}{tensor3D}}$<$ int $>$ states\+::state\+\_\+right\+\_\+lev}
-
-
-
-Used only with sweep. 
-
-Tensor that given the verma module, the level and the index inside a level return the global index of the states of the chiral level in the verma module, for the anti-\/chiral part 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{states_8h}{states.\+h}}\item 
-states.\+cpp\end{DoxyCompactItemize}
+nrg/\mbox{\hyperlink{states_8h}{states.\+h}}\item 
+nrg/states.\+cpp\end{DoxyCompactItemize}

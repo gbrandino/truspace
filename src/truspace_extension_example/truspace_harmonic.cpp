@@ -1,5 +1,5 @@
-/** @file truspace.cpp
- * \brief Main program of Truspace (driver routine).
+/** @file truspace_harmonic.cpp
+ * \brief Main program of Truspace harmonic oscillator extension (driver routine).
  *         Acts as a driver routine, reading input files and calling worker class to perform TCSA if required
  *
  * \authors Giuseppe Piero Brandino - eXact-lab s.r.l.

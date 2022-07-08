@@ -1,5 +1,5 @@
-/** @file Hamiltonian.h
- * \brief Hamiltonian class file. 
+/** @file minimal_model_Hamiltonian_MPI.h
+ * \brief minimial_model_Hamiltonian class file. 
  * \authors Giuseppe Piero Brandino - eXact-lab s.r.l.
  * \date November 2017
  */
@@ -34,7 +34,6 @@ class minimal_model_Hamiltonian: public Hamiltonian
          * @param[in] p Reference to a parameter object.
          * @param[in] st Reference to a state object.
          * @param[in] me Reference to a chirME object.
-         * @param[in] subspace Integer descrbing the subspace currently under investigation.
          */
 
         minimal_model_Hamiltonian(minimal_model_parameters& p, minimal_model_states& st, chirME& me);
@@ -49,7 +48,7 @@ class minimal_model_Hamiltonian: public Hamiltonian
 
         /** Routine to print eigenvalues to file.
          * @param[in] iteration NRG iteration number.
-         * @param[in] sweeep Sweep iteration.
+         * @param[in] sweep Sweep iteration.
          * @param[in] eigenvalues Array containing the eigenvalues to print.
          * @param[in] fname std::string containing the file name to print. Usually, a member variable of filenames.
          * @param[in] maxState Integer describing the maximum state considered in the current NRG iteration. Used to define effective energy of the truncation.
@@ -90,7 +89,7 @@ class minimal_model_Hamiltonian: public Hamiltonian
          *  @param[in] coeff Matrix containing the eigenvectors of the previous NRG iteration, one per row
          *  @param[in] coeffSweep Matrix containing the eigenvectors of the previous sweep and same NRG iteration, one per row
          *  @param[in] NRGspacesize Current size of the NRG hilbert space, i.e. the number of components of eigenvectors in coeff
-         *  @param[in] NRGspacesize Size of the NRG hilbert space at the previous sweep same NRG iteration, i.e. the number of components of eigenvectors in coeffSweep
+         *  @param[in] NRGstoresize Size of the NRG hilbert space at the previous sweep same NRG iteration, i.e. the number of components of eigenvectors in coeffSweep
          */
         void sweep_block_BC(int iteration, double* coeff, double* coeffSweep, int NRGspacesize, int NRGstoresize);
 

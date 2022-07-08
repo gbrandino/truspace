@@ -1,0 +1,113 @@
+\hypertarget{classmatrix__elements}{}\doxysection{matrix\+\_\+elements Class Reference}
+\label{classmatrix__elements}\index{matrix\_elements@{matrix\_elements}}
+
+
+Class that contains the chiral matrix elements of perturbing operators and of the operator to calculate expectation values.  
+
+
+
+
+{\ttfamily \#include $<$matrix\+\_\+elements.\+h$>$}
+
+Inheritance diagram for matrix\+\_\+elements\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classmatrix__elements}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classmatrix__elements_ab02be66fe8a61a2928b2a20de7993655}{matrix\+\_\+elements}} (\mbox{\hyperlink{classparameters}{parameters}} \&p, \mbox{\hyperlink{classstates}{states}} \&st, int subspace)
+\begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classmatrix__elements_a7dbb3d7cd0b103c10e7c1f3b23cfdcb8}\label{classmatrix__elements_a7dbb3d7cd0b103c10e7c1f3b23cfdcb8}} 
+virtual \mbox{\hyperlink{classmatrix__elements_a7dbb3d7cd0b103c10e7c1f3b23cfdcb8}{$\sim$matrix\+\_\+elements}} ()
+\begin{DoxyCompactList}\small\item\em Destructor. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{classmatrix__elements_a010e61684898a6820d4db603f68ef2a3}{calculate\+\_\+\+Exp\+Val}} (\mbox{\hyperlink{classparameters}{parameters}} \&p, \mbox{\hyperlink{classstates}{states}} \&st, double $\ast$coeff, int size, std\+::string fname, double R)=0
+\begin{DoxyCompactList}\small\item\em Routine that calculates the expectation value on the eigenvectors of the perturbed system of the given operator. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classmatrix__elements_a4923d1937a29173223936b2ab596abed}{matrix\+\_\+elements}} ()
+\begin{DoxyCompactList}\small\item\em Default constructor is protected, to prevent instantiation of invalid object. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Class that contains the chiral matrix elements of perturbing operators and of the operator to calculate expectation values. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classmatrix__elements_ab02be66fe8a61a2928b2a20de7993655}\label{classmatrix__elements_ab02be66fe8a61a2928b2a20de7993655}} 
+\index{matrix\_elements@{matrix\_elements}!matrix\_elements@{matrix\_elements}}
+\index{matrix\_elements@{matrix\_elements}!matrix\_elements@{matrix\_elements}}
+\doxysubsubsection{\texorpdfstring{matrix\_elements()}{matrix\_elements()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily matrix\+\_\+elements\+::matrix\+\_\+elements (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classparameters}{parameters}} \&}]{p,  }\item[{\mbox{\hyperlink{classstates}{states}} \&}]{st,  }\item[{int}]{subspace }\end{DoxyParamCaption})}
+
+
+
+Constructor. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em p} & Reference to a paramters object \\
+\hline
+\mbox{\texttt{ in}}  & {\em st} & Reference to a states object \\
+\hline
+\mbox{\texttt{ in}}  & {\em subspace} & Index of the subspace to work on \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classmatrix__elements_a4923d1937a29173223936b2ab596abed}\label{classmatrix__elements_a4923d1937a29173223936b2ab596abed}} 
+\index{matrix\_elements@{matrix\_elements}!matrix\_elements@{matrix\_elements}}
+\index{matrix\_elements@{matrix\_elements}!matrix\_elements@{matrix\_elements}}
+\doxysubsubsection{\texorpdfstring{matrix\_elements()}{matrix\_elements()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily matrix\+\_\+elements\+::matrix\+\_\+elements (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Default constructor is protected, to prevent instantiation of invalid object. 
+
+\mbox{\hyperlink{classmatrix__elements}{matrix\+\_\+elements}} class file.
+
+\begin{DoxyAuthor}{Authors}
+Giuseppe Piero Brandino -\/ e\+Xact-\/lab s.\+r.\+l. 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+June 2022 
+\end{DoxyDate}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classmatrix__elements_a010e61684898a6820d4db603f68ef2a3}\label{classmatrix__elements_a010e61684898a6820d4db603f68ef2a3}} 
+\index{matrix\_elements@{matrix\_elements}!calculate\_ExpVal@{calculate\_ExpVal}}
+\index{calculate\_ExpVal@{calculate\_ExpVal}!matrix\_elements@{matrix\_elements}}
+\doxysubsubsection{\texorpdfstring{calculate\_ExpVal()}{calculate\_ExpVal()}}
+{\footnotesize\ttfamily virtual void matrix\+\_\+elements\+::calculate\+\_\+\+Exp\+Val (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classparameters}{parameters}} \&}]{p,  }\item[{\mbox{\hyperlink{classstates}{states}} \&}]{st,  }\item[{double $\ast$}]{coeff,  }\item[{int}]{size,  }\item[{std\+::string}]{fname,  }\item[{double}]{R }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Routine that calculates the expectation value on the eigenvectors of the perturbed system of the given operator. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em p} & Reference to a paramters object \\
+\hline
+\mbox{\texttt{ in}}  & {\em st} & Reference to a states object \\
+\hline
+\mbox{\texttt{ in}}  & {\em coeff} & Matrix containing the eigenvectors of the perturbed system in rows \\
+\hline
+\mbox{\texttt{ in}}  & {\em size} & Number of components of each eigenvectors (size of the computational basis) \\
+\hline
+\mbox{\texttt{ in}}  & {\em fname} & Output file name \\
+\hline
+\mbox{\texttt{ in}}  & {\em R} & value of the radius R \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \mbox{\hyperlink{classharmonic__matrix__elements_ad9fd0668eca1229bd119b87a26c0d1d8}{harmonic\+\_\+matrix\+\_\+elements}}, and \mbox{\hyperlink{classchirME_ad4a0b1690ae2d2136d0a3d1f688941a6}{chir\+ME}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+nrg/\mbox{\hyperlink{matrix__elements_8h}{matrix\+\_\+elements.\+h}}\item 
+nrg/matrix\+\_\+elements.\+cpp\end{DoxyCompactItemize}

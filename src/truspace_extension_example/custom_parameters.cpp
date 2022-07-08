@@ -1,5 +1,5 @@
-/** Input parameter class. 
- *  Big fuzzy object that contains input paramenter
+/** Custom input parameter class. 
+ *  Big fuzzy object that contains custom input paramenter
  *  \authors Giuseppe Piero Brandino - eXact-lab s.r.l.
  *  \date October 2019
  */

@@ -1,5 +1,5 @@
-\hypertarget{classtensor5D}{}\section{tensor5D$<$ T $>$ Class Template Reference}
-\label{classtensor5D}\index{tensor5\+D$<$ T $>$@{tensor5\+D$<$ T $>$}}
+\hypertarget{classtensor5D}{}\doxysection{tensor5D$<$ T $>$ Class Template Reference}
+\label{classtensor5D}\index{tensor5D$<$ T $>$@{tensor5D$<$ T $>$}}
 
 
 Template class for 5D tensors This classes do not provide an allocator.  
@@ -9,7 +9,7 @@ Template class for 5D tensors This classes do not provide an allocator.
 
 {\ttfamily \#include $<$tensors.\+h$>$}
 
-\subsection*{Public Member Functions}
+\doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{classtensor5D_ae8e85d5902badd95c818f6cf9336251c}\label{classtensor5D_ae8e85d5902badd95c818f6cf9336251c}} 
@@ -26,7 +26,7 @@ T \& \mbox{\hyperlink{classtensor5D_a1265d153c79b6a9c98ec8d1517adf41f}{operator(
 \begin{DoxyCompactList}\small\item\em Element access operator, with bound check. \end{DoxyCompactList}\item 
 T \mbox{\hyperlink{classtensor5D_ae927ba60fe9dea9784eb92a58c289e3e}{operator()}} (const int, const int, const int, const int, const int) const
 \begin{DoxyCompactList}\small\item\em Element access operator, with bound check -\/ Constant tensor version. \end{DoxyCompactList}\end{DoxyCompactItemize}
-\subsection*{Public Attributes}
+\doxysubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{classtensor5D_a832dc18b104de67f87078fd591c85027}\label{classtensor5D_a832dc18b104de67f87078fd591c85027}} 
@@ -49,7 +49,7 @@ T $\ast$ \mbox{\hyperlink{classtensor5D_a738d56120b89b360f5d81fd61472b7de}{data}
 \begin{DoxyCompactList}\small\item\em Data segment. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
-\subsection{Detailed Description}
+\doxysubsection{Detailed Description}
 \subsubsection*{template$<$class T$>$\newline
 class tensor5\+D$<$ T $>$}
 
@@ -57,18 +57,19 @@ Template class for 5D tensors This classes do not provide an allocator.
 
 They are allocated automatically using the costum constructor tesor?D( int int ....) The default constructor can be used, but only to create dummy tensors, that needs to be assigned using the assignment operator (=)
 
-Memebers are all public.
+Memebers are all public. ~\newline
+
 \begin{DoxyItemize}
 \item n1, n2, ... contains the dimensions
 \item the pointer data contains the data in col major order, such that it can be pass to B\+L\+A\+S/\+L\+A\+P\+A\+CK easily as A.\+data
 \item reading and writing single elements is done using the () operator so element 1,2,5 of tensor A is accessed A(1,2,5) 
 \end{DoxyItemize}
 
-\subsection{Constructor \& Destructor Documentation}
+\doxysubsection{Constructor \& Destructor Documentation}
 \mbox{\Hypertarget{classtensor5D_a6550c2e7a520c76686b360de9168f0b6}\label{classtensor5D_a6550c2e7a520c76686b360de9168f0b6}} 
-\index{tensor5D@{tensor5D}!tensor5D@{tensor5D}}
-\index{tensor5D@{tensor5D}!tensor5D@{tensor5D}}
-\subsubsection{\texorpdfstring{tensor5\+D()}{tensor5D()}}
+\index{tensor5D$<$ T $>$@{tensor5D$<$ T $>$}!tensor5D@{tensor5D}}
+\index{tensor5D@{tensor5D}!tensor5D$<$ T $>$@{tensor5D$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{tensor5D()}{tensor5D()}}
 {\footnotesize\ttfamily template$<$class T $>$ \\
 \mbox{\hyperlink{classtensor5D}{tensor5D}}$<$ T $>$\+::\mbox{\hyperlink{classtensor5D}{tensor5D}} (\begin{DoxyParamCaption}\item[{int}]{n1\+\_\+in,  }\item[{int}]{n2\+\_\+in,  }\item[{int}]{n3\+\_\+in,  }\item[{int}]{n4\+\_\+in,  }\item[{int}]{n5\+\_\+in }\end{DoxyParamCaption})}
 
@@ -78,24 +79,24 @@ Constructor to allocate custom size 5D tensor.
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\tt in}  & {\em n1\+\_\+in} & First dimension \\
+\mbox{\texttt{ in}}  & {\em n1\+\_\+in} & First dimension \\
 \hline
-\mbox{\tt in}  & {\em n2\+\_\+in} & Second dimension \\
+\mbox{\texttt{ in}}  & {\em n2\+\_\+in} & Second dimension \\
 \hline
-\mbox{\tt in}  & {\em n3\+\_\+in} & Third dimension \\
+\mbox{\texttt{ in}}  & {\em n3\+\_\+in} & Third dimension \\
 \hline
-\mbox{\tt in}  & {\em n4\+\_\+in} & Fourth dimension \\
+\mbox{\texttt{ in}}  & {\em n4\+\_\+in} & Fourth dimension \\
 \hline
-\mbox{\tt in}  & {\em n5\+\_\+in} & Fifth dimension \\
+\mbox{\texttt{ in}}  & {\em n5\+\_\+in} & Fifth dimension \\
 \hline
 \end{DoxyParams}
 
 
-\subsection{Member Function Documentation}
+\doxysubsection{Member Function Documentation}
 \mbox{\Hypertarget{classtensor5D_a1265d153c79b6a9c98ec8d1517adf41f}\label{classtensor5D_a1265d153c79b6a9c98ec8d1517adf41f}} 
-\index{tensor5D@{tensor5D}!operator()@{operator()}}
-\index{operator()@{operator()}!tensor5D@{tensor5D}}
-\subsubsection{\texorpdfstring{operator()()}{operator()()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+\index{tensor5D$<$ T $>$@{tensor5D$<$ T $>$}!operator()@{operator()}}
+\index{operator()@{operator()}!tensor5D$<$ T $>$@{tensor5D$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{operator()()}{operator()()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
 {\footnotesize\ttfamily template$<$class T $>$ \\
 T \& \mbox{\hyperlink{classtensor5D}{tensor5D}}$<$ T $>$\+::operator() (\begin{DoxyParamCaption}\item[{const int}]{i1,  }\item[{const int}]{i2,  }\item[{const int}]{i3,  }\item[{const int}]{i4,  }\item[{const int}]{i5 }\end{DoxyParamCaption})}
 
@@ -105,21 +106,21 @@ Element access operator, with bound check.
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\tt in}  & {\em i1} & First index of the element to access \\
+\mbox{\texttt{ in}}  & {\em i1} & First index of the element to access \\
 \hline
-\mbox{\tt in}  & {\em i2} & Second index of the element to access \\
+\mbox{\texttt{ in}}  & {\em i2} & Second index of the element to access \\
 \hline
-\mbox{\tt in}  & {\em i3} & Third index of the element to access \\
+\mbox{\texttt{ in}}  & {\em i3} & Third index of the element to access \\
 \hline
-\mbox{\tt in}  & {\em i4} & Fourth index of the element to access \\
+\mbox{\texttt{ in}}  & {\em i4} & Fourth index of the element to access \\
 \hline
-\mbox{\tt in}  & {\em i5} & Fifth index of the element to access \\
+\mbox{\texttt{ in}}  & {\em i5} & Fifth index of the element to access \\
 \hline
 \end{DoxyParams}
 \mbox{\Hypertarget{classtensor5D_ae927ba60fe9dea9784eb92a58c289e3e}\label{classtensor5D_ae927ba60fe9dea9784eb92a58c289e3e}} 
-\index{tensor5D@{tensor5D}!operator()@{operator()}}
-\index{operator()@{operator()}!tensor5D@{tensor5D}}
-\subsubsection{\texorpdfstring{operator()()}{operator()()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+\index{tensor5D$<$ T $>$@{tensor5D$<$ T $>$}!operator()@{operator()}}
+\index{operator()@{operator()}!tensor5D$<$ T $>$@{tensor5D$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{operator()()}{operator()()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
 {\footnotesize\ttfamily template$<$class T $>$ \\
 T \mbox{\hyperlink{classtensor5D}{tensor5D}}$<$ T $>$\+::operator() (\begin{DoxyParamCaption}\item[{const int}]{i1,  }\item[{const int}]{i2,  }\item[{const int}]{i3,  }\item[{const int}]{i4,  }\item[{const int}]{i5 }\end{DoxyParamCaption}) const}
 
@@ -129,22 +130,22 @@ Element access operator, with bound check -\/ Constant tensor version.
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\tt in}  & {\em i1} & First index of the element to access \\
+\mbox{\texttt{ in}}  & {\em i1} & First index of the element to access \\
 \hline
-\mbox{\tt in}  & {\em i2} & Second index of the element to access \\
+\mbox{\texttt{ in}}  & {\em i2} & Second index of the element to access \\
 \hline
-\mbox{\tt in}  & {\em i3} & Third index of the element to access \\
+\mbox{\texttt{ in}}  & {\em i3} & Third index of the element to access \\
 \hline
-\mbox{\tt in}  & {\em i4} & Fourth index of the element to access \\
+\mbox{\texttt{ in}}  & {\em i4} & Fourth index of the element to access \\
 \hline
-\mbox{\tt in}  & {\em i5} & Fifth index of the element to access \\
+\mbox{\texttt{ in}}  & {\em i5} & Fifth index of the element to access \\
 \hline
 \end{DoxyParams}
 \mbox{\Hypertarget{classtensor5D_a123019ccd05ce005497b2aeecca4b280}\label{classtensor5D_a123019ccd05ce005497b2aeecca4b280}} 
-\index{tensor5D@{tensor5D}!operator=@{operator=}}
-\index{operator=@{operator=}!tensor5D@{tensor5D}}
-\subsubsection{\texorpdfstring{operator=()}{operator=()}}
-{\footnotesize\ttfamily template$<$class T$>$ \\
+\index{tensor5D$<$ T $>$@{tensor5D$<$ T $>$}!operator=@{operator=}}
+\index{operator=@{operator=}!tensor5D$<$ T $>$@{tensor5D$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}}
+{\footnotesize\ttfamily template$<$class T $>$ \\
 \mbox{\hyperlink{classtensor5D}{tensor5D}}$<$ T $>$ \& \mbox{\hyperlink{classtensor5D}{tensor5D}}$<$ T $>$\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtensor5D}{tensor5D}}$<$ T $>$ \&}]{tens }\end{DoxyParamCaption})}
 
 
@@ -153,11 +154,11 @@ Assignment operator.
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\tt in}  & {\em tens} & The tensor to copy return A reference to the current object, to allow expressions such as a=b=c to work \\
+\mbox{\texttt{ in}}  & {\em tens} & The tensor to copy return A reference to the current object, to allow expressions such as a=b=c to work \\
 \hline
 \end{DoxyParams}
 
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{tensors_8h}{tensors.\+h}}\end{DoxyCompactItemize}
+nrg/\mbox{\hyperlink{tensors_8h}{tensors.\+h}}\end{DoxyCompactItemize}

@@ -1,4 +1,4 @@
-/** @file states.h
+/** @file minimal_model_states.h
  * \brief Class that contains and calculates chiral states by removing null vectors from each verma module
  *
  * \author Giuseppe Piero Brandino - eXact-lab s.r.l., Robert Konik - BNL

@@ -1,4 +1,4 @@
-/** Hamiltonian class file. 
+/** harmonic_Hamiltonian class file. 
  * \authors Giuseppe Piero Brandino - eXact-lab s.r.l.
  * \date November 2017
  */

@@ -1,5 +1,5 @@
-/** @file parameters.h
- * \brief Input parameter class. 
+/** @file custom_parameters.h
+ * \brief Input parameter class with model-specific parameters
  * Big fuzzy object that contains input paramenter
  * \authors Giuseppe Piero Brandino - eXact-lab s.r.l.
  * \date October 2019
@@ -31,10 +31,10 @@ class custom_parameters : public parameters
 
         // class methods
         /** Constructor
-         * @param[in] The name of the model input file
-         * @param[in] The name of the nrg input file
+         * @param[in] modelfilename The name of the model input file
+         * @param[in] nrgfilename The name of the nrg input file
          */
-        custom_parameters(const char*, const char*);
+        custom_parameters(const char* modelfilename, const char* nrgfilename);
         /** Prints the input paramters, Verma modules size, Hilbert space size, subspace analysis and structure constant. <em> Needs to be called after analyse_subspaces() </em>
          */
         void print() const;

@@ -47,7 +47,7 @@ ex ksymb2(int r, int s, int p, int q, int k, symbol x);
  *  @param[in]   s The second index defining the Verma Module
  *  @param[in]   p The first index defining the model M_(p,q)
  *  @param[in]   q The second index defining the model M_(p,q)
- *  @param[in]   k  maximum exponent included in the product in the denominator
+ *  @param[in]   l  maximum exponent included in the product in the denominator
  *  @param[in]   x GiNac symbol object, contains the variable used for the symbolic calculation
  *  return        GiNaC expression containing the characters for the given Verma module and model up to order k
  */
@@ -69,14 +69,14 @@ void characexpan(int r, int s, double p, double q, int l, int* leveldim);
  *  @param[in]  k The integer to calculate the partion
  *  return  Number of partions of the given integer
  */
-int partitions(int);
+int partitions(int k);
 
 /** Calculates the partions of integers up to the given integer 
- *  @param[in]   n integer to calculate the partions
+ *  @param[in]   level integer to calculate the partions
  *  @param[out]  results Reference to tensor2D<int> that will contain the different partions of the given integer, one per row 
  *  return       The number of partions for the given integer
  */
-int determine_partition(int n, tensor2D<int>& results);
+int determine_partition(int level, tensor2D<int>& results);
 
 /** Helper function, recursive component of determine_partition
  */

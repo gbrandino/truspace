@@ -17,9 +17,9 @@ class filenames
     public:
      
         /** Constructor
-         * @param[in] A reference to a parameters object
+         * @param[in] p A reference to a parameters object
          */
-        filenames(parameters&);
+        filenames(parameters& p);
         ~filenames();
 
         // outfiles and dump files

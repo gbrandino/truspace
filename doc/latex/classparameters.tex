@@ -1,4 +1,4 @@
-\hypertarget{classparameters}{}\section{parameters Class Reference}
+\hypertarget{classparameters}{}\doxysection{parameters Class Reference}
 \label{classparameters}\index{parameters@{parameters}}
 
 
@@ -9,180 +9,65 @@ Input parameter class.
 
 {\ttfamily \#include $<$parameters.\+h$>$}
 
-\subsection*{Public Member Functions}
+Inheritance diagram for parameters\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classparameters}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{classparameters_a5fc6df948811b55090c47893b63d3742}{parameters}} (const char $\ast$)
+\mbox{\hyperlink{classparameters_a20ef17cab863856b387327a7355bac4b}{parameters}} (const char $\ast$nrgfilename)
 \begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classparameters_a942520b06693d539a3af8814208899e8}{print}} () const
 \begin{DoxyCompactList}\small\item\em Prints the input paramters, Verma modules size, Hilbert space size, subspace analysis and structure constant. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classparameters_ab296b8a9284db7b8c74dabc944c7d654}\label{classparameters_ab296b8a9284db7b8c74dabc944c7d654}} 
-void \mbox{\hyperlink{classparameters_ab296b8a9284db7b8c74dabc944c7d654}{analyse\+\_\+subspaces}} ()
-\begin{DoxyCompactList}\small\item\em Calculates Verma modules size, Hilbert space size, subspace analysis and structure constant. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classparameters_a8ef05b5210024cb8d7ab84fddb4d05b2}\label{classparameters_a8ef05b5210024cb8d7ab84fddb4d05b2}} 
-\mbox{\hyperlink{classparameters_a8ef05b5210024cb8d7ab84fddb4d05b2}{$\sim$parameters}} ()
+virtual \mbox{\hyperlink{classparameters_a8ef05b5210024cb8d7ab84fddb4d05b2}{$\sim$parameters}} ()
 \begin{DoxyCompactList}\small\item\em Destructor. \end{DoxyCompactList}\end{DoxyCompactItemize}
-\subsection*{Public Attributes}
+\doxysubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{classparameters_a83fbd6f42d209aab6d3aa8360835cb55}\label{classparameters_a83fbd6f42d209aab6d3aa8360835cb55}} 
-int \mbox{\hyperlink{classparameters_a83fbd6f42d209aab6d3aa8360835cb55}{p}}
-\begin{DoxyCompactList}\small\item\em p index in Kac matrix \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classparameters_ac8d9bf7930ce6d05d65caf42ad090c16}\label{classparameters_ac8d9bf7930ce6d05d65caf42ad090c16}} 
-int \mbox{\hyperlink{classparameters_ac8d9bf7930ce6d05d65caf42ad090c16}{q}}
-\begin{DoxyCompactList}\small\item\em q index in Kac matrix \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classparameters_a1d60e9280d73faa8b3c701ed8c842862}\label{classparameters_a1d60e9280d73faa8b3c701ed8c842862}} 
-int \mbox{\hyperlink{classparameters_a1d60e9280d73faa8b3c701ed8c842862}{num\+Pert}}
-\begin{DoxyCompactList}\small\item\em number of pertubations \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classparameters_afc2ac2c4f33fec7f2611f2a7a363ea76}\label{classparameters_afc2ac2c4f33fec7f2611f2a7a363ea76}} 
-int \mbox{\hyperlink{classparameters_afc2ac2c4f33fec7f2611f2a7a363ea76}{max\+Lev}}
-\begin{DoxyCompactList}\small\item\em Maximum conformal level to include. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classparameters_a9e200979fbc5fe35d559a59727f86aac}\label{classparameters_a9e200979fbc5fe35d559a59727f86aac}} 
-int \mbox{\hyperlink{classparameters_a9e200979fbc5fe35d559a59727f86aac}{min\+Lev}}
-\begin{DoxyCompactList}\small\item\em Minimum conformal level to include (usually 0) \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classparameters_a94eec4260ee06a8060f39dcdaec94543}\label{classparameters_a94eec4260ee06a8060f39dcdaec94543}} 
-int \mbox{\hyperlink{classparameters_a94eec4260ee06a8060f39dcdaec94543}{max\+Momentum}}
-\begin{DoxyCompactList}\small\item\em Maximum momentum considered. \end{DoxyCompactList}\item 
-bool \mbox{\hyperlink{classparameters_a4ec37c5523c2e71fcd9dae12ee9c4468}{all\+Mom\+Subspace}}
-\begin{DoxyCompactList}\small\item\em True to diagonalize all momentum subspaces together. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classparameters_a55e7a4022c9a53ca65ae904e8ccb3700}\label{classparameters_a55e7a4022c9a53ca65ae904e8ccb3700}} 
 int \mbox{\hyperlink{classparameters_a55e7a4022c9a53ca65ae904e8ccb3700}{max\+Eigen}}
 \begin{DoxyCompactList}\small\item\em Maximum number of eigenvalues printed in the output file. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classparameters_ab4a0cf927710a59f8136ff74ea9ed166}\label{classparameters_ab4a0cf927710a59f8136ff74ea9ed166}} 
-int $\ast$ \mbox{\hyperlink{classparameters_ab4a0cf927710a59f8136ff74ea9ed166}{r}}
-\begin{DoxyCompactList}\small\item\em array containing Kac r index of perturbations \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classparameters_a080dfba6a8f17c1fbaec860af3f2820b}\label{classparameters_a080dfba6a8f17c1fbaec860af3f2820b}} 
-int $\ast$ \mbox{\hyperlink{classparameters_a080dfba6a8f17c1fbaec860af3f2820b}{s}}
-\begin{DoxyCompactList}\small\item\em array containing Kac s index of perturbations \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classparameters_a60dae9320428203c25f709fd6923a00c}\label{classparameters_a60dae9320428203c25f709fd6923a00c}} 
-double $\ast$ \mbox{\hyperlink{classparameters_a60dae9320428203c25f709fd6923a00c}{deltas}}
-\begin{DoxyCompactList}\small\item\em array containing chiral conformal dimensions of each perturbation \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classparameters_a5e958d69a5d9c1185d9d6de9028f5848}\label{classparameters_a5e958d69a5d9c1185d9d6de9028f5848}} 
-double $\ast$ \mbox{\hyperlink{classparameters_a5e958d69a5d9c1185d9d6de9028f5848}{p\+Const}}
-\begin{DoxyCompactList}\small\item\em array containing the constant for each perturbation \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classparameters_a58b317185d3a629a534b8928c95a1a89}\label{classparameters_a58b317185d3a629a534b8928c95a1a89}} 
-int \mbox{\hyperlink{classparameters_a58b317185d3a629a534b8928c95a1a89}{r\+Steps}}
-\begin{DoxyCompactList}\small\item\em number of values of the radius to be considered \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classparameters_a7d6648aac822ae11a3eeadcbedf6bf45}\label{classparameters_a7d6648aac822ae11a3eeadcbedf6bf45}} 
-double \mbox{\hyperlink{classparameters_a7d6648aac822ae11a3eeadcbedf6bf45}{r\+Inc}}
-\begin{DoxyCompactList}\small\item\em increment of radius at each step \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classparameters_a22c11ad02809d1fd19f9a38b3db0c53c}\label{classparameters_a22c11ad02809d1fd19f9a38b3db0c53c}} 
-double \mbox{\hyperlink{classparameters_a22c11ad02809d1fd19f9a38b3db0c53c}{r\+Start}}
-\begin{DoxyCompactList}\small\item\em initial value of the radius \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classparameters_a66a6f4fca1216c8012c4d48e9de1364a}\label{classparameters_a66a6f4fca1216c8012c4d48e9de1364a}} 
 int \mbox{\hyperlink{classparameters_a66a6f4fca1216c8012c4d48e9de1364a}{Nsize}}
 \begin{DoxyCompactList}\small\item\em basic sizes the \mbox{\hyperlink{classNRG}{N\+RG}} matrix. \end{DoxyCompactList}\item 
 int \mbox{\hyperlink{classparameters_a6316b36c6b8ffb4bb8731c2fc5eadb5e}{Nstep}}
 \begin{DoxyCompactList}\small\item\em number of states added at each \mbox{\hyperlink{classNRG}{N\+RG}} iteration. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classparameters_a54a5c41858f431e5b836a610af4911e4}\label{classparameters_a54a5c41858f431e5b836a610af4911e4}} 
-bool \mbox{\hyperlink{classparameters_a54a5c41858f431e5b836a610af4911e4}{T\+C\+SA}}
-\begin{DoxyCompactList}\small\item\em True for diagonalization, false to have just Kac table structure constants and subspace analysis. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classparameters_a24f86317a789c0ba11b4d53c627a2c0e}\label{classparameters_a24f86317a789c0ba11b4d53c627a2c0e}} 
 bool \mbox{\hyperlink{classparameters_a24f86317a789c0ba11b4d53c627a2c0e}{N\+RG}}
 \begin{DoxyCompactList}\small\item\em True for \mbox{\hyperlink{classNRG}{N\+RG}}, false for full diagonalization. \end{DoxyCompactList}\item 
 int \mbox{\hyperlink{classparameters_a2d35533e2114ef73fcff4fa3de468b50}{n\+Sweep}}
 \begin{DoxyCompactList}\small\item\em number of \mbox{\hyperlink{classNRG}{N\+RG}} sweep. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classparameters_abc4860dd088045e9aee8b4ddf0f4b1ee}\label{classparameters_abc4860dd088045e9aee8b4ddf0f4b1ee}} 
-bool \mbox{\hyperlink{classparameters_abc4860dd088045e9aee8b4ddf0f4b1ee}{S\+A\+V\+E\+\_\+\+S\+T\+A\+T\+ES}}
-\begin{DoxyCompactList}\small\item\em True to save computationale basis to file, false not to save them. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classparameters_a763f4f38e8602d1666ed3a115fa3e09c}\label{classparameters_a763f4f38e8602d1666ed3a115fa3e09c}} 
-bool \mbox{\hyperlink{classparameters_a763f4f38e8602d1666ed3a115fa3e09c}{R\+E\+A\+D\+\_\+\+S\+T\+A\+T\+ES}}
-\begin{DoxyCompactList}\small\item\em True to read computationale basis from file, false to calculate them. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classparameters_adecdea96f5b60951b2e5e52f68b11a0e}\label{classparameters_adecdea96f5b60951b2e5e52f68b11a0e}} 
-bool \mbox{\hyperlink{classparameters_adecdea96f5b60951b2e5e52f68b11a0e}{S\+A\+V\+E\+\_\+\+ME}}
-\begin{DoxyCompactList}\small\item\em True to save chiral matrix element of perturbing fields to file, false not to save them. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classparameters_a136bfd86b5e19bc0e12b19a0ababed7e}\label{classparameters_a136bfd86b5e19bc0e12b19a0ababed7e}} 
-bool \mbox{\hyperlink{classparameters_a136bfd86b5e19bc0e12b19a0ababed7e}{R\+E\+A\+D\+\_\+\+ME}}
-\begin{DoxyCompactList}\small\item\em True to read chiral matrix element of perturbing fields to file, false to calculate them. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classparameters_a68ac761486cd8b4ccf925b9688c30bc5}\label{classparameters_a68ac761486cd8b4ccf925b9688c30bc5}} 
-bool \mbox{\hyperlink{classparameters_a68ac761486cd8b4ccf925b9688c30bc5}{calc\+Exp\+Val}}
-\begin{DoxyCompactList}\small\item\em True to calculate expectation values on the eigenstates of the perturbed system of a primary operator, false not to. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classparameters_a07d87720253f1c2ecf875e10f2a10775}\label{classparameters_a07d87720253f1c2ecf875e10f2a10775}} 
-int \mbox{\hyperlink{classparameters_a07d87720253f1c2ecf875e10f2a10775}{rl\+\_\+op}}
-\begin{DoxyCompactList}\small\item\em r index of holomorphic component of the operator to calculate expectation values \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classparameters_ab1258dc48fe84c375e2bbe170cba48b4}\label{classparameters_ab1258dc48fe84c375e2bbe170cba48b4}} 
-int \mbox{\hyperlink{classparameters_ab1258dc48fe84c375e2bbe170cba48b4}{sl\+\_\+op}}
-\begin{DoxyCompactList}\small\item\em s index of holomorphic component of the operator to calculate expectation values \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classparameters_a52cff57e7e80c2b321bdc50ad8591bed}\label{classparameters_a52cff57e7e80c2b321bdc50ad8591bed}} 
-int \mbox{\hyperlink{classparameters_a52cff57e7e80c2b321bdc50ad8591bed}{n\+Modes\+\_\+l\+\_\+op}}
-\begin{DoxyCompactList}\small\item\em number of virasoro operator applied to the holomorphic component of the primary operator (set 0 to evaluate operator itself) \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classparameters_a6e666ef2e948899946649ff896d184a5}\label{classparameters_a6e666ef2e948899946649ff896d184a5}} 
-int $\ast$ \mbox{\hyperlink{classparameters_a6e666ef2e948899946649ff896d184a5}{mode\+\_\+l\+\_\+op}}
-\begin{DoxyCompactList}\small\item\em array containing the virasoro modes applied to the holomorphic component of the field \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classparameters_a68653b21c72d8d07b83946a07708fa02}\label{classparameters_a68653b21c72d8d07b83946a07708fa02}} 
-int \mbox{\hyperlink{classparameters_a68653b21c72d8d07b83946a07708fa02}{rr\+\_\+op}}
-\begin{DoxyCompactList}\small\item\em r index of anti holomorphic component of the operator to calculate expectation values \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classparameters_a0233f6aad412d41bb9caaedb60dd8996}\label{classparameters_a0233f6aad412d41bb9caaedb60dd8996}} 
-int \mbox{\hyperlink{classparameters_a0233f6aad412d41bb9caaedb60dd8996}{sr\+\_\+op}}
-\begin{DoxyCompactList}\small\item\em s index of anti holomorphic component of the operator to calculate expectation values \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classparameters_a13a41ca843514d749d1505057b8cac10}\label{classparameters_a13a41ca843514d749d1505057b8cac10}} 
-int \mbox{\hyperlink{classparameters_a13a41ca843514d749d1505057b8cac10}{n\+Modes\+\_\+r\+\_\+op}}
-\begin{DoxyCompactList}\small\item\em number of virasoro operator applied to the anti holomorphic component of the primary operator (set 0 to evaluate operator itself) \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classparameters_a874c0da338a9cb7481f8349e5b96dc61}\label{classparameters_a874c0da338a9cb7481f8349e5b96dc61}} 
-int $\ast$ \mbox{\hyperlink{classparameters_a874c0da338a9cb7481f8349e5b96dc61}{mode\+\_\+r\+\_\+op}}
-\begin{DoxyCompactList}\small\item\em array containing the virasoro modes applied to the anti holomorphic component of the field \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classparameters_ad2f40572407ced97e462d7d86bbfd6fd}\label{classparameters_ad2f40572407ced97e462d7d86bbfd6fd}} 
-bool \mbox{\hyperlink{classparameters_ad2f40572407ced97e462d7d86bbfd6fd}{only\+Diag\+ExpV}}
-\begin{DoxyCompactList}\small\item\em True to calculate only diagonal expectation values, false for the full matrix. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classparameters_aa211fc0d7e83372004cc300c8f757fcd}\label{classparameters_aa211fc0d7e83372004cc300c8f757fcd}} 
 bool \mbox{\hyperlink{classparameters_aa211fc0d7e83372004cc300c8f757fcd}{save\+Eigenvec}}
 \begin{DoxyCompactList}\small\item\em True to save eigenvectors to file, false not to save them. \end{DoxyCompactList}\item 
-double \mbox{\hyperlink{classparameters_a5a9ccd1649f6e4acf83395a62da55a53}{C}}
-\begin{DoxyCompactList}\small\item\em central charge. \end{DoxyCompactList}\item 
-int \mbox{\hyperlink{classparameters_abe573fc8357bc498ef19ce46a840909f}{maxp}}
-\begin{DoxyCompactList}\small\item\em p size of Kac table. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classparameters_a0ac6db52037a0c7317757e3c686a8cf1}\label{classparameters_a0ac6db52037a0c7317757e3c686a8cf1}} 
-int \mbox{\hyperlink{classparameters_a0ac6db52037a0c7317757e3c686a8cf1}{maxq}}
-\begin{DoxyCompactList}\small\item\em q size of Kac table Calculated by the code \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classparameters_a7e79ec2bcd0bffc2d8481321509ab2f3}\label{classparameters_a7e79ec2bcd0bffc2d8481321509ab2f3}} 
-int \mbox{\hyperlink{classparameters_a7e79ec2bcd0bffc2d8481321509ab2f3}{maxl}}
-\begin{DoxyCompactList}\small\item\em total size of Kac table Calculated by the code \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classparameters_a964a048350c02117589726ffa7f7b519}\label{classparameters_a964a048350c02117589726ffa7f7b519}} 
-int \mbox{\hyperlink{classparameters_a964a048350c02117589726ffa7f7b519}{numspace}}
-\begin{DoxyCompactList}\small\item\em number of subspace found by analysing the system Calculated by the code \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classparameters_aa326aec05aa2995e19eb1d4fbc7e8b20}\label{classparameters_aa326aec05aa2995e19eb1d4fbc7e8b20}} 
-int $\ast$ \mbox{\hyperlink{classparameters_aa326aec05aa2995e19eb1d4fbc7e8b20}{max\+Num\+States}}
-\begin{DoxyCompactList}\small\item\em array containng the maximum number of states for a given level Calculated by the code \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classparameters_ae9fe20b7ff7cad03ecc0c703c298440e}\label{classparameters_ae9fe20b7ff7cad03ecc0c703c298440e}} 
-\mbox{\hyperlink{classtensor2D}{tensor2D}}$<$ double $>$ \mbox{\hyperlink{classparameters_ae9fe20b7ff7cad03ecc0c703c298440e}{Kac}}
-\begin{DoxyCompactList}\small\item\em Contains the Kac table, meaning the weight of primary fields, indexed with standard r,s indeces. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{classtensor6D}{tensor6D}}$<$ std\+::complex$<$ long double $>$ $>$ \mbox{\hyperlink{classparameters_ac8892c958a79eea5626714f5069e0f81}{cpt}}
-\begin{DoxyCompactList}\small\item\em Structure constant of the model. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{classtensor3D}{tensor3D}}$<$ std\+::complex$<$ long double $>$ $>$ \mbox{\hyperlink{classparameters_aac4b950f92843730a0b8290051838ab4}{cptsmall}}
-\begin{DoxyCompactList}\small\item\em Structure constant of the model, indexed with field index instead of r,s. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{classtensor3D}{tensor3D}}$<$ int $>$ \mbox{\hyperlink{classparameters_ae97d2dea7641aa692c4a9882515e3aa8}{vermadim}}
-\begin{DoxyCompactList}\small\item\em contains the number of states for each level of each verma module. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{classtensor3D}{tensor3D}}$<$ int $>$ \mbox{\hyperlink{classparameters_ad90bc23ef42e461995e0ef3009ba479c}{vermadimcomul}}
-\begin{DoxyCompactList}\small\item\em contains the cumulative number of states up to each level of each verma module. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{classtensor2D}{tensor2D}}$<$ int $>$ \mbox{\hyperlink{classparameters_a1ce4ca814955a779832021ea50533e12}{finalsubspace}}
-\begin{DoxyCompactList}\small\item\em contains the label of the verma module in each subspace. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{classtensor2D}{tensor2D}}$<$ int $>$ \mbox{\hyperlink{classparameters_aa518d9400d88e3e78371b45ec4b9e249}{int\+Matrix}}
-\begin{DoxyCompactList}\small\item\em contains the sketch of the interaction matrix, where each element is a verma module. \end{DoxyCompactList}\item 
-int $\ast$ \mbox{\hyperlink{classparameters_a2276809d211c3b3176444b04bed274cc}{subdim}}
-\begin{DoxyCompactList}\small\item\em contains the number of vermamodule in a give symmetry subspace. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classparameters_abb3ab8b7a5fc23368674dc2a5463a80c}\label{classparameters_abb3ab8b7a5fc23368674dc2a5463a80c}} 
-int $\ast$ \mbox{\hyperlink{classparameters_abb3ab8b7a5fc23368674dc2a5463a80c}{leveldim}}
-\begin{DoxyCompactList}\small\item\em Contains the. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classparameters_ab08edeb02d40c2df5944fa2f1d9499be}\label{classparameters_ab08edeb02d40c2df5944fa2f1d9499be}} 
-\mbox{\hyperlink{classtensor2D}{tensor2D}}$<$ int $>$ \mbox{\hyperlink{classparameters_ab08edeb02d40c2df5944fa2f1d9499be}{subdim\+States}}
-\begin{DoxyCompactList}\small\item\em contains the predicted number of predicted non-\/chiral states in each subspace, and at given momentum \end{DoxyCompactList}\end{DoxyCompactItemize}
+\mbox{\Hypertarget{classparameters_a68ac761486cd8b4ccf925b9688c30bc5}\label{classparameters_a68ac761486cd8b4ccf925b9688c30bc5}} 
+bool \mbox{\hyperlink{classparameters_a68ac761486cd8b4ccf925b9688c30bc5}{calc\+Exp\+Val}}
+\begin{DoxyCompactList}\small\item\em True to calculate expectation values on the eigenstates of the perturbed system of a primary operator, false not to. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classparameters_ad2f40572407ced97e462d7d86bbfd6fd}\label{classparameters_ad2f40572407ced97e462d7d86bbfd6fd}} 
+bool \mbox{\hyperlink{classparameters_ad2f40572407ced97e462d7d86bbfd6fd}{only\+Diag\+ExpV}}
+\begin{DoxyCompactList}\small\item\em True to calculate only diagonal expectation values, false for the full matrix. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classparameters_a2e2af680388704e90c6c0ceb0edc6cd5}{parameters}} ()
+\begin{DoxyCompactList}\small\item\em Default constructor is protected, to prevent instantiation of invalid object. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
-\subsection{Detailed Description}
+\doxysubsection{Detailed Description}
 Input parameter class. 
 
-Big fuzzy object that contains
-\begin{DoxyItemize}
-\item input paramenter
-\item Kac table
-\item structure constant
-\item verma module in each subspace 
-\end{DoxyItemize}
+Big fuzzy object that contains input parameters relavant for the \mbox{\hyperlink{classNRG}{N\+RG}} algorithm 
 
-\subsection{Constructor \& Destructor Documentation}
-\mbox{\Hypertarget{classparameters_a5fc6df948811b55090c47893b63d3742}\label{classparameters_a5fc6df948811b55090c47893b63d3742}} 
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classparameters_a20ef17cab863856b387327a7355bac4b}\label{classparameters_a20ef17cab863856b387327a7355bac4b}} 
 \index{parameters@{parameters}!parameters@{parameters}}
 \index{parameters@{parameters}!parameters@{parameters}}
-\subsubsection{\texorpdfstring{parameters()}{parameters()}}
-{\footnotesize\ttfamily parameters\+::parameters (\begin{DoxyParamCaption}\item[{const char $\ast$}]{input\+\_\+file\+\_\+name }\end{DoxyParamCaption})}
+\doxysubsubsection{\texorpdfstring{parameters()}{parameters()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily parameters\+::parameters (\begin{DoxyParamCaption}\item[{const char $\ast$}]{nrgfilename }\end{DoxyParamCaption})}
 
 
 
@@ -190,119 +75,53 @@ Constructor.
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\tt in}  & {\em The} & name of the input file \\
+\mbox{\texttt{ in}}  & {\em nrgfilename} & The name of the nrg input file \\
 \hline
 \end{DoxyParams}
+\mbox{\Hypertarget{classparameters_a2e2af680388704e90c6c0ceb0edc6cd5}\label{classparameters_a2e2af680388704e90c6c0ceb0edc6cd5}} 
+\index{parameters@{parameters}!parameters@{parameters}}
+\index{parameters@{parameters}!parameters@{parameters}}
+\doxysubsubsection{\texorpdfstring{parameters()}{parameters()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily parameters\+::parameters (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
 
 
-\subsection{Member Function Documentation}
+
+Default constructor is protected, to prevent instantiation of invalid object. 
+
+Input parameter class.
+
+Big fuzzy object that contains
+\begin{DoxyItemize}
+\item input paramenter
+\item Kac table
+\item structure constant
+\item verma module in each subspace \begin{DoxyAuthor}{Authors}
+Giuseppe Piero Brandino -\/ e\+Xact-\/lab s.\+r.\+l. 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+November 2017 
+\end{DoxyDate}
+
+\end{DoxyItemize}
+
+\doxysubsection{Member Function Documentation}
 \mbox{\Hypertarget{classparameters_a942520b06693d539a3af8814208899e8}\label{classparameters_a942520b06693d539a3af8814208899e8}} 
 \index{parameters@{parameters}!print@{print}}
 \index{print@{print}!parameters@{parameters}}
-\subsubsection{\texorpdfstring{print()}{print()}}
+\doxysubsubsection{\texorpdfstring{print()}{print()}}
 {\footnotesize\ttfamily void parameters\+::print (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
 
 
 
 Prints the input paramters, Verma modules size, Hilbert space size, subspace analysis and structure constant. 
 
-{\itshape  Needs to be called after \mbox{\hyperlink{classparameters_ab296b8a9284db7b8c74dabc944c7d654}{analyse\+\_\+subspaces()}} } 
+{\itshape  Needs to be called after analyse\+\_\+subspaces() } 
 
-\subsection{Member Data Documentation}
-\mbox{\Hypertarget{classparameters_a4ec37c5523c2e71fcd9dae12ee9c4468}\label{classparameters_a4ec37c5523c2e71fcd9dae12ee9c4468}} 
-\index{parameters@{parameters}!all\+Mom\+Subspace@{all\+Mom\+Subspace}}
-\index{all\+Mom\+Subspace@{all\+Mom\+Subspace}!parameters@{parameters}}
-\subsubsection{\texorpdfstring{all\+Mom\+Subspace}{allMomSubspace}}
-{\footnotesize\ttfamily bool parameters\+::all\+Mom\+Subspace}
-
-
-
-True to diagonalize all momentum subspaces together. 
-
-Useful for calculation of momentum-\/carrying operator matrix elements. False diagonalize momentum subspaces separately. \mbox{\Hypertarget{classparameters_a5a9ccd1649f6e4acf83395a62da55a53}\label{classparameters_a5a9ccd1649f6e4acf83395a62da55a53}} 
-\index{parameters@{parameters}!C@{C}}
-\index{C@{C}!parameters@{parameters}}
-\subsubsection{\texorpdfstring{C}{C}}
-{\footnotesize\ttfamily double parameters\+::C}
-
-
-
-central charge. 
-
-Calculated by the code \mbox{\Hypertarget{classparameters_ac8892c958a79eea5626714f5069e0f81}\label{classparameters_ac8892c958a79eea5626714f5069e0f81}} 
-\index{parameters@{parameters}!cpt@{cpt}}
-\index{cpt@{cpt}!parameters@{parameters}}
-\subsubsection{\texorpdfstring{cpt}{cpt}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classtensor6D}{tensor6D}}$<$ std\+::complex$<$long double$>$ $>$ parameters\+::cpt}
-
-
-
-Structure constant of the model. 
-
-Calculated by the code \mbox{\Hypertarget{classparameters_aac4b950f92843730a0b8290051838ab4}\label{classparameters_aac4b950f92843730a0b8290051838ab4}} 
-\index{parameters@{parameters}!cptsmall@{cptsmall}}
-\index{cptsmall@{cptsmall}!parameters@{parameters}}
-\subsubsection{\texorpdfstring{cptsmall}{cptsmall}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classtensor3D}{tensor3D}}$<$ std\+::complex$<$long double$>$ $>$ parameters\+::cptsmall}
-
-
-
-Structure constant of the model, indexed with field index instead of r,s. 
-
-Calculated by the code \mbox{\Hypertarget{classparameters_a1ce4ca814955a779832021ea50533e12}\label{classparameters_a1ce4ca814955a779832021ea50533e12}} 
-\index{parameters@{parameters}!finalsubspace@{finalsubspace}}
-\index{finalsubspace@{finalsubspace}!parameters@{parameters}}
-\subsubsection{\texorpdfstring{finalsubspace}{finalsubspace}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classtensor2D}{tensor2D}}$<$ int $>$ parameters\+::finalsubspace}
-
-
-
-contains the label of the verma module in each subspace. 
-
-Calculated by the code \mbox{\Hypertarget{classparameters_aa518d9400d88e3e78371b45ec4b9e249}\label{classparameters_aa518d9400d88e3e78371b45ec4b9e249}} 
-\index{parameters@{parameters}!int\+Matrix@{int\+Matrix}}
-\index{int\+Matrix@{int\+Matrix}!parameters@{parameters}}
-\subsubsection{\texorpdfstring{int\+Matrix}{intMatrix}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classtensor2D}{tensor2D}}$<$ int $>$ parameters\+::int\+Matrix}
-
-
-
-contains the sketch of the interaction matrix, where each element is a verma module. 
-
-Calculated by the code \mbox{\Hypertarget{classparameters_a55e7a4022c9a53ca65ae904e8ccb3700}\label{classparameters_a55e7a4022c9a53ca65ae904e8ccb3700}} 
-\index{parameters@{parameters}!max\+Eigen@{max\+Eigen}}
-\index{max\+Eigen@{max\+Eigen}!parameters@{parameters}}
-\subsubsection{\texorpdfstring{max\+Eigen}{maxEigen}}
-{\footnotesize\ttfamily int parameters\+::max\+Eigen}
-
-
-
-Maximum number of eigenvalues printed in the output file. 
-
-\mbox{\Hypertarget{classparameters_abe573fc8357bc498ef19ce46a840909f}\label{classparameters_abe573fc8357bc498ef19ce46a840909f}} 
-\index{parameters@{parameters}!maxp@{maxp}}
-\index{maxp@{maxp}!parameters@{parameters}}
-\subsubsection{\texorpdfstring{maxp}{maxp}}
-{\footnotesize\ttfamily int parameters\+::maxp}
-
-
-
-p size of Kac table. 
-
-Calculated by the code \mbox{\Hypertarget{classparameters_a66a6f4fca1216c8012c4d48e9de1364a}\label{classparameters_a66a6f4fca1216c8012c4d48e9de1364a}} 
-\index{parameters@{parameters}!Nsize@{Nsize}}
-\index{Nsize@{Nsize}!parameters@{parameters}}
-\subsubsection{\texorpdfstring{Nsize}{Nsize}}
-{\footnotesize\ttfamily int parameters\+::\+Nsize}
-
-
-
-basic sizes the \mbox{\hyperlink{classNRG}{N\+RG}} matrix. 
-
+\doxysubsection{Member Data Documentation}
 \mbox{\Hypertarget{classparameters_a6316b36c6b8ffb4bb8731c2fc5eadb5e}\label{classparameters_a6316b36c6b8ffb4bb8731c2fc5eadb5e}} 
 \index{parameters@{parameters}!Nstep@{Nstep}}
 \index{Nstep@{Nstep}!parameters@{parameters}}
-\subsubsection{\texorpdfstring{Nstep}{Nstep}}
+\doxysubsubsection{\texorpdfstring{Nstep}{Nstep}}
 {\footnotesize\ttfamily int parameters\+::\+Nstep}
 
 
@@ -310,48 +129,18 @@ basic sizes the \mbox{\hyperlink{classNRG}{N\+RG}} matrix.
 number of states added at each \mbox{\hyperlink{classNRG}{N\+RG}} iteration. 
 
 The matrix diagonalized in \mbox{\hyperlink{classNRG}{N\+RG}} is Nsize+\+Nstep \mbox{\Hypertarget{classparameters_a2d35533e2114ef73fcff4fa3de468b50}\label{classparameters_a2d35533e2114ef73fcff4fa3de468b50}} 
-\index{parameters@{parameters}!n\+Sweep@{n\+Sweep}}
-\index{n\+Sweep@{n\+Sweep}!parameters@{parameters}}
-\subsubsection{\texorpdfstring{n\+Sweep}{nSweep}}
+\index{parameters@{parameters}!nSweep@{nSweep}}
+\index{nSweep@{nSweep}!parameters@{parameters}}
+\doxysubsubsection{\texorpdfstring{nSweep}{nSweep}}
 {\footnotesize\ttfamily int parameters\+::n\+Sweep}
 
 
 
 number of \mbox{\hyperlink{classNRG}{N\+RG}} sweep. 
 
-Set 0 for basic \mbox{\hyperlink{classNRG}{N\+RG}} \mbox{\Hypertarget{classparameters_a2276809d211c3b3176444b04bed274cc}\label{classparameters_a2276809d211c3b3176444b04bed274cc}} 
-\index{parameters@{parameters}!subdim@{subdim}}
-\index{subdim@{subdim}!parameters@{parameters}}
-\subsubsection{\texorpdfstring{subdim}{subdim}}
-{\footnotesize\ttfamily int$\ast$ parameters\+::subdim}
-
-
-
-contains the number of vermamodule in a give symmetry subspace. 
-
-Calculated by the code \mbox{\Hypertarget{classparameters_ae97d2dea7641aa692c4a9882515e3aa8}\label{classparameters_ae97d2dea7641aa692c4a9882515e3aa8}} 
-\index{parameters@{parameters}!vermadim@{vermadim}}
-\index{vermadim@{vermadim}!parameters@{parameters}}
-\subsubsection{\texorpdfstring{vermadim}{vermadim}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classtensor3D}{tensor3D}}$<$ int $>$ parameters\+::vermadim}
-
-
-
-contains the number of states for each level of each verma module. 
-
-The first two indeces are the r,s indeces of the primary field, the third is the level \mbox{\Hypertarget{classparameters_ad90bc23ef42e461995e0ef3009ba479c}\label{classparameters_ad90bc23ef42e461995e0ef3009ba479c}} 
-\index{parameters@{parameters}!vermadimcomul@{vermadimcomul}}
-\index{vermadimcomul@{vermadimcomul}!parameters@{parameters}}
-\subsubsection{\texorpdfstring{vermadimcomul}{vermadimcomul}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classtensor3D}{tensor3D}}$<$ int $>$ parameters\+::vermadimcomul}
-
-
-
-contains the cumulative number of states up to each level of each verma module. 
-
-The first two indeces are the r,s indeces of the primary field, the third is the level 
+Set 0 for basic \mbox{\hyperlink{classNRG}{N\+RG}} 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{parameters_8h}{parameters.\+h}}\item 
-parameters.\+cpp\end{DoxyCompactItemize}
+nrg/\mbox{\hyperlink{parameters_8h}{parameters.\+h}}\item 
+nrg/parameters.\+cpp\end{DoxyCompactItemize}

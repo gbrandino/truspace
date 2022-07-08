@@ -35,7 +35,7 @@ class worker
         */
         ~worker();    
         /** 
-         * @paramp[in] p paramerts object
+         * @param[in] p paramerts object
          */    
         void run(minimal_model_parameters& p);
 

@@ -16,7 +16,6 @@ class states
     public:
         /** Constructor 
          * @param[in] p Reference to a parameters object
-         * @param[in] subspace Subspace to work on
          */
         states(parameters& p);
         /** Destructor 

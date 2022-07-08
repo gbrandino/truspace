@@ -30,7 +30,7 @@ long double dota(int kn1, int kn, long double ro, long double ro1);
  * @param[in] r2 first Kac index of the second field
  * @param[in] s2 second Kac index of the second field
  * @param[in] r3 first Kac index of the third field
- * @param[in] r3 second Kac index of the third field
+ * @param[in] s3 second Kac index of the third field
  * return std::complex<long double>  containg the structure constant for the given fields.
  * \par <em> Beware that in the function call the s index (second index) comes before of the r index (first index) </em> for every field
  */

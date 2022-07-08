@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['leveldim',['leveldim',['../classparameters.html#abb3ab8b7a5fc23368674dc2a5463a80c',1,'parameters']]]
+  ['leveldim_83',['leveldim',['../classminimal__model__parameters.html#a4fb28924d3b923fc1054c855495fec6f',1,'minimal_model_parameters']]],
+  ['localoffsetcol_84',['localOffsetCol',['../classHamiltonian.html#ae9638462127fdcdb12b3f4cf95bd0ed9',1,'Hamiltonian']]],
+  ['localoffsetrow_85',['localOffsetRow',['../classHamiltonian.html#ac951acff66a9eb0be6ea0e7a936b2b67',1,'Hamiltonian']]]
 ];

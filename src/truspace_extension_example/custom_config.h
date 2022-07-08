@@ -1,4 +1,4 @@
-/** @file config.h
+/** @file custom_config.h
  *  \brief Configuration file holding version number, some hard-coded limits that effect array dimensions, constants and macros
  *
  * \authors Giuseppe Piero Brandino - eXact-lab s.r.l.

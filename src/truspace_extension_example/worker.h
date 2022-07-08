@@ -31,7 +31,7 @@ class worker
         */
         ~worker();    
         /** 
-         * @paramp[in] p paramerts object
+         * @param[in] p paramerts object
          */    
         void run(custom_parameters& p);
 

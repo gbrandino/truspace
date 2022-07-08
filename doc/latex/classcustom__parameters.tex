@@ -1,0 +1,117 @@
+\hypertarget{classcustom__parameters}{}\doxysection{custom\+\_\+parameters Class Reference}
+\label{classcustom__parameters}\index{custom\_parameters@{custom\_parameters}}
+
+
+Input parameter class.  
+
+
+
+
+{\ttfamily \#include $<$custom\+\_\+parameters.\+h$>$}
+
+Inheritance diagram for custom\+\_\+parameters\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classcustom__parameters}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classcustom__parameters_a36b806c6dd23d431c4329a74baff2935}{custom\+\_\+parameters}} (const char $\ast$modelfilename, const char $\ast$nrgfilename)
+\begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classcustom__parameters_af026275532160d5d7530bdb4e4edf307}{print}} () const
+\begin{DoxyCompactList}\small\item\em Prints the input paramters, Verma modules size, Hilbert space size, subspace analysis and structure constant. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classcustom__parameters_ac507a8d43bc397cff467a71c7ae6957b}{$\sim$custom\+\_\+parameters}} ()
+\begin{DoxyCompactList}\small\item\em Calculates Verma modules size, Hilbert space size, subspace analysis and structure constant. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classcustom__parameters_a946295c57e170467c4fba9c3519e5f17}\label{classcustom__parameters_a946295c57e170467c4fba9c3519e5f17}} 
+int \mbox{\hyperlink{classcustom__parameters_a946295c57e170467c4fba9c3519e5f17}{num\+Pert}}
+\begin{DoxyCompactList}\small\item\em number of perturbations \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classcustom__parameters_a41d3403f91cf626eff752ce758aefba8}\label{classcustom__parameters_a41d3403f91cf626eff752ce758aefba8}} 
+int \mbox{\hyperlink{classcustom__parameters_a41d3403f91cf626eff752ce758aefba8}{max\+Lev}}
+\begin{DoxyCompactList}\small\item\em Highest unperturbed state to include. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classcustom__parameters_aa9c75d92680bd599e546feeeb8055393}\label{classcustom__parameters_aa9c75d92680bd599e546feeeb8055393}} 
+int \mbox{\hyperlink{classcustom__parameters_aa9c75d92680bd599e546feeeb8055393}{min\+Lev}}
+\begin{DoxyCompactList}\small\item\em Lowest unperturbed state to include. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classcustom__parameters_a3b77834270164837767513b748962701}\label{classcustom__parameters_a3b77834270164837767513b748962701}} 
+double $\ast$ \mbox{\hyperlink{classcustom__parameters_a3b77834270164837767513b748962701}{p\+Const}}
+\begin{DoxyCompactList}\small\item\em array containing the constant for the perturbation \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classcustom__parameters_aece9b5be942356266aebb6058234d49b}\label{classcustom__parameters_aece9b5be942356266aebb6058234d49b}} 
+int \mbox{\hyperlink{classcustom__parameters_aece9b5be942356266aebb6058234d49b}{r\+Steps}}
+\begin{DoxyCompactList}\small\item\em number of values of the system size \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classcustom__parameters_a1662b9c05022c1638b4d10da38fbcbda}\label{classcustom__parameters_a1662b9c05022c1638b4d10da38fbcbda}} 
+double \mbox{\hyperlink{classcustom__parameters_a1662b9c05022c1638b4d10da38fbcbda}{r\+Inc}}
+\begin{DoxyCompactList}\small\item\em increment of system size at each step \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classcustom__parameters_ac90284ed19efa79129ebfcf2e6440b1e}\label{classcustom__parameters_ac90284ed19efa79129ebfcf2e6440b1e}} 
+double \mbox{\hyperlink{classcustom__parameters_ac90284ed19efa79129ebfcf2e6440b1e}{r\+Start}}
+\begin{DoxyCompactList}\small\item\em initial value of the system size \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classcustom__parameters_a9e36059aac19ff4dfb583d34e5e26780}\label{classcustom__parameters_a9e36059aac19ff4dfb583d34e5e26780}} 
+bool \mbox{\hyperlink{classcustom__parameters_a9e36059aac19ff4dfb583d34e5e26780}{T\+C\+SA}}
+\begin{DoxyCompactList}\small\item\em True for diagonalization, false to have just the size of the Hilbert space. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classcustom__parameters_ade4bb2ee1557b4caf1361ddfcb0a0699}\label{classcustom__parameters_ade4bb2ee1557b4caf1361ddfcb0a0699}} 
+bool \mbox{\hyperlink{classcustom__parameters_ade4bb2ee1557b4caf1361ddfcb0a0699}{save\+Eigenvec}}
+\begin{DoxyCompactList}\small\item\em True to save eigenvectors to file, false not to save them. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classcustom__parameters_a4b1bc5a72ba84909a4b359cf62444d06}\label{classcustom__parameters_a4b1bc5a72ba84909a4b359cf62444d06}} 
+const double {\bfseries m} = 1
+\item 
+\mbox{\Hypertarget{classcustom__parameters_a1b7ea2de13fb71e076eba8e89f134ea6}\label{classcustom__parameters_a1b7ea2de13fb71e076eba8e89f134ea6}} 
+const double {\bfseries hbar} = 1
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+Input parameter class. 
+
+Big fuzzy object that contains input paramenter 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classcustom__parameters_a36b806c6dd23d431c4329a74baff2935}\label{classcustom__parameters_a36b806c6dd23d431c4329a74baff2935}} 
+\index{custom\_parameters@{custom\_parameters}!custom\_parameters@{custom\_parameters}}
+\index{custom\_parameters@{custom\_parameters}!custom\_parameters@{custom\_parameters}}
+\doxysubsubsection{\texorpdfstring{custom\_parameters()}{custom\_parameters()}}
+{\footnotesize\ttfamily custom\+\_\+parameters\+::custom\+\_\+parameters (\begin{DoxyParamCaption}\item[{const char $\ast$}]{modelfilename,  }\item[{const char $\ast$}]{nrgfilename }\end{DoxyParamCaption})}
+
+
+
+Constructor. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em modelfilename} & The name of the model input file \\
+\hline
+\mbox{\texttt{ in}}  & {\em nrgfilename} & The name of the nrg input file \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classcustom__parameters_ac507a8d43bc397cff467a71c7ae6957b}\label{classcustom__parameters_ac507a8d43bc397cff467a71c7ae6957b}} 
+\index{custom\_parameters@{custom\_parameters}!````~custom\_parameters@{$\sim$custom\_parameters}}
+\index{````~custom\_parameters@{$\sim$custom\_parameters}!custom\_parameters@{custom\_parameters}}
+\doxysubsubsection{\texorpdfstring{$\sim$custom\_parameters()}{~custom\_parameters()}}
+{\footnotesize\ttfamily custom\+\_\+parameters\+::$\sim$custom\+\_\+parameters (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Calculates Verma modules size, Hilbert space size, subspace analysis and structure constant. 
+
+Destructor 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classcustom__parameters_af026275532160d5d7530bdb4e4edf307}\label{classcustom__parameters_af026275532160d5d7530bdb4e4edf307}} 
+\index{custom\_parameters@{custom\_parameters}!print@{print}}
+\index{print@{print}!custom\_parameters@{custom\_parameters}}
+\doxysubsubsection{\texorpdfstring{print()}{print()}}
+{\footnotesize\ttfamily void custom\+\_\+parameters\+::print (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Prints the input paramters, Verma modules size, Hilbert space size, subspace analysis and structure constant. 
+
+{\itshape  Needs to be called after analyse\+\_\+subspaces() } 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+truspace\+\_\+extension\+\_\+example/\mbox{\hyperlink{custom__parameters_8h}{custom\+\_\+parameters.\+h}}\item 
+truspace\+\_\+extension\+\_\+example/custom\+\_\+parameters.\+cpp\end{DoxyCompactItemize}

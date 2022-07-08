@@ -41,7 +41,7 @@ class NRG
          * @param[in] fnames Reference to a filenames object
          */
         void run(parameters& p, Hamiltonian& H, filenames& fnames);
-        tensor2D<double> EigenVectors;
+        tensor2D<double> EigenVectors; /**< Tensor holding the eigenvectors of the last diagonalization. */
         int NIters; /**< Number of NRG iteration to perform. Calculated by the code. */
         int NSweeps; /**< Number of Sweep to perform. Read from input file. */
 

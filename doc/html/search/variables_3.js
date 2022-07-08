@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['eigenname',['EigenName',['../classfilenames.html#abde847abd53a4cb5998b948082943e84',1,'filenames']]],
-  ['eigennamefinal',['EigenNameFinal',['../classfilenames.html#a742e0e35657ea3b86c39efb8a27eb9c4',1,'filenames']]],
-  ['eigenvectname',['EigenVectName',['../classfilenames.html#a9e2905e7c8a2f218f71d9d211d50695b',1,'filenames']]]
+  ['fields_5fdimensions_432',['fields_dimensions',['../classminimal__model__parameters.html#a0bb7a02df65711d2b4a28e3092460ba1',1,'minimal_model_parameters']]],
+  ['fields_5ffile_433',['fields_file',['../classminimal__model__parameters.html#aae92c2a3cb1b060df08279e960b00c4b',1,'minimal_model_parameters']]],
+  ['finalsubspace_434',['finalsubspace',['../classminimal__model__parameters.html#a51077797f59b83fca0c961d5b086599a',1,'minimal_model_parameters']]]
 ];

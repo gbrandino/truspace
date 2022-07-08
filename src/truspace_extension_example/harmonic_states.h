@@ -1,5 +1,5 @@
 /** @file harmonic_states.h
- * \brief Class that contains and calculates states 
+ * \brief Class that contains and calculates harmonic_states 
  *
  * \author Giuseppe Piero Brandino - eXact-lab s.r.l., Robert Konik - BNL
  * \date October 2019
@@ -13,6 +13,7 @@
 
 
 /** Class that contains and calculates chiral states by removing null vectors from each verma module
+ * All the methods needs to be implemented, since they are virtual in the base class
  */
 class harmonic_states : public states
 {
@@ -27,8 +28,6 @@ class harmonic_states : public states
    
         /** Routine to calculate chiral states, stored internally in the object itself.
          * @param[in] p Reference to a parameters object
-         * @param[in] subspace Subspace to work on
-         * @param[in] fname Reference to a filenames object
          */ 
         void calculate(custom_parameters& p);        
         /** Routine to calculate nonchiral states, stored internally in the object itself.
