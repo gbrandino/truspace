@@ -11,4 +11,4 @@
  * return gamma function of argument 'x'.
  * \par <em> NOTE: Returns 1e308 if argument is a negative integer or 0, or if argument exceeds 171. </em> 
  */
-double gamma(double x);
+double gamma_custom(double x);

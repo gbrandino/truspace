@@ -6,7 +6,7 @@
  * \copyright GNU Public License.
  */
 
-
+#include <numbers>
 #ifndef MINIMAL_MODEL_CONFIG_H
 #define MINIMAL_MODEL_CONFIG_H
 #define VERSION "2.0.0"
@@ -29,6 +29,6 @@
 #define MaxNumGrade  50 
 #define SIGN(a,b) ((b) >= 0.0 ? fabsl(a) : -fabsl(a))
 #define SIGNd(a,b) ((b) >= 0.0 ? fabs(a) : -fabs(a))
-#define pi 3.1415926535897 
+#define PI 3.141592653589793238463 
 
 #endif

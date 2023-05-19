@@ -6,7 +6,7 @@
  *  \date 2003
  */
 #include <math.h>
-double gamma(double x)
+double gamma_custom(double x)
 {
     int i,k,m;
     double ga,gr,r,z;

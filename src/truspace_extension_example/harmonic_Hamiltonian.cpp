@@ -9,7 +9,11 @@
 #include "harmonic_matrix_elements.h"
 #include "harmonic_states.h"
 #include "custom_config.h"
+#ifdef __APPLE__
+#include <Accelerate/Accelerate.h>
+#else
 #include <cblas.h>
+#endif
 #include <iostream>
 #include <fstream>
 #include <cmath>

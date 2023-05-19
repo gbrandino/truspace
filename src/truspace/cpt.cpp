@@ -36,11 +36,11 @@ long double dotmu(int ll,int l,long double ro,long double ro1)
         }
         for (int i=1;i<=ll-1;i++)
             {
-            prod2=prod2*gamma(((long double)i)*ro1)/gamma(((long double)1)-((long double)i)*ro1);
+            prod2=prod2*gamma_custom(((long double)i)*ro1)/gamma_custom(((long double)1)-((long double)i)*ro1);
             }
         for (int j=1;j<=l-1;j++)
             {
-            prod3=prod3*gamma(((long double)j)*ro)/gamma(((long double)1)-((long double)j)*ro);
+            prod3=prod3*gamma_custom(((long double)j)*ro)/gamma_custom(((long double)1)-((long double)j)*ro);
             }
        return pow(ro,(long double)(4*(ll-1)*(l-1)))*prod1*prod2*prod3;
 //      }
@@ -68,11 +68,11 @@ long double dotc(int ll,int l,long double ro, long double ro1, long double kn1, 
         }
         for (int i=0;i<=ll-2;i++)
             {
-            prod2=prod2*gamma(-ro1*((long double)(ks1-1-i))+(long double)ks)*gamma(-ro1*((long double)(kn1-1-i))+(long double)kn)*gamma(ro1*((long double)(kp1+1+i))-(long double)kp)/(gamma(1+ro1*((long double)(ks1-1-i))-(long double)ks)*gamma(1+ro1*((long double)(kn1-1-i))-(long double)kn)*gamma(1-ro1*((long double)(kp1+1+i))+(long double)kp)) ;
+            prod2=prod2*gamma_custom(-ro1*((long double)(ks1-1-i))+(long double)ks)*gamma_custom(-ro1*((long double)(kn1-1-i))+(long double)kn)*gamma_custom(ro1*((long double)(kp1+1+i))-(long double)kp)/(gamma_custom(1+ro1*((long double)(ks1-1-i))-(long double)ks)*gamma_custom(1+ro1*((long double)(kn1-1-i))-(long double)kn)*gamma_custom(1-ro1*((long double)(kp1+1+i))+(long double)kp)) ;
             }
         for (int j=0;j<=l-2;j++)
             {
-            prod3=prod3*gamma(-ro*((long double)(ks-1-j))+(long double)ks1)*gamma(-ro*((long double)(kn-1-j))+(long double)kn1)*gamma(ro*((long double)(kp+1+j))-(long double)kp1)/(gamma(1+ro*((long double)(ks-1-j))-(long double)ks1)*gamma(1+ro*((long double)(kn-1-j))-(long double)kn1)*gamma(1-ro*((long double)(kp+1+j))+(long double)kp1)) ;
+            prod3=prod3*gamma_custom(-ro*((long double)(ks-1-j))+(long double)ks1)*gamma_custom(-ro*((long double)(kn-1-j))+(long double)kn1)*gamma_custom(ro*((long double)(kp+1+j))-(long double)kp1)/(gamma_custom(1+ro*((long double)(ks-1-j))-(long double)ks1)*gamma_custom(1+ro*((long double)(kn-1-j))-(long double)kn1)*gamma_custom(1-ro*((long double)(kp+1+j))+(long double)kp1)) ;
             }
     return dotmu(ll,l,ro,ro1)*prod1*prod2*prod3;
 //      }
@@ -97,11 +97,11 @@ long double dota(int kn1,int kn,long double ro,long double ro1)
         }
     for (int i=1;i<=kn1-1;i++)
         {
-        prod2=prod2*gamma(((long double)i)*ro1)*gamma(2-ro1*((long double)(1+i)))/(gamma(((long double)1)-((long double)i)*ro1)*gamma(-1+ro1*((long double)(1+i))));
+        prod2=prod2*gamma_custom(((long double)i)*ro1)*gamma_custom(2-ro1*((long double)(1+i)))/(gamma_custom(((long double)1)-((long double)i)*ro1)*gamma_custom(-1+ro1*((long double)(1+i))));
         }
     for (int j=1;j<=kn-1;j++)
         {
-        prod3=prod3*gamma(((long double)j)*ro)*gamma(2-ro*((long double)(1+j)))/(gamma(((long double)1)-((long double)j)*ro)*gamma(-1+ro*((long double)(1+j))));
+        prod3=prod3*gamma_custom(((long double)j)*ro)*gamma_custom(2-ro*((long double)(1+j)))/(gamma_custom(((long double)1)-((long double)j)*ro)*gamma_custom(-1+ro*((long double)(1+j))));
         }
     return prod1*prod2*prod3;
     }

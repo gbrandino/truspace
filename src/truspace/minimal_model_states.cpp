@@ -1046,7 +1046,7 @@ void minimal_model_states::read_chiral(minimal_model_parameters& p, int subspace
             {
             snprintf(fname,100,"%s_v%d_%d_l%d",fnames.OverlapName.c_str(),p.IndexToPair[subspace][i].first,p.IndexToPair[subspace][i].second,l);
             state_file = fopen(fname,"r");
-            if ((state_file == NULL)) 
+            if (state_file == NULL) 
                 {
                 me0_exists(i,l) = 0;
                 }

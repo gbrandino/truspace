@@ -11,7 +11,11 @@
 #include "minimal_model_config.h"
 #include <mpi.h>
 #include "scalapack.h"
+#ifdef __APPLE__
+#include <Accelerate/Accelerate.h>
+#else
 #include <cblas.h>
+#endif
 #include <iostream>
 #include <fstream>
 #include <iomanip>

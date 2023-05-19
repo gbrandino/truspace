@@ -12,7 +12,11 @@
 #include <mpi.h>
 #include "scalapack.h"
 #include <cmath>
+#ifdef __APPLE__
+#include <Accelerate/Accelerate.h>
+#else
 #include <cblas.h>
+#endif
 #include <iostream>
 #include <fstream>
 #include <iomanip>

@@ -81,7 +81,7 @@ void chirME::calculate_or_read_chirME(minimal_model_parameters& p, minimal_model
                             snprintf(fname,100,"%s_v%d_%d_v%d_%d_l%d_l%d", fnames.MeChirName[pert].c_str(), p.IndexToPair[p.currentSubspace][i].first, p.IndexToPair[p.currentSubspace][i].second, 
                                     p.IndexToPair[p.currentSubspace][j].first, p.IndexToPair[p.currentSubspace][j].second, l, k);
                             state_file = fopen(fname,"r");
-                            if ((state_file == NULL)) 
+                            if (state_file == NULL) 
                                 {
                                 me_exists(pert,i,j,l,k) = 0;
                                 }

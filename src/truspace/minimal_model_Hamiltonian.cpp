@@ -9,7 +9,11 @@
 #include "chirME.h"
 #include "minimal_model_states.h"
 #include "minimal_model_config.h"
+#ifdef __APPLE__
+#include <Accelerate/Accelerate.h>
+#else
 #include <cblas.h>
+#endif
 #include <iostream>
 #include <fstream>
 #include <iomanip>
@@ -84,7 +88,7 @@ void minimal_model_Hamiltonian::init()
     for (int pert=0; pert < p_der.numPert; pert++)
         {
         //effective strength of each perturbation
-        double c = p_der.pConst[pert]*2.*pi*pow(R/2./pi,1. - \
+        double c = p_der.pConst[pert]*2.*PI*pow(R/2./PI,1. - \
                    (p_der.deltas[pert].first + \
                     p_der.deltas[pert].second)); 
         #pragma omp parallel for 
@@ -138,7 +142,7 @@ void minimal_model_Hamiltonian::init()
                 }
 
             // diagonal elements (check 2pi factor)
-            H(i,i) += 2.*pi/R*(st_der.state_en[i]-p_der.C/12.)/p_der.numPert;
+            H(i,i) += 2.*PI/R*(st_der.state_en[i]-p_der.C/12.)/p_der.numPert;
     
             }
         }
@@ -180,7 +184,7 @@ void minimal_model_Hamiltonian::NRG_block_BC(int iteration, double* coeff)
     double* results = new double[p.Nstep*p.Nsize];
     for (int pert=0; pert < p_der.numPert; pert++)
         {
-        double c = p_der.pConst[pert]*2.*pi*pow(R/2./pi,1.- (p_der.deltas[pert].first + p_der.deltas[pert].second));
+        double c = p_der.pConst[pert]*2.*PI*pow(R/2./PI,1.- (p_der.deltas[pert].first + p_der.deltas[pert].second));
         
         for(int j=0;j < p.Nstep;++j) 
             {
@@ -259,7 +263,7 @@ void minimal_model_Hamiltonian::NRG_block_D(int iteration)
    for (int pert=0; pert < p_der.numPert; pert++)
         {
         //effective strength of each perturbation
-        double c = p_der.pConst[pert]*2.*pi*pow(R/2./pi,1.-(p_der.deltas[pert].first + p_der.deltas[pert].second));
+        double c = p_der.pConst[pert]*2.*PI*pow(R/2./PI,1.-(p_der.deltas[pert].first + p_der.deltas[pert].second));
         int shift = p.Nsize + p.Nstep*iteration;
         for(int i=0; i < p.Nstep; ++i)
             {
@@ -309,7 +313,7 @@ void minimal_model_Hamiltonian::NRG_block_D(int iteration)
                 }
 
             // diagonal elements (check 2pi factor)
-            H(i + p.Nsize, i + p.Nsize ) += 2.*pi/R*(st_der.state_en[shift + i]-p_der.C/12.)/p_der.numPert;
+            H(i + p.Nsize, i + p.Nsize ) += 2.*PI/R*(st_der.state_en[shift + i]-p_der.C/12.)/p_der.numPert;
 
             }
         }
@@ -421,7 +425,7 @@ void minimal_model_Hamiltonian::sweep_block_BC(int iteration, double* coeff, dou
                                 cblas_dgemm(CblasRowMajor,CblasNoTrans,CblasNoTrans,subsize2,subsize,subsize,1.0,&m1(pert,vmod2,vmod,lev2,lev,0),subsize,coeffSweep_j,subsize,0.0,results,subsize);
                                 cblas_dgemm(CblasRowMajor,CblasNoTrans,CblasTrans,subsize2,subsize2,subsize,1.0,results,subsize,&m2(pert,vmod2,vmod,lev2,lev,0),subsize,0.0,results2,subsize2);
 
-                                double c = p.pConst[pert]*2.*pi*pow(R/2./pi,1.-(p.deltas[pert].first + p.deltas[pert].second));
+                                double c = p.pConst[pert]*2.*PI*pow(R/2./PI,1.-(p.deltas[pert].first + p.deltas[pert].second));
                                 for (int ii=0;ii<subsize2;ii++)
                                     {
                                     for (int jj=0;jj<subsize2;jj++)
@@ -462,7 +466,7 @@ void minimal_model_Hamiltonian::sweep_block_BC(int iteration, double* coeff, dou
 
     for (int pert=0; pert < p_der.numPert; pert++)
         {
-        double c = p_der.pConst[pert]*2.*pi*pow(R/2./pi,1.- (p_der.deltas[pert].first + p_der.deltas[pert].second));
+        double c = p_der.pConst[pert]*2.*PI*pow(R/2./PI,1.- (p_der.deltas[pert].first + p_der.deltas[pert].second));
 
         for(int i=0;i < p.Nsize;++i)
             {
@@ -532,7 +536,7 @@ void minimal_model_Hamiltonian::sweep_block_BC(int iteration, double* coeff, dou
         {
         for (int k=0; k < NRGstoresize;k++)
             {
-            coefftemp[i*NRGstoresize + k]=coeff[i*NRGspacesize+k]*(2.*pi/R*(st_der.state_en[k]-p_der.C/12.));
+            coefftemp[i*NRGstoresize + k]=coeff[i*NRGspacesize+k]*(2.*PI/R*(st_der.state_en[k]-p_der.C/12.));
             }
         }
 

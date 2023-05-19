@@ -7,7 +7,11 @@
 #include "parameters.h"
 #include "tensors.h"
 #include "filenames.h"
+#ifdef __APPLE__
+#include <Accelerate/Accelerate.h>
+#else
 #include <cblas.h>
+#endif
 #include <cstring>
 #include <fstream>
 #include <sstream>

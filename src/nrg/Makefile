@@ -50,6 +50,6 @@ libnrg_mpi.so: $(OBJS_MPI) $(OBJS)
 
 
 clean:
-	rm -f *.x *.o *.so
+	rm -f *.x *.o *.so *.dylib
 
 

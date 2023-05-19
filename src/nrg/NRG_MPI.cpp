@@ -9,7 +9,11 @@
 #include "filenames.h"
 #include "config.h"
 #include "scalapack.h"
+#ifdef __APPLE__
+#include <Accelerate/Accelerate.h>
+#else
 #include <cblas.h>
+#endif
 #include <cstring>
 #include <fstream>
 #include <sstream>
@@ -243,7 +247,7 @@ void NRG::run(parameters& p, Hamiltonian& H, filenames& fnames)
                         }
                     storeEigen.close();
                     }
-                MPI::COMM_WORLD.Bcast(tempD, p.Nstep, MPI_DOUBLE, 0);
+                MPI_Bcast(tempD, p.Nstep, MPI_DOUBLE, 0,MPI_COMM_WORLD);
 
                 for(int i=0; i < p.Nstep; ++i)
                     {
@@ -293,7 +297,7 @@ void NRG::run(parameters& p, Hamiltonian& H, filenames& fnames)
                     storeCoeff.close();
                     }
                 int Bcast_size = p.Nstep*NRGstoresize;
-                MPI::COMM_WORLD.Bcast(coeffSweep, Bcast_size, MPI_DOUBLE, 0);            
+                MPI_Bcast(coeffSweep, Bcast_size, MPI_DOUBLE, 0, MPI_COMM_WORLD);            
 
                 H.sweep_block_BC(iter, coeff, coeffSweep, NRGspacesize, NRGstoresize );
 
