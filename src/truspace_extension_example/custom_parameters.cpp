@@ -99,11 +99,11 @@ void custom_parameters::print() const
 
     if (TCSA)
        {
-       std::cout << " Full calculation including TCSA " << std::endl;
+       std::cout << " Full calculation including TSA " << std::endl;
        }
     else 
         {
-        std::cout <<" No TCSA "<< std::endl;
+        std::cout <<" No TSA "<< std::endl;
         }
 
     if (NRG)
@@ -143,7 +143,7 @@ void custom_parameters::print() const
         std::cout << " Saving Eigenvector to file is enable" << std::endl;
         } 
     std::cout << std::endl;
-    std::cout << "--  Perturbation of the CFT hamiltonian  = m omega^2 x^2/2" << std::endl;
+    std::cout << "--  Perturbation of the free particle hamiltonian  = m omega^2 x^2/2" << std::endl;
     std::cout << std::endl;
 }
     

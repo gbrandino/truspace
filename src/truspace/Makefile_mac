@@ -1,8 +1,8 @@
 ROOT=${PWD}/../..
 CLN=${ROOT}/dep/cln-1.3.6
 GINAC=${ROOT}/dep/ginac-1.8.6
-SCALAPACK_LIB=${ROOT}/scalapack-2.0.0/libscalapack.a
-NRG_LIB= -L${ROOT}/lib -lnrg
+SCALAPACK_LIB= -lscalapack
+NRG_LIB= -L${ROOT}/lib/ -lnrg
 NRG_LIB_MPI=  -L${ROOT}/lib -lnrg_mpi
 MPICXX= mpicxx
 
@@ -38,7 +38,7 @@ truspace.x : truspace.cpp $(OBJS) minimal_model_Hamiltonian.o
 truspace_mpi.x : CFLAGS += -DMPI_PAR 
 truspace_mpi.x : CXX=${MPICXX}
 truspace_mpi.x : truspace.cpp $(OBJS) minimal_model_Hamiltonian_MPI.o 
-	${CXX} ${CFLAGS}  $^ ${NRG_LIB_MPI} ${LIBS}  ${SCALAPACK_LIB} -lgfortran -o  $@  -Wl,-rpath ${CLN}/lib/ -Wl,-rpath ${GINAC}/lib/ -Wl,-rpath ${BLAS}/lib/ -Wl,-rpath ${LAPACK}/lib -Wl,-rpath ${ROOT}/lib/ 
+	${CXX} ${CFLAGS}  $^ ${NRG_LIB_MPI} ${LIBS} ${SCALAPACK_LIB} -o  $@  -Wl,-rpath ${CLN}/lib/ -Wl,-rpath ${GINAC}/lib/ -Wl,-rpath ${ROOT}/lib/ 
 	mkdir -p ${ROOT}/bin
 	cp $@ ${ROOT}/bin
 
@@ -55,12 +55,12 @@ test:
 	@rm ${ROOT}/test/FINAL_Eigenvalues_p_3_q_4_minLev_0_maxLev_10_Per_2_c_0.09_Subspace_0_Mom_0 || true
 	@rm ${ROOT}/test/store* || true
 	@cp truspace.x ${ROOT}/test/ && cd ${ROOT}/test/ && ./truspace.x input-ising-model input-ising-nrg > /dev/null
-	@pytest  --junitxml results.xml  ${ROOT}/test/compare.py
+	@python3 -m pytest  --junitxml results.xml  ${ROOT}/test/compare.py
 
 test_mpi:
 	@rm ${ROOT}/test/Eigenvalues_p_3_q_4_minLev_0_maxLev_10_Per_2_c_0.09_Subspace_0_Mom_0 || true
 	@rm ${ROOT}/test/FINAL_Eigenvalues_p_3_q_4_minLev_0_maxLev_10_Per_2_c_0.09_Subspace_0_Mom_0 || true
 	@rm ${ROOT}/test/store* || true
 	@cp truspace_mpi.x ${ROOT}/test/ && cd ${ROOT}/test/ && mpirun -np 4 ./truspace_mpi.x input-ising-model input-ising-nrg > /dev/null
-	@pytest  --junitxml results.xml  ${ROOT}/test/compare_mpi.py
+	@python3 -m pytest  --junitxml results.xml  ${ROOT}/test/compare_mpi.py
 

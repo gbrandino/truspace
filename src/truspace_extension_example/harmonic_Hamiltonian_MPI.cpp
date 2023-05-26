@@ -185,7 +185,7 @@ void harmonic_Hamiltonian::init()
             {
             memcpy(shareH, tempH, slice*Msize*sizeof(double));
             }
-        MPI::COMM_WORLD.Bcast(shareH, slice*Msize, MPI_DOUBLE, n); 
+        MPI_Bcast(shareH, slice*Msize, MPI_DOUBLE, n, MPI_COMM_WORLD); 
         for(int i=0; i < slice; ++i)
             {
             for(int j=0; j < Msize; ++j)

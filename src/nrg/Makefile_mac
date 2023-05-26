@@ -1,11 +1,11 @@
 ROOT=${PWD}/../..
 INSTALL_DIR=${ROOT}/lib
 HEADER_DIR=${ROOT}/include
-SCALAPACK_LIB=${ROOT}/dep/scalapack-2.0.0/libscalapack.a
+SCALAPACK_LIB= -lscalapack
 MPICXX= mpicxx
 
 CFLAGS=-I${BLAS}/include -std=c++11 -O2 -fPIC
-LDFLAGS = -shared -framework Accelerate 
+LDFLAGS = -shared -framework Accelerate  
 LDFLAGS_MPI = ${LDFLAGS} ${SCALAPACK_LIB}
 LIBS= -lpthread -lstdc++
 SRC=parameters.cpp states.cpp matrix_elements.cpp filenames.cpp
@@ -32,14 +32,14 @@ $(OBJS_MPI): %.o : %.cpp %.h config.h
 
 
 libnrg.dylib: $(OBJS_SERIAL) $(OBJS)
-	$(CXX) $(LDFLAGS)  -o $@ $^
+	$(CXX) $(LDFLAGS) -Wl, -install_name ${INSTALL_DIR}/$@ -o $@ $^
 	mkdir -p ${INSTALL_DIR}
 	cp $@ ${INSTALL_DIR}
 	mkdir -p ${HEADER_DIR}
 	cp *.h ${HEADER_DIR} 
 
 libnrg_mpi.dylib: $(OBJS_MPI) $(OBJS)
-	$(MPICXX) $(LDFLAGS_MPI) -o $@ $^
+	$(MPICXX) $(LDFLAGS_MPI) -Wl, -install_name ${INSTALL_DIR}/$@ -o $@ $^
 	mkdir -p ${INSTALL_DIR}
 	cp $@ ${INSTALL_DIR}
 	mkdir -p ${HEADER_DIR}

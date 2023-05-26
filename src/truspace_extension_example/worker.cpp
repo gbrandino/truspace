@@ -57,7 +57,7 @@ void worker::run(custom_parameters& p)
 #endif
         std::cout << std::endl;
         std::cout << "----------------"  << std::endl;
-        std::cout << " Starting TCSA  "  << std::endl;
+        std::cout << " Starting TSA  "  << std::endl;
         std::cout << "----------------"  << std::endl;
         std::cout << std::endl;
 #ifdef MPI_PAR 

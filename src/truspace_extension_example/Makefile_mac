@@ -1,5 +1,5 @@
 ROOT=${PWD}/../..
-SCALAPACK_LIB=${ROOT}/scalapack-2.0.0/libscalapack.a
+SCALAPACK_LIB= -lscalapack
 NRG_LIB= -L${ROOT}/lib -lnrg
 NRG_LIB_MPI=  -L${ROOT}/lib -lnrg_mpi
 MPICXX= mpicxx
@@ -33,7 +33,7 @@ truspace_harmonic.x : truspace_harmonic.cpp $(OBJS) harmonic_Hamiltonian.o
 truspace_harmonic_mpi.x : CFLAGS += -DMPI_PAR 
 truspace_harmonic_mpi.x : CXX=${MPICXX}
 truspace_harmonic_mpi.x : truspace_harmonic.cpp $(OBJS) harmonic_Hamiltonian_MPI.o
-	${MPICXX} ${CFLAGS}  $^ ${NRG_LIB_MPI} ${LIBS} ${SCALAPACK_LIB} -lgfortran -o  $@  -Wl,-rpath ${ROOT}/lib/
+	${MPICXX} ${CFLAGS}  $^ ${NRG_LIB_MPI} ${LIBS} ${SCALAPACK_LIB} -o  $@  -Wl,-rpath ${ROOT}/lib/
 	mkdir -p ${ROOT}/bin
 	cp $@ ${ROOT}/bin/
 
