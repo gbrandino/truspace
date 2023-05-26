@@ -21,6 +21,6 @@ cd $ROOTDIR/src/truspace_extension_example
 make -f Makefile_linux clean
 cd $ROOTDIR/dep
 rm -rf *
-rm -f  $ROOTDIR/bin
-rm -f  $ROOTDIR/lib
-
+rm -rf  $ROOTDIR/bin
+rm -rf  $ROOTDIR/lib
+rm -rf  $ROOTDIR/include

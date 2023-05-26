@@ -59,12 +59,12 @@ test:
 	@rm ${ROOT}/test/FINAL_Eigenvalues_p_3_q_4_minLev_0_maxLev_10_Per_2_c_0.09_Subspace_0_Mom_0 || true
 	@rm ${ROOT}/test/store* || true
 	@cp truspace.x ${ROOT}/test/ && cd ${ROOT}/test/ && ./truspace.x input-ising-model input-ising-nrg > /dev/null
-	@pytest  --junitxml results.xml  ${ROOT}/test/compare.py
+	@python3 -m pytest  --junitxml results.xml  ${ROOT}/test/compare.py
 
 test_mpi:
 	@rm ${ROOT}/test/Eigenvalues_p_3_q_4_minLev_0_maxLev_10_Per_2_c_0.09_Subspace_0_Mom_0 || true
 	@rm ${ROOT}/test/FINAL_Eigenvalues_p_3_q_4_minLev_0_maxLev_10_Per_2_c_0.09_Subspace_0_Mom_0 || true
 	@rm ${ROOT}/test/store* || true
 	@cp truspace_mpi.x ${ROOT}/test/ && cd ${ROOT}/test/ && mpirun -np 4 ./truspace_mpi.x input-ising-model input-ising-nrg > /dev/null
-	@pytest  --junitxml results.xml  ${ROOT}/test/compare_mpi.py
+	@python3 -m pytest  --junitxml results.xml  ${ROOT}/test/compare_mpi.py
 

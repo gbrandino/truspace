@@ -17,4 +17,4 @@ cd $ROOTDIR/dep
 rm -rf *
 rm -rf  $ROOTDIR/bin
 rm -rf  $ROOTDIR/lib
-
+rm -rf  $ROOTDIR/include
