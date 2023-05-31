@@ -33,13 +33,13 @@ class custom_parameters : public parameters
         /** Constructor
          * @param[in] modelfilename The name of the model input file
          * @param[in] nrgfilename The name of the nrg input file
+
+	 This fuctions parses the input files and sets the both the local and inherited paramaters
          */
         custom_parameters(const char* modelfilename, const char* nrgfilename);
-        /** Prints the input paramters, Verma modules size, Hilbert space size, subspace analysis and structure constant. <em> Needs to be called after analyse_subspaces() </em>
+	/** Prints parameters
          */
         void print() const;
-        /** Calculates Verma modules size, Hilbert space size, subspace analysis and structure constant.
-         */
         /** Destructor
          */
         ~custom_parameters();

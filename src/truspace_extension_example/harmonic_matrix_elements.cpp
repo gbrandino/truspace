@@ -137,7 +137,7 @@ void harmonic_matrix_elements::calculate_for_ExpVal(custom_parameters& p, harmon
             double q_i = st.state_quantum_number[i];
             double q_j = st.state_quantum_number[j];
             if (( i_even and !j_even ) or (!i_even and j_even)){
-                me_unperturbed(0,i,j) = 0.;
+                me_unperturbed_for_expval(i,j) = 0.;
             }
             if ( i_even and j_even)  {
                 if (fabs(q_i - q_j) < 0.000001){
