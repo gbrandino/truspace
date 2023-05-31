@@ -7,9 +7,20 @@
  * \copyright GNU Public License.
  */
 
-#include <iostream>
 #include "custom_parameters.h"
-#include "worker.h"
+#include "harmonic_states.h"
+#include "harmonic_filenames.h"
+#include "tensors.h"
+#include "harmonic_matrix_elements.h"
+#ifdef MPI_PAR
+#include "harmonic_Hamiltonian_MPI.h"
+#include "NRG_MPI.h"
+#else
+#include "harmonic_Hamiltonian.h"
+#include "NRG.h"
+#endif
+#include "custom_config.h"
+#include <iostream>
 #ifdef MPI_PAR
 #include <mpi.h>
 #endif
@@ -55,11 +66,72 @@ int main(int argc, char** argv)
 #endif
         par.print();   
 
-    worker sys;
     // If TCSA is selectd, run it, otherwise, exit
     if (par.TCSA)
         {
-        sys.run(par);
+        #ifdef MPI_PAR
+            int myrank_mpi,nprocs_mpi;
+            MPI_Comm_rank(MPI_COMM_WORLD, &myrank_mpi);
+            MPI_Comm_size(MPI_COMM_WORLD, &nprocs_mpi);
+        #endif
+
+
+        #ifdef MPI_PAR 
+            if (myrank_mpi == 0)
+                {
+        #endif
+                std::cout << std::endl;
+                std::cout << "----------------"  << std::endl;
+                std::cout << " Starting TSA  "  << std::endl;
+                std::cout << "----------------"  << std::endl;
+                std::cout << std::endl;
+        #ifdef MPI_PAR 
+                }
+        #endif
+
+            harmonic_filenames fnames(par);
+	    harmonic_states st(par);
+
+            // calculate states
+            st.calculate(par);
+
+            // calculate matrix elements
+            harmonic_matrix_elements me(par,st);
+
+            me.calculate(par,fnames,st);
+                
+            if ( par.calcExpVal )
+                me.calculate_for_ExpVal(par, st);
+
+        #ifdef MPI_PAR 
+            if (myrank_mpi == 0)
+        #endif
+                std::cout << " Done with matrix elements calculation " << std::endl;
+                harmonic_Hamiltonian H_iter(par, st, me);
+
+                NRG nrg;
+        #ifdef MPI_PAR 
+                if (myrank_mpi == 0)
+                    {
+        #endif
+                    std::cout << std::endl;
+                    std::cout << " --------------------------------------------- " << std::endl;
+                    std::cout << " Diagonalization of Hamiltonian " << std::endl;
+        #ifdef MPI_PAR 
+                    }
+        #endif
+
+                for ( int r=0; r < par.rSteps; r++)
+                    {
+                    double R = par.rStart + r * par.rInc;
+                    H_iter.R = R;
+        #ifdef MPI_PAR 
+                    if (myrank_mpi == 0)
+        #endif                    
+                        std::cout << " Current system size : " << H_iter.R << std::endl;
+                        nrg.run(par, H_iter, fnames);
+                    }
+            
         }
 
 #ifdef MPI_PAR

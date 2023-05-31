@@ -10,8 +10,8 @@ MPICXX= mpicxx
 
 CFLAGS= -I${BLAS}/include  -I${ROOT}/include  -std=c++11 -fopenmp -O2 
 LIBS= -L${BLAS}/lib/  ${BLAS_LIB}  -L${LAPACK}/lib/ ${LAPACK_LIB}  -lpthread -lstdc++ -fopenmp
-SRC= worker.cpp harmonic_states.cpp harmonic_filenames.cpp harmonic_matrix_elements.cpp custom_parameters.cpp
-#SRC_MPI=parameters.cpp worker.cpp states.cpp filenames.cpp matrix_elements.cpp Hamiltonian_MPI.cpp NRG_MPI.cpp custom_parameters.cpp
+SRC= harmonic_states.cpp harmonic_filenames.cpp harmonic_matrix_elements.cpp custom_parameters.cpp
+#SRC_MPI=parameters.cpp states.cpp filenames.cpp matrix_elements.cpp Hamiltonian_MPI.cpp NRG_MPI.cpp custom_parameters.cpp
 OBJS=$(SRC:.cpp=.o)
 #OBJS_MPI=$(SRC_MPI:.cpp=.o)
 

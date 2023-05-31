@@ -27,9 +27,6 @@ class filenames
         std::string EigenNameFinal;     /**< File name of the eigenvalues for last NRG iteration */
         std::string EigenVectName;      /**< File name of eigenvectors file */
         std::string MeOpName;           /**< File name of Expectation value on the final eigenstates*/
-        std::string StateName;          /**< File name of states file */
-        std::string OverlapName;        /**< File name of file holding the overlap of states */
-        //std::string* MeChirName;        /**< File name(s) of chiral matrix element file */
     protected:
         /** Default constructor is protected, to prevent instantiation of invalid object.
          */

@@ -23,7 +23,9 @@ class minimal_model_filenames: public filenames
         minimal_model_filenames(minimal_model_parameters& p);
         ~minimal_model_filenames();
 
-        std::string* MeChirName;        /**< File name(s) of chiral matrix element file */
+        std::string StateName;          /**< File name of states file */
+	std::string OverlapName;        /**< File name of file holding the overlap of states */
+	std::string* MeChirName;        /**< File name(s) of chiral matrix element file */
     private:
         /** Default constructor is private, to prevent instantiation of invalid object.
          */

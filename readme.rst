@@ -19,27 +19,27 @@ Given the eigenstates of the H\ :sub:`0`, | E\ :sup:`0` :sub:`i`\>, the matrix f
 
 If we are able to calculate the last expectation value above, we can then choose a finite number of states up to a certain i  | E\ :sup:`0` :sub:`i`\> and diagonalize numerically the matrix obtained. 
 
-However, diagonalization of the entire matrix can in some cases become cumbersome, in particular in cases in which a large number of states or great precision are required. 
+However, diagonalization of the entire matrix can in some cases be cumbersome, in particular in cases in which a large number of states or great precision are required. 
 
-This is were ``NRG`` comes in the game. The idea of spectrum-based ``NRG`` is to take into account the contribution of higher and higher unperturbed states to the complete Hamiltonian low-lying energy states.
+This is were ``NRG`` comes into play. The idea of spectrum-based ``NRG`` is to take into account the contribution of higher and higher unperturbed states to the complete Hamiltonian low-lying energy states.
 This is done by fixing a size M of the matrix to a given value. The size M is splitted in two parts, N and D. The first iteration of the algorithm takes the lowest N+D=M states and performs the usual ``TSA`` procedure. At the second iteration, the last D states are removed, and the following D states of the computational basis are put in the computation and the ``TSA`` procedure is applied on this mixed basis ( N states are approximation of the perturbed theory, while the new D states are unperturbed). The procedure is repeated untill a sufficiently high number of states is included (typically by checking convergence of relevant quantities).  In this way, the total size of the matrix is fixed, but the code is able to get contribution from an increasing number of unpertubed states. 
 The typically size of N and D are 2-4000 for N and N/4 for D, while the ``NRG`` is run to include up to tens of thousands of unperturbed states. 
 
 To increase precision even further, we can apply a technique called ``Sweep``. The idea is that, once the ``NRG`` iterations are done, we can start over, but this time instead of using the unperturbed states as computational basis for the D states added at each iteration, we can use the D states discarded at the previous ``NRG`` run at the same iteration. This procedure can be repeated indefinitely, untill convergence is reached. Experimentally, we observerd that 3-4 sweeps are enough to reach convergence in most of the cases. 
 
-The publicly available version supports currently only pertubation of unitary minimal conformal field theories, but it has been applied by the authors and coworkers to other class of models like SU(2)\ :sub:`1`\ [3]_ and 1+1 dimesional Landau-Ginzburg theories [4]_. The plan is to include those two application in TruSpace.
+The publicly available version supports currently only pertubation of unitary minimal conformal field theories, but it has been applied by the authors and coworkers to other class of models like SU(2)\ :sub:`1`\ [3]_ and 1+1 dimesional Landau-Ginzburg theories [4]_. 
 
 To allow further extension, the ``NRG`` and ``Sweep``
 
 Features
 ~~~~~~~~
 
-At the present time is able to calculate
+Currently, the Truspace can calculate:
 
-- Eigenvalues and Eigenvectors of any unitary perturbed conformal field theory based minimal models ( diagonal partition function only for the moment) using full diagonalization, ``NRG`` or ``Sweep``
+- Eigenvalues and Eigenvectors of any unitary perturbed conformal field theory based minimal models using full diagonalization, ``NRG`` or ``Sweep``
 - Automatic separation of symmetry subspaces in the perturbed system. Symmetry subspaces are diagonalized separately, to reduce computational complexity
 - Possibility of considering non-zero momentum states. Momentum subspace are diagonalized separately ( unless it is specifically requested to diagonalize all the subspaces together). 
-- Expectation value on the final basis of any primary field ( descendant field expectation values available but in beta testing phase )
+- Expectation value on the final basis of any primary field 
 
 
 Here are some examples of the results produced by TruSpace 
@@ -65,7 +65,7 @@ Here are some examples of the results produced by TruSpace
 Code design
 ~~~~~~~~~~~~
 
-TruSpace is written in C++ using and Object Oriented design pattern. 
+TruSpace is written in C++ using and Object Oriented design patterns. 
 
 The available classes are
 
@@ -94,14 +94,23 @@ If you want to install TruSpace dependecies by yourself, here is the list
 - Lapack
 - Blas ( we suggest multi-threaded BLAS like Intel MKL_ or OpenBLAS)  
 - Ginac_ and its dependecy CLN_
-- MPI implementation (OpenMPI recommmended) for MPI parallel version
+- MPI runtime (OpenMPI recommmended) for MPI parallel version
+- Scalapack_ for MPI parallel version
    
-Otherwise TruSpace comes with a version of the above libraries, so you can simply move to the next section and use the installation script. 
+On Linux, TruSpace comes with a version of the above libraries (besides MPI runtime, that needs still to be installed), so you can simply move to the next section and use the installation script. 
+
+On MacOS, for the MPI version you will need to install Scalapack using e.g. ``brew``
+::
+
+  brew install scalapack
+
+The MacOS version relies on the Lapack and BLAS present in the ``Accelerate`` framework.
 
 Build instruction - script
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-If you want to use the provided script you can simply run the ``install.sh`` in the root folder. This will install all the dependecies in the TruSpace folder and create the executable accordingly. 
+If you want to use the provided script you can simply run the ``install-linux.sh`` or ``install-mac.sh`` in the root folder. 
+This will install all the dependecies in the TruSpace folder and create the executable accordingly. 
 
 (Experimental: you can define your compiler by issuing, for example::
 
@@ -109,14 +118,15 @@ If you want to use the provided script you can simply run the ``install.sh`` in 
 
 :NOTE: Some version of the intel compiler seems to have issues with the c++11 standard. This will cause Ginac to fail compilation.
 
-To remove the compiled code and its dependecies, run ``uninstall.sh``
+To remove the compiled code and its dependecies, run ``uninstall_linux.sh``, ``uninstall_mpi-linux.sh`` or ``uninstall-mac.sh``
 
 MPI Build instrction - script 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Truspace is distributed with a Netlib scalapack implementation, working on top of the provided Openblas
 
-If you want to use the provided script you can simply run the ``install-mpi.sh`` in the root folder. This will install all the dependecies in the TruSpace folder and create the executable accordingly.
+If you want to use the provided script you can simply run the ``install_mpi-linux.sh`` or ``install_mpi-mac.sh`` in the root folder. 
+This will install all the dependecies in the TruSpace folder and create the executable accordingly.
 
 
 
@@ -135,15 +145,32 @@ If you want to install the library in a different folder or use verion already a
  
 Then simply issue::
 
-  make -j4
+  make -f Makefile_linux -j4
 
-for the serial and OpenMP version, or::
+or::
 
-  make -j4 mpi
+  make -f Makefile_mac -j4
+
+
+for the serial and OpenMP version, and::
+
+  make -f Makefile_linux -j4 mpi
+
+or::
+
+  make -f Makefile_mac -j4 mpi
 
 for the MPI parallel verion.
 
-:NOTE: CMake building will come soon
+There is also a minimal regression test available to all version (requires python, pytest and numpy)
+
+::
+
+  make -f Makefile_linux test
+
+or::
+
+  make -f Makefile_mac test
 
 
 Running TruSpace
@@ -155,8 +182,11 @@ recommend setting the environment variable OMP_NUM_THREADS to the number of core
 The code uses two input files: one with model-specific parameters and one for NRG-only parameters. 
 To run the code:: 
 
-  export OMP_NUM_THREADS=4
   ./truespace.x input-model input-nrg
+
+On Linux, you can control the number of threads by issueing::
+
+  export OMP_NUM_THREADS=4
 
 THE ORDER OF THE LINES AND THEIR POSITIONS IS FIXED AND CANNOT BE MODIFIED. The are example of input files in the ``examples`` folder
 
@@ -348,3 +378,5 @@ Known issues
 .. _CLN : http://www.ginac.de/CLN/
 
 .. _MKL : https://software.intel.com/en-us/intel-mkl
+
+.. _Scalapack : https://netlib.org/scalapack/
