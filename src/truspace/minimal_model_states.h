@@ -9,7 +9,7 @@
 #define MINIMAL_MODEL_STATES_H
 #include "states.h"
 #include "minimal_model_parameters.h"
-#include "filenames.h"
+#include "minimal_model_filenames.h"
 
 /** Class that contains and calculates chiral states by removing null vectors from each verma module
  */
@@ -29,7 +29,7 @@ class minimal_model_states: public states
          * @param[in] subspace Subspace to work on
          * @param[in] fname Reference to a filenames object
          */ 
-        void calculate_chiral(minimal_model_parameters& p, int subspace, filenames& fname );        
+        void calculate_chiral(minimal_model_parameters& p, int subspace, minimal_model_filenames& fname );        
         /** Routine to calculate nonchiral states, stored internally in the object itself.
          * @param[in] p Reference to a parameters object
          * @param[in] subspace Subspace to work on
@@ -42,7 +42,7 @@ class minimal_model_states: public states
          * @param[in] subspace Subspace to work on
          * @param[in] fname Reference to a filenames object
          */
-        void read_chiral(minimal_model_parameters& p, int subspace, filenames& fname);
+        void read_chiral(minimal_model_parameters& p, int subspace, minimal_model_filenames& fname);
         
 
         int MaxChiralStates; /**< The maximum number of chiral states, calculated from character. Used for array allocation */

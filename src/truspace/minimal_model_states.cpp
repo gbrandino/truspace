@@ -44,6 +44,7 @@
  * last revision: November 2016
  */
 
+#include "minimal_model_filenames.h"
 #include "minimal_model_states.h"
 #include "characters.h"
 #include "minimal_model_config.h"
@@ -246,7 +247,7 @@ minimal_model_states::~minimal_model_states()
     delete [] num_chir;
 }
 
-void minimal_model_states::calculate_chiral(minimal_model_parameters& p, int subspace, filenames& fnames)
+void minimal_model_states::calculate_chiral(minimal_model_parameters& p, int subspace, minimal_model_filenames& fnames)
 {
     // MaxPart and MaxNumGrade are (at least for now) global constant 
     // defined in config.h
@@ -973,7 +974,7 @@ void minimal_model_states::calculate_nonchiral(minimal_model_parameters& p, int 
 }
 
 
-void minimal_model_states::read_chiral(minimal_model_parameters& p, int subspace, filenames& fnames)
+void minimal_model_states::read_chiral(minimal_model_parameters& p, int subspace, minimal_model_filenames& fnames)
 {
 #ifdef MPI_PAR
     int myrank_mpi,nprocs_mpi;
