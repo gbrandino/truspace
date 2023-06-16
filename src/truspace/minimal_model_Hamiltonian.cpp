@@ -10,7 +10,11 @@
 #include "minimal_model_states.h"
 #include "minimal_model_config.h"
 #ifdef __APPLE__
+#ifdef MKL
+#include <mkl.h>
+#else
 #include <Accelerate/Accelerate.h>
+#endif
 #else
 #include <cblas.h>
 #endif
@@ -91,7 +95,7 @@ void minimal_model_Hamiltonian::init()
         double c = p_der.pConst[pert]*2.*PI*pow(R/2./PI,1. - \
                    (p_der.deltas[pert].first + \
                     p_der.deltas[pert].second)); 
-        #pragma omp parallel for 
+#pragma omp parallel for 
         for(int i=0; i < Msize; ++i) 
             {
             int st_vmod_left  = st_der.state_vmod_left[i];

@@ -7,8 +7,12 @@
 #include "parameters.h"
 #include "tensors.h"
 #include "filenames.h"
-#ifdef __APPLE__
+#ifdef __APPLE__ 
+#ifdef MKL
+#include <mkl.h>
+#else
 #include <Accelerate/Accelerate.h>
+#endif
 #else
 #include <cblas.h>
 #endif
@@ -33,21 +37,38 @@ void NRG::run(parameters& p, Hamiltonian& H, filenames& fnames)
     char jobz;
     char range='A';
     char uplo='L';
-    int  il = 1;
-    int  iu = H.Msize;
-    int lda = H.Msize;
-    int ldz = H.Msize;
-    int ms = H.Msize;
     double vl = 0.;
     double vu = 0.;
     double abstol= 0.;
+    double* work;
+    double t_work;
+#ifdef MKL
+    long long lda = H.Msize;
+    long long il = 1;
+    long long iu = H.Msize;
+    long long ms = H.Msize;
+    long long ldz = H.Msize;
+    long long lwork;
+    long long liwork;
+    long long *isuppz;
+    long long info;
+    long long n = H.Msize;
+    long long t_iwork;
+    long long *iwork;
+#else
+    int lda = H.Msize;
+    int il = 1;
+    int iu = H.Msize;
+    int ms = H.Msize;
+    int ldz = H.Msize;
     int lwork;
     int liwork;
-    double* work;
-    int* iwork;
     int *isuppz;
     int info;
     int n = H.Msize;
+    int t_iwork;
+    int *iwork;
+#endif
 
     double* eigen = new double[H.Msize];
 
@@ -83,16 +104,22 @@ void NRG::run(parameters& p, Hamiltonian& H, filenames& fnames)
     
     lwork = -1;
     liwork = -1;
-    double t_work;
-    int t_iwork;
+#ifdef MKL
+    isuppz = new long long[2*ms];
+#else    
     isuppz = new int[2*ms];
-   
-    dsyevr_(&jobz,&range,&uplo,&n,NULL,&lda,&vl,&vu,&il,&iu,&abstol,&ms,eigen,NULL,&ldz,isuppz,&t_work,&lwork,&t_iwork,&liwork,&info);
+#endif
 
+
+    dsyevr_(&jobz,&range,&uplo,&n,NULL,&lda,&vl,&vu,&il,&iu,&abstol,&ms,eigen,NULL,&ldz,isuppz,&t_work,&lwork,&t_iwork,&liwork,&info);
     lwork = (int)t_work;
     liwork = t_iwork;
     work = new double[lwork];
+#ifdef MKL
+    iwork = new long long[liwork];
+#else
     iwork = new int[liwork];
+#endif
     dsyevr_(&jobz,&range,&uplo,&n,H.H.data,&lda,&vl,&vu,&il,&iu,&abstol,&ms,eigen,EigenVectors.data,&ldz,isuppz,work,&lwork,iwork,&liwork,&info);
     if (info > 0)
         {
