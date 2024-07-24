@@ -1,6 +1,6 @@
 ROOT=${PWD}/../..
-CLN=${ROOT}/dep/cln-1.3.6
-GINAC=${ROOT}/dep/ginac-1.8.6
+CLN=${ROOT}/dep/cln-1.3.7
+GINAC=${ROOT}/dep/ginac-1.8.7
 BLAS=${ROOT}/dep/OpenBLAS-0.3.17
 BLAS_LIB=-lopenblas
 LAPACK=${ROOT}/dep/OpenBLAS-0.3.17# it is better not to have this field empty, to prevent the -rpath to use /lib. If your blas distribution contains lapack, make it point to openblas root folder

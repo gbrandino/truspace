@@ -1,7 +1,7 @@
 #!/bin/bash
 ROOTDIR=$PWD
-CLN=cln-1.3.6
-GINAC=ginac-1.8.6
+CLN=cln-1.3.7
+GINAC=ginac-1.8.7
 BLAS=OpenBLAS-0.3.17
 
 if [ -z "$CC" ]
