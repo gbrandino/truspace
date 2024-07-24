@@ -8,7 +8,7 @@ LAPACK_LIB=
 SCALAPACK_LIB=${ROOT}/scalapack-2.0.0/libscalapack.a
 MPICXX= mpicxx
 
-CFLAGS=-I${BLAS}/include -std=c++11 -fopenmp -O2 -fPIC
+CFLAGS=-I${BLAS}/include -std=c++20 -fopenmp -O2 -fPIC
 LDFLAGS = -shared 
 LIBS= -L${BLAS}/lib/  ${BLAS_LIB}  -L${LAPACK}/lib/ ${LAPACK_LIB}  -lpthread -lstdc++ -fopenmp
 SRC=parameters.cpp states.cpp matrix_elements.cpp filenames.cpp

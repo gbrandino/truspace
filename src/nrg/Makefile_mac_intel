@@ -5,7 +5,7 @@ CXX= icc
 MPICXX= mpicxx
 
 
-CFLAGS= -std=c++11 -O2 -fPIC -DMKL_ILP64  -m64  -I"${MKLROOT}/include" -DMKL
+CFLAGS= -std=c++20 -O2 -fPIC -DMKL_ILP64  -m64  -I"${MKLROOT}/include" -DMKL
 LDFLAGS = -shared  -L${MKLROOT}/lib -Wl,-rpath,${MKLROOT}/lib -lmkl_intel_ilp64 -lmkl_intel_thread -lmkl_core -liomp5 -lpthread -lm -ldl
 LDFLAGS_MPI = -shared  -L${MKLROOT}/lib -Wl,-rpath,${MKLROOT}/lib -lmkl_scalapack_ilp64 -lmkl_intel_ilp64 -lmkl_tbb_thread -lmkl_core -lmkl_blacs_mpich_ilp64 -lpthread -lm -ldl 
 LIBS= -lpthread -lstdc++

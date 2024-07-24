@@ -6,7 +6,7 @@ NRG_LIB= -L${ROOT}/lib/ -lnrg
 NRG_LIB_MPI=  -L${ROOT}/lib -lnrg_mpi
 MPICXX= mpicxx
 
-CFLAGS=-I${CLN}/include -I${GINAC}/include -I${ROOT}/include -std=c++11 -O2
+CFLAGS=-I${CLN}/include -I${GINAC}/include -I${ROOT}/include -std=c++20 -O2
 LIBS= -L${GINAC}/lib/ -lginac -L${CLN}/lib/ -lcln -framework Accelerate -lpthread -lstdc++ 
 SRC=characters.cpp gamma.cpp cpt.cpp block.cpp worker.cpp element_computation.cpp minimal_model_states.cpp diag.cpp minimal_model_filenames.cpp chirME.cpp minimal_model_parameters.cpp
 SRC_FIELD= gamma.cpp cpt.cpp

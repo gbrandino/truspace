@@ -5,7 +5,7 @@ NRG_LIB_MPI=  -L${ROOT}/lib -lnrg_mpi
 CXX= icc
 MPICXX= mpicxx
 
-CFLAGS= -I${BLAS}/include  -I${ROOT}/include  -std=c++11 -O2 -DMKL  -DMKL_ILP64  -I"${MKLROOT}/include" -fopenmp
+CFLAGS= -I${BLAS}/include  -I${ROOT}/include  -std=c++20 -O2 -DMKL  -DMKL_ILP64  -I"${MKLROOT}/include" -fopenmp
 LDFLAGS =  -L${MKLROOT}/lib -Wl,-rpath,${MKLROOT}/lib -lmkl_intel_ilp64 -lmkl_intel_thread -lmkl_core -liomp5 -lpthread -lm -ldl
 LIBS=  -lpthread -lstdc++ 
 SRC= harmonic_states.cpp harmonic_filenames.cpp harmonic_matrix_elements.cpp custom_parameters.cpp
