@@ -23,9 +23,8 @@ pipelines:
           - apt-get -y install gfortran
           - apt-get -y install build-essential
           - apt-get -y install byacc   
-          - apt-get -y install python
-          - apt-get -y install python3
-          - apt-get -y install python3-pip
-          - pip3 install numpy pytest
+          - apt-get -y install python-is-python3
+          - apt-get -y install python3-pytest
+          - apt-get -y install python3-numpy
           - /bin/bash ./install-linux.sh 
           - /bin/bash ./run_test.sh
