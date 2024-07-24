@@ -23,7 +23,7 @@
 
 typedef std::tuple<int, int, int> tuple3_key_t;
 
-struct key_hash3 : public std::unary_function<tuple3_key_t, std::size_t>
+struct key_hash3 //: public std::unary_function<tuple3_key_t, std::size_t>
 {
  std::size_t operator()(const tuple3_key_t& k) const
  {
@@ -33,7 +33,7 @@ struct key_hash3 : public std::unary_function<tuple3_key_t, std::size_t>
 
 typedef std::tuple<int, int, int, int, int, int> tuple6_key_t;
 
-struct key_hash6 : public std::unary_function<tuple6_key_t, std::size_t>
+struct key_hash6 //: public std::unary_function<tuple6_key_t, std::size_t>
 {
  std::size_t operator()(const tuple6_key_t& k) const
  {
