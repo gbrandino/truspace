@@ -26,5 +26,5 @@ pipelines:
           - apt-get -y install python3
           - apt-get -y install python3-pip
           - pip3 install numpy pytest
-          - /bin/bash ./install.sh 
+          - /bin/bash ./install-linux.sh 
           - /bin/bash ./run_test.sh
