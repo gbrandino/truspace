@@ -221,6 +221,7 @@ minimal_model_states::minimal_model_states(minimal_model_parameters& p)
     state_right=new int[MaxStates];
     state_vmod_left=new int[MaxStates];
     state_vmod_right=new int[MaxStates];
+    state_field=new int[MaxStates];
 
     for (int j=0;j<MaxStates;j++)
         {
@@ -230,6 +231,7 @@ minimal_model_states::minimal_model_states(minimal_model_parameters& p)
         state_right[j]=0;
         state_vmod_left[j]=0;
         state_vmod_right[j]=0;
+	    state_field[j]=0;
         }
 
 
@@ -243,6 +245,7 @@ minimal_model_states::~minimal_model_states()
     delete [] state_right;
     delete [] state_vmod_left;
     delete [] state_vmod_right;
+    delete [] state_field;
     delete [] h;
     delete [] num_chir;
 }
@@ -731,6 +734,8 @@ void minimal_model_states::calculate_nonchiral(minimal_model_parameters& p, int 
 
   /*delineate states of non-chiral states (with or up to given  momentum) up to a given energy*/
 
+    double nonchir_state_mom; /*new line 13/04/24 rmk*/
+    int nonchir_state_mom_int; /*new line 13/04/24 rmk*/
     if(mom == -1)
         {
         nstate = 0;
@@ -746,7 +751,10 @@ void minimal_model_states::calculate_nonchiral(minimal_model_parameters& p, int 
                     {
                     for(int i_r=0; i_r< num_chir[antichiral_index];++i_r) 
                         {
-                        if (abs((cstate_lev(chiral_index,i_l) - cstate_lev(antichiral_index,i_r) )) == p.momentum) 
+                        nonchir_state_mom = ((double)cstate_lev(chiral_index,i_l)) - ((double)cstate_lev(antichiral_index,i_r)) +  h[chiral_index] - h[antichiral_index]; /*new line 13/04/24 rmk*/
+                        nonchir_state_mom_int = round(nonchir_state_mom); /*edits 13/04/24 rmk*/
+                        //if (abs((cstate_lev(chiral_index,i_l) - cstate_lev(antichiral_index,i_r) )) == p.momentum) /*old line*/
+                        if (abs(nonchir_state_mom_int) == p.momentum) /*left abs() in place, but why is it there? this seems to give momentum both positive and negative at the same time*/
                             {
                             //if ((cstate_lev[i][i_l]+cstate_lev[i][i_r]) < en_cutoff) 
                             //    {
@@ -755,6 +763,7 @@ void minimal_model_states::calculate_nonchiral(minimal_model_parameters& p, int 
                                 state_right[nstate] = i_r;
                                 state_vmod_left[nstate] = chiral_index;
                                 state_vmod_right[nstate] = antichiral_index;
+                                state_field[nstate] = field_index+1;
                                 nstate++;
                             //    }
                             }
@@ -782,7 +791,11 @@ void minimal_model_states::calculate_nonchiral(minimal_model_parameters& p, int 
                 { 
                 for(int i_r=0;i_r< num_chir[antichiral_index];++i_r) 
                     {
-                    if (abs((cstate_lev(chiral_index,i_l)-cstate_lev(antichiral_index,i_r) )) == mom) 
+                    //edits 13/04/24
+                    nonchir_state_mom = ((double)cstate_lev(chiral_index,i_l)) - ((double)cstate_lev(antichiral_index,i_r)) +  h[chiral_index] - h[antichiral_index]; /*new line 13/04/24 rmk*/
+                    nonchir_state_mom_int = round(nonchir_state_mom); /*edits 13/04/24 rmk*/
+                    // if (abs((cstate_lev(chiral_index,i_l)-cstate_lev(antichiral_index,i_r) )) == mom) 
+                    if (abs(nonchir_state_mom_int) == mom)
                         { 
                         //if ((cstate_lev(i,i_l) + cstate_lev(i,i_r) ) < en_cutoff) 
                         //    {
@@ -791,6 +804,7 @@ void minimal_model_states::calculate_nonchiral(minimal_model_parameters& p, int 
                             state_right[nstate] = i_r;
                             state_vmod_left[nstate] = chiral_index;
                             state_vmod_right[nstate] = antichiral_index;
+                            state_field[nstate] = field_index+1; //rmmk edit 21/04/24
                             nstate++;
                         //    }
                         }
@@ -807,7 +821,7 @@ void minimal_model_states::calculate_nonchiral(minimal_model_parameters& p, int 
     // order states in terms of energy  
     unsigned long j,inc;
     long double v;  //v1;
-    int v2_l,v2_r,v3,v4;
+    int v2_l,v2_r,v3,v4,v5;
     inc = 1;
     do 
         {
@@ -825,6 +839,7 @@ void minimal_model_states::calculate_nonchiral(minimal_model_parameters& p, int 
             v2_r=state_vmod_right[i-1];
             v3=state_left[i-1];
             v4=state_right[i-1];
+            v5=state_field[i-1];
 
             j=i;
             while (state_en[j-1-inc] > v) 
@@ -834,6 +849,7 @@ void minimal_model_states::calculate_nonchiral(minimal_model_parameters& p, int 
                 state_vmod_right[j-1]=state_vmod_right[j-1-inc];
                 state_left[j-1]=state_left[j-1-inc];
                 state_right[j-1]=state_right[j-1-inc];
+                state_field[j-1]=state_field[j-1-inc];
                 j -= inc;
                 if (j <= inc)
                     break;
@@ -843,6 +859,7 @@ void minimal_model_states::calculate_nonchiral(minimal_model_parameters& p, int 
             state_vmod_right[j-1]=v2_r;
             state_left[j-1]=v3;
             state_right[j-1]=v4;
+            state_field[j-1]=v5;
             } 
         } while (inc > 1);
 

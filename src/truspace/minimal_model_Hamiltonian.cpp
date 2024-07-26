@@ -1,6 +1,6 @@
 /** minimal_model_Hamiltonian class file. 
  * \authors Giuseppe Piero Brandino - eXact-lab s.r.l.
- * \date November 2017
+ * \date July 2024
  */
 
 #include "minimal_model_Hamiltonian.h"
@@ -95,6 +95,7 @@ void minimal_model_Hamiltonian::init()
         double c = p_der.pConst[pert]*2.*PI*pow(R/2./PI,1. - \
                    (p_der.deltas[pert].first + \
                     p_der.deltas[pert].second)); 
+
 #pragma omp parallel for 
         for(int i=0; i < Msize; ++i) 
             {
@@ -111,18 +112,18 @@ void minimal_model_Hamiltonian::init()
             #pragma omp parallel for
             for(int j=0; j < Msize; ++j) 
                 {
-                if( ( st_der.cstate_lev(st_der.state_vmod_left[i],st_der.state_left[i]) -      \
+                /*if( ( st_der.cstate_lev(st_der.state_vmod_left[i],st_der.state_left[i]) -      \
                       st_der.cstate_lev(st_der.state_vmod_right[i],st_der.state_right[i]) )==  \
                     ( st_der.cstate_lev(st_der.state_vmod_left[j],st_der.state_left[j]) -      \
                       st_der.cstate_lev(st_der.state_vmod_right[j],st_der.state_right[j]) ) )
-                    {
+                    {*/
                     int st_vmodj_left = st_der.state_vmod_left[j];
-                    int st_vmodj_right = st_der.state_vmod_left[j];
+                    int st_vmodj_right = st_der.state_vmod_right[j];
                     std::pair <int,int> vmod_left_j  = p_der.IndexToPair[p_der.currentSubspace][st_vmodj_left];
                     std::pair <int,int> vmod_right_j = p_der.IndexToPair[p_der.currentSubspace][st_vmodj_right];
                     int field_i = -1;
                     int field_j = -1;
-                    for (int f = 0; f < p_der.n_fields; f++)
+                    /*for (int f = 0; f < p_der.n_fields; f++)
                     {
                         if (p_der.fields[f] == std::make_pair(vmod_left_i,vmod_right_i) ){
                             field_i = f+1;
@@ -130,7 +131,10 @@ void minimal_model_Hamiltonian::init()
                         if (p_der.fields[f] == std::make_pair(vmod_left_j,vmod_right_j) ){
                             field_j = f+1;
                         }
-                    }
+                    }*/
+                    field_i = st_der.state_field[i]; //rmk edit 21/04/24
+                    field_j = st_der.state_field[j];
+
                     if (field_i == -1){
                         std::cout << " Error, field not found! " << field_i << " (" << vmod_left_i.first << "," << vmod_left_i.second << ") (" << vmod_right_i.first << "," << vmod_right_i.second << ")"<< std::endl;
                     }
@@ -142,7 +146,7 @@ void minimal_model_Hamiltonian::init()
                     double temp = me_der.me_chi_ortho(pert, st_vmod_left, st_vmodj_left, st_left, st_der.state_left[j]).first;
                     temp *= me_der.me_chi_ortho(pert, st_vmod_right, st_vmodj_right, st_right, st_der.state_right[j]).second;
                     H(i,j) += (SCtmp * c * temp);
-                    }
+                    //}
                 }
 
             // diagonal elements (check 2pi factor)
@@ -203,9 +207,9 @@ void minimal_model_Hamiltonian::NRG_block_BC(int iteration, double* coeff)
                 int st_right = st_der.state_right[jshift];
                 int st_vmodk_left = st_der.state_vmod_left[k];
                 int st_vmodk_right = st_der.state_vmod_right[k];
-                if( (st_der.cstate_lev(st_vmod_left,st_left) - st_der.cstate_lev(st_vmod_right, st_right)) == \
-                    (st_der.cstate_lev(st_vmodk_left,st_der.state_left[k]) - st_der.cstate_lev(st_vmodk_right, st_der.state_right[k])))
-                    {
+                //if( (st_der.cstate_lev(st_vmod_left,st_left) - st_der.cstate_lev(st_vmod_right, st_right)) == \
+                //    (st_der.cstate_lev(st_vmodk_left,st_der.state_left[k]) - st_der.cstate_lev(st_vmodk_right, st_der.state_right[k])))
+                //    {
                     // Kac_vmod_{right,left}_{i,j} contains the Kac indexes of the chiral and antichiral components, as oppposed to st_vmod_{left,right} which contain the LINEAR index in the SUBSPACE
                     // of the chiral and antichiral component
                     std::pair <int,int> vmod_left_j  = p_der.IndexToPair[p_der.currentSubspace][st_vmod_left];
@@ -215,15 +219,17 @@ void minimal_model_Hamiltonian::NRG_block_BC(int iteration, double* coeff)
 
                     int field_j = -1;
                     int field_k = -1;
-                    for (int f = 0; f < p_der.n_fields; f++)
-                    {
-                        if( p_der.fields[f] == std::make_pair(vmod_left_j, vmod_right_j) ){
-                            field_j = f+1;
-                        }
-                        if( p_der.fields[f] == std::make_pair(vmod_left_k, vmod_right_k) ){
-                            field_k = f+1;
-                        }
-                    }
+                    //for (int f = 0; f < p_der.n_fields; f++)
+                    //{
+                    //    if( p_der.fields[f] == std::make_pair(vmod_left_j, vmod_right_j) ){
+                    //        field_j = f+1;
+                    //    }
+                    //    if( p_der.fields[f] == std::make_pair(vmod_left_k, vmod_right_k) ){
+                    //        field_k = f+1;
+                    //    }
+                    //}
+                    field_j = st_der.state_field[jshift]; //rmk edit 21/04/24
+                    field_k = st_der.state_field[k];
                     if (field_j == -1 || field_k == -1){
                         std::cout << " Error, fields not found! " << field_j << " " << field_k << std::endl;
                     }
@@ -231,11 +237,11 @@ void minimal_model_Hamiltonian::NRG_block_BC(int iteration, double* coeff)
                     long double SCtmp = p_der.cptsmall(field_j, p_der.r[pert], field_k);
                     temp = me_der.me_chi_ortho(pert, st_vmod_left, st_vmodk_left, st_left, st_der.state_left[k]).first;
                     temp *= SCtmp * me_der.me_chi_ortho(pert, st_vmod_right, st_vmodk_right, st_right, st_der.state_right[k]).second;
-                    }
-                else
-                    {
-                    temp=0.;
-                    }
+                //    }
+                //else
+                //    {
+                //    temp=0.;
+                //    }
                 me_needed[jshift1+k]= c*temp;
                 }
             }
@@ -283,17 +289,17 @@ void minimal_model_Hamiltonian::NRG_block_D(int iteration)
             for(int j=0; j < p.Nstep; ++j)
                 {
                 int jshift = shift + j;
-                if( ( st_der.cstate_lev(st_vmod_left, st_left) - st_der.cstate_lev(st_vmod_right, st_right) )== \
-                    ( st_der.cstate_lev(st_der.state_vmod_left[jshift],st_der.state_left[jshift]) - \
-                    st_der.cstate_lev(st_der.state_vmod_right[jshift],st_der.state_right[jshift]) ) )
-                    {
+                //if( ( st_der.cstate_lev(st_vmod_left, st_left) - st_der.cstate_lev(st_vmod_right, st_right) )== \
+                //    ( st_der.cstate_lev(st_der.state_vmod_left[jshift],st_der.state_left[jshift]) - \
+                //    st_der.cstate_lev(st_der.state_vmod_right[jshift],st_der.state_right[jshift]) ) )
+                //    {
                     int st_vmodj_left = st_der.state_vmod_left[jshift];
                     int st_vmodj_right = st_der.state_vmod_right[jshift];
                     std::pair <int,int> vmod_left_j  = p_der.IndexToPair[p_der.currentSubspace][st_vmodj_left];
                     std::pair <int,int> vmod_right_j = p_der.IndexToPair[p_der.currentSubspace][st_vmodj_right];
                     int field_i = -1;
                     int field_j = -1;
-                    for (int f = 0; f < p_der.n_fields; f++)
+                    /*for (int f = 0; f < p_der.n_fields; f++)
                     {
                         if (p_der.fields[f] == std::make_pair(vmod_left_i,vmod_right_i) ){
                             field_i = f+1;
@@ -301,7 +307,10 @@ void minimal_model_Hamiltonian::NRG_block_D(int iteration)
                         if (p_der.fields[f] == std::make_pair(vmod_left_j,vmod_right_j) ){
                             field_j = f+1;
                         }
-                    }
+                    }*/
+                    field_i = st_der.state_field[ishift]; //rmk edit 21/04/24
+                    field_j = st_der.state_field[jshift];
+
                     if (field_i == -1){
                         std::cout << " Error, field not found! " << field_i << " (" << vmod_left_i.first << "," << vmod_left_i.second << ") (" << vmod_right_i.first << "," << vmod_right_i.second << ")"<< std::endl;
                     }
@@ -313,7 +322,7 @@ void minimal_model_Hamiltonian::NRG_block_D(int iteration)
                     double temp = me_der.me_chi_ortho(pert, st_vmod_left, st_vmodj_left, st_left, st_der.state_left[jshift]).first;
                     temp *= me_der.me_chi_ortho(pert, st_vmod_right, st_vmodj_right, st_right, st_der.state_right[jshift]).second;
                     H(i + p.Nsize, j + p.Nsize) += (SCtmp*c*temp);
-                    }
+                    //}
                 }
 
             // diagonal elements (check 2pi factor)
@@ -487,9 +496,9 @@ void minimal_model_Hamiltonian::sweep_block_BC(int iteration, double* coeff, dou
                         int st_right = st_der.state_right[k];
                         int st_vmodk_left = st_der.state_vmod_left[k1];
                         int st_vmodk_right = st_der.state_vmod_right[k1];
-                        if( (st_der.cstate_lev(st_vmod_left,st_left) - st_der.cstate_lev(st_vmod_right, st_right)) == \
-                            (st_der.cstate_lev(st_vmodk_left,st_der.state_left[k1]) - st_der.cstate_lev(st_vmodk_right, st_der.state_right[k1])))
-                            {
+                        //if( (st_der.cstate_lev(st_vmod_left,st_left) - st_der.cstate_lev(st_vmod_right, st_right)) == \
+                        //    (st_der.cstate_lev(st_vmodk_left,st_der.state_left[k1]) - st_der.cstate_lev(st_vmodk_right, st_der.state_right[k1])))
+                        //    {
                     // Kac_vmod_{right,left}_{i,j} contains the Kac indexes of the chiral and antichiral components, as oppposed to st_vmod_{left,right} which contain the LINEAR index in the SUBSPACE
                     // of the chiral and antichiral component
                             std::pair <int,int> vmod_left_j  = p_der.IndexToPair[p_der.currentSubspace][st_vmod_left];
@@ -499,15 +508,18 @@ void minimal_model_Hamiltonian::sweep_block_BC(int iteration, double* coeff, dou
 
                             int field_j = -1;
                             int field_k = -1;
-                            for (int f = 0; f < p_der.n_fields; f++)
+                            /*for (int f = 0; f < p_der.n_fields; f++)
                                 {
                                 if( p_der.fields[f] == std::make_pair(vmod_left_j, vmod_right_j) ){
                                     field_j = f+1;
-                                }
+                                    }
                                 if( p_der.fields[f] == std::make_pair(vmod_left_k, vmod_right_k) ){
                                     field_k = f+1;
-                                }
-                            }
+                                    }
+                                }*/
+                            field_j = st_der.state_field[k]; //rmk edit 21/04/24
+                            field_k = st_der.state_field[k1];
+
                             if (field_j == -1 || field_k == -1){
                                 std::cout << " Error, fields not found! " << field_j << " " << field_k << std::endl;
                             }
@@ -515,11 +527,11 @@ void minimal_model_Hamiltonian::sweep_block_BC(int iteration, double* coeff, dou
                             long double SCtmp = p_der.cptsmall(field_j, p_der.r[pert], field_k);
                             temp = me_der.me_chi_ortho(pert, st_vmod_left, st_vmodk_left, st_left, st_der.state_left[k1]).first;
                             temp *= SCtmp * me_der.me_chi_ortho(pert, st_vmod_right, st_vmodk_right, st_right, st_der.state_right[k1]).second;
-                            }
-                        else
-                            {
-                            temp=0.;
-                            }
+                            //}
+                        //else
+                            //{
+                            //temp=0.;
+                            //}
                         H_part[i*NRGstoresize + k1] += c * coeff[i*NRGspacesize + k] *temp;
                         }
                     }

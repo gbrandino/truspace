@@ -5,7 +5,7 @@ BLAS=${ROOT}/dep/OpenBLAS-0.3.17
 BLAS_LIB=-lopenblas
 LAPACK=${ROOT}/dep/OpenBLAS-0.3.17# it is better not to have this field empty, to prevent the -rpath to use /lib. If your blas distribution contains lapack, make it point to openblas root folder
 LAPACK_LIB=
-SCALAPACK_LIB=${ROOT}/scalapack-2.0.0/libscalapack.a
+SCALAPACK_LIB=${ROOT}/scalapack-2.2.0/libscalapack.a
 MPICXX= mpicxx
 
 CFLAGS=-I${BLAS}/include -std=c++20 -fopenmp -O2 -fPIC

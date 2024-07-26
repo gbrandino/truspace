@@ -55,7 +55,8 @@ class minimal_model_states: public states
         //int* state_vmod;  /**< Array that, given the global index of nonchiral states, returns the index of the correct Verma module */
         int* state_vmod_left;  /**< Array that, given the global index of nonchiral states, returns the index of the correct Verma module for the chiral part*/
         int* state_vmod_right;  /**< Array that, given the global index of nonchiral states, returns the index of the correct Verma module for the antichiral part*/
-        long double* h; /**< array that contains the conformal dimension of the primary field labelling the verma module for each verma module in the subspace */
+	int* state_field; /**<Array that gives the non-chiral field of the Verma module*/ //rmk edit 21/04/24
+	long double* h; /**< array that contains the conformal dimension of the primary field labelling the verma module for each verma module in the subspace */
         tensor3D< long double > cstate_ortho_modecoeff; /**< 3D Tensor containing the coefficient of orthogonal conformal states on the non-orthogonal basis */ 
         tensor3D< long double > me_chi_0; /**< 3D Tensor containing the overlaps of conformal states, used to remove null vectors */ 
         tensor2D< long double > norm; /**< 2D Tensor containing norms of */ 
