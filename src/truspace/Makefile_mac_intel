@@ -7,10 +7,10 @@ NRG_LIB_MPI=  -L${ROOT}/lib -lnrg_mpi
 CXX= icc
 MPICXX= mpicxx
 
-CFLAGS=-I${CLN}/include -I${GINAC}/include -I${ROOT}/include -std=c++20 -O2  -DMKL_ILP64  -I"${MKLROOT}/include" -DMKL -fopenmp
+CFLAGS=-I${CLN}/include -I${GINAC}/include -I${ROOT}/include -std=c++20 -O2  -DMKL_ILP64  -I"${MKLROOT}/include" -DMKL 
 LIBS= -L${GINAC}/lib/ -lginac -L${CLN}/lib/ -lcln 
 LDFLAGS =  -L${MKLROOT}/lib -Wl,-rpath,${MKLROOT}/lib -lmkl_intel_ilp64 -lmkl_intel_thread -lmkl_core -liomp5 -lpthread -lm -ldl
-LDFLAFS_MPI =  -L${MKLROOT}/lib -Wl,-rpath,${MKLROOT}/lib -lmkl_scalapack_ilp64 -lmkl_intel_ilp64 -lmkl_tbb_thread -lmkl_core -lmkl_blacs_mpich_ilp64 -lpthread -lm -ldl
+LDFLAGS_MPI = -L${MKLROOT}/../../compiler/latest/mac/compiler/lib  -L${MKLROOT}/lib -Wl,-rpath ${MKLROOT}/../../compiler/latest/mac/compiler/lib -liomp5 -Wl,-rpath ${MKLROOT}/lib -lmkl_scalapack_ilp64 -lmkl_intel_ilp64 -lmkl_intel_thread -lmkl_core -lmkl_blacs_mpich_ilp64 -lpthread -lm -ldl
 SRC=characters.cpp gamma.cpp cpt.cpp block.cpp worker.cpp element_computation.cpp minimal_model_states.cpp diag.cpp minimal_model_filenames.cpp chirME.cpp minimal_model_parameters.cpp
 SRC_FIELD= gamma.cpp cpt.cpp
 
@@ -33,15 +33,16 @@ minimal_model_Hamiltonian.o: minimal_model_Hamiltonian.cpp minimal_model_Hamilto
 minimal_model_Hamiltonian_MPI.o: minimal_model_Hamiltonian_MPI.cpp minimal_model_Hamiltonian_MPI.h minimal_model_config.h
 	$(CXX) ${CFLAGS} -c $<
 
+truspace.x : CFLAGS += -fopenmp
 truspace.x : truspace.cpp $(OBJS) minimal_model_Hamiltonian.o
 	${CXX} ${CFLAGS}  $^ ${LDFLAGS} ${NRG_LIB} ${LIBS}  -o  $@  -Wl,-rpath ${CLN}/lib/ -Wl,-rpath ${GINAC}/lib/ -Wl,-rpath ${ROOT}/lib/
 	mkdir -p ${ROOT}/bin
 	cp $@ ${ROOT}/bin/
 
-truspace_mpi.x : CFLAGS += -DMPI_PAR 
+truspace_mpi.x : CFLAGS += -DMPI_PAR
 truspace_mpi.x : CXX=${MPICXX}
 truspace_mpi.x : truspace.cpp $(OBJS) minimal_model_Hamiltonian_MPI.o 
-	${CXX} ${CFLAGS} -m64 ${LDFLAGS_MPI} ${NRG_LIB_MPI} ${LIBS} $^ -o  $@  -Wl,-rpath ${CLN}/lib/ -Wl,-rpath ${GINAC}/lib/ -Wl,-rpath ${ROOT}/lib/ 
+	${CXX} ${CFLAGS} -m64  ${LIBS} $^ -o  $@  -Wl,-rpath ${CLN}/lib/ -Wl,-rpath ${GINAC}/lib/ -Wl,-rpath ${ROOT}/lib/ ${LDFLAGS_MPI} ${NRG_LIB_MPI} 
 	mkdir -p ${ROOT}/bin
 	cp $@ ${ROOT}/bin
 
