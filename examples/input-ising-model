@@ -1,0 +1,19 @@
+3    p
+4    q
+1    number of perturbations
+5    Maximum conformal level to include
+0    Minimum conformal level to include
+0    momentum subpsace considered
+2    index of first perturbation (as indexed in input data file)
+0.09  constant for first perturbation 
+1   number of values of R
+0.6  increment at each R step
+8.0  starting value of R 
+1    set 1 for complete TCSA calculation, 0 to have just Kac table structure constants and subspace analysis
+0    set 1 to save states to file, 0 not to save them
+0    set 1 to read saved state from file, 0 to calculate them
+0    set 1 to save chiral matrix element to file, 0 not to save them
+0    set 1 to read saved matrix elements from file, 0 to calculate them
+2    index of the operator to calculate matrix elements
+ising-fields.dat     filename of fields file
+ising-constants.dat  filename of the structure constants file

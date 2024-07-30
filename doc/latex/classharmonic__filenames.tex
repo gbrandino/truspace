@@ -1,0 +1,75 @@
+\doxysection{harmonic\+\_\+filenames Class Reference}
+\hypertarget{classharmonic__filenames}{}\label{classharmonic__filenames}\index{harmonic\_filenames@{harmonic\_filenames}}
+
+
+Output filenames helper class.  
+
+
+
+
+{\ttfamily \#include $<$harmonic\+\_\+filenames.\+h$>$}
+
+Inheritance diagram for harmonic\+\_\+filenames\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classharmonic__filenames}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classharmonic__filenames_aaf7df27390f06372706f89cc678f410b}{harmonic\+\_\+filenames}} (\mbox{\hyperlink{classcustom__parameters}{custom\+\_\+parameters}} \&p)
+\begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classfilenames}{filenames}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classfilenames_a820d23018a38d5551d68de2c15f1a5f8}{filenames}} (\mbox{\hyperlink{classparameters}{parameters}} \&p)
+\begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Public Attributes inherited from \mbox{\hyperlink{classfilenames}{filenames}}}
+\begin{DoxyCompactItemize}
+\item 
+std\+::string {\bfseries Eigen\+Name}
+\begin{DoxyCompactList}\small\item\em File name of eigenvalues file. \end{DoxyCompactList}\item 
+std\+::string {\bfseries Eigen\+Name\+Final}
+\begin{DoxyCompactList}\small\item\em File name of the eigenvalues for last \doxylink{classNRG}{NRG} iteration. \end{DoxyCompactList}\item 
+std\+::string {\bfseries Eigen\+Vect\+Name}
+\begin{DoxyCompactList}\small\item\em File name of eigenvectors file. \end{DoxyCompactList}\item 
+std\+::string {\bfseries Me\+Op\+Name}
+\begin{DoxyCompactList}\small\item\em File name of Expectation value on the final eigenstates. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions inherited from \mbox{\hyperlink{classfilenames}{filenames}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classfilenames_afccbf670fdaa20db09ff77f19a7efcc3}{filenames}} ()
+\begin{DoxyCompactList}\small\item\em Default constructor is protected, to prevent instantiation of invalid object. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Output filenames helper class. 
+
+Initializes and holds all the output file names, based on input paramters If the model requires additional outfiles (e.\+g. unperturbed states list that are costly to recalculate every time), those could be hidden here and accessed everywhere in the code from the filenames object 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classharmonic__filenames_aaf7df27390f06372706f89cc678f410b}\label{classharmonic__filenames_aaf7df27390f06372706f89cc678f410b} 
+\index{harmonic\_filenames@{harmonic\_filenames}!harmonic\_filenames@{harmonic\_filenames}}
+\index{harmonic\_filenames@{harmonic\_filenames}!harmonic\_filenames@{harmonic\_filenames}}
+\doxysubsubsection{\texorpdfstring{harmonic\_filenames()}{harmonic\_filenames()}}
+{\footnotesize\ttfamily harmonic\+\_\+filenames\+::harmonic\+\_\+filenames (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classcustom__parameters}{custom\+\_\+parameters}} \&}]{p }\end{DoxyParamCaption})}
+
+
+
+Constructor. 
+
+Here the filenames strings are generated, typically using combination of input parameters.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em p} & A reference to a parameters object \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+truspace\+\_\+extension\+\_\+example/\mbox{\hyperlink{harmonic__filenames_8h}{harmonic\+\_\+filenames.\+h}}\item 
+truspace\+\_\+extension\+\_\+example/harmonic\+\_\+filenames.\+cpp\end{DoxyCompactItemize}

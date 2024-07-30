@@ -1,0 +1,43 @@
+\doxysection{minimal\+\_\+model\+\_\+\+Hamiltonian.\+h}
+\hypertarget{minimal__model__Hamiltonian_8h_source}{}\label{minimal__model__Hamiltonian_8h_source}\index{truspace/minimal\_model\_Hamiltonian.h@{truspace/minimal\_model\_Hamiltonian.h}}
+\mbox{\hyperlink{minimal__model__Hamiltonian_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#ifndef\ MINIMAL\_MODEL\_HAMILTONIAN\_H}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#define\ MINIMAL\_MODEL\_HAMILTONIAN\_H}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{Hamiltonian_8h}{Hamiltonian.h}}"{}}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{minimal__model__parameters_8h}{minimal\_model\_parameters.h}}"{}}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{tensors_8h}{tensors.h}}"{}}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{chirME_8h}{chirME.h}}"{}}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{minimal__model__states_8h}{minimal\_model\_states.h}}"{}}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00028\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classminimal__model__Hamiltonian}{minimal\_model\_Hamiltonian}}:\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classHamiltonian}{Hamiltonian}}}
+\DoxyCodeLine{00029\ \{}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classminimal__model__Hamiltonian_a61436e215b6baab32e0d4dc843413614}{Momentum}};\ }
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classminimal__model__Hamiltonian}{minimal\_model\_Hamiltonian}}(\mbox{\hyperlink{classminimal__model__parameters}{minimal\_model\_parameters}}\&\ \mbox{\hyperlink{classHamiltonian_afc4326f58ef24ef5f2976e2b75dd01a3}{p}},\ \mbox{\hyperlink{classminimal__model__states}{minimal\_model\_states}}\&\ \mbox{\hyperlink{classHamiltonian_a135cdd81a8cbd3fc01e9589c90b95040}{st}},\ \mbox{\hyperlink{classchirME}{chirME}}\&\ \mbox{\hyperlink{classHamiltonian_abeb412f8b1bf5cb5ceef6a600ed57a8a}{me}});}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classminimal__model__Hamiltonian_afdf87397452ed805e7b5a0160481baa1}{\string~minimal\_model\_Hamiltonian}}();}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classminimal__model__Hamiltonian_aa941ac0491f7a286cedbe850983b4923}{init}}();}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classminimal__model__Hamiltonian_af76976bc2cee444091a2d0ee80e02e8d}{print\_eigenValues}}(\textcolor{keywordtype}{int}\ iteration,\ \textcolor{keywordtype}{int}\ sweep,\ \textcolor{keywordtype}{double}*\ eigenvalues,\ std::string\ fname,\ \textcolor{keywordtype}{int}\ maxState);}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classminimal__model__Hamiltonian_a9719f04528ad1151aa6ff157e2727a39}{print\_eigenVectors}}(\textcolor{keywordtype}{double}*\ eigenvectors,\ std::string\ fname,\ \textcolor{keywordtype}{int}\ size);}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classminimal__model__Hamiltonian_a5510971707b598870fc243615249f924}{NRG\_block\_A}}(\textcolor{keywordtype}{double}*\ eigenvalues);}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classminimal__model__Hamiltonian_a8abb970d2d0eb3a41b44cc11f953bd5f}{NRG\_block\_BC}}(\textcolor{keywordtype}{int}\ iteration,\ \textcolor{keywordtype}{double}*\ coeff);}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classminimal__model__Hamiltonian_ab5870f4f0220642582897d5a3a127b93}{NRG\_block\_D}}(\textcolor{keywordtype}{int}\ iteration);}
+\DoxyCodeLine{00085\ \ \ }
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classminimal__model__Hamiltonian_a261bc06af3ec561e4e284d3083636557}{sweep\_block\_BC}}(\textcolor{keywordtype}{int}\ iteration,\ \textcolor{keywordtype}{double}*\ coeff,\ \textcolor{keywordtype}{double}*\ coeffSweep,\ \textcolor{keywordtype}{int}\ NRGspacesize,\ \textcolor{keywordtype}{int}\ NRGstoresize);}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classminimal__model__Hamiltonian}{minimal\_model\_Hamiltonian}}();}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \};}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ \textcolor{preprocessor}{\#endif\ }}
+
+\end{DoxyCode}

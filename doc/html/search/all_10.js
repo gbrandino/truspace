@@ -1,13 +1,13 @@
 var searchData=
 [
-  ['r',['R',['../classHamiltonian.html#a77d8542358120deb5f71feadeba49524',1,'Hamiltonian::R()'],['../classparameters.html#ab4a0cf927710a59f8136ff74ea9ed166',1,'parameters::r()']]],
-  ['read_5fchiral',['read_chiral',['../classstates.html#a3cd13c3362fd88e1c6d36cd05568c2e6',1,'states']]],
-  ['read_5fme',['READ_ME',['../classparameters.html#a136bfd86b5e19bc0e12b19a0ababed7e',1,'parameters']]],
-  ['read_5fstates',['READ_STATES',['../classparameters.html#a763f4f38e8602d1666ed3a115fa3e09c',1,'parameters']]],
-  ['rinc',['rInc',['../classparameters.html#a7d6648aac822ae11a3eeadcbedf6bf45',1,'parameters']]],
-  ['rl_5fop',['rl_op',['../classparameters.html#a07d87720253f1c2ecf875e10f2a10775',1,'parameters']]],
-  ['rr_5fop',['rr_op',['../classparameters.html#a68653b21c72d8d07b83946a07708fa02',1,'parameters']]],
-  ['rstart',['rStart',['../classparameters.html#a22c11ad02809d1fd19f9a38b3db0c53c',1,'parameters']]],
-  ['rsteps',['rSteps',['../classparameters.html#a58b317185d3a629a534b8928c95a1a89',1,'parameters']]],
-  ['run',['run',['../classNRG.html#a0cdebccf7b1db2cd43c5516dbc4a2d99',1,'NRG::run()'],['../classworker.html#aad45e74b9cdc1cdf0ab979d5354ada69',1,'worker::run()']]]
+  ['r_0',['r',['../classHamiltonian.html#a77d8542358120deb5f71feadeba49524',1,'Hamiltonian::R'],['../classminimal__model__parameters.html#a177464f1cbd21a99346b5563319645f9',1,'minimal_model_parameters::r']]],
+  ['r_5fop_1',['r_op',['../classminimal__model__parameters.html#a1e41fcaf7a525dbce6370912ed74ba1c',1,'minimal_model_parameters']]],
+  ['read_5fchiral_2',['read_chiral',['../classminimal__model__states.html#a5be19f4ca59a04b240bc6313b79a7ae8',1,'minimal_model_states']]],
+  ['read_5fme_3',['READ_ME',['../classminimal__model__parameters.html#a9594fe23e5804dc552f5d87b86327bd2',1,'minimal_model_parameters']]],
+  ['read_5fstates_4',['READ_STATES',['../classminimal__model__parameters.html#a29b806f7933a5e8a06293a0c740e7832',1,'minimal_model_parameters']]],
+  ['rinc_5',['rinc',['../classminimal__model__parameters.html#a1b4584414f90bbce65719e9014a3abae',1,'minimal_model_parameters::rInc'],['../classcustom__parameters.html#a1662b9c05022c1638b4d10da38fbcbda',1,'custom_parameters::rInc']]],
+  ['rowh_6',['rowH',['../classHamiltonian.html#a8d52518ef74eb8cff73d375d1e986c82',1,'Hamiltonian']]],
+  ['rstart_7',['rstart',['../classminimal__model__parameters.html#a55e074cacce63a3b3732b1de8c07ec6f',1,'minimal_model_parameters::rStart'],['../classcustom__parameters.html#ac90284ed19efa79129ebfcf2e6440b1e',1,'custom_parameters::rStart']]],
+  ['rsteps_8',['rsteps',['../classminimal__model__parameters.html#a2e9948fbb9c95a1da11517aa49e689a1',1,'minimal_model_parameters::rSteps'],['../classcustom__parameters.html#aece9b5be942356266aebb6058234d49b',1,'custom_parameters::rSteps']]],
+  ['run_9',['run',['../classNRG.html#a0cdebccf7b1db2cd43c5516dbc4a2d99',1,'NRG::run(parameters &amp;p, Hamiltonian &amp;H, filenames &amp;fnames)'],['../classNRG.html#a0cdebccf7b1db2cd43c5516dbc4a2d99',1,'NRG::run(parameters &amp;p, Hamiltonian &amp;H, filenames &amp;fnames)'],['../classworker.html#a456282fe869b1e59de35d7bd0958f981',1,'worker::run()']]]
 ];

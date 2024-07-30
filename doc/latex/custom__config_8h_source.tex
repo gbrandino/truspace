@@ -1,0 +1,18 @@
+\doxysection{custom\+\_\+config.\+h}
+\hypertarget{custom__config_8h_source}{}\label{custom__config_8h_source}\index{truspace\_extension\_example/custom\_config.h@{truspace\_extension\_example/custom\_config.h}}
+\mbox{\hyperlink{custom__config_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#ifndef\ CONFIG\_H}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#define\ CONFIG\_H}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#define\ VERSION\ "{}1.0.0"{}}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#define\ SIGN(a,b)\ ((b)\ >=\ 0.0\ ?\ fabsl(a)\ :\ -\/fabsl(a))}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#define\ SIGNd(a,b)\ ((b)\ >=\ 0.0\ ?\ fabs(a)\ :\ -\/fabs(a))}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#define\ PI\ 3.1415926535897\ }}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#ifdef\ MPI\_PAR}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#define\ NB\ 16\ \ }\textcolor{comment}{/*\ blocking\ factor\ for\ BLACS/SCALAPACK\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

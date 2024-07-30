@@ -1,0 +1,45 @@
+ROOT=${PWD}/../..
+SCALAPACK_LIB= -lscalapack
+NRG_LIB= -L${ROOT}/lib -lnrg
+NRG_LIB_MPI=  -L${ROOT}/lib -lnrg_mpi
+CXX= icc
+MPICXX= mpicxx
+
+CFLAGS= -I${BLAS}/include  -I${ROOT}/include  -std=c++20 -O2 -DMKL  -DMKL_ILP64  -I"${MKLROOT}/include" -fopenmp
+LDFLAGS =  -L${MKLROOT}/lib -Wl,-rpath,${MKLROOT}/lib -lmkl_intel_ilp64 -lmkl_intel_thread -lmkl_core -liomp5 -lpthread -lm -ldl
+LIBS=  -lpthread -lstdc++ 
+SRC= harmonic_states.cpp harmonic_filenames.cpp harmonic_matrix_elements.cpp custom_parameters.cpp
+#SRC_MPI=parameters.cpp states.cpp filenames.cpp matrix_elements.cpp Hamiltonian_MPI.cpp NRG_MPI.cpp custom_parameters.cpp
+OBJS=$(SRC:.cpp=.o)
+#OBJS_MPI=$(SRC_MPI:.cpp=.o)
+
+serial : truspace_harmonic.x
+
+mpi : truspace_harmonic_mpi.x
+
+$(OBJS): %.o : %.cpp %.h custom_config.h
+	$(CXX) $(CFLAGS) -c $<
+
+harmonic_Hamiltonian.o : harmonic_Hamiltonian.cpp harmonic_Hamiltonian.h custom_config.h
+	$(CXX) $(CFLAGS) -c $<
+
+harmonic_Hamiltonian_MPI.o : harmonic_Hamiltonian_MPI.cpp harmonic_Hamiltonian_MPI.h custom_config.h
+	$(CXX) $(CFLAGS) -c $<
+
+
+truspace_harmonic.x : truspace_harmonic.cpp $(OBJS) harmonic_Hamiltonian.o
+	${CXX} ${CFLAGS}  ${LDFLAGS} $^ ${NRG_LIB} ${LIBS} -o  $@  -Wl,-rpath ${ROOT}/lib/
+	mkdir -p ${ROOT}/bin
+	cp $@ ${ROOT}/bin/
+
+truspace_harmonic_mpi.x : CFLAGS += -DMPI_PAR 
+truspace_harmonic_mpi.x : CXX=${MPICXX}
+truspace_harmonic_mpi.x : truspace_harmonic.cpp $(OBJS) harmonic_Hamiltonian_MPI.o
+	${MPICXX} ${CFLAGS}  $^ ${NRG_LIB_MPI} ${LIBS} ${SCALAPACK_LIB} -o  $@  -Wl,-rpath ${ROOT}/lib/
+	mkdir -p ${ROOT}/bin
+	cp $@ ${ROOT}/bin/
+
+clean:
+	rm -f *.x *.o
+
+

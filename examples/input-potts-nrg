@@ -1,0 +1,9 @@
+10   Maximum nunber of eigenvalues, eigenvectors and matrix elements printed in output file(s), 0 for all of them 
+100  number of states in the basic matrix for NRG
+50  number of states added in every NRG step
+1    set 1 for NRG, 0 for complete trucated hamiltonian diagonalization
+1    number of NRG sweep. Set 0 for basic NRG
+0    set to 1 to se save eigenvectors to file
+1    set 1 to calculate matrix element of a particular operartor (specified in the model file) 
+1    set to 1 to calculated only diagonal matrix elements (<i|phi|i>), 0 for full matrix elements calculation
+

@@ -1,33 +1,14 @@
-\hypertarget{config_8h}{}\section{config.\+h File Reference}
-\label{config_8h}\index{config.\+h@{config.\+h}}
+\doxysection{nrg/config.h File Reference}
+\hypertarget{config_8h}{}\label{config_8h}\index{nrg/config.h@{nrg/config.h}}
 
 
-Configuration file holding version number, some hard-\/coded limits that effect array dimensions, constants and macros.  
+Configuration file holding scalapack compilation-\/time parameters.  
 
 
-\subsection*{Macros}
-\begin{DoxyCompactItemize}
-\item 
-\mbox{\Hypertarget{config_8h_a1c6d5de492ac61ad29aec7aa9a436bbf}\label{config_8h_a1c6d5de492ac61ad29aec7aa9a436bbf}} 
-\#define {\bfseries V\+E\+R\+S\+I\+ON}~\char`\"{}1.\+0.\+0\char`\"{}
-\item 
-\#define \mbox{\hyperlink{config_8h_aa325eef3bd630e6c462a8baa6d3ba114}{Max\+Part}}~1500
-\begin{DoxyCompactList}\small\item\em Maximum number of partitions of integers ( so the maxium possible number of different strings of lowering opertaros ) in a chiral expectation value. \end{DoxyCompactList}\item 
-\#define \mbox{\hyperlink{config_8h_acf079a10d2762f6727e58b994b70b359}{Max\+Num\+Grade}}~50
-\begin{DoxyCompactList}\small\item\em Maximum number of operators ( both field and lowering operator ) in a chiral expectation value. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{config_8h_ac89d5f8a358eb8a1abdcd0fcef134f1a}\label{config_8h_ac89d5f8a358eb8a1abdcd0fcef134f1a}} 
-\#define {\bfseries S\+I\+GN}(a,  b)~((b) $>$= 0.\+0 ? fabsl(a) \+: -\/fabsl(a))
-\item 
-\mbox{\Hypertarget{config_8h_a75acf5c356c74685d995225dbe357ba1}\label{config_8h_a75acf5c356c74685d995225dbe357ba1}} 
-\#define {\bfseries S\+I\+G\+Nd}(a,  b)~((b) $>$= 0.\+0 ? fabs(a) \+: -\/fabs(a))
-\item 
-\mbox{\Hypertarget{config_8h_a1daf785e3f68d293c7caa1c756d5cb74}\label{config_8h_a1daf785e3f68d293c7caa1c756d5cb74}} 
-\#define {\bfseries pi}~3.\+1415926535897
-\end{DoxyCompactItemize}
 
 
-\subsection{Detailed Description}
-Configuration file holding version number, some hard-\/coded limits that effect array dimensions, constants and macros. 
+\doxysubsection{Detailed Description}
+Configuration file holding scalapack compilation-\/time parameters. 
 
 \begin{DoxyAuthor}{Authors}
 Giuseppe Piero Brandino -\/ e\+Xact-\/lab s.\+r.\+l. 
@@ -36,29 +17,5 @@ Giuseppe Piero Brandino -\/ e\+Xact-\/lab s.\+r.\+l.
 October 2017 
 \end{DoxyDate}
 \begin{DoxyCopyright}{Copyright}
-G\+NU Public License. 
+GNU Public License. 
 \end{DoxyCopyright}
-
-
-\subsection{Macro Definition Documentation}
-\mbox{\Hypertarget{config_8h_acf079a10d2762f6727e58b994b70b359}\label{config_8h_acf079a10d2762f6727e58b994b70b359}} 
-\index{config.\+h@{config.\+h}!Max\+Num\+Grade@{Max\+Num\+Grade}}
-\index{Max\+Num\+Grade@{Max\+Num\+Grade}!config.\+h@{config.\+h}}
-\subsubsection{\texorpdfstring{Max\+Num\+Grade}{MaxNumGrade}}
-{\footnotesize\ttfamily \#define Max\+Num\+Grade~50}
-
-
-
-Maximum number of operators ( both field and lowering operator ) in a chiral expectation value. 
-
-It could be in principle be calculated, but for any practical purposes given value is enough. Increasing this will typically require to increase stack size. \mbox{\Hypertarget{config_8h_aa325eef3bd630e6c462a8baa6d3ba114}\label{config_8h_aa325eef3bd630e6c462a8baa6d3ba114}} 
-\index{config.\+h@{config.\+h}!Max\+Part@{Max\+Part}}
-\index{Max\+Part@{Max\+Part}!config.\+h@{config.\+h}}
-\subsubsection{\texorpdfstring{Max\+Part}{MaxPart}}
-{\footnotesize\ttfamily \#define Max\+Part~1500}
-
-
-
-Maximum number of partitions of integers ( so the maxium possible number of different strings of lowering opertaros ) in a chiral expectation value. 
-
-It could be in principle be calculated, but for any practical purposes given value is enough. Increasing this will typically require to increase stack size. 

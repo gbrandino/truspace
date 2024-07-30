@@ -1,10 +1,14 @@
-Welcome to the Truspace developer documenation!
+\chapter{Tru\+Space}
+\hypertarget{index}{}\label{index}\index{TruSpace@{TruSpace}}
+\label{index_md_main}%
+\Hypertarget{index_md_main}%
+ Welcome to the Truspace developer documenation!
 
 This site contains all the information you need to modify or extend Truspace.
 
-For compilation and user-\/guide, please refer to \href{http://bitbucket.org/truspacedevelopers/truspace}{\tt http\+://bitbucket.\+org/truspacedevelopers/truspace}
+For compilation and user-\/guide, please refer to \href{http://bitbucket.org/truspacedevelopers/truspace}{\texttt{ http\+://bitbucket.\+org/truspacedevelopers/truspace}}
 
-\subsection*{Code design and structure}
+\doxysubsection*{Code design and structure}
 
 Tru\+Space is written in C++ using and Object Oriented design pattern.
 
@@ -12,42 +16,49 @@ Table of content
 
 
 \begin{DoxyItemize}
-\item \href{#classes-and-utlities}{\tt Classes and utlities}
-\item \href{#code-architecture}{\tt Code architecture}
-\item \href{#how-to-extened-truspace}{\tt How to extened Truspace}
+\item Classes and utlities
+\item Code architecture
+\item How to extened Truspace
 \end{DoxyItemize}
 
-\subsubsection*{Classes and utlities}
+\doxysubsubsection*{Classes and utlities}
 
-The available classes are
+The code is currently strctured to produce 3 executables and a library
 
 
 \begin{DoxyItemize}
-\item \mbox{\hyperlink{classparameters}{parameters}} \+: class that handles the input reading, the calculation of the structure constants and the analysis of symmetry subspaces.
-\item \mbox{\hyperlink{classworker}{worker}} \+: class that takes care of running the different parts of the code after all parameters are set
-\item \mbox{\hyperlink{classstates}{states}}\+: class that calculates and holds all the informations regarding the computation basis
-\item \mbox{\hyperlink{classchirME}{chir\+ME}} \+: class that calculates and holds all the information about matrix element of the fields on the computational basis
-\item \mbox{\hyperlink{classfilenames}{filenames}} \+: helper class to manage output and swap files names
-\item \mbox{\hyperlink{classHamiltonian}{Hamiltonian}} \+: class that handles the computation and the matrix form of the T\+SA \mbox{\hyperlink{classHamiltonian}{Hamiltonian}} of the perturbed model
-\item \mbox{\hyperlink{classdiag}{diag}}\+: helper class that contains Numerical Recipies diagonalization routines for long double (required to calculate the conformal computational basis)
-\item \mbox{\hyperlink{classtensor2D}{tensor2D}}, \mbox{\hyperlink{classtensor3D}{tensor3D}}, \mbox{\hyperlink{classtensor4D}{tensor4D}}, \mbox{\hyperlink{classtensor5D}{tensor5D}}, \mbox{\hyperlink{classtensor6D}{tensor6D}} \+: helper template class to handle 2D, 3D, 4D, 5D and 6D tensors. It ensures memory contiguity and automatic deallocation when out of scope, without forcing compilation-\/time sizes.
-\item \mbox{\hyperlink{classNRG}{N\+RG}} \+: model-\/agnostic full diagonalization, {\ttfamily \mbox{\hyperlink{classNRG}{N\+RG}}} and {\ttfamily Sweep} routine
-\end{DoxyItemize}
-
-Moreover, the are a series of helper functions
-
-
+\item lib\+NRG -\/ source code in src/nrg\+: the core of truspace, contains the \doxylink{classNRG}{NRG} routines as well as some base class to derive for specialization, namely\+:
 \begin{DoxyItemize}
-\item \mbox{\hyperlink{config_8h}{config.\+h}} Configuration file holding version number, some hard-\/coded limits that effect array dimensions, constants and macros
-\item \mbox{\hyperlink{block_8h}{block.\+h}} Contains a routine to identify symmetry subspace by the analysis of the interaction matrix.
-\item \mbox{\hyperlink{characters_8h}{characters.\+h}} Set of helper functions to calculate integers partitions and manage Gi\+NaC computation of character expansion
-\item \mbox{\hyperlink{cpt_8h}{cpt.\+h}} Set of helper function to calculate structure constant of Minimal C\+F\+Ts
-\item \mbox{\hyperlink{gamma_8h}{gamma.\+h}} Computation of gamma function
+\item \doxylink{classNRG}{NRG} \+: The core nrg engine, model agnostic, supporting also \textquotesingle{}Sweep\textquotesingle{}
+\item \doxylink{classHamiltonian}{Hamiltonian} \+: Abstract class to handle the computation of the TSA \doxylink{classHamiltonian}{Hamiltonian}
+\item \doxylink{classstates}{states} \+: Abstract class that calculates and holds all the informations regarding the computation basis
+\item \doxylink{classmatrix__elements}{matrix\+\_\+elements} \+: Abstract class that calculates and holds all the information about matrix element of the fields on the computational basis
+\item \doxylink{classparameters}{parameters} \+: Class that holds the nrg parameters
+\item \doxylink{classfilenames}{filenames} \+: Helper class to manage output and swap files names
+\item \doxylink{classtensor2D}{tensor2D}, \doxylink{classtensor3D}{tensor3D}, \doxylink{classtensor4D}{tensor4D}, \doxylink{classtensor5D}{tensor5D}, \doxylink{classtensor6D}{tensor6D} \+: helper template class to handle 2D, 3D, 4D, 5D and 6D tensors. It ensures memory contiguity and automatic deallocation when out of scope, without forcing compilation-\/time sizes.
+\item \doxylink{classsparse__tensor3D}{sparse\+\_\+tensor3D} and \doxylink{classsparse__tensor6D}{sparse\+\_\+tensor6D} \+:helper template class to handle 3D, and 6D sparse tensors.
+\end{DoxyItemize}
+\item truspace.\+x and truspace\+\_\+\+MPI.\+x -\/ the main executables, serial (with some multithreading support) and MPI respectively. The available classes and files are
+\begin{DoxyItemize}
+\item \doxylink{classminimal__model__parameters}{minimal\+\_\+model\+\_\+parameters} \+: class that handles the minimal model input reading, the reading of fields and structure constants and the analysis of symmetry subspaces.
+\item \doxylink{classworker}{worker} \+: class that takes care of running the different parts of the code after all parameters are set
+\item \doxylink{classminimal__model__states}{minimal\+\_\+model\+\_\+states}\+: class that calculates and holds all the informations regarding on the conformal computation basis. Derived from \doxylink{classstates}{states}
+\item \doxylink{classchirME}{chir\+ME} \+: class that calculates and holds all the information about matrix element of the fields on the conformal computational basis. Derived from \doxylink{classmatrix__elements}{matrix\+\_\+elements}
+\item \doxylink{classminimal__model__filenames}{minimal\+\_\+model\+\_\+filenames} \+: helper class to manage output and files names specific for the minimal model. Derived from \doxylink{classfilenames}{filenames}
+\item \doxylink{classminimal__model__Hamiltonian}{minimal\+\_\+model\+\_\+\+Hamiltonian} \+: class that handles the computation and the matrix form of the TSA \doxylink{classHamiltonian}{Hamiltonian} of the perturbed minimal model. Derived from \doxylink{classHamiltonian}{Hamiltonian}
+\item \doxylink{classdiag}{diag}\+: helper class that contains Numerical Recipies diagonalization routines for long double (required to calculate the conformal computational basis)
+\item \doxylink{minimal__model__config_8h}{minimal\+\_\+model\+\_\+config.\+h} Configuration file holding version number, some hard-\/coded limits that effect array dimensions, constants and macros
+\item \doxylink{block_8h}{block.\+h} Contains a routine to identify symmetry subspace by the analysis of the interaction matrix.
+\item \doxylink{characters_8h}{characters.\+h} Set of helper functions to calculate integers partitions and manage Gi\+NaC computation of character expansion
+\item \doxylink{cpt_8h}{cpt.\+h} Set of helper function to calculate structure constant of Minimal CFTs
+\item \doxylink{gamma_8h}{gamma.\+h} Computation of gamma function
+\end{DoxyItemize}
+\item fields\+\_\+and\+\_\+structure\+\_\+constants.\+x -\/ executable that calculates the fields list and structure constants for arbitrary unitary minimal models. It also produces fields file and structure constants file that can be used in truspace.\+x and truspace\+\_\+\+MPI.\+x
 \end{DoxyItemize}
 
-The model-\/agnostic nature of the \mbox{\hyperlink{classNRG}{N\+RG}} class should allow easy extension of the current code to other Quantum Hamiltonians.
+The model-\/agnostic nature of the \doxylink{classNRG}{NRG} class should allow easy extension of the current code to other Quantum Hamiltonians.
 
-\subsubsection*{Code architecture}
+\doxysubsubsection*{Code architecture}
 
 The following diagram explains how the various objects are created and called.
 
@@ -57,43 +68,78 @@ The flow is the following\+:
 
 
 \begin{DoxyItemize}
-\item The main, called \mbox{\hyperlink{truspace_8cpp}{truspace.\+cpp}}
+\item The main, called \doxylink{truspace_8cpp}{truspace.\+cpp}
 \begin{DoxyItemize}
-\item creates an instance of \mbox{\hyperlink{classparameters}{parameters}} from the input file, then calls \mbox{\hyperlink{classparameters_ab296b8a9284db7b8c74dabc944c7d654}{parameters\+::analyse\+\_\+subspaces}} that calculates the size of Hilbert space, the structure constans and tries to find symmetry subspaces in the Hilbert space
-\item creates and instace of \mbox{\hyperlink{classworker}{worker}} and runs it
-\end{DoxyItemize}
-\item \mbox{\hyperlink{classworker}{worker}}
+\item creates an instance of \doxylink{classminimal__model__parameters}{minimal\+\_\+model\+\_\+parameters} from the input file, then calls parameters\+::analyse\+\_\+subspaces that calculates the size of Hilbert space, the structure constans and tries to find symmetry subspaces in the Hilbert space
+\item creates and instace of \doxylink{classworker}{worker} and runs it
+\item \doxylink{classworker}{worker} iterates through momentum subspaces and symmetry subspaces. For each of them
 \begin{DoxyItemize}
-\item iterates through momentum subspaces and symmetry subspaces. For each of them
-\begin{DoxyItemize}
-\item creates an instance of \mbox{\hyperlink{classstates}{states}}, which calculates (or reads from file) and hold the computational conformal basis. The basis is identified by removing null-\/vectors and then performing a orthgonalization
-\item creates an instance if \mbox{\hyperlink{classfilenames}{filenames}}, which holds the strings identifying the various output files
-\item creates an instance of \mbox{\hyperlink{classchirME}{chir\+ME}}, which calculates (or reads from file) and hold the matrix elements of the pertubation(s) by calling \mbox{\hyperlink{classchirME_a9a7e36cc974d91607112bdf552ed40fc}{chir\+M\+E\+::calculate\+\_\+or\+\_\+read\+\_\+chir\+ME}} Matrix element are stored on the chiral states to save memory, which means that the complete matrix element will be the product of the contribution for chiral and anti-\/chiral components. They are stored in \mbox{\hyperlink{classchirME_aa59c5a77d881d29746faaf171f5b627e}{chir\+M\+E\+::me\+\_\+chi\+\_\+ortho}}. If the expectation value of an operator is asked in the input file, it also calculates chiral matrix elements for the specified operator. The matrix elements are stored in \mbox{\hyperlink{classchirME_ae206d3f68100f496ec7e3ea09bcf2c0a}{chir\+M\+E\+::me\+\_\+chi\+\_\+ortho\+\_\+op\+\_\+l}} and \mbox{\hyperlink{classchirME_aba75f5ca87a3598e54eecb2aaa3cca34}{chir\+M\+E\+::me\+\_\+chi\+\_\+ortho\+\_\+op\+\_\+r}} for the chiral and anti-\/chiral component of the operator.
+\item creates an instance of \doxylink{classminimal__model__states}{minimal\+\_\+model\+\_\+states}, which calculates (or reads from file) and hold the computational conformal basis. The basis is identified by removing null-\/vectors and then performing a orthgonalization
+\item creates an instance if \doxylink{classminimal__model__filenames}{minimal\+\_\+model\+\_\+filenames}, which holds the strings identifying the various output files
+\item creates an instance of \doxylink{classchirME}{chir\+ME}, which calculates (or reads from file) and hold the matrix elements of the pertubation(s) by calling \doxylink{classchirME_a8c1712c4ecb24ce73156f5d23a4835fa}{chir\+ME\+::calculate\+\_\+or\+\_\+read\+\_\+chir\+ME} Matrix element are stored on the chiral states to save memory, which means that the complete matrix element will be the product of the contribution for chiral and anti-\/chiral components. They are stored in \doxylink{classchirME_aec195b69a1aa902a2d88c0bd1f469b15}{chir\+ME\+::me\+\_\+chi\+\_\+ortho}. If the expectation value of an operator is asked in the input file, it also calculates chiral matrix elements for the specified operator. The matrix elements are stored in \doxylink{classchirME_a2c979d1744b25f54f14f9f7bf60769a5}{chir\+ME\+::me\+\_\+chi\+\_\+ortho\+\_\+op}.
 \item iterates through values of {\ttfamily R}, for each of them
 \begin{DoxyItemize}
-\item creates and instance of \mbox{\hyperlink{classHamiltonian}{Hamiltonian}}, which hold the hamiltonian matrix and a set of routines to calculate the parts of the hamiltonian relevant for N\+R\+G/\+Sweep
-\item creates and \mbox{\hyperlink{classNRG}{N\+RG}} object and runs it
+\item creates and instance of \doxylink{classminimal__model__Hamiltonian}{minimal\+\_\+model\+\_\+\+Hamiltonian}, which holds the hamiltonian matrix and a set of routines to calculate the parts of the hamiltonian relevant for NRG/\+Sweep
+\item creates an instance of \doxylink{classNRG}{NRG} and runs it
 \begin{DoxyItemize}
-\item \mbox{\hyperlink{classNRG}{N\+RG}} performs \mbox{\hyperlink{classNRG}{N\+RG}} iteration and Sweeps, calculates eigenvalues for each N\+R\+G/\+Sweep iteration, and, if requested in the input file, eigenvectors and expectation values of an operator. For eigenvectors and expectation values, the printed value are relative to the last \mbox{\hyperlink{classNRG}{N\+RG}} iteration.
+\item \doxylink{classNRG}{NRG} performs \doxylink{classNRG}{NRG} iteration and Sweeps, calculates eigenvalues for each NRG/\+Sweep iteration, and, if requested in the input file, eigenvectors and expectation values of an operator. For eigenvectors and expectation values, the printed value are relative to the last \doxylink{classNRG}{NRG} iteration.
 \end{DoxyItemize}
 \end{DoxyItemize}
 \end{DoxyItemize}
 \end{DoxyItemize}
 \end{DoxyItemize}
 
-\subsubsection*{How to extened Truspace}
+\doxysubsubsection*{How to extened Truspace}
 
-If you want to extend truspace, you will need to create your own version of \mbox{\hyperlink{classstates}{states}}, \mbox{\hyperlink{classchirME}{chir\+ME}} and \mbox{\hyperlink{classHamiltonian}{Hamiltonian}}. You don\textquotesingle{}t really need to respect the public interfaces for \mbox{\hyperlink{classstates}{states}}, \mbox{\hyperlink{classchirME}{chir\+ME}}, as these are only used by \mbox{\hyperlink{classHamiltonian}{Hamiltonian}}, that you are rewirting anyway. Instead, the interfaces of \mbox{\hyperlink{classHamiltonian}{Hamiltonian}} are important to \mbox{\hyperlink{classNRG}{N\+RG}}, in particular
+If you want to extend truspace, you will need to create your own derived version of \doxylink{classstates}{states}, \doxylink{classmatrix__elements}{matrix\+\_\+elements}, \doxylink{classHamiltonian}{Hamiltonian}, \doxylink{classparameters}{parameters} and \doxylink{classfilenames}{filenames}. You don\textquotesingle{}t really need to respect the public interfaces for \doxylink{classstates}{states}, \doxylink{classchirME}{chir\+ME}, as these are only used by \doxylink{classHamiltonian}{Hamiltonian}, that you are rewirting anyway. Instead, the interfaces of \doxylink{classHamiltonian}{Hamiltonian} are important to \doxylink{classNRG}{NRG}, in particular
 
 
 \begin{DoxyItemize}
-\item \mbox{\hyperlink{classHamiltonian_a04675b0b538bfb01d2f0aacf55ad4a7e}{Hamiltonian\+::init}} -\/ Initialization of the \mbox{\hyperlink{classHamiltonian}{Hamiltonian}}, meaning the filling of the matrix element for the first \mbox{\hyperlink{classNRG}{N\+RG}} iteration
-\item \mbox{\hyperlink{classHamiltonian_a8cc203b3b630ada7845f3c59606c3d27}{Hamiltonian\+::\+N\+R\+G\+\_\+block\+\_\+A}} -\/ Fills top-\/left part of the \mbox{\hyperlink{classHamiltonian}{Hamiltonian}} matrix, usually diagonal which contains the eigenvaues of the previous iteration
-\item \mbox{\hyperlink{classHamiltonian_a8e57b289129fc6039c761c22ae45a27a}{Hamiltonian\+::\+N\+R\+G\+\_\+block\+\_\+\+BC}} -\/ Fills the bottom-\/left and top-\/right parts of the \mbox{\hyperlink{classHamiltonian}{Hamiltonian}} matrix, which contains the expectaion value of the perturbing operator(s) between previous step eigenstates and the newly added states of the computational basis
-\item \mbox{\hyperlink{classHamiltonian_a5da029dcda9ab74d5beb045694bcbc47}{Hamiltonian\+::\+N\+R\+G\+\_\+block\+\_\+D}} -\/ Fills the bottom-\/right part of the \mbox{\hyperlink{classHamiltonian}{Hamiltonian}} matrix, which contains the expectaion value of the perturbing operator(s) on the newly added states of the computational basis
-\item \mbox{\hyperlink{classHamiltonian_a6a08e22b729adbc783c1770b21510ee2}{Hamiltonian\+::sweep\+\_\+block\+\_\+\+BC}} -\/ Fills the bottom-\/left and top-\/right parts of the \mbox{\hyperlink{classHamiltonian}{Hamiltonian}} matrix, which contains the expectaion value of the hamiltonian between previous step eigenstates and eigenstates of the previous step same iteration
-\item \mbox{\hyperlink{classHamiltonian_ab17354d805e72f8e171f1d4b42d54856}{Hamiltonian\+::\+Msize}} -\/ Size of the \mbox{\hyperlink{classHamiltonian}{Hamiltonian}} matrix at each \mbox{\hyperlink{classNRG}{N\+RG}} iteration
-\item \mbox{\hyperlink{classHamiltonian_ab70ecbcd7f5ce1cf3ba9753c2411e9fc}{Hamiltonian\+::print\+\_\+eigen\+Values}} -\/ Prints eigenvalues to file
-\item \mbox{\hyperlink{classHamiltonian_a8b6c47e52675e438f1b7c780b15da039}{Hamiltonian\+::print\+\_\+eigen\+Vectors}} -\/ Prints eigenvectors to file
-\item \mbox{\hyperlink{classchirME_aad56d2574efe19f3da59c6b5ab0ddbdb}{chir\+M\+E\+::calculate\+\_\+\+Exp\+Val}} -\/ Calculates expecation value on the final eigenstates of a given operator. Only interface of \mbox{\hyperlink{classchirME}{chir\+ME}} to be strictly respected. 
+\item \doxylink{classHamiltonian_ab3c734fffdccf18d83dd9253129faaff}{Hamiltonian\+::init} -\/ Initialization of the \doxylink{classHamiltonian}{Hamiltonian}, that corresponds to filling of the matrix element for the first \doxylink{classNRG}{NRG} iteration
+\item \doxylink{classHamiltonian_a23db23fd29e7a4a70e8d9bc0a07f57fb}{Hamiltonian\+::\+NRG\+\_\+block\+\_\+A} -\/ Fills top-\/left part of the \doxylink{classHamiltonian}{Hamiltonian} matrix, usually diagonal, which contains the eigenvaues of the previous iteration
+\item \doxylink{classHamiltonian_aa4ce99fd925f019ee7d09d0819e0838c}{Hamiltonian\+::\+NRG\+\_\+block\+\_\+\+BC} -\/ Fills the bottom-\/left and top-\/right parts of the \doxylink{classHamiltonian}{Hamiltonian} matrix, which contains the expectaion value of the perturbing operator(s) between previous step eigenstates and the newly added states of the computational basis
+\item \doxylink{classHamiltonian_a54a08459692f4ec58f08caec3cf79848}{Hamiltonian\+::\+NRG\+\_\+block\+\_\+D} -\/ Fills the bottom-\/right part of the \doxylink{classHamiltonian}{Hamiltonian} matrix, which contains the expectaion value of the perturbing operator(s) on the newly added states of the computational basis
+\item \doxylink{classHamiltonian_a9bbe852b73ed7fed62f00653f65d4d93}{Hamiltonian\+::sweep\+\_\+block\+\_\+\+BC} -\/ Fills the bottom-\/left and top-\/right parts of the \doxylink{classHamiltonian}{Hamiltonian} matrix, which contains the expectaion value of the hamiltonian between previous step eigenstates and eigenstates of the previous sweep at the same \doxylink{classNRG}{NRG} iteration
+\item \doxylink{classHamiltonian_ab17354d805e72f8e171f1d4b42d54856}{Hamiltonian\+::\+Msize} -\/ Size of the \doxylink{classHamiltonian}{Hamiltonian} matrix at each \doxylink{classNRG}{NRG} iteration
+\item \doxylink{classHamiltonian_a7829a6c2690f5ffcc105ecc9a7514dc7}{Hamiltonian\+::print\+\_\+eigen\+Values} -\/ Prints eigenvalues to file
+\item \doxylink{classHamiltonian_a3b5878170ebdcf7ce6fc000cb3668fc6}{Hamiltonian\+::print\+\_\+eigen\+Vectors} -\/ Prints eigenvectors to file
+\item \doxylink{classmatrix__elements_a010e61684898a6820d4db603f68ef2a3}{matrix\+\_\+elements\+::calculate\+\_\+\+Exp\+Val} -\/ Calculates expextation value on the final eigenstates of a given operator. The only interface of \doxylink{classmatrix__elements}{matrix\+\_\+elements} to be strictly respected.
 \end{DoxyItemize}
+
+An example of such an application to the Quantum Harmonic oscillator in 1D is available in {\itshape src/truspace\+\_\+extension\+\_\+example}. In this example, we use the plain waves as computational basis and the quadratic term as perturbation.
+
+The driver program of the Harmonic is \doxylink{truspace__harmonic_8cpp}{truspace\+\_\+harmonic.\+cpp}. This executable reads the two input files, the first for model-\/specific parameters (in this case, highest and lowest pertubed states, coupling constant and range of system sizes) and the nrg input files. Samples of thoses files for the Harmonic Oscillator are available in the folder {\itshape extension\+\_\+example}.
+
+The code then creates an instance of \doxylink{classharmonic__filenames}{harmonic\+\_\+filenames}. This helper class holds the filenames used by the code. The parent class contains mandatory filenames that are used by the nrg library. In particular
+
+
+\begin{DoxyItemize}
+\item std\+::string Eigen\+Name; File name of eigenvalues file
+\item std\+::string Eigen\+Name\+Final; File name of the eigenvalues for last \doxylink{classNRG}{NRG} iteration
+\item std\+::string Eigen\+Vect\+Name; File name of eigenvectors file
+\item std\+::string Me\+Op\+Name; File name of Expectation value on the final eigenstates
+\end{DoxyItemize}
+
+The constructor \doxylink{classharmonic__filenames_aaf7df27390f06372706f89cc678f410b}{harmonic\+\_\+filenames\+::harmonic\+\_\+filenames} should define the values of those strings.
+
+Using the input files, the code builds a \doxylink{classcustom__parameters}{custom\+\_\+parameters} object. This class inherits from the \doxylink{classparameters}{parameters} class, such that the parameters from the nrg input files are stored in the inherited member variables, while the model specific are stored in the custom member variables. In the constructor \doxylink{classcustom__parameters_a36b806c6dd23d431c4329a74baff2935}{custom\+\_\+parameters\+::custom\+\_\+parameters} it shuold be implemented the parser of the model input file. The \doxylink{classcustom__parameters_af026275532160d5d7530bdb4e4edf307}{custom\+\_\+parameters\+::print} function should be implemented only if used in the main for input parameter visualization.
+
+The driver program the continues building the computational basis, creating an \doxylink{classharmonic__states}{harmonic\+\_\+states} object. This class inherits from \doxylink{classstates}{states} class. No interface should be respected, as the unpertubed states are used only by the \doxylink{classHamiltonian}{Hamiltonian} class and the \doxylink{classmatrix__elements}{matrix\+\_\+elements} class, that have to be custom written. We usually define a calculate method like \doxylink{classharmonic__states_a4e38fffe739afb75219e912925495645}{harmonic\+\_\+states\+::calculate}, but those calculation could be done in the constructor as well.
+
+After the computational basis is created, the driver program proceeds to calculate the perturbation matrix elements. The sample class \doxylink{classharmonic__matrix__elements}{harmonic\+\_\+matrix\+\_\+elements} has once again a conventional \doxylink{classharmonic__matrix__elements_a7aa107ff802cb67cd2f2c99b9d1d91af}{harmonic\+\_\+matrix\+\_\+elements\+::calculate} method (once again, those calculation could be done in the constructor). As stated above, the only interface to be respected is the \doxylink{classharmonic__matrix__elements_ad9fd0668eca1229bd119b87a26c0d1d8}{harmonic\+\_\+matrix\+\_\+elements\+::calculate\+\_\+\+Exp\+Val}, since it is used by the \doxylink{classNRG}{NRG} in case the calculation of the expectation value of some operators are required. If you are not planning to calculate expectation values, just implement this function such that it does not do anything. \doxylink{classharmonic__matrix__elements_a3d030c0b6a2deeeeadce1a2f24a0795a}{harmonic\+\_\+matrix\+\_\+elements\+::calculate\+\_\+for\+\_\+\+Exp\+Val} is just an helper function to store the operator matrix elements to be used later for expectation value ( in particular, in the case in which the operator whose expectation values needs to be calculated are different than the perturbation).
+
+The code then creates and instance of \doxylink{classharmonic__Hamiltonian}{harmonic\+\_\+\+Hamiltonian} using the parameters, the states and the matrix element. As states above, there are a few function in this class that needs to be implemented with the correct signature. In the present example those are
+
+
+\begin{DoxyItemize}
+\item \doxylink{classharmonic__Hamiltonian_adf0aaf6ff2e16c1ede8d9102b95e9c20}{harmonic\+\_\+\+Hamiltonian\+::init}
+\item \doxylink{classharmonic__Hamiltonian_a4b4d9e9a966a8a118f516c6314777266}{harmonic\+\_\+\+Hamiltonian\+::\+NRG\+\_\+block\+\_\+A}
+\item \doxylink{classharmonic__Hamiltonian_ae9028e4e027b65c598b41738179943fb}{harmonic\+\_\+\+Hamiltonian\+::\+NRG\+\_\+block\+\_\+\+BC}
+\item \doxylink{classharmonic__Hamiltonian_a3bf65699e7e5d84221b980e71f4e4101}{harmonic\+\_\+\+Hamiltonian\+::\+NRG\+\_\+block\+\_\+D}
+\item \doxylink{classharmonic__Hamiltonian_a3e7e5e2fddd3efe3a270d2d193983138}{harmonic\+\_\+\+Hamiltonian\+::sweep\+\_\+block\+\_\+\+BC}
+\item \doxylink{classHamiltonian_ab17354d805e72f8e171f1d4b42d54856}{harmonic\+\_\+\+Hamiltonian\+::\+Msize}
+\item \doxylink{classharmonic__Hamiltonian_a2d04486c9afb793ececc8530a0cedcb6}{harmonic\+\_\+\+Hamiltonian\+::print\+\_\+eigen\+Values}
+\item \doxylink{classharmonic__Hamiltonian_a04eede2b91b07cf79821b2411f36937a}{harmonic\+\_\+\+Hamiltonian\+::print\+\_\+eigen\+Vectors}
+\end{DoxyItemize}
+
+Finally, the code creates an instance of the \doxylink{classNRG}{NRG} class and invokes the \doxylink{classNRG_a0cdebccf7b1db2cd43c5516dbc4a2d99}{NRG\+::run} method. 

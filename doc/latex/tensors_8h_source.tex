@@ -1,0 +1,496 @@
+\doxysection{tensors.\+h}
+\hypertarget{tensors_8h_source}{}\label{tensors_8h_source}\index{nrg/tensors.h@{nrg/tensors.h}}
+\mbox{\hyperlink{tensors_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#ifndef\ TENSORS\_H}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#define\ TENSORS\_H}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ <cstdlib>}}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00030\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{00031\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classtensor2D}{tensor2D}}}
+\DoxyCodeLine{00032\ \{}
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classtensor2D_a93a62e6d7c7131df8178bfa2047987af}{tensor2D}}();}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classtensor2D_a46491ff480f8d89dbea7e447cd3f6331}{tensor2D}}(\textcolor{keywordtype}{int},\ \textcolor{keywordtype}{int});}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classtensor2D_a3aa4739e707d585ca5baa53f4f23b7ca}{\string~tensor2D}}();}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classtensor2D}{tensor2D<T>}}\&\ \mbox{\hyperlink{classtensor2D_a19a40f481c0b591fba59ce6425cfa553}{operator=}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classtensor2D}{tensor2D<T>}}\&);}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ T\&\ \mbox{\hyperlink{classtensor2D_afff7f1232f563862438546cb80d95e75}{operator()}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int},\textcolor{keyword}{const}\ \textcolor{keywordtype}{int});}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ T\ \mbox{\hyperlink{classtensor2D_aed56ba817a05ccd848e38d43acf162e4}{operator()}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int},\textcolor{keyword}{const}\ \textcolor{keywordtype}{int})\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classtensor2D_a3a8d376aabbc030fb3e8588d2d1780d5}{n1}};\ }
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classtensor2D_ab89ee82aa5a001053392dc9c5b2489b3}{n2}};\ }
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ T*\ \mbox{\hyperlink{classtensor2D_adc82d196f1d710ae6762e4ea1720f5e3}{data}};\ }
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00047\ \};}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00052\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ T>\ \mbox{\hyperlink{classtensor2D_a93a62e6d7c7131df8178bfa2047987af}{tensor2D<T>::tensor2D}}()}
+\DoxyCodeLine{00053\ \{}
+\DoxyCodeLine{00054\ \ \ \ \ data\ =\ \textcolor{keyword}{new}\ T[1];}
+\DoxyCodeLine{00055\ \}}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00061\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{00062\ \mbox{\hyperlink{classtensor2D_a93a62e6d7c7131df8178bfa2047987af}{tensor2D<T>::tensor2D}}(\textcolor{keywordtype}{int}\ n1\_in,\ \textcolor{keywordtype}{int}\ n2\_in)}
+\DoxyCodeLine{00063\ :}
+\DoxyCodeLine{00064\ n1(n1\_in),}
+\DoxyCodeLine{00065\ n2(n2\_in)}
+\DoxyCodeLine{00066\ \{}
+\DoxyCodeLine{00067\ \ \ \ \ \mbox{\hyperlink{classtensor2D_adc82d196f1d710ae6762e4ea1720f5e3}{data}}\ =\ \textcolor{keyword}{new}\ T[\mbox{\hyperlink{classtensor2D_a3a8d376aabbc030fb3e8588d2d1780d5}{n1}}*\mbox{\hyperlink{classtensor2D_ab89ee82aa5a001053392dc9c5b2489b3}{n2}}];}
+\DoxyCodeLine{00068\ \}}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00072\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{00073\ \mbox{\hyperlink{classtensor2D_a3aa4739e707d585ca5baa53f4f23b7ca}{tensor2D<T>::\string~tensor2D}}()}
+\DoxyCodeLine{00074\ \{}
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keyword}{delete}\ []\ data;}
+\DoxyCodeLine{00076\ \}}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00082\ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{00083\ \mbox{\hyperlink{classtensor2D}{tensor2D<T>}}\&\ \mbox{\hyperlink{classtensor2D_a19a40f481c0b591fba59ce6425cfa553}{tensor2D<T>::operator=}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classtensor2D}{tensor2D<T>}}\&\ tens)}
+\DoxyCodeLine{00084\ \{}
+\DoxyCodeLine{00085\ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{this}\ !=\ \&tens)}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}\ []\ data;}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ n1=tens.\mbox{\hyperlink{classtensor2D_a3a8d376aabbc030fb3e8588d2d1780d5}{n1}};}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ n2=tens.\mbox{\hyperlink{classtensor2D_ab89ee82aa5a001053392dc9c5b2489b3}{n2}};}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ size\ =\ n1*n2;}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ data=\textcolor{keyword}{new}\ T[size];}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i=0;\ i<size;i++)}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ data[i]=tens.\mbox{\hyperlink{classtensor2D_adc82d196f1d710ae6762e4ea1720f5e3}{data}}[i];}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00095\ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};\ \ \ }
+\DoxyCodeLine{00096\ \}}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00102\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{00103\ T\&\ \mbox{\hyperlink{classtensor2D_afff7f1232f563862438546cb80d95e75}{tensor2D<T>::operator()}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ i1,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ i2)}
+\DoxyCodeLine{00104\ \{}
+\DoxyCodeLine{00105\ \ \ \ \ \textcolor{keywordflow}{if}\ (i1\ >\ (n1-\/1)\ or\ i2\ >\ (n2-\/1)\ )}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}\ ERROR:\ Out\ of\ bound\ on\ 2D\ tensor!\ \ Requested\ "{}}\ <<\ std::endl;}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ std::cerr\ <<\ i1\ <<\ \textcolor{stringliteral}{"{}\ (size\ "{}}\ <<\ n1\ <<\ \textcolor{stringliteral}{"{})"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ std::cerr\ <<\ i2\ <<\ \textcolor{stringliteral}{"{}\ (size\ "{}}\ <<\ n2\ <<\ \textcolor{stringliteral}{"{})"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ std::exit(1);}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00112\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ data[i1*n2\ +\ i2];}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \}\ }
+\DoxyCodeLine{00116\ \}}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00122\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{00123\ T\ \mbox{\hyperlink{classtensor2D_afff7f1232f563862438546cb80d95e75}{tensor2D<T>::operator()}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ i1,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ i2)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00124\ \textcolor{keyword}{}\{}
+\DoxyCodeLine{00125\ \ \ \ \ \textcolor{keywordflow}{if}\ (i1\ >\ (n1-\/1)\ or\ i2\ >\ (n2-\/1)\ )}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}\ ERROR:\ Out\ of\ bound\ on\ 2D\ tensor!\ Requested\ "{}}\ <<\ std::endl;}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ std::cerr\ <<\ i1\ <<\ \textcolor{stringliteral}{"{}\ (size\ "{}}\ <<\ n1\ <<\ \textcolor{stringliteral}{"{})"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ std::cerr\ <<\ i2\ <<\ \textcolor{stringliteral}{"{}\ (size\ "{}}\ <<\ n2\ <<\ \textcolor{stringliteral}{"{})"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ std::exit(1);}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00132\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ data[i1*n2\ +\ i2];}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00136\ \}}
+\DoxyCodeLine{00137\ }
+\DoxyCodeLine{00147\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{00148\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classtensor3D}{tensor3D}}}
+\DoxyCodeLine{00149\ \{}
+\DoxyCodeLine{00150\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classtensor3D_a67418622e603098b44693ceb7393df5d}{tensor3D}}();}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classtensor3D_a79fea34ee28f2938825ad84a3b9e7285}{tensor3D}}(\textcolor{keywordtype}{int},\ \textcolor{keywordtype}{int},\ \textcolor{keywordtype}{int});}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classtensor3D_adc795c8c25db6b5b242e6ffdb6697350}{\string~tensor3D}}();}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classtensor3D}{tensor3D<T>}}\&\ \mbox{\hyperlink{classtensor3D_ac972f4b188dabc0c6b8a4f3448fe01e2}{operator=}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classtensor3D}{tensor3D<T>}}\&);}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ T\&\ \mbox{\hyperlink{classtensor3D_af02c609c2d32a8e28cb0e72f6c433701}{operator()}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int},\textcolor{keyword}{const}\ \textcolor{keywordtype}{int},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int});}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ T\ \mbox{\hyperlink{classtensor3D_a188d07c196d3b5f883d1d2321a36c81e}{operator()}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int},\textcolor{keyword}{const}\ \textcolor{keywordtype}{int},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int})\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classtensor3D_ae3787ed283d761c5327711782cda0be2}{n1}};\ }
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classtensor3D_aff24a0149e12ee69e00e21a07fab21de}{n2}};\ }
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classtensor3D_a51b456441ba1d3aad09a1c06d0f7f634}{n3}};\ }
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ T*\ \mbox{\hyperlink{classtensor3D_a0275b6f4c55df4b4ef95d0a933777cc2}{data}};\ }
+\DoxyCodeLine{00165\ }
+\DoxyCodeLine{00166\ \};}
+\DoxyCodeLine{00167\ }
+\DoxyCodeLine{00170\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{00171\ \mbox{\hyperlink{classtensor3D_a67418622e603098b44693ceb7393df5d}{tensor3D<T>::tensor3D}}()}
+\DoxyCodeLine{00172\ \{}
+\DoxyCodeLine{00173\ \ \ \ \ data\ =\ \textcolor{keyword}{new}\ T[1];}
+\DoxyCodeLine{00174\ \}}
+\DoxyCodeLine{00175\ }
+\DoxyCodeLine{00181\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{00182\ \mbox{\hyperlink{classtensor3D_a67418622e603098b44693ceb7393df5d}{tensor3D<T>::tensor3D}}(\textcolor{keywordtype}{int}\ n1\_in,\ \textcolor{keywordtype}{int}\ n2\_in,\ \textcolor{keywordtype}{int}\ n3\_in)}
+\DoxyCodeLine{00183\ :}
+\DoxyCodeLine{00184\ n1(n1\_in),}
+\DoxyCodeLine{00185\ n2(n2\_in),}
+\DoxyCodeLine{00186\ n3(n3\_in)}
+\DoxyCodeLine{00187\ \{}
+\DoxyCodeLine{00188\ \ \ \ \ \mbox{\hyperlink{classtensor3D_a0275b6f4c55df4b4ef95d0a933777cc2}{data}}\ =\ \textcolor{keyword}{new}\ T[\mbox{\hyperlink{classtensor3D_ae3787ed283d761c5327711782cda0be2}{n1}}*\mbox{\hyperlink{classtensor3D_aff24a0149e12ee69e00e21a07fab21de}{n2}}*\mbox{\hyperlink{classtensor3D_a51b456441ba1d3aad09a1c06d0f7f634}{n3}}];}
+\DoxyCodeLine{00189\ \}}
+\DoxyCodeLine{00190\ }
+\DoxyCodeLine{00193\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{00194\ \mbox{\hyperlink{classtensor3D_adc795c8c25db6b5b242e6ffdb6697350}{tensor3D<T>::\string~tensor3D}}()}
+\DoxyCodeLine{00195\ \{}
+\DoxyCodeLine{00196\ \ \ \ \ \textcolor{keyword}{delete}\ []\ data;}
+\DoxyCodeLine{00197\ \}}
+\DoxyCodeLine{00198\ }
+\DoxyCodeLine{00203\ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{00204\ \mbox{\hyperlink{classtensor3D}{tensor3D<T>}}\&\ \mbox{\hyperlink{classtensor3D_ac972f4b188dabc0c6b8a4f3448fe01e2}{tensor3D<T>::operator=}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classtensor3D}{tensor3D<T>}}\&\ tens)}
+\DoxyCodeLine{00205\ \{}
+\DoxyCodeLine{00206\ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{this}\ !=\ \&tens)}
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}\ []\ data;}
+\DoxyCodeLine{00209\ \ \ \ \ \ \ \ \ n1=tens.\mbox{\hyperlink{classtensor3D_ae3787ed283d761c5327711782cda0be2}{n1}};}
+\DoxyCodeLine{00210\ \ \ \ \ \ \ \ \ n2=tens.\mbox{\hyperlink{classtensor3D_aff24a0149e12ee69e00e21a07fab21de}{n2}};}
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ n3=tens.\mbox{\hyperlink{classtensor3D_a51b456441ba1d3aad09a1c06d0f7f634}{n3}};}
+\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ size\ =\ n1*n2*n3;}
+\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ data=\textcolor{keyword}{new}\ T[size];}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i=0;\ i<size;i++)}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ data[i]=tens.\mbox{\hyperlink{classtensor3D_a0275b6f4c55df4b4ef95d0a933777cc2}{data}}[i];}
+\DoxyCodeLine{00216\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00217\ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00218\ \}}
+\DoxyCodeLine{00219\ }
+\DoxyCodeLine{00220\ }
+\DoxyCodeLine{00226\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{00227\ T\&\ \mbox{\hyperlink{classtensor3D_af02c609c2d32a8e28cb0e72f6c433701}{tensor3D<T>::operator()}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ i1,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ i2,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ i3)}
+\DoxyCodeLine{00228\ \{}
+\DoxyCodeLine{00229\ \ \ \ \ \textcolor{keywordflow}{if}\ (i1\ >\ (n1-\/1)\ or\ i2\ >\ (n2-\/1)\ or\ i3\ >\ (n3-\/1))}
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}\ ERROR:\ Out\ of\ bound\ on\ 3D\ tensor!\ Requested\ "{}}\ <<\ std::endl;}
+\DoxyCodeLine{00232\ \ \ \ \ \ \ \ \ std::cerr\ <<\ i1\ <<\ \textcolor{stringliteral}{"{}\ (size\ "{}}\ <<\ n1\ <<\ \textcolor{stringliteral}{"{})"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ std::cerr\ <<\ i2\ <<\ \textcolor{stringliteral}{"{}\ (size\ "{}}\ <<\ n2\ <<\ \textcolor{stringliteral}{"{})"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00234\ \ \ \ \ \ \ \ \ std::cerr\ <<\ i3\ <<\ \textcolor{stringliteral}{"{}\ (size\ "{}}\ <<\ n3\ <<\ \textcolor{stringliteral}{"{})"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00235\ \ \ \ \ \ \ \ \ std::exit(1);}
+\DoxyCodeLine{00236\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00237\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00239\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ data[i1*n2*n3\ +\ i2*n3\ +\ i3\ ];}
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00241\ \}}
+\DoxyCodeLine{00242\ }
+\DoxyCodeLine{00248\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{00249\ T\ \mbox{\hyperlink{classtensor3D_af02c609c2d32a8e28cb0e72f6c433701}{tensor3D<T>::operator()}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ i1,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ i2,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ i3)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00250\ \textcolor{keyword}{}\{}
+\DoxyCodeLine{00251\ \ \ \ \ \textcolor{keywordflow}{if}\ (i1\ >\ (n1-\/1)\ or\ i2\ >\ (n2-\/1)\ or\ i3\ >\ (n3-\/1))}
+\DoxyCodeLine{00252\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00253\ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}\ ERROR:\ Out\ of\ bound\ on\ 3D\ tensor!\ Requested\ "{}}\ <<\ std::endl;}
+\DoxyCodeLine{00254\ \ \ \ \ \ \ \ \ std::cerr\ <<\ i1\ <<\ \textcolor{stringliteral}{"{}\ (size\ "{}}\ <<\ n1\ <<\ \textcolor{stringliteral}{"{})"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00255\ \ \ \ \ \ \ \ \ std::cerr\ <<\ i2\ <<\ \textcolor{stringliteral}{"{}\ (size\ "{}}\ <<\ n2\ <<\ \textcolor{stringliteral}{"{})"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00256\ \ \ \ \ \ \ \ \ std::cerr\ <<\ i3\ <<\ \textcolor{stringliteral}{"{}\ (size\ "{}}\ <<\ n3\ <<\ \textcolor{stringliteral}{"{})"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00257\ \ \ \ \ \ \ \ \ std::exit(1);}
+\DoxyCodeLine{00258\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00259\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00260\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00261\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ data[i1*n2*n3\ +\ i2*n3\ +\ i3\ ];}
+\DoxyCodeLine{00262\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00263\ \}}
+\DoxyCodeLine{00264\ }
+\DoxyCodeLine{00265\ }
+\DoxyCodeLine{00275\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{00276\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classtensor4D}{tensor4D}}}
+\DoxyCodeLine{00277\ \{}
+\DoxyCodeLine{00278\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00279\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classtensor4D_a4af9243ce1ef1367b1970b329f99000c}{tensor4D}}();}
+\DoxyCodeLine{00280\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classtensor4D_a01b37027f532ed8594096c5504aff0ab}{tensor4D}}(\textcolor{keywordtype}{int},\ \textcolor{keywordtype}{int},\ \textcolor{keywordtype}{int},\ \textcolor{keywordtype}{int});}
+\DoxyCodeLine{00281\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classtensor4D_a0bb667f76a6b4ba43387ee320c565eaa}{\string~tensor4D}}();}
+\DoxyCodeLine{00282\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classtensor4D}{tensor4D<T>}}\&\ \mbox{\hyperlink{classtensor4D_a45c7580ca5f000cfe64cb7963a80f387}{operator=}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classtensor4D}{tensor4D<T>}}\&);}
+\DoxyCodeLine{00283\ \ \ \ \ \ \ \ \ T\&\ \mbox{\hyperlink{classtensor4D_a0d94ef9dab89422b1fa3b547b07c922a}{operator()}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int},\textcolor{keyword}{const}\ \textcolor{keywordtype}{int},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int});}
+\DoxyCodeLine{00284\ \ \ \ \ \ \ \ \ T\ \mbox{\hyperlink{classtensor4D_a897359cbfc99fd28581f828391f7fe67}{operator()}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int},\textcolor{keyword}{const}\ \textcolor{keywordtype}{int},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int})\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00286\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classtensor4D_a421c094496873371778fb53cf7027b4f}{n1}};\ }
+\DoxyCodeLine{00288\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classtensor4D_a079abfd952f0510b18258047008eec7f}{n2}};\ }
+\DoxyCodeLine{00290\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classtensor4D_aab97d021c95ad401da51c28d77fd806c}{n3}};\ }
+\DoxyCodeLine{00292\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classtensor4D_af1ecf8f3551f16d22119d728d67c990f}{n4}};}
+\DoxyCodeLine{00294\ \ \ \ \ \ \ \ \ T*\ \mbox{\hyperlink{classtensor4D_ac0a2dd341e0de829bba5b0198e0c970f}{data}};}
+\DoxyCodeLine{00295\ }
+\DoxyCodeLine{00296\ \};}
+\DoxyCodeLine{00297\ }
+\DoxyCodeLine{00300\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{00301\ \mbox{\hyperlink{classtensor4D_a4af9243ce1ef1367b1970b329f99000c}{tensor4D<T>::tensor4D}}()}
+\DoxyCodeLine{00302\ \{}
+\DoxyCodeLine{00303\ \ \ \ \ data\ =\ \textcolor{keyword}{new}\ T[1];}
+\DoxyCodeLine{00304\ \}}
+\DoxyCodeLine{00305\ }
+\DoxyCodeLine{00306\ }
+\DoxyCodeLine{00313\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{00314\ \mbox{\hyperlink{classtensor4D_a4af9243ce1ef1367b1970b329f99000c}{tensor4D<T>::tensor4D}}(\textcolor{keywordtype}{int}\ n1\_in,\ \textcolor{keywordtype}{int}\ n2\_in,\ \textcolor{keywordtype}{int}\ n3\_in,\ \textcolor{keywordtype}{int}\ n4\_in)}
+\DoxyCodeLine{00315\ :}
+\DoxyCodeLine{00316\ n1(n1\_in),}
+\DoxyCodeLine{00317\ n2(n2\_in),}
+\DoxyCodeLine{00318\ n3(n3\_in),}
+\DoxyCodeLine{00319\ n4(n4\_in)}
+\DoxyCodeLine{00320\ \{}
+\DoxyCodeLine{00321\ \ \ \ \ \mbox{\hyperlink{classtensor4D_ac0a2dd341e0de829bba5b0198e0c970f}{data}}\ =\ \textcolor{keyword}{new}\ T[\mbox{\hyperlink{classtensor4D_a421c094496873371778fb53cf7027b4f}{n1}}*\mbox{\hyperlink{classtensor4D_a079abfd952f0510b18258047008eec7f}{n2}}*\mbox{\hyperlink{classtensor4D_aab97d021c95ad401da51c28d77fd806c}{n3}}*\mbox{\hyperlink{classtensor4D_af1ecf8f3551f16d22119d728d67c990f}{n4}}];}
+\DoxyCodeLine{00322\ \}}
+\DoxyCodeLine{00323\ }
+\DoxyCodeLine{00326\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{00327\ \mbox{\hyperlink{classtensor4D_a0bb667f76a6b4ba43387ee320c565eaa}{tensor4D<T>::\string~tensor4D}}()}
+\DoxyCodeLine{00328\ \{}
+\DoxyCodeLine{00329\ \ \ \ \ \textcolor{keyword}{delete}\ []\ data;}
+\DoxyCodeLine{00330\ \}}
+\DoxyCodeLine{00331\ }
+\DoxyCodeLine{00336\ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{00337\ \mbox{\hyperlink{classtensor4D}{tensor4D<T>}}\&\ \mbox{\hyperlink{classtensor4D_a45c7580ca5f000cfe64cb7963a80f387}{tensor4D<T>::operator=}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classtensor4D}{tensor4D<T>}}\&\ tens)}
+\DoxyCodeLine{00338\ \{}
+\DoxyCodeLine{00339\ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{this}\ !=\ \&tens)}
+\DoxyCodeLine{00340\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00341\ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}\ []\ data;}
+\DoxyCodeLine{00342\ \ \ \ \ \ \ \ \ n1=tens.\mbox{\hyperlink{classtensor4D_a421c094496873371778fb53cf7027b4f}{n1}};}
+\DoxyCodeLine{00343\ \ \ \ \ \ \ \ \ n2=tens.\mbox{\hyperlink{classtensor4D_a079abfd952f0510b18258047008eec7f}{n2}};}
+\DoxyCodeLine{00344\ \ \ \ \ \ \ \ \ n3=tens.\mbox{\hyperlink{classtensor4D_aab97d021c95ad401da51c28d77fd806c}{n3}};}
+\DoxyCodeLine{00345\ \ \ \ \ \ \ \ \ n4=tens.\mbox{\hyperlink{classtensor4D_af1ecf8f3551f16d22119d728d67c990f}{n4}};}
+\DoxyCodeLine{00346\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ size\ =\ n1*n2*n3*n4;}
+\DoxyCodeLine{00347\ \ \ \ \ \ \ \ \ data=\textcolor{keyword}{new}\ T[size];}
+\DoxyCodeLine{00348\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i=0;\ i<size;i++)}
+\DoxyCodeLine{00349\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ data[i]=tens.\mbox{\hyperlink{classtensor4D_ac0a2dd341e0de829bba5b0198e0c970f}{data}}[i];}
+\DoxyCodeLine{00350\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00351\ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00352\ \}}
+\DoxyCodeLine{00353\ }
+\DoxyCodeLine{00354\ }
+\DoxyCodeLine{00361\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{00362\ T\&\ \mbox{\hyperlink{classtensor4D_a0d94ef9dab89422b1fa3b547b07c922a}{tensor4D<T>::operator()}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ i1,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ i2,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ i3,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ i4)}
+\DoxyCodeLine{00363\ \{}
+\DoxyCodeLine{00364\ \ \ \ \ \textcolor{keywordflow}{if}\ (i1\ >\ (n1-\/1)\ or\ i2\ >\ (n2-\/1)\ or\ i3\ >\ (n3-\/1)\ or\ i4\ >\ (n4-\/1))}
+\DoxyCodeLine{00365\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00366\ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}\ ERROR:\ Out\ of\ bound\ on\ 4D\ tensor!\ Requested\ "{}}\ <<\ std::endl;}
+\DoxyCodeLine{00367\ \ \ \ \ \ \ \ \ std::cerr\ <<\ i1\ <<\ \textcolor{stringliteral}{"{}\ (size\ "{}}\ <<\ n1\ <<\ \textcolor{stringliteral}{"{})"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00368\ \ \ \ \ \ \ \ \ std::cerr\ <<\ i2\ <<\ \textcolor{stringliteral}{"{}\ (size\ "{}}\ <<\ n2\ <<\ \textcolor{stringliteral}{"{})"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00369\ \ \ \ \ \ \ \ \ std::cerr\ <<\ i3\ <<\ \textcolor{stringliteral}{"{}\ (size\ "{}}\ <<\ n3\ <<\ \textcolor{stringliteral}{"{})"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00370\ \ \ \ \ \ \ \ \ std::cerr\ <<\ i4\ <<\ \textcolor{stringliteral}{"{}\ (size\ "{}}\ <<\ n4\ <<\ \textcolor{stringliteral}{"{})"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00371\ \ \ \ \ \ \ \ \ std::exit(1);}
+\DoxyCodeLine{00372\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00373\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00374\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00375\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ data[i1*n2*n3*n4\ +\ i2*n3*n4\ +\ i3*n4\ +\ i4\ ];}
+\DoxyCodeLine{00376\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00377\ \}}
+\DoxyCodeLine{00378\ }
+\DoxyCodeLine{00385\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{00386\ T\ \mbox{\hyperlink{classtensor4D_a0d94ef9dab89422b1fa3b547b07c922a}{tensor4D<T>::operator()}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ i1,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ i2,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ i3,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ i4)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00387\ \textcolor{keyword}{}\{}
+\DoxyCodeLine{00388\ \ \ \ \ \textcolor{keywordflow}{if}\ (i1\ >\ (n1-\/1)\ or\ i2\ >\ (n2-\/1)\ or\ i3\ >\ (n3-\/1)\ or\ i4\ >\ (n4-\/1))}
+\DoxyCodeLine{00389\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00390\ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}\ ERROR:\ Out\ of\ bound\ on\ 4D\ tensor!\ Requested\ "{}}\ <<\ std::endl;}
+\DoxyCodeLine{00391\ \ \ \ \ \ \ \ \ std::cerr\ <<\ i1\ <<\ \textcolor{stringliteral}{"{}\ (size\ "{}}\ <<\ n1\ <<\ \textcolor{stringliteral}{"{})"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00392\ \ \ \ \ \ \ \ \ std::cerr\ <<\ i2\ <<\ \textcolor{stringliteral}{"{}\ (size\ "{}}\ <<\ n2\ <<\ \textcolor{stringliteral}{"{})"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00393\ \ \ \ \ \ \ \ \ std::cerr\ <<\ i3\ <<\ \textcolor{stringliteral}{"{}\ (size\ "{}}\ <<\ n3\ <<\ \textcolor{stringliteral}{"{})"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00394\ \ \ \ \ \ \ \ \ std::cerr\ <<\ i4\ <<\ \textcolor{stringliteral}{"{}\ (size\ "{}}\ <<\ n4\ <<\ \textcolor{stringliteral}{"{})"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00395\ \ \ \ \ \ \ \ \ std::exit(1);}
+\DoxyCodeLine{00396\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00397\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00398\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00399\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ data[i1*n2*n3*n4\ +\ i2*n3*n4\ +\ i3*n4\ +\ i4\ ];}
+\DoxyCodeLine{00400\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00401\ \}}
+\DoxyCodeLine{00402\ }
+\DoxyCodeLine{00412\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{00413\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classtensor5D}{tensor5D}}}
+\DoxyCodeLine{00414\ \{}
+\DoxyCodeLine{00415\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00416\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classtensor5D_ae8e85d5902badd95c818f6cf9336251c}{tensor5D}}();}
+\DoxyCodeLine{00417\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classtensor5D_a6550c2e7a520c76686b360de9168f0b6}{tensor5D}}(\textcolor{keywordtype}{int},\ \textcolor{keywordtype}{int},\ \textcolor{keywordtype}{int},\ \textcolor{keywordtype}{int},\ \textcolor{keywordtype}{int});}
+\DoxyCodeLine{00418\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classtensor5D_a17ba38cf1fb21cfab75b5b055cf1c113}{\string~tensor5D}}();\ }
+\DoxyCodeLine{00419\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classtensor5D}{tensor5D<T>}}\&\ \mbox{\hyperlink{classtensor5D_a123019ccd05ce005497b2aeecca4b280}{operator=}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classtensor5D}{tensor5D<T>}}\&);}
+\DoxyCodeLine{00420\ \ \ \ \ \ \ \ \ T\&\ \mbox{\hyperlink{classtensor5D_a1265d153c79b6a9c98ec8d1517adf41f}{operator()}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int},\textcolor{keyword}{const}\ \textcolor{keywordtype}{int},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int});}
+\DoxyCodeLine{00421\ \ \ \ \ \ \ \ \ T\ \mbox{\hyperlink{classtensor5D_ae927ba60fe9dea9784eb92a58c289e3e}{operator()}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int},\textcolor{keyword}{const}\ \textcolor{keywordtype}{int},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int})\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00423\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classtensor5D_a832dc18b104de67f87078fd591c85027}{n1}};}
+\DoxyCodeLine{00425\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classtensor5D_a7020e1cdf3baff050a0e8dde39a29ad5}{n2}};}
+\DoxyCodeLine{00427\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classtensor5D_aaa1a7c587042e363968aad7d5f0b9d19}{n3}};}
+\DoxyCodeLine{00429\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classtensor5D_a5ee4927a437ab28cd2499a0082b6656e}{n4}};}
+\DoxyCodeLine{00431\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classtensor5D_a3ad6a1b27a6871f5626b7cc9f8b421eb}{n5}};}
+\DoxyCodeLine{00433\ \ \ \ \ \ \ \ \ T*\ \mbox{\hyperlink{classtensor5D_a738d56120b89b360f5d81fd61472b7de}{data}};}
+\DoxyCodeLine{00434\ \};}
+\DoxyCodeLine{00435\ }
+\DoxyCodeLine{00438\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{00439\ \mbox{\hyperlink{classtensor5D_ae8e85d5902badd95c818f6cf9336251c}{tensor5D<T>::tensor5D}}()}
+\DoxyCodeLine{00440\ \{}
+\DoxyCodeLine{00441\ \ \ \ \ data\ =\ \textcolor{keyword}{new}\ T[1];}
+\DoxyCodeLine{00442\ \}}
+\DoxyCodeLine{00443\ }
+\DoxyCodeLine{00451\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{00452\ \mbox{\hyperlink{classtensor5D_ae8e85d5902badd95c818f6cf9336251c}{tensor5D<T>::tensor5D}}(\textcolor{keywordtype}{int}\ n1\_in,\ \textcolor{keywordtype}{int}\ n2\_in,\ \textcolor{keywordtype}{int}\ n3\_in,\ \textcolor{keywordtype}{int}\ n4\_in,\ \textcolor{keywordtype}{int}\ n5\_in)}
+\DoxyCodeLine{00453\ :}
+\DoxyCodeLine{00454\ n1(n1\_in),}
+\DoxyCodeLine{00455\ n2(n2\_in),}
+\DoxyCodeLine{00456\ n3(n3\_in),}
+\DoxyCodeLine{00457\ n4(n4\_in),}
+\DoxyCodeLine{00458\ n5(n5\_in)}
+\DoxyCodeLine{00459\ \{\ \ \ }
+\DoxyCodeLine{00460\ \ \ \ \ \mbox{\hyperlink{classtensor5D_a738d56120b89b360f5d81fd61472b7de}{data}}\ =\ \textcolor{keyword}{new}\ T[\mbox{\hyperlink{classtensor5D_a832dc18b104de67f87078fd591c85027}{n1}}*\mbox{\hyperlink{classtensor5D_a7020e1cdf3baff050a0e8dde39a29ad5}{n2}}*\mbox{\hyperlink{classtensor5D_aaa1a7c587042e363968aad7d5f0b9d19}{n3}}*\mbox{\hyperlink{classtensor5D_a5ee4927a437ab28cd2499a0082b6656e}{n4}}*\mbox{\hyperlink{classtensor5D_a3ad6a1b27a6871f5626b7cc9f8b421eb}{n5}}];}
+\DoxyCodeLine{00461\ \}}
+\DoxyCodeLine{00462\ }
+\DoxyCodeLine{00465\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{00466\ \mbox{\hyperlink{classtensor5D_a17ba38cf1fb21cfab75b5b055cf1c113}{tensor5D<T>::\string~tensor5D}}()}
+\DoxyCodeLine{00467\ \{}
+\DoxyCodeLine{00468\ \ \ \ \ \textcolor{keyword}{delete}\ []\ data;}
+\DoxyCodeLine{00469\ \}}
+\DoxyCodeLine{00470\ }
+\DoxyCodeLine{00471\ }
+\DoxyCodeLine{00476\ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{00477\ \mbox{\hyperlink{classtensor5D}{tensor5D<T>}}\&\ \mbox{\hyperlink{classtensor5D_a123019ccd05ce005497b2aeecca4b280}{tensor5D<T>::operator=}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classtensor5D}{tensor5D<T>}}\&\ tens)}
+\DoxyCodeLine{00478\ \{}
+\DoxyCodeLine{00479\ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{this}\ !=\ \&tens)}
+\DoxyCodeLine{00480\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00481\ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}\ []\ data;}
+\DoxyCodeLine{00482\ \ \ \ \ \ \ \ \ n1=tens.\mbox{\hyperlink{classtensor5D_a832dc18b104de67f87078fd591c85027}{n1}};}
+\DoxyCodeLine{00483\ \ \ \ \ \ \ \ \ n2=tens.\mbox{\hyperlink{classtensor5D_a7020e1cdf3baff050a0e8dde39a29ad5}{n2}};}
+\DoxyCodeLine{00484\ \ \ \ \ \ \ \ \ n3=tens.\mbox{\hyperlink{classtensor5D_aaa1a7c587042e363968aad7d5f0b9d19}{n3}};}
+\DoxyCodeLine{00485\ \ \ \ \ \ \ \ \ n4=tens.\mbox{\hyperlink{classtensor5D_a5ee4927a437ab28cd2499a0082b6656e}{n4}};}
+\DoxyCodeLine{00486\ \ \ \ \ \ \ \ \ n5=tens.\mbox{\hyperlink{classtensor5D_a3ad6a1b27a6871f5626b7cc9f8b421eb}{n5}};}
+\DoxyCodeLine{00487\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ size\ =\ n1*n2*n3*n4*n5;}
+\DoxyCodeLine{00488\ \ \ \ \ \ \ \ \ data=\textcolor{keyword}{new}\ T[size];}
+\DoxyCodeLine{00489\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i=0;\ i<size;i++)}
+\DoxyCodeLine{00490\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ data[i]=tens.\mbox{\hyperlink{classtensor5D_a738d56120b89b360f5d81fd61472b7de}{data}}[i];}
+\DoxyCodeLine{00491\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00492\ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00493\ \}}
+\DoxyCodeLine{00494\ }
+\DoxyCodeLine{00502\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{00503\ T\&\ \mbox{\hyperlink{classtensor5D_a1265d153c79b6a9c98ec8d1517adf41f}{tensor5D<T>::operator()}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ i1,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ i2,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ i3,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ i4,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ i5)}
+\DoxyCodeLine{00504\ \{}
+\DoxyCodeLine{00505\ \ \ \ \ \textcolor{keywordflow}{if}\ (i1\ >\ (n1-\/1)\ or\ i2\ >\ (n2-\/1)\ or\ i3\ >\ (n3-\/1)\ or\ i4\ >\ (n4-\/1)\ or\ i5\ >\ (n5-\/1)\ )}
+\DoxyCodeLine{00506\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00507\ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}\ ERROR:\ Out\ of\ bound\ on\ 5D\ tensor!\ Requested\ "{}}\ <<\ std::endl;}
+\DoxyCodeLine{00508\ \ \ \ \ \ \ \ \ std::cerr\ <<\ i1\ <<\ \textcolor{stringliteral}{"{}\ (size\ "{}}\ <<\ n1\ <<\ \textcolor{stringliteral}{"{})"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00509\ \ \ \ \ \ \ \ \ std::cerr\ <<\ i2\ <<\ \textcolor{stringliteral}{"{}\ (size\ "{}}\ <<\ n2\ <<\ \textcolor{stringliteral}{"{})"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00510\ \ \ \ \ \ \ \ \ std::cerr\ <<\ i3\ <<\ \textcolor{stringliteral}{"{}\ (size\ "{}}\ <<\ n3\ <<\ \textcolor{stringliteral}{"{})"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00511\ \ \ \ \ \ \ \ \ std::cerr\ <<\ i4\ <<\ \textcolor{stringliteral}{"{}\ (size\ "{}}\ <<\ n4\ <<\ \textcolor{stringliteral}{"{})"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00512\ \ \ \ \ \ \ \ \ std::cerr\ <<\ i5\ <<\ \textcolor{stringliteral}{"{}\ (size\ "{}}\ <<\ n5\ <<\ \textcolor{stringliteral}{"{})"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00513\ \ \ \ \ \ \ \ \ std::exit(1);}
+\DoxyCodeLine{00514\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00515\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00516\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00517\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ data[i1*n2*n3*n4*n5\ +\ i2*n3*n4*n5\ +\ i3*n4*n5\ +\ i4*n5\ +\ i5];}
+\DoxyCodeLine{00518\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00519\ \}}
+\DoxyCodeLine{00520\ }
+\DoxyCodeLine{00528\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{00529\ T\ \mbox{\hyperlink{classtensor5D_a1265d153c79b6a9c98ec8d1517adf41f}{tensor5D<T>::operator()}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ i1,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ i2,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ i3,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ i4,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ i5)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00530\ \textcolor{keyword}{}\{}
+\DoxyCodeLine{00531\ \ \ \ \ \textcolor{keywordflow}{if}\ (i1\ >\ (n1-\/1)\ or\ i2\ >\ (n2-\/1)\ or\ i3\ >\ (n3-\/1)\ or\ i4\ >\ (n4-\/1)\ or\ i5\ >\ (n5-\/1)\ )}
+\DoxyCodeLine{00532\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00533\ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}\ ERROR:\ Out\ of\ bound\ on\ 5D\ tensor!\ Requested\ "{}}\ <<\ std::endl;}
+\DoxyCodeLine{00534\ \ \ \ \ \ \ \ \ std::cerr\ <<\ i1\ <<\ \textcolor{stringliteral}{"{}\ (size\ "{}}\ <<\ n1\ <<\ \textcolor{stringliteral}{"{})"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00535\ \ \ \ \ \ \ \ \ std::cerr\ <<\ i2\ <<\ \textcolor{stringliteral}{"{}\ (size\ "{}}\ <<\ n2\ <<\ \textcolor{stringliteral}{"{})"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00536\ \ \ \ \ \ \ \ \ std::cerr\ <<\ i3\ <<\ \textcolor{stringliteral}{"{}\ (size\ "{}}\ <<\ n3\ <<\ \textcolor{stringliteral}{"{})"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00537\ \ \ \ \ \ \ \ \ std::cerr\ <<\ i4\ <<\ \textcolor{stringliteral}{"{}\ (size\ "{}}\ <<\ n4\ <<\ \textcolor{stringliteral}{"{})"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00538\ \ \ \ \ \ \ \ \ std::cerr\ <<\ i5\ <<\ \textcolor{stringliteral}{"{}\ (size\ "{}}\ <<\ n5\ <<\ \textcolor{stringliteral}{"{})"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00539\ \ \ \ \ \ \ \ \ std::exit(1);}
+\DoxyCodeLine{00540\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00541\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00542\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00543\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ data[i1*n2*n3*n4*n5\ +\ i2*n3*n4*n5\ +\ i3*n4*n5\ +\ i4*n5\ +\ i5];}
+\DoxyCodeLine{00544\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00545\ \}}
+\DoxyCodeLine{00546\ }
+\DoxyCodeLine{00547\ }
+\DoxyCodeLine{00548\ }
+\DoxyCodeLine{00558\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{00559\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classtensor6D}{tensor6D}}}
+\DoxyCodeLine{00560\ \{}
+\DoxyCodeLine{00561\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00562\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classtensor6D_a30a204f555f4838fb4423668e7e85b6b}{tensor6D}}();}
+\DoxyCodeLine{00563\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classtensor6D_a30a204f555f4838fb4423668e7e85b6b}{tensor6D}}(\textcolor{keywordtype}{int},\ \textcolor{keywordtype}{int},\ \textcolor{keywordtype}{int},\ \textcolor{keywordtype}{int},\ \textcolor{keywordtype}{int},\ \textcolor{keywordtype}{int});}
+\DoxyCodeLine{00564\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classtensor6D_a46102d1f290118fdce90e9bb5917079a}{\string~tensor6D}}();}
+\DoxyCodeLine{00565\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classtensor6D}{tensor6D<T>}}\&\ \mbox{\hyperlink{classtensor6D_aa51ecdf102836432b7f26daecf142fa5}{operator=}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classtensor6D}{tensor6D<T>}}\&);}
+\DoxyCodeLine{00566\ \ \ \ \ \ \ \ \ T\&\ \mbox{\hyperlink{classtensor6D_a3f6e776d350d5a6075828112941f8e88}{operator()}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int},\textcolor{keyword}{const}\ \textcolor{keywordtype}{int},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int});}
+\DoxyCodeLine{00567\ \ \ \ \ \ \ \ \ T\ \mbox{\hyperlink{classtensor6D_a3f6e776d350d5a6075828112941f8e88}{operator()}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int},\textcolor{keyword}{const}\ \textcolor{keywordtype}{int},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int})\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00569\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classtensor6D_a4222175963ac521fdc783668737bbb69}{n1}};}
+\DoxyCodeLine{00571\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classtensor6D_a48e44a3e73ad2d50de1a682d37c3469c}{n2}};}
+\DoxyCodeLine{00573\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classtensor6D_a32296cb682df5fe4d46a5b81096e98b0}{n3}};}
+\DoxyCodeLine{00575\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classtensor6D_ac3a815b973ae64bb80cd26f1bf66689f}{n4}};}
+\DoxyCodeLine{00577\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classtensor6D_a6bb3861d0c5bdeb9185188bccd2b0a6e}{n5}};}
+\DoxyCodeLine{00579\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classtensor6D_a2e217df0a587bccb1527b6d8902758f3}{n6}};\ }
+\DoxyCodeLine{00581\ \ \ \ \ \ \ \ \ T*\ \mbox{\hyperlink{classtensor6D_a9a5d2710f7acd9e7a4b3fe1cce185804}{data}};}
+\DoxyCodeLine{00582\ }
+\DoxyCodeLine{00583\ \};}
+\DoxyCodeLine{00584\ }
+\DoxyCodeLine{00587\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{00588\ \mbox{\hyperlink{classtensor6D_a30a204f555f4838fb4423668e7e85b6b}{tensor6D<T>::tensor6D}}()}
+\DoxyCodeLine{00589\ \{}
+\DoxyCodeLine{00590\ \ \ \ \ data\ =\ \textcolor{keyword}{new}\ T[1];}
+\DoxyCodeLine{00591\ \}}
+\DoxyCodeLine{00592\ }
+\DoxyCodeLine{00601\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{00602\ \mbox{\hyperlink{classtensor6D_a30a204f555f4838fb4423668e7e85b6b}{tensor6D<T>::tensor6D}}(\textcolor{keywordtype}{int}\ n1\_in,\ \textcolor{keywordtype}{int}\ n2\_in,\ \textcolor{keywordtype}{int}\ n3\_in,\ \textcolor{keywordtype}{int}\ n4\_in,\ \textcolor{keywordtype}{int}\ n5\_in,\ \textcolor{keywordtype}{int}\ n6\_in)}
+\DoxyCodeLine{00603\ :}
+\DoxyCodeLine{00604\ n1(n1\_in),}
+\DoxyCodeLine{00605\ n2(n2\_in),}
+\DoxyCodeLine{00606\ n3(n3\_in),}
+\DoxyCodeLine{00607\ n4(n4\_in),}
+\DoxyCodeLine{00608\ n5(n5\_in),}
+\DoxyCodeLine{00609\ n6(n6\_in)}
+\DoxyCodeLine{00610\ \{}
+\DoxyCodeLine{00611\ \ \ \ \ \mbox{\hyperlink{classtensor6D_a9a5d2710f7acd9e7a4b3fe1cce185804}{data}}\ =\ \textcolor{keyword}{new}\ T[\mbox{\hyperlink{classtensor6D_a4222175963ac521fdc783668737bbb69}{n1}}*\mbox{\hyperlink{classtensor6D_a48e44a3e73ad2d50de1a682d37c3469c}{n2}}*\mbox{\hyperlink{classtensor6D_a32296cb682df5fe4d46a5b81096e98b0}{n3}}*\mbox{\hyperlink{classtensor6D_ac3a815b973ae64bb80cd26f1bf66689f}{n4}}*\mbox{\hyperlink{classtensor6D_a6bb3861d0c5bdeb9185188bccd2b0a6e}{n5}}*\mbox{\hyperlink{classtensor6D_a2e217df0a587bccb1527b6d8902758f3}{n6}}];}
+\DoxyCodeLine{00612\ \}}
+\DoxyCodeLine{00613\ }
+\DoxyCodeLine{00616\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{00617\ \mbox{\hyperlink{classtensor6D_a46102d1f290118fdce90e9bb5917079a}{tensor6D<T>::\string~tensor6D}}()}
+\DoxyCodeLine{00618\ \{}
+\DoxyCodeLine{00619\ \ \ \ \ \textcolor{keyword}{delete}\ []\ data;}
+\DoxyCodeLine{00620\ \}}
+\DoxyCodeLine{00621\ }
+\DoxyCodeLine{00626\ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{00627\ \mbox{\hyperlink{classtensor6D}{tensor6D<T>}}\&\ \mbox{\hyperlink{classtensor6D_aa51ecdf102836432b7f26daecf142fa5}{tensor6D<T>::operator=}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classtensor6D}{tensor6D<T>}}\&\ tens)}
+\DoxyCodeLine{00628\ \{}
+\DoxyCodeLine{00629\ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{this}\ !=\ \&tens)}
+\DoxyCodeLine{00630\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00631\ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}\ []\ data;}
+\DoxyCodeLine{00632\ \ \ \ \ \ \ \ \ n1=tens.\mbox{\hyperlink{classtensor6D_a4222175963ac521fdc783668737bbb69}{n1}};}
+\DoxyCodeLine{00633\ \ \ \ \ \ \ \ \ n2=tens.\mbox{\hyperlink{classtensor6D_a48e44a3e73ad2d50de1a682d37c3469c}{n2}};}
+\DoxyCodeLine{00634\ \ \ \ \ \ \ \ \ n3=tens.\mbox{\hyperlink{classtensor6D_a32296cb682df5fe4d46a5b81096e98b0}{n3}};}
+\DoxyCodeLine{00635\ \ \ \ \ \ \ \ \ n4=tens.\mbox{\hyperlink{classtensor6D_ac3a815b973ae64bb80cd26f1bf66689f}{n4}};}
+\DoxyCodeLine{00636\ \ \ \ \ \ \ \ \ n5=tens.\mbox{\hyperlink{classtensor6D_a6bb3861d0c5bdeb9185188bccd2b0a6e}{n5}};}
+\DoxyCodeLine{00637\ \ \ \ \ \ \ \ \ n6=tens.\mbox{\hyperlink{classtensor6D_a2e217df0a587bccb1527b6d8902758f3}{n6}};}
+\DoxyCodeLine{00638\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ size\ =\ n1*n2*n3*n4*n5*n6;}
+\DoxyCodeLine{00639\ \ \ \ \ \ \ \ \ data=\textcolor{keyword}{new}\ T[size];}
+\DoxyCodeLine{00640\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i=0;\ i<size;i++)}
+\DoxyCodeLine{00641\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ data[i]=tens.\mbox{\hyperlink{classtensor6D_a9a5d2710f7acd9e7a4b3fe1cce185804}{data}}[i];}
+\DoxyCodeLine{00642\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00643\ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00644\ \}}
+\DoxyCodeLine{00645\ }
+\DoxyCodeLine{00646\ }
+\DoxyCodeLine{00655\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{00656\ T\&\ \mbox{\hyperlink{classtensor6D_a3f6e776d350d5a6075828112941f8e88}{tensor6D<T>::operator()}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ i1,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ i2,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ i3,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ i4,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ i5,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ i6)}
+\DoxyCodeLine{00657\ \{}
+\DoxyCodeLine{00658\ \ \ \ \ \textcolor{keywordflow}{if}\ (i1\ >\ (n1-\/1)\ or\ i2\ >\ (n2-\/1)\ or\ i3\ >\ (n3-\/1)\ or\ i4\ >\ (n4-\/1)\ or\ i5\ >\ (n5-\/1)\ or\ i6\ >\ (n6-\/1))}
+\DoxyCodeLine{00659\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00660\ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}\ ERROR:\ Out\ of\ bound\ on\ 6D\ tensor!\ Requested\ "{}}\ <<\ std::endl;}
+\DoxyCodeLine{00661\ \ \ \ \ \ \ \ \ std::cerr\ <<\ i1\ <<\ \textcolor{stringliteral}{"{}\ (size\ "{}}\ <<\ n1\ <<\ \textcolor{stringliteral}{"{})"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00662\ \ \ \ \ \ \ \ \ std::cerr\ <<\ i2\ <<\ \textcolor{stringliteral}{"{}\ (size\ "{}}\ <<\ n2\ <<\ \textcolor{stringliteral}{"{})"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00663\ \ \ \ \ \ \ \ \ std::cerr\ <<\ i3\ <<\ \textcolor{stringliteral}{"{}\ (size\ "{}}\ <<\ n3\ <<\ \textcolor{stringliteral}{"{})"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00664\ \ \ \ \ \ \ \ \ std::cerr\ <<\ i4\ <<\ \textcolor{stringliteral}{"{}\ (size\ "{}}\ <<\ n4\ <<\ \textcolor{stringliteral}{"{})"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00665\ \ \ \ \ \ \ \ \ std::cerr\ <<\ i5\ <<\ \textcolor{stringliteral}{"{}\ (size\ "{}}\ <<\ n5\ <<\ \textcolor{stringliteral}{"{})"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00666\ \ \ \ \ \ \ \ \ std::cerr\ <<\ i6\ <<\ \textcolor{stringliteral}{"{}\ (size\ "{}}\ <<\ n6\ <<\ \textcolor{stringliteral}{"{})"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00667\ \ \ \ \ \ \ \ \ std::exit(1);}
+\DoxyCodeLine{00668\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00669\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00670\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00671\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ data[i1*n2*n3*n4*n5*n6\ +\ i2*n3*n4*n5*n6\ +\ i3*n4*n5*n6\ +\ i4*n5*n6\ +\ i5*n6\ +\ i6\ ];}
+\DoxyCodeLine{00672\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00673\ \}}
+\DoxyCodeLine{00674\ }
+\DoxyCodeLine{00683\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{00684\ T\ \mbox{\hyperlink{classtensor6D_a3f6e776d350d5a6075828112941f8e88}{tensor6D<T>::operator()}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ i1,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ i2,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ i3,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ i4,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ i5,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ i6)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00685\ \textcolor{keyword}{}\{}
+\DoxyCodeLine{00686\ \ \ \ \ \textcolor{keywordflow}{if}\ (i1\ >\ (n1-\/1)\ or\ i2\ >\ (n2-\/1)\ or\ i3\ >\ (n3-\/1)\ or\ i4\ >\ (n4-\/1)\ or\ i5\ >\ (n5-\/1)\ or\ i6\ >\ (n6-\/1))}
+\DoxyCodeLine{00687\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00688\ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}\ ERROR:\ Out\ of\ bound\ on\ 6D\ tensor!\ Requested\ "{}}\ <<\ std::endl;}
+\DoxyCodeLine{00689\ \ \ \ \ \ \ \ \ std::cerr\ <<\ i1\ <<\ \textcolor{stringliteral}{"{}\ (size\ "{}}\ <<\ n1\ <<\ \textcolor{stringliteral}{"{})"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00690\ \ \ \ \ \ \ \ \ std::cerr\ <<\ i2\ <<\ \textcolor{stringliteral}{"{}\ (size\ "{}}\ <<\ n2\ <<\ \textcolor{stringliteral}{"{})"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00691\ \ \ \ \ \ \ \ \ std::cerr\ <<\ i3\ <<\ \textcolor{stringliteral}{"{}\ (size\ "{}}\ <<\ n3\ <<\ \textcolor{stringliteral}{"{})"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00692\ \ \ \ \ \ \ \ \ std::cerr\ <<\ i4\ <<\ \textcolor{stringliteral}{"{}\ (size\ "{}}\ <<\ n4\ <<\ \textcolor{stringliteral}{"{})"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00693\ \ \ \ \ \ \ \ \ std::cerr\ <<\ i5\ <<\ \textcolor{stringliteral}{"{}\ (size\ "{}}\ <<\ n5\ <<\ \textcolor{stringliteral}{"{})"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00694\ \ \ \ \ \ \ \ \ std::cerr\ <<\ i6\ <<\ \textcolor{stringliteral}{"{}\ (size\ "{}}\ <<\ n6\ <<\ \textcolor{stringliteral}{"{})"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00695\ \ \ \ \ \ \ \ \ std::exit(1);}
+\DoxyCodeLine{00696\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00697\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00698\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00699\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ data[i1*n2*n3*n4*n5*n6\ +\ i2*n3*n4*n5*n6\ +\ i3*n4*n5*n6\ +\ i4*n5*n6\ +\ i5*n6\ +\ i6\ ];}
+\DoxyCodeLine{00700\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00701\ \}}
+\DoxyCodeLine{00702\ }
+\DoxyCodeLine{00703\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00704\ }
+\DoxyCodeLine{00705\ }
+
+\end{DoxyCode}

@@ -1,0 +1,61 @@
+\doxysection{Hamiltonian\+\_\+\+MPI.\+h}
+\hypertarget{Hamiltonian__MPI_8h_source}{}\label{Hamiltonian__MPI_8h_source}\index{nrg/Hamiltonian\_MPI.h@{nrg/Hamiltonian\_MPI.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#ifndef\ HAMILTONIAN\_H}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#define\ HAMILTONIAN\_H}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{parameters_8h}{parameters.h}}"{}}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{tensors_8h}{tensors.h}}"{}}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{matrix__elements_8h}{matrix\_elements.h}}"{}}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{states_8h}{states.h}}"{}}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{config_8h}{config.h}}"{}}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00028\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classHamiltonian}{Hamiltonian}}}
+\DoxyCodeLine{00029\ \{}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keyword}{public}:\ }
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classtensor2D}{tensor2D<\ double\ >}}\ \mbox{\hyperlink{classHamiltonian_afa751d6788e3abf29e24471b2dc479ab}{H}};\ }
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classHamiltonian_ab17354d805e72f8e171f1d4b42d54856}{Msize}};\ }
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classHamiltonian_a77d8542358120deb5f71feadeba49524}{R}};\ \ }
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classparameters}{parameters}}\&\ \mbox{\hyperlink{classHamiltonian_afc4326f58ef24ef5f2976e2b75dd01a3}{p}};\ }
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classstates}{states}}\&\ \mbox{\hyperlink{classHamiltonian_a135cdd81a8cbd3fc01e9589c90b95040}{st}};\ }
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classmatrix__elements}{matrix\_elements}}\&\ \mbox{\hyperlink{classHamiltonian_abeb412f8b1bf5cb5ceef6a600ed57a8a}{me}};\ }
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classHamiltonian_ac4be6eeb4ab7f225b32c7633bc883541}{descH}}[9];\ }
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classHamiltonian_a6a028f6e2d51d7dbfc52eba416eda31e}{ictxt}};\ \ \ }
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classHamiltonian_a8d52518ef74eb8cff73d375d1e986c82}{rowH}};\ \ \ }
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classHamiltonian_ab1e255c659f8ebc10c7a160b1b1aa988}{colH}};\ \ \ }
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classHamiltonian_ac951acff66a9eb0be6ea0e7a936b2b67}{localOffsetRow}};\ }
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classHamiltonian_ae9638462127fdcdb12b3f4cf95bd0ed9}{localOffsetCol}};\ }
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classHamiltonian_ad77a58fc3445f3c0dc8a7be62a979932}{myrank\_mpi}};\ \ }
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classHamiltonian_ae7ec618e642abaa15c233c3d1b122e2b}{nprocs\_mpi}};\ \ }
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}*\ \mbox{\hyperlink{classHamiltonian_afb8650f55b29ce0a5748a378cca77dde}{Offset}};\ \ \ \ \ }
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classHamiltonian_a78c0dd80ef599d94a0a78c623f5b6b80}{nprow}};\ \ }
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classHamiltonian_aa4ed0120a010cffcd00723090b06f968}{npcol}};\ \ }
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classHamiltonian_a40f7eb9e27ffa03e5758ff44ebe76bbe}{myrow}};\ \ }
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classHamiltonian_a4e9e6b1772d082d6ee75f8284ac45075}{mycol}};\ \ }
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classHamiltonian_ae431703173e2943dc6aa7e118cbca31c}{Hamiltonian}}(\mbox{\hyperlink{classparameters}{parameters}}\&\ p\_in,\ \mbox{\hyperlink{classstates}{states}}\&\ st\_in,\ \mbox{\hyperlink{classmatrix__elements}{matrix\_elements}}\&\ me\_in);}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classHamiltonian_a006dddab1912c164ccc729d7b3e76172}{\string~Hamiltonian}}();}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classHamiltonian_ab3c734fffdccf18d83dd9253129faaff}{init}}()\ =\ 0;}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classHamiltonian_a7829a6c2690f5ffcc105ecc9a7514dc7}{print\_eigenValues}}(\textcolor{keywordtype}{int}\ iteration,\ \textcolor{keywordtype}{int}\ sweep,\ \textcolor{keywordtype}{double}*\ eigenvalues,\ std::string\ fname,\ \textcolor{keywordtype}{int}\ maxState)\ =\ 0;}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classHamiltonian_a3b5878170ebdcf7ce6fc000cb3668fc6}{print\_eigenVectors}}(\textcolor{keywordtype}{double}*\ eigenvectors,\ std::string\ fname,\ \textcolor{keywordtype}{int}\ size)\ =\ 0;}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classHamiltonian_a23db23fd29e7a4a70e8d9bc0a07f57fb}{NRG\_block\_A}}(\textcolor{keywordtype}{double}*\ eigenvalues)\ =\ 0;}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classHamiltonian_aa4ce99fd925f019ee7d09d0819e0838c}{NRG\_block\_BC}}(\textcolor{keywordtype}{int}\ iteration,\ \textcolor{keywordtype}{double}*\ coeff)\ =\ 0;}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classHamiltonian_a54a08459692f4ec58f08caec3cf79848}{NRG\_block\_D}}(\textcolor{keywordtype}{int}\ iteration)\ =\ 0;}
+\DoxyCodeLine{00104\ \ \ }
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classHamiltonian_a9bbe852b73ed7fed62f00653f65d4d93}{sweep\_block\_BC}}(\textcolor{keywordtype}{int}\ iteration,\ \textcolor{keywordtype}{double}*\ coeff,\ \textcolor{keywordtype}{double}*\ coeffSweep,\ \textcolor{keywordtype}{int}\ NRGspacesize,\ \textcolor{keywordtype}{int}\ NRGstoresize)\ =\ 0;}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \ \ \ \ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classHamiltonian_ab972645e23247eb11fd46aee7743242a}{Hamiltonian}}();}
+\DoxyCodeLine{00119\ }
+\DoxyCodeLine{00120\ \};}
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00122\ \textcolor{preprocessor}{\#endif\ }}
+
+\end{DoxyCode}

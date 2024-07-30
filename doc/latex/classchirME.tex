@@ -1,5 +1,5 @@
-\hypertarget{classchirME}{}\section{chir\+ME Class Reference}
-\label{classchirME}\index{chir\+ME@{chir\+ME}}
+\doxysection{chir\+ME Class Reference}
+\hypertarget{classchirME}{}\label{classchirME}\index{chirME@{chirME}}
 
 
 Class that contains the chiral matrix elements of perturbing operators and of the operator to calculate expectation values.  
@@ -7,42 +7,61 @@ Class that contains the chiral matrix elements of perturbing operators and of th
 
 
 
-{\ttfamily \#include $<$chir\+M\+E.\+h$>$}
+{\ttfamily \#include $<$chir\+ME.\+h$>$}
 
-\subsection*{Public Member Functions}
+Inheritance diagram for chir\+ME\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classchirME}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{classchirME_af89fad219092aef0dec9d43360911582}{chir\+ME}} (\mbox{\hyperlink{classparameters}{parameters}} \&p, \mbox{\hyperlink{classstates}{states}} \&st, int subspace)
+\mbox{\hyperlink{classchirME_a410cec9fff65661ab6c464baaa9a0326}{chir\+ME}} (\mbox{\hyperlink{classminimal__model__parameters}{minimal\+\_\+model\+\_\+parameters}} \&p, \mbox{\hyperlink{classminimal__model__states}{minimal\+\_\+model\+\_\+states}} \&st)
 \begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classchirME_a58fe24d5185144ead98d8f91e25d392b}\label{classchirME_a58fe24d5185144ead98d8f91e25d392b}} 
-\mbox{\hyperlink{classchirME_a58fe24d5185144ead98d8f91e25d392b}{$\sim$chir\+ME}} ()
+\Hypertarget{classchirME_a58fe24d5185144ead98d8f91e25d392b}\label{classchirME_a58fe24d5185144ead98d8f91e25d392b} 
+{\bfseries \texorpdfstring{$\sim$}{\string~}chir\+ME} ()
 \begin{DoxyCompactList}\small\item\em Destructor. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{classchirME_a9a7e36cc974d91607112bdf552ed40fc}{calculate\+\_\+or\+\_\+read\+\_\+chir\+ME}} (\mbox{\hyperlink{classparameters}{parameters}} \&p, \mbox{\hyperlink{classfilenames}{filenames}} \&fnames, \mbox{\hyperlink{classstates}{states}} \&st, int subspace)
+void \mbox{\hyperlink{classchirME_a8c1712c4ecb24ce73156f5d23a4835fa}{calculate\+\_\+or\+\_\+read\+\_\+chir\+ME}} (\mbox{\hyperlink{classminimal__model__parameters}{minimal\+\_\+model\+\_\+parameters}} \&p, \mbox{\hyperlink{classminimal__model__filenames}{minimal\+\_\+model\+\_\+filenames}} \&fnames, \mbox{\hyperlink{classminimal__model__states}{minimal\+\_\+model\+\_\+states}} \&st)
 \begin{DoxyCompactList}\small\item\em Routine that either calculates or reads from file chiral matrix elemment. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{classchirME_a9bcf2a5ac6fa597db415fa9be72ba886}{calculate\+\_\+chir\+M\+E\+\_\+for\+\_\+\+Exp\+Val}} (\mbox{\hyperlink{classparameters}{parameters}} \&p, \mbox{\hyperlink{classstates}{states}} \&st, int subspace)
+void \mbox{\hyperlink{classchirME_aa93e1563ff97ead71283f06f93f84c13}{calculate\+\_\+chir\+ME\+\_\+for\+\_\+\+Exp\+Val}} (\mbox{\hyperlink{classminimal__model__parameters}{minimal\+\_\+model\+\_\+parameters}} \&p, \mbox{\hyperlink{classminimal__model__states}{minimal\+\_\+model\+\_\+states}} \&st)
 \begin{DoxyCompactList}\small\item\em Routine that calculates chiral matrix element for the operator whose expectation values are asked. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{classchirME_aad56d2574efe19f3da59c6b5ab0ddbdb}{calculate\+\_\+\+Exp\+Val}} (\mbox{\hyperlink{classparameters}{parameters}} \&p, \mbox{\hyperlink{classstates}{states}} \&st, double $\ast$coeff, int size, int Momentum, std\+::string fname, double R)
-\begin{DoxyCompactList}\small\item\em Routine that calculates the expectation value on the eigenvectors of the perturbed system of the given operator. \end{DoxyCompactList}\end{DoxyCompactItemize}
-\subsection*{Public Attributes}
+void \mbox{\hyperlink{classchirME_ad4a0b1690ae2d2136d0a3d1f688941a6}{calculate\+\_\+\+Exp\+Val}} (\mbox{\hyperlink{classparameters}{parameters}} \&p, \mbox{\hyperlink{classstates}{states}} \&st, double \texorpdfstring{$\ast$}{*}coeff, int size, std\+::string fname, double R)
+\begin{DoxyCompactList}\small\item\em Routine that calculates the expectation value on the eigenvectors of the perturbed system of the given operator. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classchirME_aa7c660ff0d455c31a725078377252c27}{compare\+\_\+fields}} (std\+::pair$<$ std\+::pair$<$ int, int $>$, std\+::pair$<$ int, int $>$ $>$ f1, std\+::pair$<$ std\+::pair$<$ int, int $>$, std\+::pair$<$ int, int $>$ $>$ f2)
+\begin{DoxyCompactList}\small\item\em Routine to compare fields, as expressed as pairs of pair. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classmatrix__elements}{matrix\+\_\+elements}}}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{classtensor5D}{tensor5D}}$<$ long double $>$ \mbox{\hyperlink{classchirME_aa59c5a77d881d29746faaf171f5b627e}{me\+\_\+chi\+\_\+ortho}}
+\mbox{\hyperlink{classmatrix__elements_ab02be66fe8a61a2928b2a20de7993655}{matrix\+\_\+elements}} (\mbox{\hyperlink{classparameters}{parameters}} \&p, \mbox{\hyperlink{classstates}{states}} \&st, int subspace)
+\begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
+virtual {\bfseries \texorpdfstring{$\sim$}{\string~}matrix\+\_\+elements} ()
+\begin{DoxyCompactList}\small\item\em Destructor. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classtensor5D}{tensor5D}}$<$ std\+::pair$<$ long double, long double $>$ $>$ \mbox{\hyperlink{classchirME_aec195b69a1aa902a2d88c0bd1f469b15}{me\+\_\+chi\+\_\+ortho}}
 \begin{DoxyCompactList}\small\item\em Contains the chiral matrix element for each perturbing operator. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{classtensor4D}{tensor4D}}$<$ long double $>$ \mbox{\hyperlink{classchirME_ae206d3f68100f496ec7e3ea09bcf2c0a}{me\+\_\+chi\+\_\+ortho\+\_\+op\+\_\+l}}
-\begin{DoxyCompactList}\small\item\em Contains the chiral matrix element for the chiral component of the operator whose expecation values are asked. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{classtensor4D}{tensor4D}}$<$ long double $>$ \mbox{\hyperlink{classchirME_aba75f5ca87a3598e54eecb2aaa3cca34}{me\+\_\+chi\+\_\+ortho\+\_\+op\+\_\+r}}
-\begin{DoxyCompactList}\small\item\em Contains the chiral matrix element for the anti-\/chiral component of the operator whose expecation values are asked. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\mbox{\hyperlink{classtensor4D}{tensor4D}}$<$ std\+::pair$<$ long double, long double $>$ $>$ \mbox{\hyperlink{classchirME_a2c979d1744b25f54f14f9f7bf60769a5}{me\+\_\+chi\+\_\+ortho\+\_\+op}}
+\begin{DoxyCompactList}\small\item\em Contains the chiral matrix element for the operator whose expecation values are asked. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Protected Member Functions inherited from \mbox{\hyperlink{classmatrix__elements}{matrix\+\_\+elements}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classmatrix__elements_a4923d1937a29173223936b2ab596abed}{matrix\+\_\+elements}} ()
+\begin{DoxyCompactList}\small\item\em Default constructor is protected, to prevent instantiation of invalid object. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
-\subsection{Detailed Description}
+\doxysubsection{Detailed Description}
 Class that contains the chiral matrix elements of perturbing operators and of the operator to calculate expectation values. 
 
-\subsection{Constructor \& Destructor Documentation}
-\mbox{\Hypertarget{classchirME_af89fad219092aef0dec9d43360911582}\label{classchirME_af89fad219092aef0dec9d43360911582}} 
-\index{chir\+ME@{chir\+ME}!chir\+ME@{chir\+ME}}
-\index{chir\+ME@{chir\+ME}!chir\+ME@{chir\+ME}}
-\subsubsection{\texorpdfstring{chir\+M\+E()}{chirME()}}
-{\footnotesize\ttfamily chir\+M\+E\+::chir\+ME (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classparameters}{parameters}} \&}]{p,  }\item[{\mbox{\hyperlink{classstates}{states}} \&}]{st,  }\item[{int}]{subspace }\end{DoxyParamCaption})}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classchirME_a410cec9fff65661ab6c464baaa9a0326}\label{classchirME_a410cec9fff65661ab6c464baaa9a0326} 
+\index{chirME@{chirME}!chirME@{chirME}}
+\index{chirME@{chirME}!chirME@{chirME}}
+\doxysubsubsection{\texorpdfstring{chirME()}{chirME()}}
+{\footnotesize\ttfamily chir\+ME\+::chir\+ME (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classminimal__model__parameters}{minimal\+\_\+model\+\_\+parameters}} \&}]{p,  }\item[{\mbox{\hyperlink{classminimal__model__states}{minimal\+\_\+model\+\_\+states}} \&}]{st }\end{DoxyParamCaption})}
 
 
 
@@ -50,21 +69,19 @@ Constructor.
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\tt in}  & {\em p} & Reference to a paramters object \\
+\mbox{\texttt{ in}}  & {\em p} & Reference to a paramters object \\
 \hline
-\mbox{\tt in}  & {\em st} & Reference to a states object \\
-\hline
-\mbox{\tt in}  & {\em subspace} & Index of the subspace to work on \\
+\mbox{\texttt{ in}}  & {\em st} & Reference to a states object \\
 \hline
 \end{DoxyParams}
 
 
-\subsection{Member Function Documentation}
-\mbox{\Hypertarget{classchirME_a9bcf2a5ac6fa597db415fa9be72ba886}\label{classchirME_a9bcf2a5ac6fa597db415fa9be72ba886}} 
-\index{chir\+ME@{chir\+ME}!calculate\+\_\+chir\+M\+E\+\_\+for\+\_\+\+Exp\+Val@{calculate\+\_\+chir\+M\+E\+\_\+for\+\_\+\+Exp\+Val}}
-\index{calculate\+\_\+chir\+M\+E\+\_\+for\+\_\+\+Exp\+Val@{calculate\+\_\+chir\+M\+E\+\_\+for\+\_\+\+Exp\+Val}!chir\+ME@{chir\+ME}}
-\subsubsection{\texorpdfstring{calculate\+\_\+chir\+M\+E\+\_\+for\+\_\+\+Exp\+Val()}{calculate\_chirME\_for\_ExpVal()}}
-{\footnotesize\ttfamily void chir\+M\+E\+::calculate\+\_\+chir\+M\+E\+\_\+for\+\_\+\+Exp\+Val (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classparameters}{parameters}} \&}]{p,  }\item[{\mbox{\hyperlink{classstates}{states}} \&}]{st,  }\item[{int}]{subspace }\end{DoxyParamCaption})}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classchirME_aa93e1563ff97ead71283f06f93f84c13}\label{classchirME_aa93e1563ff97ead71283f06f93f84c13} 
+\index{chirME@{chirME}!calculate\_chirME\_for\_ExpVal@{calculate\_chirME\_for\_ExpVal}}
+\index{calculate\_chirME\_for\_ExpVal@{calculate\_chirME\_for\_ExpVal}!chirME@{chirME}}
+\doxysubsubsection{\texorpdfstring{calculate\_chirME\_for\_ExpVal()}{calculate\_chirME\_for\_ExpVal()}}
+{\footnotesize\ttfamily void chir\+ME\+::calculate\+\_\+chir\+ME\+\_\+for\+\_\+\+Exp\+Val (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classminimal__model__parameters}{minimal\+\_\+model\+\_\+parameters}} \&}]{p,  }\item[{\mbox{\hyperlink{classminimal__model__states}{minimal\+\_\+model\+\_\+states}} \&}]{st }\end{DoxyParamCaption})}
 
 
 
@@ -72,18 +89,16 @@ Routine that calculates chiral matrix element for the operator whose expectation
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\tt in}  & {\em p} & Reference to a paramters object \\
+\mbox{\texttt{ in}}  & {\em p} & Reference to a paramters object \\
 \hline
-\mbox{\tt in}  & {\em st} & Reference to a states object \\
-\hline
-\mbox{\tt in}  & {\em subspace} & Index of the subspace to work on \\
+\mbox{\texttt{ in}}  & {\em st} & Reference to a states object \\
 \hline
 \end{DoxyParams}
-\mbox{\Hypertarget{classchirME_aad56d2574efe19f3da59c6b5ab0ddbdb}\label{classchirME_aad56d2574efe19f3da59c6b5ab0ddbdb}} 
-\index{chir\+ME@{chir\+ME}!calculate\+\_\+\+Exp\+Val@{calculate\+\_\+\+Exp\+Val}}
-\index{calculate\+\_\+\+Exp\+Val@{calculate\+\_\+\+Exp\+Val}!chir\+ME@{chir\+ME}}
-\subsubsection{\texorpdfstring{calculate\+\_\+\+Exp\+Val()}{calculate\_ExpVal()}}
-{\footnotesize\ttfamily void chir\+M\+E\+::calculate\+\_\+\+Exp\+Val (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classparameters}{parameters}} \&}]{p,  }\item[{\mbox{\hyperlink{classstates}{states}} \&}]{st,  }\item[{double $\ast$}]{coeff,  }\item[{int}]{size,  }\item[{int}]{Momentum,  }\item[{std\+::string}]{fname,  }\item[{double}]{R }\end{DoxyParamCaption})}
+\Hypertarget{classchirME_ad4a0b1690ae2d2136d0a3d1f688941a6}\label{classchirME_ad4a0b1690ae2d2136d0a3d1f688941a6} 
+\index{chirME@{chirME}!calculate\_ExpVal@{calculate\_ExpVal}}
+\index{calculate\_ExpVal@{calculate\_ExpVal}!chirME@{chirME}}
+\doxysubsubsection{\texorpdfstring{calculate\_ExpVal()}{calculate\_ExpVal()}}
+{\footnotesize\ttfamily void chir\+ME\+::calculate\+\_\+\+Exp\+Val (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classparameters}{parameters}} \&}]{p,  }\item[{\mbox{\hyperlink{classstates}{states}} \&}]{st,  }\item[{double \texorpdfstring{$\ast$}{*}}]{coeff,  }\item[{int}]{size,  }\item[{std\+::string}]{fname,  }\item[{double}]{R }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
 
 
 
@@ -91,26 +106,28 @@ Routine that calculates the expectation value on the eigenvectors of the perturb
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\tt in}  & {\em p} & Reference to a paramters object \\
+\mbox{\texttt{ in}}  & {\em p} & Reference to a paramters object \\
 \hline
-\mbox{\tt in}  & {\em st} & Reference to a states object \\
+\mbox{\texttt{ in}}  & {\em st} & Reference to a states object \\
 \hline
-\mbox{\tt in}  & {\em coeff} & Matrix containing the eigenvectors of the perturbed system in rows \\
+\mbox{\texttt{ in}}  & {\em coeff} & Matrix containing the eigenvectors of the perturbed system in rows \\
 \hline
-\mbox{\tt in}  & {\em size} & Number of components of each eigenvectors (size of the computational basis) \\
+\mbox{\texttt{ in}}  & {\em size} & Number of components of each eigenvectors (size of the computational basis) \\
 \hline
-\mbox{\tt in}  & {\em Momentum} & Momentum subspace \\
+\mbox{\texttt{ in}}  & {\em fname} & Output file name \\
 \hline
-\mbox{\tt in}  & {\em fname} & Output file name \\
-\hline
-\mbox{\tt in}  & {\em R} & value of the radius R \\
+\mbox{\texttt{ in}}  & {\em R} & value of the radius R \\
 \hline
 \end{DoxyParams}
-\mbox{\Hypertarget{classchirME_a9a7e36cc974d91607112bdf552ed40fc}\label{classchirME_a9a7e36cc974d91607112bdf552ed40fc}} 
-\index{chir\+ME@{chir\+ME}!calculate\+\_\+or\+\_\+read\+\_\+chir\+ME@{calculate\+\_\+or\+\_\+read\+\_\+chir\+ME}}
-\index{calculate\+\_\+or\+\_\+read\+\_\+chir\+ME@{calculate\+\_\+or\+\_\+read\+\_\+chir\+ME}!chir\+ME@{chir\+ME}}
-\subsubsection{\texorpdfstring{calculate\+\_\+or\+\_\+read\+\_\+chir\+M\+E()}{calculate\_or\_read\_chirME()}}
-{\footnotesize\ttfamily void chir\+M\+E\+::calculate\+\_\+or\+\_\+read\+\_\+chir\+ME (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classparameters}{parameters}} \&}]{p,  }\item[{\mbox{\hyperlink{classfilenames}{filenames}} \&}]{fnames,  }\item[{\mbox{\hyperlink{classstates}{states}} \&}]{st,  }\item[{int}]{subspace }\end{DoxyParamCaption})}
+
+
+Implements \mbox{\hyperlink{classmatrix__elements_a010e61684898a6820d4db603f68ef2a3}{matrix\+\_\+elements}}.
+
+\Hypertarget{classchirME_a8c1712c4ecb24ce73156f5d23a4835fa}\label{classchirME_a8c1712c4ecb24ce73156f5d23a4835fa} 
+\index{chirME@{chirME}!calculate\_or\_read\_chirME@{calculate\_or\_read\_chirME}}
+\index{calculate\_or\_read\_chirME@{calculate\_or\_read\_chirME}!chirME@{chirME}}
+\doxysubsubsection{\texorpdfstring{calculate\_or\_read\_chirME()}{calculate\_or\_read\_chirME()}}
+{\footnotesize\ttfamily void chir\+ME\+::calculate\+\_\+or\+\_\+read\+\_\+chir\+ME (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classminimal__model__parameters}{minimal\+\_\+model\+\_\+parameters}} \&}]{p,  }\item[{\mbox{\hyperlink{classminimal__model__filenames}{minimal\+\_\+model\+\_\+filenames}} \&}]{fnames,  }\item[{\mbox{\hyperlink{classminimal__model__states}{minimal\+\_\+model\+\_\+states}} \&}]{st }\end{DoxyParamCaption})}
 
 
 
@@ -118,51 +135,56 @@ Routine that either calculates or reads from file chiral matrix elemment.
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\tt in}  & {\em p} & Reference to a paramters object \\
+\mbox{\texttt{ in}}  & {\em p} & Reference to a paramters object \\
 \hline
-\mbox{\tt in}  & {\em fnames} & Reference to a filenames object \\
+\mbox{\texttt{ in}}  & {\em fnames} & Reference to a filenames object \\
 \hline
-\mbox{\tt in}  & {\em st} & Reference to a states object \\
+\mbox{\texttt{ in}}  & {\em st} & Reference to a states object \\
 \hline
-\mbox{\tt in}  & {\em subspace} & Index of the subspace to work on \\
+\end{DoxyParams}
+\Hypertarget{classchirME_aa7c660ff0d455c31a725078377252c27}\label{classchirME_aa7c660ff0d455c31a725078377252c27} 
+\index{chirME@{chirME}!compare\_fields@{compare\_fields}}
+\index{compare\_fields@{compare\_fields}!chirME@{chirME}}
+\doxysubsubsection{\texorpdfstring{compare\_fields()}{compare\_fields()}}
+{\footnotesize\ttfamily bool chir\+ME\+::compare\+\_\+fields (\begin{DoxyParamCaption}\item[{std\+::pair$<$ std\+::pair$<$ int, int $>$, std\+::pair$<$ int, int $>$ $>$}]{f1,  }\item[{std\+::pair$<$ std\+::pair$<$ int, int $>$, std\+::pair$<$ int, int $>$ $>$}]{f2 }\end{DoxyParamCaption})}
+
+
+
+Routine to compare fields, as expressed as pairs of pair. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em f1} & pair of pair describing the first field \\
+\hline
+\mbox{\texttt{ in}}  & {\em f2} & pair of pair describing the second field return bool. True if all pairs match \\
 \hline
 \end{DoxyParams}
 
 
-\subsection{Member Data Documentation}
-\mbox{\Hypertarget{classchirME_aa59c5a77d881d29746faaf171f5b627e}\label{classchirME_aa59c5a77d881d29746faaf171f5b627e}} 
-\index{chir\+ME@{chir\+ME}!me\+\_\+chi\+\_\+ortho@{me\+\_\+chi\+\_\+ortho}}
-\index{me\+\_\+chi\+\_\+ortho@{me\+\_\+chi\+\_\+ortho}!chir\+ME@{chir\+ME}}
-\subsubsection{\texorpdfstring{me\+\_\+chi\+\_\+ortho}{me\_chi\_ortho}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classtensor5D}{tensor5D}}$<$long double$>$ chir\+M\+E\+::me\+\_\+chi\+\_\+ortho}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classchirME_aec195b69a1aa902a2d88c0bd1f469b15}\label{classchirME_aec195b69a1aa902a2d88c0bd1f469b15} 
+\index{chirME@{chirME}!me\_chi\_ortho@{me\_chi\_ortho}}
+\index{me\_chi\_ortho@{me\_chi\_ortho}!chirME@{chirME}}
+\doxysubsubsection{\texorpdfstring{me\_chi\_ortho}{me\_chi\_ortho}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtensor5D}{tensor5D}}$<$ std\+::pair$<$long double, long double$>$ $>$ chir\+ME\+::me\+\_\+chi\+\_\+ortho}
 
 
 
 Contains the chiral matrix element for each perturbing operator. 
 
-Indexed as (perturbation\+\_\+number, left Verma mod, right Verma mod, left states number, right states number) \mbox{\Hypertarget{classchirME_ae206d3f68100f496ec7e3ea09bcf2c0a}\label{classchirME_ae206d3f68100f496ec7e3ea09bcf2c0a}} 
-\index{chir\+ME@{chir\+ME}!me\+\_\+chi\+\_\+ortho\+\_\+op\+\_\+l@{me\+\_\+chi\+\_\+ortho\+\_\+op\+\_\+l}}
-\index{me\+\_\+chi\+\_\+ortho\+\_\+op\+\_\+l@{me\+\_\+chi\+\_\+ortho\+\_\+op\+\_\+l}!chir\+ME@{chir\+ME}}
-\subsubsection{\texorpdfstring{me\+\_\+chi\+\_\+ortho\+\_\+op\+\_\+l}{me\_chi\_ortho\_op\_l}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classtensor4D}{tensor4D}}$<$long double$>$ chir\+M\+E\+::me\+\_\+chi\+\_\+ortho\+\_\+op\+\_\+l}
+Indexed as (perturbation\+\_\+number, left Verma mod, right Verma mod, left states number, right states number) \Hypertarget{classchirME_a2c979d1744b25f54f14f9f7bf60769a5}\label{classchirME_a2c979d1744b25f54f14f9f7bf60769a5} 
+\index{chirME@{chirME}!me\_chi\_ortho\_op@{me\_chi\_ortho\_op}}
+\index{me\_chi\_ortho\_op@{me\_chi\_ortho\_op}!chirME@{chirME}}
+\doxysubsubsection{\texorpdfstring{me\_chi\_ortho\_op}{me\_chi\_ortho\_op}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtensor4D}{tensor4D}}$<$ std\+::pair$<$long double, long double$>$ $>$ chir\+ME\+::me\+\_\+chi\+\_\+ortho\+\_\+op}
 
 
 
-Contains the chiral matrix element for the chiral component of the operator whose expecation values are asked. 
-
-Indexed as (left Verma mod, right Verma mod, left state number, right state number) \mbox{\Hypertarget{classchirME_aba75f5ca87a3598e54eecb2aaa3cca34}\label{classchirME_aba75f5ca87a3598e54eecb2aaa3cca34}} 
-\index{chir\+ME@{chir\+ME}!me\+\_\+chi\+\_\+ortho\+\_\+op\+\_\+r@{me\+\_\+chi\+\_\+ortho\+\_\+op\+\_\+r}}
-\index{me\+\_\+chi\+\_\+ortho\+\_\+op\+\_\+r@{me\+\_\+chi\+\_\+ortho\+\_\+op\+\_\+r}!chir\+ME@{chir\+ME}}
-\subsubsection{\texorpdfstring{me\+\_\+chi\+\_\+ortho\+\_\+op\+\_\+r}{me\_chi\_ortho\_op\_r}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classtensor4D}{tensor4D}}$<$long double$>$ chir\+M\+E\+::me\+\_\+chi\+\_\+ortho\+\_\+op\+\_\+r}
-
-
-
-Contains the chiral matrix element for the anti-\/chiral component of the operator whose expecation values are asked. 
+Contains the chiral matrix element for the operator whose expecation values are asked. 
 
 Indexed as (left Verma mod, right Verma mod, left state number, right state number) 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{chirME_8h}{chir\+M\+E.\+h}}\item 
-chir\+M\+E.\+cpp\end{DoxyCompactItemize}
+truspace/\mbox{\hyperlink{chirME_8h}{chir\+ME.\+h}}\item 
+truspace/chir\+ME.\+cpp\end{DoxyCompactItemize}

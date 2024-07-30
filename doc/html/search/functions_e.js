@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['shell_5fdouble',['shell_double',['../classdiag.html#a22655182c22153a4b33532b7852538ca',1,'diag']]],
-  ['shell_5fld',['shell_ld',['../classdiag.html#a3619b2c19b5f8720f3f8655ed19eaeda',1,'diag']]],
-  ['states',['states',['../classstates.html#ae206bf8fa4a70fc320f801b49580b079',1,'states']]],
-  ['sweep_5fblock_5fbc',['sweep_block_BC',['../classHamiltonian.html#a6a08e22b729adbc783c1770b21510ee2',1,'Hamiltonian']]]
+  ['read_5fchiral_0',['read_chiral',['../classminimal__model__states.html#a5be19f4ca59a04b240bc6313b79a7ae8',1,'minimal_model_states']]],
+  ['run_1',['run',['../classNRG.html#a0cdebccf7b1db2cd43c5516dbc4a2d99',1,'NRG::run(parameters &amp;p, Hamiltonian &amp;H, filenames &amp;fnames)'],['../classNRG.html#a0cdebccf7b1db2cd43c5516dbc4a2d99',1,'NRG::run(parameters &amp;p, Hamiltonian &amp;H, filenames &amp;fnames)'],['../classworker.html#a456282fe869b1e59de35d7bd0958f981',1,'worker::run()']]]
 ];

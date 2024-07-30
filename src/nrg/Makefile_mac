@@ -1,0 +1,52 @@
+ROOT=${PWD}/../..
+INSTALL_DIR=${ROOT}/lib
+HEADER_DIR=${ROOT}/include
+SCALAPACK_LIB= -lscalapack
+MPICXX= mpicxx
+
+CFLAGS=-I${BLAS}/include -std=c++20 -O2 -fPIC
+LDFLAGS = -shared -framework Accelerate  
+LDFLAGS_MPI = ${LDFLAGS} ${SCALAPACK_LIB}
+LIBS= -lpthread -lstdc++
+SRC=parameters.cpp states.cpp matrix_elements.cpp filenames.cpp
+SRC_SERIAL=NRG.cpp Hamiltonian.cpp
+SRC_MPI=NRG_MPI.cpp Hamiltonian_MPI.cpp 
+
+OBJS=$(SRC:.cpp=.o)
+OBJS_SERIAL=$(SRC_SERIAL:.cpp=.o)
+OBJS_MPI=$(SRC_MPI:.cpp=.o)
+
+serial: libnrg.dylib
+
+mpi : libnrg_mpi.dylib
+
+$(OBJS): %.o : %.cpp %.h config.h
+	$(CXX) $(CFLAGS) -c $<
+
+$(OBJS_SERIAL): %.o : %.cpp %.h config.h
+	$(CXX) $(CFLAGS) -c $<
+
+
+$(OBJS_MPI): %.o : %.cpp %.h config.h
+	$(MPICXX) -DMPI_PAR $(CFLAGS) -c $<
+
+
+libnrg.dylib: $(OBJS_SERIAL) $(OBJS)
+	$(CXX) $(LDFLAGS) -Wl, -install_name ${INSTALL_DIR}/$@ -o $@ $^
+	mkdir -p ${INSTALL_DIR}
+	cp $@ ${INSTALL_DIR}
+	mkdir -p ${HEADER_DIR}
+	cp *.h ${HEADER_DIR} 
+
+libnrg_mpi.dylib: $(OBJS_MPI) $(OBJS)
+	$(MPICXX) $(LDFLAGS_MPI) -Wl, -install_name ${INSTALL_DIR}/$@ -o $@ $^
+	mkdir -p ${INSTALL_DIR}
+	cp $@ ${INSTALL_DIR}
+	mkdir -p ${HEADER_DIR}
+	cp *.h ${HEADER_DIR}
+
+
+clean:
+	rm -f *.x *.o *.dylib
+
+

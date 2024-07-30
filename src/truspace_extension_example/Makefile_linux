@@ -1,0 +1,47 @@
+ROOT=${PWD}/../..
+BLAS=${ROOT}/dep/OpenBLAS-0.3.17
+BLAS_LIB=-lopenblas
+LAPACK=${ROOT}/dep/OpenBLAS-0.3.17# it is better not to have this field empty, to prevent the -rpath to use /lib. If your blas distribution contains lapack, make it point to openblas root folder
+LAPACK_LIB=
+SCALAPACK_LIB=${ROOT}/scalapack-2.2.0/libscalapack.a
+NRG_LIB= -L${ROOT}/lib -lnrg
+NRG_LIB_MPI=  -L${ROOT}/lib -lnrg_mpi
+MPICXX= mpicxx
+
+CFLAGS= -I${BLAS}/include  -I${ROOT}/include  -std=c++20 -fopenmp -O2 
+LIBS= -L${BLAS}/lib/  ${BLAS_LIB}  -L${LAPACK}/lib/ ${LAPACK_LIB}  -lpthread -lstdc++ -fopenmp
+SRC= harmonic_states.cpp harmonic_filenames.cpp harmonic_matrix_elements.cpp custom_parameters.cpp
+#SRC_MPI=parameters.cpp states.cpp filenames.cpp matrix_elements.cpp Hamiltonian_MPI.cpp NRG_MPI.cpp custom_parameters.cpp
+OBJS=$(SRC:.cpp=.o)
+#OBJS_MPI=$(SRC_MPI:.cpp=.o)
+
+serial : truspace_harmonic.x
+
+mpi : truspace_harmonic_mpi.x
+
+$(OBJS): %.o : %.cpp %.h custom_config.h
+	$(CXX) $(CFLAGS) -c $<
+
+harmonic_Hamiltonian.o : harmonic_Hamiltonian.cpp harmonic_Hamiltonian.h custom_config.h
+	$(CXX) $(CFLAGS) -c $<
+
+harmonic_Hamiltonian_MPI.o : harmonic_Hamiltonian_MPI.cpp harmonic_Hamiltonian_MPI.h custom_config.h
+	$(CXX) $(CFLAGS) -c $<
+
+
+truspace_harmonic.x : truspace_harmonic.cpp $(OBJS) harmonic_Hamiltonian.o
+	${CXX} ${CFLAGS}  $^ ${NRG_LIB} ${LIBS} -o  $@  -Wl,-rpath ${BLAS}/lib/ -Wl,-rpath ${LAPACK}/lib  -Wl,-rpath ${ROOT}/lib/
+	mkdir -p ${ROOT}/bin
+	cp $@ ${ROOT}/bin/
+
+truspace_harmonic_mpi.x : CFLAGS += -DMPI_PAR 
+truspace_harmonic_mpi.x : CXX=${MPICXX}
+truspace_harmonic_mpi.x : truspace_harmonic.cpp $(OBJS) harmonic_Hamiltonian_MPI.o
+	${MPICXX} ${CFLAGS}  $^ ${NRG_LIB_MPI} ${LIBS} ${SCALAPACK_LIB} -lgfortran -o  $@  -Wl,-rpath ${BLAS}/lib/ -Wl,-rpath ${LAPACK}/lib  -Wl,-rpath ${ROOT}/lib/
+	mkdir -p ${ROOT}/bin
+	cp $@ ${ROOT}/bin/
+
+clean:
+	rm -f *.x *.o
+
+

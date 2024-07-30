@@ -1,5 +1,5 @@
-TruSpace
-=========
+TruSpace 2.0
+============
 
 .. contents::  
 
@@ -19,27 +19,27 @@ Given the eigenstates of the H\ :sub:`0`, | E\ :sup:`0` :sub:`i`\>, the matrix f
 
 If we are able to calculate the last expectation value above, we can then choose a finite number of states up to a certain i  | E\ :sup:`0` :sub:`i`\> and diagonalize numerically the matrix obtained. 
 
-However, diagonalization of the entire matrix can in some cases become cumbersome, in particular in cases in which a large number of states or great precision are required. 
+However, diagonalization of the entire matrix can in some cases be cumbersome, in particular in cases in which a large number of states or great precision are required. 
 
-This is were ``NRG`` comes in the game. The idea of spectrum-based ``NRG`` is to take into account the contribution of higher and higher unperturbed states to the complete Hamiltonian low-lying energy states.
+This is were ``NRG`` comes into play. The idea of spectrum-based ``NRG`` is to take into account the contribution of higher and higher unperturbed states to the complete Hamiltonian low-lying energy states.
 This is done by fixing a size M of the matrix to a given value. The size M is splitted in two parts, N and D. The first iteration of the algorithm takes the lowest N+D=M states and performs the usual ``TSA`` procedure. At the second iteration, the last D states are removed, and the following D states of the computational basis are put in the computation and the ``TSA`` procedure is applied on this mixed basis ( N states are approximation of the perturbed theory, while the new D states are unperturbed). The procedure is repeated untill a sufficiently high number of states is included (typically by checking convergence of relevant quantities).  In this way, the total size of the matrix is fixed, but the code is able to get contribution from an increasing number of unpertubed states. 
 The typically size of N and D are 2-4000 for N and N/4 for D, while the ``NRG`` is run to include up to tens of thousands of unperturbed states. 
 
 To increase precision even further, we can apply a technique called ``Sweep``. The idea is that, once the ``NRG`` iterations are done, we can start over, but this time instead of using the unperturbed states as computational basis for the D states added at each iteration, we can use the D states discarded at the previous ``NRG`` run at the same iteration. This procedure can be repeated indefinitely, untill convergence is reached. Experimentally, we observerd that 3-4 sweeps are enough to reach convergence in most of the cases. 
 
-The publicly available version supports currently only pertubation of unitary minimal conformal field theories, but it has been applied by the authors and coworkers to other class of models like SU(2)\ :sub:`1`\ [3]_ and 1+1 dimesional Landau-Ginzburg theories [4]_. The plan is to include those two application in TruSpace.
+The publicly available version supports currently only pertubation of unitary minimal conformal field theories, but it has been applied by the authors and coworkers to other class of models like SU(2)\ :sub:`1`\ [3]_ and 1+1 dimesional Landau-Ginzburg theories [4]_. 
 
 To allow further extension, the ``NRG`` and ``Sweep``
 
 Features
 ~~~~~~~~
 
-At the present time is able to calculate
+Currently, the Truspace can calculate:
 
-- Eigenvalues and Eigenvectors of any unitary perturbed conformal field theory based minimal models ( diagonal partition function only for the moment) using full diagonalization, ``NRG`` or ``Sweep``
+- Eigenvalues and Eigenvectors of any unitary perturbed conformal field theory based minimal models using full diagonalization, ``NRG`` or ``Sweep``
 - Automatic separation of symmetry subspaces in the perturbed system. Symmetry subspaces are diagonalized separately, to reduce computational complexity
-- Possibility of considering non-zero momentum states. Momentum subspace are diagonalized separately ( unless it is specifically requested to diagonalize all the subspaces together). 
-- Expectation value on the final basis of any primary field ( descendant field expectation values available but in beta testing phase )
+- Possibility of considering non-zero momentum states. Momentum subspace are diagonalized separately  
+- Expectation value on the final basis of any primary field 
 
 
 Here are some examples of the results produced by TruSpace 
@@ -53,7 +53,8 @@ Here are some examples of the results produced by TruSpace
 .. figure:: ./img/M34-12-op12-VEV.jpg 
     :width: 400pt
 
-     Vacuum expectation value for operator |sigma| in M\ :sub:`34`\  + |sigma|
+    Vacuum expectation value for operator |sigma| in M\ :sub:`34`\  + |sigma|
+    The red line is the analytical result.
 
 .. figure:: ./img/M45-12-op12-FF.jpg 
     :width: 400pt
@@ -64,23 +65,23 @@ Here are some examples of the results produced by TruSpace
 Code design
 ~~~~~~~~~~~~
 
-TruSpace is written in C++ using and Object Oriented design pattern. 
+TruSpace is written in C++ using and Object Oriented design patterns. 
 
 The available classes are
 
-- parameters : class that handles the input reading, the calculation of the structure constants and the analysis of symmetry subspaces.
+- minimal_model_parameters : class that handles the input reading, the calculation of the structure constants and the analysis of symmetry subspaces.
 - worker : class that takes care of running the different parts of the code after all parameters are set 
-- states : class that calculates and holds all the informations regarding the computation basis
+- minimal_model_states : class that calculates and holds all the informations regarding the computation basis
 - chirME : class that calculates and holds all the information about matrix element of the fields on the computational basis 
-- filenames : helper class to manage output and swap files names 
-- Hamiltonian : class that handles the computation and the matrix form of the TSA Hamiltonian of the perturbed model
+- minimal_model_filenames : helper class to manage output and swap files names 
+- minimal_model_Hamiltonian : class that handles the computation and the matrix form of the TSA Hamiltonian of the perturbed model
 - diag : helper class that contains Numerical Recipies diagonalization routines for long double (required to calculate the conformal computational basis)
 - tensors : helper template class to handle 2D, 3D, 4D, 5D and 6D tensors. It ensures memory contiguity and automatic deallocation when out of scope, without forcing compilation-time sizes. 
 - NRG : model-agnostic  full diagonalization, ``NRG`` and ``Sweep`` routine 
 
-The model-agnostic nature of the NRG class should allow easy extension of the current code to other Quantum Hamiltonians.
+The model-agnostic nature of the NRG class should allow easy extensions of the current code to other Quantum Hamiltonians.
 
-Full class documentation available at https://gbrandino.bitbucket.io/truspace/
+Full class documentation available at https://truspacedevelopers.bitbucket.io/ 
 
 Building TruSpace
 -------------------
@@ -93,14 +94,23 @@ If you want to install TruSpace dependecies by yourself, here is the list
 - Lapack
 - Blas ( we suggest multi-threaded BLAS like Intel MKL_ or OpenBLAS)  
 - Ginac_ and its dependecy CLN_
-- MPI implementation (OpenMPI recommmended) for MPI parallel version
+- MPI runtime (OpenMPI recommmended) for MPI parallel version
+- Scalapack_ for MPI parallel version
    
-Otherwise TruSpace comes with a version of the above libraries, so you can simply move to the next section and use the installation script. 
+On Linux, TruSpace comes with a version of the above libraries (besides MPI runtime, that needs still to be installed), so you can simply move to the next section and use the installation script. 
+
+On MacOS, for the MPI version you will need to install Scalapack using e.g. ``brew``
+::
+
+  brew install scalapack
+
+The MacOS version relies on the Lapack and BLAS present in the ``Accelerate`` framework.
 
 Build instruction - script
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-If you want to use the provided script you can simply run the ``install.sh`` in the root folder. This will install all the dependecies in the TruSpace folder and create the executable accordingly. 
+If you want to use the provided script you can simply run the ``install-linux.sh`` or ``install-mac.sh`` in the root folder. 
+This will install all the dependecies in the TruSpace folder and create the executable accordingly. 
 
 (Experimental: you can define your compiler by issuing, for example::
 
@@ -108,14 +118,15 @@ If you want to use the provided script you can simply run the ``install.sh`` in 
 
 :NOTE: Some version of the intel compiler seems to have issues with the c++11 standard. This will cause Ginac to fail compilation.
 
-To remove the compiled code and its dependecies, run ``uninstall.sh``
+To remove the compiled code and its dependecies, run ``uninstall_linux.sh``, ``uninstall_mpi-linux.sh`` or ``uninstall-mac.sh``
 
 MPI Build instrction - script 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Truspace is distributed with a Netlib scalapack implementation, working on top of the provided Openblas
 
-If you want to use the provided script you can simply run the ``install-mpi.sh`` in the root folder. This will install all the dependecies in the TruSpace folder and create the executable accordingly.
+If you want to use the provided script you can simply run the ``install_mpi-linux.sh`` or ``install_mpi-mac.sh`` in the root folder. 
+This will install all the dependecies in the TruSpace folder and create the executable accordingly.
 
 
 
@@ -134,17 +145,33 @@ If you want to install the library in a different folder or use verion already a
  
 Then simply issue::
 
-  make -j4
+  make -f Makefile_linux -j4
 
-for the serial and OpenMP version, or::
+or::
 
-  make -j4 mpi
+  make -f Makefile_mac -j4
+
+
+for the serial and OpenMP version, and::
+
+  make -f Makefile_linux -j4 mpi
+
+or::
+
+  make -f Makefile_mac -j4 mpi
 
 for the MPI parallel verion.
 
-:NOTE: CMake building will come soon
+There is also a minimal regression test available to all version (requires python, pytest and numpy)
 
-:NOTE: Some versione of the intel compiler seems to have issues with the c++11 standard.  
+::
+
+  make -f Makefile_linux test
+
+or::
+
+  make -f Makefile_mac test
+
 
 Running TruSpace
 ------------------
@@ -152,48 +179,73 @@ Running TruSpace
 If you are using multi-threaded BLAS (like the provided OpenBLAS), all linear algebra will be parallel. To this end we 
 recommend setting the environment variable OMP_NUM_THREADS to the number of cores of your CPU. 
 
-So, to run the code:: 
+The code uses two input files: one with model-specific parameters and one for NRG-only parameters. 
+To run the code:: 
+
+  ./truespace.x input-model input-nrg
+
+On Linux, you can control the number of threads by issueing::
 
   export OMP_NUM_THREADS=4
-  ./truespace.x input-file
 
 THE ORDER OF THE LINES AND THEIR POSITIONS IS FIXED AND CANNOT BE MODIFIED. The are example of input files in the ``examples`` folder
 
-The input file should be self explanatory::
+The model input file for minimal_model should be self explanatory::
 
   3    p
   4    q
   1    number of perturbations
   5    Maximum conformal level to include
   0    Minimum conformal level to include
-  0    Maximum momentum considered
-  0    Set 1 to diagonalize all momentum subspaces together
-  5   Maximum number of eigenvalues, eigenvectors and matrix elements printed in output file(s), 0 for all of them
-  1    r index of first perturbation
-  2    s index of first perturbation
+  0    momentum subpsace considered
+  2    index of first perturbation (as indexed in input data file)
   0.09  constant for first perturbation
-  20   number of values of R
+  1   number of values of R
   0.6  increment at each R step
-  8.0  starting value of R 
-  15  number of states in the basic matrix for NRG
-  5   number of states added in every NRG step
+  8.0  starting value of R
   1    set 1 for complete TCSA calculation, 0 to have just Kac table structure constants and subspace analysis
-  0    set 1 for NRG, 0 for complete trucated hamiltonian diagonalization
-  0    number of NRG sweep. Set 0 for basic NRG
   0    set 1 to save states to file, 0 not to save them
   0    set 1 to read saved state from file, 0 to calculate them
   0    set 1 to save chiral matrix element to file, 0 not to save them
   0    set 1 to read saved matrix elements from file, 0 to calculate them
-  1    set 1 to calculate matrix element of a particular primary operator
-  1    r index of holomorphic component of the operator to calculate matrix elements
-  2    s index of holomorphic component of the operator to calculate matrix elements
-  0    number of virasoro operator applied to the holomorphic component of the primary operator (set 0 to evaluate operator itself)
-  1    r index of anti holomorphic component of the operator to calculate matrix elements
-  2    s index of anti holomorphic component of the operator to calculate matrix elements
-  0    number of virasoro operator applied to the antiholomorphic component of the primary operator (set 0 to evaluate operator itself)
-  1    set to 1 to calculated only diagonal matrix elements (<i|phi|i>), 0 for full matrix elements calculation
-  0    set to 1 to se save eigenvectors to file
+  2    index of the operator to calculate matrix elements
+  ising-fields.dat     filename of fields file
+  ising-constants.dat  filename of the structure constants file
 
+The list of fields to be used are detailed in the "filename of fields file" whose structure is (e.g. Ising case) ::
+
+  1,1,1,1 # 1 - I
+  1,2,1,2 # 2 - sigma
+  1,3,1,3 # 3 - epsilon
+ 
+where the first two values are the r and s index of the chiral component of the field, while the third and the fourth are the 
+r and s index of the anti-chiral component. Everythin after the "#" is a comment. For example, we wrote there the indexing (that always starts from 1)
+and the name of the fields. This allows the calcualtion on non-diagonal partition functions. For example, for non-diagonal Potts the file looks like::
+
+  1,1,1,1 # 1 - I
+  1,3,1,3 # 2 - omega_+
+  1,3,1,3 # 3 - omega_-
+  1,5,1,1 # 4 - W
+  1,1,1,5 # 5 - bar{W}
+  2,5,2,5 # 6 - X
+  2,1,2,1 # 7 - epsilon
+  2,3,2,3 # 8 - sigma_+
+  2,3,2,3 # 9 - sigma_-
+  2,5,2,1 # 10 - J
+  2,1,2,5 # 11 - bar{J}
+  1,5,1,5 # 12 - Y
+
+The structure constants file instead looks like::
+
+  1,2,2|1
+  2,2,1|1
+  2,2,3|0.5
+  3,2,2|0.5
+
+The structure constants are non-chiral, meanining they are the combination of chiral and anti-chiral components. The three indexes referes to the indexing in the fields file.
+For example, in the Ising case, 1,2,2 means the structure constant I,sigma,sigma, whose value shoud be wrttine after the "|". 
+
+Fields and structure constants files can be generated using "fields_and_structure_constants.x" for the diagonal partition function minimal models. 
 
 When approaching a new model, it is best to set the key::
 
@@ -203,16 +255,28 @@ such that not ``TSA`` is performed, but the size of the Hilbert Space of the giv
 printed table. 
 
 
-If more than one perturbation is need, simply add the three lines about the other pertubations after the first one::
+If more than one perturbation is need, simply add the two lines about the other pertubations after the first one::
 
   ..
-  5   Maximum number of eigenvalues, eigenvectors and matrix elements printed in output file(s), 0 for all of them
-  1    r index of first perturbation
-  2    s index of first perturbation
+  5     Maximum number of eigenvalues, eigenvectors and matrix elements printed in output file(s), 0 for all of them
+  2     index of first perturbation (as indexed in input data file)
   0.09  constant for first perturbation
-  1    r index of second perturbation
-  3    s index of second perturbation
+  3     index of first perturbation (as indexed in input data file) 
   0.06  constant for second perturbation
+
+
+
+The NRG input files instead has the structure::
+
+  5   Maximum nunber of eigenvalues, eigenvectors and matrix elements printed in output file(s), 0 for all of them
+  500  number of states in the basic matrix for NRG
+  250  number of states added in every NRG step
+  0    set 1 for NRG, 0 for complete trucated hamiltonian diagonalization
+  0    number of NRG sweep. Set 0 for basic NRG
+  0    set to 1 to se save eigenvectors to file
+  1    set 1 to calculate matrix element of a particular operartor (specified in the model file)
+  1    set to 1 to calculated only diagonal matrix elements (<i|phi|i>), 0 for full matrix elements calculation
+
 
 Running MPI parallel Truspace
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -227,7 +291,7 @@ Even in the multinode scenario, it is always best to use one MPI process per nod
 This setup will grant the best performance. This amount to issue::
 
   export OMP_NUM_THREADS=<your number of cores>
-  mpirun -np <your number of nodes> -npernode 1 ./truspace_mpi.x input-file
+  mpirun -np <your number of nodes> -npernode 1 ./truspace_mpi.x input-model-file input-nrg-file
 
 Output files 
 ~~~~~~~~~~~~~
@@ -262,7 +326,7 @@ The code outputs several files, most of which only optionally. In details
 
 
 Developer documentation and extending truspace
-~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Full developer documentation and indications about how to expand truspace are available at https://gbrandino.bitbucket.io/truspace/
 
@@ -298,7 +362,7 @@ Known issues
 
 .. [3] M. Beria, G.P. Brandino, L. Lepori, R. M. Konik, G. Sierra - Nuclear Physics B, 2013
 
-.. [4] A. Coser, M. Beria, G. P. Brandino2, R. M. Konik and G. Mussardo J. Stat. Mech. (2014) P12010  
+.. [4] A. Coser, M. Beria, G. P. Brandino, R. M. Konik and G. Mussardo J. Stat. Mech. (2014) P12010  
 
 .. |delta| unicode:: 0x3B4 
 
@@ -313,3 +377,5 @@ Known issues
 .. _CLN : http://www.ginac.de/CLN/
 
 .. _MKL : https://software.intel.com/en-us/intel-mkl
+
+.. _Scalapack : https://netlib.org/scalapack/

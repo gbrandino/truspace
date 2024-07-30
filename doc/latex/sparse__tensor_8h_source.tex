@@ -1,0 +1,182 @@
+\doxysection{sparse\+\_\+tensor.\+h}
+\hypertarget{sparse__tensor_8h_source}{}\label{sparse__tensor_8h_source}\index{nrg/sparse\_tensor.h@{nrg/sparse\_tensor.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#ifndef\ SPARSE\_TENSORS\_H}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#define\ SPARSE\_TENSORS\_H}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ <cstdlib>}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ <unordered\_map>}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#include\ <tuple>}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#include\ <limits>}}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \textcolor{keyword}{typedef}\ std::tuple<int,\ int,\ int>\ tuple3\_key\_t;}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structkey__hash3}{key\_hash3}}\ \textcolor{comment}{//:\ public\ std::unary\_function<tuple3\_key\_t,\ std::size\_t>}}
+\DoxyCodeLine{00027\ \{}
+\DoxyCodeLine{00028\ \ std::size\_t\ operator()(\textcolor{keyword}{const}\ tuple3\_key\_t\&\ k)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00029\ \textcolor{keyword}{\ }\{}
+\DoxyCodeLine{00030\ \ \ \ \textcolor{keywordflow}{return}\ std::get<0>(k)\ \string^\ std::get<1>(k)\ \string^\ std::get<2>(k);}
+\DoxyCodeLine{00031\ \ \}}
+\DoxyCodeLine{00032\ \};}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{keyword}{typedef}\ std::tuple<int,\ int,\ int,\ int,\ int,\ int>\ tuple6\_key\_t;}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structkey__hash6}{key\_hash6}}\ \textcolor{comment}{//:\ public\ std::unary\_function<tuple6\_key\_t,\ std::size\_t>}}
+\DoxyCodeLine{00037\ \{}
+\DoxyCodeLine{00038\ \ std::size\_t\ operator()(\textcolor{keyword}{const}\ tuple6\_key\_t\&\ k)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00039\ \textcolor{keyword}{\ }\{}
+\DoxyCodeLine{00040\ \ \ \ \textcolor{keywordflow}{return}\ std::get<0>(k)\ \string^\ std::get<1>(k)\ \string^\ std::get<2>(k)\ \string^\ std::get<3>(k)\ \string^\ std::get<4>(k)\ \string^\ std::get<5>(k)\ ;}
+\DoxyCodeLine{00041\ \ \}}
+\DoxyCodeLine{00042\ \};}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00053\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{00054\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classsparse__tensor3D}{sparse\_tensor3D}}}
+\DoxyCodeLine{00055\ \{}
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classsparse__tensor3D_a04304b8c84afe15c3666fd359a10944a}{sparse\_tensor3D}}();}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classsparse__tensor3D_a1f4b5e5f87f0a88b0ccddf04b454d7de}{\string~sparse\_tensor3D}}();\ }
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classsparse__tensor3D}{sparse\_tensor3D<T>}}\&\ \mbox{\hyperlink{classsparse__tensor3D_abf3ca04213f03de74310eb50ada527d1}{operator=}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classsparse__tensor3D}{sparse\_tensor3D<T>}}\&);}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ T\&\ set(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int},\textcolor{keyword}{const}\ \textcolor{keywordtype}{int},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int});}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ T\ \mbox{\hyperlink{classsparse__tensor3D_a890dcbe81fd7b55c09e70c8bb1b23f2b}{operator()}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int},\textcolor{keyword}{const}\ \textcolor{keywordtype}{int},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int});}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ T\ \mbox{\hyperlink{classsparse__tensor3D_a44bacc9918009f8bd6b475f63fa2d217}{operator()}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int},\textcolor{keyword}{const}\ \textcolor{keywordtype}{int},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int})\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ std::unordered\_map<\ tuple3\_key\_t,\ T,\ key\_hash3\ >\ data;}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ size;}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \};}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00070\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{00071\ \mbox{\hyperlink{classsparse__tensor3D_a04304b8c84afe15c3666fd359a10944a}{sparse\_tensor3D<T>::sparse\_tensor3D}}()}
+\DoxyCodeLine{00072\ \{}
+\DoxyCodeLine{00073\ \ \ \ \ size\ =\ 0;}
+\DoxyCodeLine{00074\ \}}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00079\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{00080\ \mbox{\hyperlink{classsparse__tensor3D_a1f4b5e5f87f0a88b0ccddf04b454d7de}{sparse\_tensor3D<T>::\string~sparse\_tensor3D}}()}
+\DoxyCodeLine{00081\ \{}
+\DoxyCodeLine{00082\ \}}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00088\ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{00089\ \mbox{\hyperlink{classsparse__tensor3D}{sparse\_tensor3D<T>}}\&\ \mbox{\hyperlink{classsparse__tensor3D_abf3ca04213f03de74310eb50ada527d1}{sparse\_tensor3D<T>::operator=}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classsparse__tensor3D}{sparse\_tensor3D<T>}}\&\ tens)}
+\DoxyCodeLine{00090\ \{}
+\DoxyCodeLine{00091\ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{this}\ !=\ \&tens)}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ data\ =\ tens.data;}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ size\ =\ tens.size;}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00096\ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00097\ \}}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{00100\ T\&\ \mbox{\hyperlink{classsparse__tensor3D}{sparse\_tensor3D<T>::set}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ i1,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ i2,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ i3)}
+\DoxyCodeLine{00101\ \{}
+\DoxyCodeLine{00102\ \ \ \ \ \textcolor{keywordflow}{if}\ (data.find(std::make\_tuple(i1,\ i2,\ i3))\ ==\ data.end())}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ size++;}
+\DoxyCodeLine{00104\ \ \ \ \ \textcolor{keywordflow}{return}\ data[std::make\_tuple(i1,\ i2,\ i3)];}
+\DoxyCodeLine{00105\ \}}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00115\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{00116\ T\ \mbox{\hyperlink{classsparse__tensor3D_a890dcbe81fd7b55c09e70c8bb1b23f2b}{sparse\_tensor3D<T>::operator()}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ i1,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ i2,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ i3)}
+\DoxyCodeLine{00117\ \{}
+\DoxyCodeLine{00118\ \ \ \ \ \textcolor{keywordflow}{if}\ (data.find(std::make\_tuple(i1,\ i2,\ i3))\ !=\ data.end())}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ data[std::make\_tuple(i1,\ i2,\ i3)];}
+\DoxyCodeLine{00120\ \ \ \ \ \textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}ERROR\ Key\ (\ "{}}\ <<\ i1\ <<\ \textcolor{stringliteral}{"{},\ "{}}\ <<\ i2\ <<\ \textcolor{stringliteral}{"{},\ "{}}\ <<\ i3\ <<\ \textcolor{stringliteral}{"{}\ )\ not\ present!\ Returning\ NaN"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::numeric\_limits<double>::quiet\_NaN();}
+\DoxyCodeLine{00123\ \ \ \ \ \}}
+\DoxyCodeLine{00124\ \}}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00131\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{00132\ T\ \mbox{\hyperlink{classsparse__tensor3D_a890dcbe81fd7b55c09e70c8bb1b23f2b}{sparse\_tensor3D<T>::operator()}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ i1,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ i2,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ i3)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00133\ \textcolor{keyword}{}\{}
+\DoxyCodeLine{00134\ \ \ \ \ \textcolor{keywordflow}{if}\ (data.find(std::make\_tuple(i1,\ i2,\ i3))\ !=\ data.end())}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ data[std::make\_tuple(i1,\ i2,\ i3)];}
+\DoxyCodeLine{00136\ \ \ \ \ \textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}ERROR:\ Key\ (\ "{}}\ <<\ i1\ <<\ \textcolor{stringliteral}{"{},\ "{}}\ <<\ i2\ <<\ \textcolor{stringliteral}{"{},\ "{}}\ <<\ i3\ <<\ \textcolor{stringliteral}{"{}\ )\ not\ present!\ Returning\ to\ NaN"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::numeric\_limits<double>::quiet\_NaN();}
+\DoxyCodeLine{00139\ \ \ \ \ \}}
+\DoxyCodeLine{00140\ \}}
+\DoxyCodeLine{00141\ }
+\DoxyCodeLine{00142\ }
+\DoxyCodeLine{00143\ }
+\DoxyCodeLine{00153\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{00154\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classsparse__tensor6D}{sparse\_tensor6D}}}
+\DoxyCodeLine{00155\ \{}
+\DoxyCodeLine{00156\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classsparse__tensor6D_ae6125d851c3bc19986104ecc197cc06a}{sparse\_tensor6D}}();}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classsparse__tensor6D_ae9533a49f95357573c90f9d4eb69d822}{\string~sparse\_tensor6D}}();}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classsparse__tensor6D}{sparse\_tensor6D<T>}}\&\ \mbox{\hyperlink{classsparse__tensor6D_a529d9c950507d8bb2e0b53aaf2efb2cb}{operator=}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classsparse__tensor6D}{sparse\_tensor6D<T>}}\&);}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ T\&\ set(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int},\textcolor{keyword}{const}\ \textcolor{keywordtype}{int},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int});}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ T\ \mbox{\hyperlink{classsparse__tensor6D_a1ea3e36cfda15f63493d7c8e8a2af8d8}{operator()}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int},\textcolor{keyword}{const}\ \textcolor{keywordtype}{int},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int});}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ T\ \mbox{\hyperlink{classsparse__tensor6D_a1c25f40b373f1d9105d54eedf27bf256}{operator()}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int},\textcolor{keyword}{const}\ \textcolor{keywordtype}{int},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int})\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ std::unordered\_map<\ tuple6\_key\_t,\ T,\ key\_hash6\ >\ data;}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ size;}
+\DoxyCodeLine{00165\ }
+\DoxyCodeLine{00166\ \};}
+\DoxyCodeLine{00167\ }
+\DoxyCodeLine{00170\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{00171\ \mbox{\hyperlink{classsparse__tensor6D_ae6125d851c3bc19986104ecc197cc06a}{sparse\_tensor6D<T>::sparse\_tensor6D}}()}
+\DoxyCodeLine{00172\ \{}
+\DoxyCodeLine{00173\ \ \ \ \ size\ =\ 0;}
+\DoxyCodeLine{00174\ \}}
+\DoxyCodeLine{00175\ }
+\DoxyCodeLine{00176\ }
+\DoxyCodeLine{00179\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{00180\ \mbox{\hyperlink{classsparse__tensor6D_ae9533a49f95357573c90f9d4eb69d822}{sparse\_tensor6D<T>::\string~sparse\_tensor6D}}()}
+\DoxyCodeLine{00181\ \{}
+\DoxyCodeLine{00182\ \}}
+\DoxyCodeLine{00183\ }
+\DoxyCodeLine{00188\ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{00189\ \mbox{\hyperlink{classsparse__tensor6D}{sparse\_tensor6D<T>}}\&\ \mbox{\hyperlink{classsparse__tensor6D_a529d9c950507d8bb2e0b53aaf2efb2cb}{sparse\_tensor6D<T>::operator=}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classsparse__tensor6D}{sparse\_tensor6D<T>}}\&\ tens)}
+\DoxyCodeLine{00190\ \{}
+\DoxyCodeLine{00191\ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{this}\ !=\ \&tens)}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ \ \ \ \ data\ =\ tens.data;}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ \ \ \ \ size\ =\ tens.size;}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00196\ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00197\ \}}
+\DoxyCodeLine{00198\ }
+\DoxyCodeLine{00199\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{00200\ T\&\ \mbox{\hyperlink{classsparse__tensor6D}{sparse\_tensor6D<T>::set}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ i1,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ i2,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ i3,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ i4,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ i5,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ i6)}
+\DoxyCodeLine{00201\ \{}
+\DoxyCodeLine{00202\ \ \ \ \ \textcolor{keywordflow}{if}\ (data.find(std::make\_tuple(i1,\ i2,\ i3,\ i4,\ i5,\ i6))\ ==\ data.end())}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ size++;}
+\DoxyCodeLine{00204\ \ \ \ \ \textcolor{keywordflow}{return}\ data[std::make\_tuple(i1,\ i2,\ i3,\ i4,\ i5,\ i6)];}
+\DoxyCodeLine{00205\ \}}
+\DoxyCodeLine{00206\ }
+\DoxyCodeLine{00207\ }
+\DoxyCodeLine{00208\ }
+\DoxyCodeLine{00209\ }
+\DoxyCodeLine{00218\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{00219\ T\ \mbox{\hyperlink{classsparse__tensor6D_a1ea3e36cfda15f63493d7c8e8a2af8d8}{sparse\_tensor6D<T>::operator()}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ i1,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ i2,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ i3,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ i4,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ i5,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ i6)}
+\DoxyCodeLine{00220\ \{}
+\DoxyCodeLine{00221\ \ \ \ \ \textcolor{keywordflow}{if}\ (data.find(std::make\_tuple(i1,\ i2,\ i3,\ i4,\ i5,\ i6))\ !=\ data.end())\ }
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ data[std::make\_tuple(i1,\ i2,\ i3,\ i4,\ i5,\ i6)];}
+\DoxyCodeLine{00223\ \ \ \ \ \textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}ERROR\ Key\ (\ "{}}\ <<\ i1\ <<\ \textcolor{stringliteral}{"{},\ "{}}\ <<\ i2\ <<\ \textcolor{stringliteral}{"{},\ "{}}\ <<\ i3\ <<\ \textcolor{stringliteral}{"{},\ "{}}\ <<\ i4\ <<\ \textcolor{stringliteral}{"{},\ "{}}\ <<\ i5\ <<\ \textcolor{stringliteral}{"{},\ "{}}\ <<\ i6\ <<\ \textcolor{stringliteral}{"{}\ )\ not\ present!\ Returning\ NaN"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::numeric\_limits<double>::quiet\_NaN();}
+\DoxyCodeLine{00226\ \ \ \ \ \}}
+\DoxyCodeLine{00227\ \}}
+\DoxyCodeLine{00228\ }
+\DoxyCodeLine{00237\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{00238\ T\ \mbox{\hyperlink{classsparse__tensor6D_a1ea3e36cfda15f63493d7c8e8a2af8d8}{sparse\_tensor6D<T>::operator()}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ i1,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ i2,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ i3,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ i4,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ i5,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ i6)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00239\ \textcolor{keyword}{}\{}
+\DoxyCodeLine{00240\ \ \ \ \ \textcolor{keywordflow}{if}\ (data.find(std::make\_tuple(i1,\ i2,\ i3,\ i4,\ i5,\ i6))\ !=\ data.end())\ \ \ \ }
+\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ data[std::make\_tuple(i1,\ i2,\ i3,\ i4,\ i5,\ i6)];}
+\DoxyCodeLine{00242\ \ \ \ \ \textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00243\ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}ERROR:\ Key\ (\ "{}}\ <<\ i1\ <<\ \textcolor{stringliteral}{"{},\ "{}}\ <<\ i2\ <<\ \textcolor{stringliteral}{"{},\ "{}}\ <<\ i3\ <<\ \textcolor{stringliteral}{"{},\ "{}}\ <<\ i4\ <<\ \textcolor{stringliteral}{"{},\ "{}}\ <<\ i5\ <<\ \textcolor{stringliteral}{"{},\ "{}}\ <<\ i6\ <<\ \textcolor{stringliteral}{"{}\ )\ not\ present!\ Returning\ to\ NaN"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00244\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::numeric\_limits<double>::quiet\_NaN();}
+\DoxyCodeLine{00245\ \ \ \ \ \}}
+\DoxyCodeLine{00246\ \}}
+\DoxyCodeLine{00247\ }
+\DoxyCodeLine{00248\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00249\ }
+\DoxyCodeLine{00250\ }
+
+\end{DoxyCode}

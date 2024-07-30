@@ -1,0 +1,36 @@
+\doxysection{custom\+\_\+parameters.\+h}
+\hypertarget{custom__parameters_8h_source}{}\label{custom__parameters_8h_source}\index{truspace\_extension\_example/custom\_parameters.h@{truspace\_extension\_example/custom\_parameters.h}}
+\mbox{\hyperlink{custom__parameters_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#ifndef\ CUSTOM\_PARAMETERS\_H}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#define\ CUSTOM\_PARAMETERS\_H}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{parameters_8h}{parameters.h}}"{}}}
+\DoxyCodeLine{00014\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classcustom__parameters}{custom\_parameters}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classparameters}{parameters}}}
+\DoxyCodeLine{00015\ \{}
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ input\ parameters}}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classcustom__parameters_a946295c57e170467c4fba9c3519e5f17}{numPert}};\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classcustom__parameters_a41d3403f91cf626eff752ce758aefba8}{maxLev}};\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classcustom__parameters_aa9c75d92680bd599e546feeeb8055393}{minLev}};\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}*\ \mbox{\hyperlink{classcustom__parameters_a3b77834270164837767513b748962701}{pConst}};\ \ \ \ \ \ }
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classcustom__parameters_aece9b5be942356266aebb6058234d49b}{rSteps}};\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classcustom__parameters_a1662b9c05022c1638b4d10da38fbcbda}{rInc}};\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classcustom__parameters_ac90284ed19efa79129ebfcf2e6440b1e}{rStart}};\ \ \ \ \ \ \ }
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classcustom__parameters_a9e36059aac19ff4dfb583d34e5e26780}{TCSA}};\ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classcustom__parameters_ade4bb2ee1557b4caf1361ddfcb0a0699}{saveEigenvec}};\ \ \ }
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ we\ hard\ code\ here\ the\ value\ of\ m\ and\ hbar}}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ m\ =\ 1;}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ hbar\ =\ 1;}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ class\ methods}}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classcustom__parameters}{custom\_parameters}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ modelfilename,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ nrgfilename);}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classcustom__parameters_af026275532160d5d7530bdb4e4edf307}{print}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classcustom__parameters_ac507a8d43bc397cff467a71c7ae6957b}{\string~custom\_parameters}}();}
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classcustom__parameters}{custom\_parameters}}();}
+\DoxyCodeLine{00050\ \};}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#endif\ \ \ \ }}
+
+\end{DoxyCode}

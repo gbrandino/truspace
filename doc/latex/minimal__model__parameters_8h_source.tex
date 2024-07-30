@@ -1,0 +1,80 @@
+\doxysection{minimal\+\_\+model\+\_\+parameters.\+h}
+\hypertarget{minimal__model__parameters_8h_source}{}\label{minimal__model__parameters_8h_source}\index{truspace/minimal\_model\_parameters.h@{truspace/minimal\_model\_parameters.h}}
+\mbox{\hyperlink{minimal__model__parameters_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#ifndef\ MINIMAL\_MODEL\_PARAMETERS\_H}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#define\ MINIMAL\_MODEL\_PARAMETERS\_H}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{tensors_8h}{tensors.h}}"{}}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ "{}sparse\_tensor.h"{}}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <complex>}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ <map>}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{parameters_8h}{parameters.h}}"{}}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00029\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classminimal__model__parameters}{minimal\_model\_parameters}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classparameters}{parameters}}\ }
+\DoxyCodeLine{00030\ \{}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ input\ parameters}}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classminimal__model__parameters_a8cfc6b418d0344bce79638fe3533f761}{p}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classminimal__model__parameters_a74b5dedb1ee29af3cb9fb00ce2aa2c88}{q}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classminimal__model__parameters_a923c658a64abef9bf3a7ceb3e9fb7390}{numPert}};\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classminimal__model__parameters_a800f2100e36cef8509aec70862404f47}{maxLev}};\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classminimal__model__parameters_a45289b9f7a2a8bd38e07293934bc4df5}{minLev}};\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classminimal__model__parameters_af74f23e424aee02cd090ffd6961e27ae}{momentum}};\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}*\ \mbox{\hyperlink{classminimal__model__parameters_a177464f1cbd21a99346b5563319645f9}{r}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ std::pair<double,double>*\ \mbox{\hyperlink{classminimal__model__parameters_a0b97dd692a43f1d6b9968d05f5c137de}{deltas}};\ \ \ \ \ \ }
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}*\ \mbox{\hyperlink{classminimal__model__parameters_a67ef9d686583fbe69b855871d2b0c18a}{pConst}};\ \ \ \ \ \ }
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classminimal__model__parameters_a2e9948fbb9c95a1da11517aa49e689a1}{rSteps}};\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classminimal__model__parameters_a1b4584414f90bbce65719e9014a3abae}{rInc}};\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classminimal__model__parameters_a55e074cacce63a3b3732b1de8c07ec6f}{rStart}};\ \ \ \ \ \ \ }
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classminimal__model__parameters_a6281bf77ea8a511f5706759e416a3760}{TCSA}};\ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classminimal__model__parameters_abe678324fcdf1de725490eda39d00440}{SAVE\_STATES}};\ \ \ \ }
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classminimal__model__parameters_a29b806f7933a5e8a06293a0c740e7832}{READ\_STATES}};\ \ \ \ }
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classminimal__model__parameters_a0f1a3aa206ae22eadeeb77ce98c11fe9}{SAVE\_ME}};\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classminimal__model__parameters_a9594fe23e5804dc552f5d87b86327bd2}{READ\_ME}};\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classminimal__model__parameters_a1e41fcaf7a525dbce6370912ed74ba1c}{r\_op}};\ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ std::string\ \mbox{\hyperlink{classminimal__model__parameters_aae92c2a3cb1b060df08279e960b00c4b}{fields\_file}};\ \ }
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ std::string\ \mbox{\hyperlink{classminimal__model__parameters_a14db5bc16d2d4641317ff558bc6a45bd}{constants\_file}};\ }
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ objects\ calculated\ from\ input\ parameters}}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classminimal__model__parameters_aaafa4193f3c61ffd1e57fec6a82d9f6e}{C}};\ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classminimal__model__parameters_a4d0e090a386b3c6058c1a4c68c14fdff}{maxp}};\ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classminimal__model__parameters_aa9128a7937e197ed8d0123013fb73205}{maxq}};\ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classminimal__model__parameters_a18e0bc27ac7c80eeed4ef109026f9341}{maxl}};\ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classminimal__model__parameters_a5b2381734e78aea8666b14d1b2f8ab65}{n\_fields}};\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classminimal__model__parameters_a3195d2a913869c3d255e611c23c469d5}{numspace}};\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classminimal__model__parameters_a673f2dbb085db392ba13cd43ac64915b}{currentSubspace}};\ }
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}*\ \mbox{\hyperlink{classminimal__model__parameters_ac826c4c5385555a1586a063db59a7e30}{maxNumStates}};\ \ \ }
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ std::vector<std::pair<\ std::pair<\ int,\ int\ >,\ std::pair<\ int,\ int>\ >\ >\ fields;\ }
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ std::map<\ int,\ std::pair<\ double,\ double>\ >\ \mbox{\hyperlink{classminimal__model__parameters_a0bb7a02df65711d2b4a28e3092460ba1}{fields\_dimensions}};\ }
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ tensors\ are\ first\ created\ as\ dummies.\ They\ are\ then\ properly\ allocated\ through\ assignment\ in\ paramters(ifstream)}}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classtensor2D}{tensor2D<double>}}\ \mbox{\hyperlink{classminimal__model__parameters_a7dd70e3076d6429b402b4b13c9b62dd3}{Kac}};\ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classsparse__tensor6D}{sparse\_tensor6D<double>}}\ \mbox{\hyperlink{classminimal__model__parameters_ab061b33d930c9209e1f8a715e9ae4c44}{cpt}};\ \ }
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \textcolor{comment}{//tensor3D<\ std::complex<long\ double>\ >\ cptsmall;\ /**<\ Structure\ constant\ of\ the\ model,\ indexed\ with\ field\ index\ instead\ of\ r,s.\ Calculated\ by\ the\ code\ */}}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classsparse__tensor3D}{sparse\_tensor3D<double>}}\ \mbox{\hyperlink{classminimal__model__parameters_a2fd1c71b8ab78f46593f1bbecd836f52}{cptsmall}};\ }
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ std::vector<\ std::map\ <\ std::pair<int,\ int>,\ \textcolor{keywordtype}{int}\ >\ >\ \mbox{\hyperlink{classminimal__model__parameters_a3c8fba6fe0e66b3581cdfe3419c7b92e}{PairToIndex}};\ }
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ std::vector<\ std::map\ <\ int,\ std::pair<int,\ int>\ >\ >\ \mbox{\hyperlink{classminimal__model__parameters_a7e155e650b7ef337f494088b40dc4c1f}{IndexToPair}};\ }
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classtensor3D}{tensor3D<\ int\ >}}\ \mbox{\hyperlink{classminimal__model__parameters_a7cee2f7f43cd49a93e5c0a8663d542ca}{vermadim}};\ \ \ \ \ \ \ }
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classtensor3D}{tensor3D<\ int\ >}}\ \mbox{\hyperlink{classminimal__model__parameters_afb2f318b00754054bb60a1673f25ece7}{vermadimcomul}};\ \ }
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classtensor2D}{tensor2D<int>}}\ \mbox{\hyperlink{classminimal__model__parameters_a51077797f59b83fca0c961d5b086599a}{finalsubspace}};\ \ }
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classtensor2D}{tensor2D<\ int\ >}}\ \mbox{\hyperlink{classminimal__model__parameters_a6218544c5cae55191da8178d1e039288}{intMatrix}};\ \ \ \ \ \ }
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}*\ \mbox{\hyperlink{classminimal__model__parameters_a3212d4ee76c51d6f9067cdd27aa9a9d7}{subdim}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}*\ \mbox{\hyperlink{classminimal__model__parameters_a4fb28924d3b923fc1054c855495fec6f}{leveldim}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classtensor2D}{tensor2D<int>}}\ \mbox{\hyperlink{classminimal__model__parameters_a4e2b7887c529aa9c9d6ee3372458ffa2}{subdimStates}};\ \ \ \ \ }
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ class\ methods}}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classminimal__model__parameters}{minimal\_model\_parameters}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ modelfilename,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ nrgfilename);}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classminimal__model__parameters_a589555102465fce9a8d7441d0d05d4b9}{print}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classminimal__model__parameters_a4e5ad82e87b6081b96e9e59d84f8fe41}{analyse\_subspaces}}();}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classminimal__model__parameters_a5b5a9289819ec29f96a4cfcc118c48fa}{\string~minimal\_model\_parameters}}();}
+\DoxyCodeLine{00100\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classminimal__model__parameters}{minimal\_model\_parameters}}();}
+\DoxyCodeLine{00105\ \};}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \textcolor{preprocessor}{\#endif\ \ \ \ }}
+
+\end{DoxyCode}

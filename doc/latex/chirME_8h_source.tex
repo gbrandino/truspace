@@ -1,0 +1,33 @@
+\doxysection{chir\+ME.\+h}
+\hypertarget{chirME_8h_source}{}\label{chirME_8h_source}\index{truspace/chirME.h@{truspace/chirME.h}}
+\mbox{\hyperlink{chirME_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#ifndef\ CHIRME\_H}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#define\ CHIRME\_H}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{minimal__model__parameters_8h}{minimal\_model\_parameters.h}}"{}}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{minimal__model__states_8h}{minimal\_model\_states.h}}"{}}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{matrix__elements_8h}{matrix\_elements.h}}"{}}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{tensors_8h}{tensors.h}}"{}}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{minimal__model__filenames_8h}{minimal\_model\_filenames.h}}"{}}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00018\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classchirME}{chirME}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classmatrix__elements}{matrix\_elements}}}
+\DoxyCodeLine{00019\ \{}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classchirME}{chirME}}(\mbox{\hyperlink{classminimal__model__parameters}{minimal\_model\_parameters}}\&\ p,\ \mbox{\hyperlink{classminimal__model__states}{minimal\_model\_states}}\&\ st);}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classchirME_a58fe24d5185144ead98d8f91e25d392b}{\string~chirME}}();}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classchirME_a8c1712c4ecb24ce73156f5d23a4835fa}{calculate\_or\_read\_chirME}}(\mbox{\hyperlink{classminimal__model__parameters}{minimal\_model\_parameters}}\&\ p,\ \mbox{\hyperlink{classminimal__model__filenames}{minimal\_model\_filenames}}\&\ fnames,\ \mbox{\hyperlink{classminimal__model__states}{minimal\_model\_states}}\&\ st);}
+\DoxyCodeLine{00036\ \ }
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classchirME_aa93e1563ff97ead71283f06f93f84c13}{calculate\_chirME\_for\_ExpVal}}(\mbox{\hyperlink{classminimal__model__parameters}{minimal\_model\_parameters}}\&\ p,\ \mbox{\hyperlink{classminimal__model__states}{minimal\_model\_states}}\&\ st);}
+\DoxyCodeLine{00042\ \ }
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classchirME_ad4a0b1690ae2d2136d0a3d1f688941a6}{calculate\_ExpVal}}(\mbox{\hyperlink{classparameters}{parameters}}\&\ p,\ \mbox{\hyperlink{classstates}{states}}\&\ st,\ \textcolor{keywordtype}{double}*\ coeff,\ \textcolor{keywordtype}{int}\ size,\ std::string\ fname,\ \textcolor{keywordtype}{double}\ R);}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classchirME_aa7c660ff0d455c31a725078377252c27}{compare\_fields}}(\ std::pair<std::pair\ <int,int>,\ std::pair\ <int,int>\ >\ f1,\ \ std::pair<std::pair\ <int,int>,\ std::pair\ <int,int>\ >\ f2);}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classtensor5D}{tensor5D<\ std::pair<long\ double,\ long\ double>}}\ >\ \mbox{\hyperlink{classchirME_aec195b69a1aa902a2d88c0bd1f469b15}{me\_chi\_ortho}};\ }
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classtensor4D}{tensor4D<\ std::pair<long\ double,\ long\ double>}}\ >\ \mbox{\hyperlink{classchirME_a2c979d1744b25f54f14f9f7bf60769a5}{me\_chi\_ortho\_op}};\ }
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classchirME}{chirME}}();}
+\DoxyCodeLine{00066\ \};}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#endif\ \ }}
+
+\end{DoxyCode}

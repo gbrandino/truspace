@@ -1,0 +1,26 @@
+\doxysection{scalapack.\+h}
+\hypertarget{scalapack_8h_source}{}\label{scalapack_8h_source}\index{nrg/scalapack.h@{nrg/scalapack.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ SCALAPACK\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ SCALAPACK\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \{}
+\DoxyCodeLine{00005\ \textcolor{keywordtype}{void}\ pdsyev\_(\ \textcolor{keywordtype}{char}\ *jobz,\ \textcolor{keywordtype}{char}\ *uplo,\ \textcolor{keywordtype}{int}\ *n,\ \textcolor{keywordtype}{double}\ *a,\ \textcolor{keywordtype}{int}\ *ia,\ \textcolor{keywordtype}{int}\ *ja,\ \textcolor{keywordtype}{int}\ *desca,\ \textcolor{keywordtype}{double}\ *w,\ \textcolor{keywordtype}{double}\ *z,\ \textcolor{keywordtype}{int}\ *iz,\ \textcolor{keywordtype}{int}\ *jz,\ \textcolor{keywordtype}{int}\ *descz,\ \textcolor{keywordtype}{double}\ *work,\ \textcolor{keywordtype}{int}\ *lwork,\ \textcolor{keywordtype}{int}\ *info\ );}
+\DoxyCodeLine{00006\ \textcolor{keywordtype}{void}\ pdsyevd\_(\ \textcolor{keywordtype}{char}\ *jobz,\ \textcolor{keywordtype}{char}\ *uplo,\ \textcolor{keywordtype}{int}\ *n,\ \textcolor{keywordtype}{double}\ *a,\ \textcolor{keywordtype}{int}\ *ia,\ \textcolor{keywordtype}{int}\ *ja,\ \textcolor{keywordtype}{int}\ *desca,\ \textcolor{keywordtype}{double}\ *w,\ \textcolor{keywordtype}{double}\ *z,\ \textcolor{keywordtype}{int}\ *iz,\ \textcolor{keywordtype}{int}\ *jz,\ \textcolor{keywordtype}{int}\ *descz,\ \textcolor{keywordtype}{double}\ *work,\ \textcolor{keywordtype}{int}\ *lwork,\ \textcolor{keywordtype}{int}\ *iwork,\ \textcolor{keywordtype}{int}*\ liwork,\ \textcolor{keywordtype}{int}\ *info\ );}
+\DoxyCodeLine{00007\ \textcolor{keywordtype}{void}\ pdelget\_(\textcolor{keywordtype}{char}\ *scope,\ \textcolor{keywordtype}{char}\ *top,\ \textcolor{keywordtype}{double}*\ alpha,\ \textcolor{keywordtype}{double}\ *a,\ \textcolor{keywordtype}{int}*\ ia,\ \textcolor{keywordtype}{int}*\ ja,\ \textcolor{keywordtype}{int}*\ desca);\ }
+\DoxyCodeLine{00008\ \textcolor{keywordtype}{void}\ pdelset\_(\ \textcolor{keywordtype}{double}\ *a,\ \textcolor{keywordtype}{int}*\ ia,\ \textcolor{keywordtype}{int}*\ ja,\ \textcolor{keywordtype}{int}*\ desca,\ \textcolor{keywordtype}{double}*\ alpha);}
+\DoxyCodeLine{00009\ \textcolor{keywordtype}{int}\ numroc\_(\textcolor{keywordtype}{int}\ *n,\ \textcolor{keywordtype}{int}\ *nb,\ \textcolor{keywordtype}{int}\ *iproc,\ \textcolor{keywordtype}{int}\ *isproc,\ \textcolor{keywordtype}{int}\ *nprocs);}
+\DoxyCodeLine{00010\ \textcolor{keywordtype}{void}\ descinit\_(\textcolor{keywordtype}{int}\ *desc,\ \textcolor{keywordtype}{int}\ *m,\ \textcolor{keywordtype}{int}\ *n,\ \textcolor{keywordtype}{int}\ *mb,\ \textcolor{keywordtype}{int}\ *nb,\ \textcolor{keywordtype}{int}\ *irsrc,\ \textcolor{keywordtype}{int}\ *icsrc,\ \textcolor{keywordtype}{int}\ *ictxt,\ \textcolor{keywordtype}{int}\ *lld,\ \textcolor{keywordtype}{int}*\ info);}
+\DoxyCodeLine{00011\ \textcolor{keywordtype}{void}\ pdgemm\_(\textcolor{keywordtype}{char}\ *TRANSA,\ \textcolor{keywordtype}{char}\ *TRANSB,\ \textcolor{keywordtype}{int}\ *M,\ \textcolor{keywordtype}{int}\ *N,\ \textcolor{keywordtype}{int}\ *K,\ \textcolor{keywordtype}{double}\ *ALPHA,\ \textcolor{keywordtype}{double}\ *A,\ \textcolor{keywordtype}{int}\ *IA,\ \textcolor{keywordtype}{int}\ *JA,\ \textcolor{keywordtype}{int}\ *DESCA,\ \textcolor{keywordtype}{double}\ *B,\ \textcolor{keywordtype}{int}\ *IB,\ \textcolor{keywordtype}{int}\ *JB,\ \textcolor{keywordtype}{int}\ *DESCB,\ \textcolor{keywordtype}{double}\ *BETA,\ \textcolor{keywordtype}{double}\ *C,\ \textcolor{keywordtype}{int}\ *IC,\ \textcolor{keywordtype}{int}\ *JC,\ \textcolor{keywordtype}{int}\ *DESCC);}
+\DoxyCodeLine{00012\ \textcolor{keywordtype}{void}\ \ \ Cblacs\_pinfo(\ \textcolor{keywordtype}{int}*\ mypnum,\ \textcolor{keywordtype}{int}*\ nprocs);}
+\DoxyCodeLine{00013\ \textcolor{keywordtype}{void}\ \ \ Cblacs\_get(\ \textcolor{keywordtype}{int}\ context,\ \textcolor{keywordtype}{int}\ request,\ \textcolor{keywordtype}{int}*\ value);}
+\DoxyCodeLine{00014\ \textcolor{keywordtype}{int}\ \ \ \ Cblacs\_gridinit(\ \textcolor{keywordtype}{int}*\ context,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ order,\ \textcolor{keywordtype}{int}\ np\_row,\ \textcolor{keywordtype}{int}\ np\_col);}
+\DoxyCodeLine{00015\ \textcolor{keywordtype}{void}\ \ \ Cblacs\_gridinfo(\ \textcolor{keywordtype}{int}\ context,\ \textcolor{keywordtype}{int}*\ \ np\_row,\ \textcolor{keywordtype}{int}*\ np\_col,\ \textcolor{keywordtype}{int}*\ \ my\_row,\ \textcolor{keywordtype}{int}*\ \ my\_col);}
+\DoxyCodeLine{00016\ \textcolor{keywordtype}{void}\ \ \ Cblacs\_gridexit(\ \textcolor{keywordtype}{int}\ context);}
+\DoxyCodeLine{00017\ \textcolor{keywordtype}{void}\ \ \ Cblacs\_exit(\ \textcolor{keywordtype}{int}\ error\_code);}
+\DoxyCodeLine{00018\ \}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}
