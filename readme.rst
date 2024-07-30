@@ -38,7 +38,7 @@ Currently, the Truspace can calculate:
 
 - Eigenvalues and Eigenvectors of any unitary perturbed conformal field theory based minimal models using full diagonalization, ``NRG`` or ``Sweep``
 - Automatic separation of symmetry subspaces in the perturbed system. Symmetry subspaces are diagonalized separately, to reduce computational complexity
-- Possibility of considering non-zero momentum states. Momentum subspace are diagonalized separately ( unless it is specifically requested to diagonalize all the subspaces together). 
+- Possibility of considering non-zero momentum states. Momentum subspace are diagonalized separately  
 - Expectation value on the final basis of any primary field 
 
 
@@ -79,7 +79,7 @@ The available classes are
 - tensors : helper template class to handle 2D, 3D, 4D, 5D and 6D tensors. It ensures memory contiguity and automatic deallocation when out of scope, without forcing compilation-time sizes. 
 - NRG : model-agnostic  full diagonalization, ``NRG`` and ``Sweep`` routine 
 
-The model-agnostic nature of the NRG class should allow easy extension of the current code to other Quantum Hamiltonians.
+The model-agnostic nature of the NRG class should allow easy extensions of the current code to other Quantum Hamiltonians.
 
 Full class documentation available at https://truspacedevelopers.bitbucket.io/ 
 
@@ -242,9 +242,8 @@ The structure constants file instead looks like::
   2,2,3|0.5
   3,2,2|0.5
 
-The structure constants are non-chiral, meanining they are the combination of chiral and anti-chiral components. The three indexes referes to the indexing in the fields file,
-such that 1,2,2 means the structure constant I,sigma,sigma.
-Everything after the "|" is a comment. Here we wrote the conformal weight of the fields.
+The structure constants are non-chiral, meanining they are the combination of chiral and anti-chiral components. The three indexes referes to the indexing in the fields file.
+For example, in the Ising case, 1,2,2 means the structure constant I,sigma,sigma, whose value shoud be wrttine after the "|". 
 
 Fields and structure constants files can be generated using "fields_and_structure_constants.x" for the diagonal partition function minimal models. 
 
