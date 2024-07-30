@@ -1,0 +1,61 @@
+\doxysection{worker Class Reference}
+\hypertarget{classworker}{}\label{classworker}\index{worker@{worker}}
+
+
+Driver Class for states, matrix element and \doxylink{classNRG}{NRG} calculation.  
+
+
+
+
+{\ttfamily \#include $<$worker.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classworker_a7bd845810dd8185384e37405ef322b7d}\label{classworker_a7bd845810dd8185384e37405ef322b7d} 
+{\bfseries worker} ()
+\begin{DoxyCompactList}\small\item\em Default constructor. \end{DoxyCompactList}\item 
+\Hypertarget{classworker_ae34952f078699922bd79de0506995a47}\label{classworker_ae34952f078699922bd79de0506995a47} 
+{\bfseries \texorpdfstring{$\sim$}{\string~}worker} ()
+\begin{DoxyCompactList}\small\item\em Default destructor. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classworker_a456282fe869b1e59de35d7bd0958f981}{run}} (\mbox{\hyperlink{classminimal__model__parameters}{minimal\+\_\+model\+\_\+parameters}} \&p)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Driver Class for states, matrix element and \doxylink{classNRG}{NRG} calculation. 
+
+It takes care of
+\begin{DoxyItemize}
+\item looping through the subspace found by parameters\+::analyze\+\_\+subspace
+\item finding chiral and non-\/chiral base states in each subspace
+\item calling \doxylink{classNRG}{NRG} routine on each subspace
+\item calculating Matrix element on the eigenstates found, in each subspace. If the operator connects a set of subspaces, then those subspaces are diagonalized at the same time
+\end{DoxyItemize}
+
+\begin{DoxyAuthor}{Author}
+Giuseppe Piero Brandino -\/ e\+Xact-\/lab s.\+r.\+l. 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+November 2017 
+\end{DoxyDate}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classworker_a456282fe869b1e59de35d7bd0958f981}\label{classworker_a456282fe869b1e59de35d7bd0958f981} 
+\index{worker@{worker}!run@{run}}
+\index{run@{run}!worker@{worker}}
+\doxysubsubsection{\texorpdfstring{run()}{run()}}
+{\footnotesize\ttfamily void worker\+::run (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classminimal__model__parameters}{minimal\+\_\+model\+\_\+parameters}} \&}]{p }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em p} & paramerts object \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+truspace/\mbox{\hyperlink{worker_8h}{worker.\+h}}\item 
+truspace/worker.\+cpp\end{DoxyCompactItemize}

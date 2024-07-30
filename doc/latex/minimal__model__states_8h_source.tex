@@ -1,0 +1,63 @@
+\doxysection{minimal\+\_\+model\+\_\+states.\+h}
+\hypertarget{minimal__model__states_8h_source}{}\label{minimal__model__states_8h_source}\index{truspace/minimal\_model\_states.h@{truspace/minimal\_model\_states.h}}
+\mbox{\hyperlink{minimal__model__states_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#ifndef\ MINIMAL\_MODEL\_STATES\_H}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#define\ MINIMAL\_MODEL\_STATES\_H}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{states_8h}{states.h}}"{}}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{minimal__model__parameters_8h}{minimal\_model\_parameters.h}}"{}}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{minimal__model__filenames_8h}{minimal\_model\_filenames.h}}"{}}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00016\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classminimal__model__states}{minimal\_model\_states}}:\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classstates}{states}}}
+\DoxyCodeLine{00017\ \{}
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classminimal__model__states}{minimal\_model\_states}}(\mbox{\hyperlink{classminimal__model__parameters}{minimal\_model\_parameters}}\&\ p);}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classminimal__model__states_a77572f5e6379515eda7ee953fe1ca1df}{\string~minimal\_model\_states}}();}
+\DoxyCodeLine{00026\ \ \ \ }
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classminimal__model__states_abd3cb3a251dbccab594866f63b54db29}{calculate\_chiral}}(\mbox{\hyperlink{classminimal__model__parameters}{minimal\_model\_parameters}}\&\ p,\ \textcolor{keywordtype}{int}\ subspace,\ \mbox{\hyperlink{classminimal__model__filenames}{minimal\_model\_filenames}}\&\ fname\ );\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classminimal__model__states_a554266d211913ffbb4618f853b0535aa}{calculate\_nonchiral}}(\mbox{\hyperlink{classminimal__model__parameters}{minimal\_model\_parameters}}\&\ p,\ \textcolor{keywordtype}{int}\ subspace,\ \textcolor{keywordtype}{int}\ mom);}
+\DoxyCodeLine{00039\ \ \ \ \ \ }
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classminimal__model__states_a5be19f4ca59a04b240bc6313b79a7ae8}{read\_chiral}}(\mbox{\hyperlink{classminimal__model__parameters}{minimal\_model\_parameters}}\&\ p,\ \textcolor{keywordtype}{int}\ subspace,\ \mbox{\hyperlink{classminimal__model__filenames}{minimal\_model\_filenames}}\&\ fname);}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classminimal__model__states_a55bad400590b90ba36ea543c2fd71ccf}{MaxChiralStates}};\ }
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classminimal__model__states_a505feda2a5681b1052dd758afb94ab24}{MaxChiralVerma}};\ }
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classminimal__model__states_a8924e1e5d05a757bebdc13a5a54fbfa9}{MaxStates}};\ \ \ \ }
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}*\ \mbox{\hyperlink{classminimal__model__states_a54b8440e574bfefca5bcab76b2508153}{state\_en}};\ }
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}*\ \mbox{\hyperlink{classminimal__model__states_a00aa219a2febb9724d41ab8b676980fb}{state\_eff\_en}};\ }
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}*\ \mbox{\hyperlink{classminimal__model__states_a065e6f83bea05c3c75cf88c4fead9277}{state\_left}};\ \ }
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}*\ \mbox{\hyperlink{classminimal__model__states_a6640c6f43090b59ddc96cfbade716f1e}{state\_right}};\ }
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \textcolor{comment}{//int*\ state\_vmod;\ \ /**<\ Array\ that,\ given\ the\ global\ index\ of\ nonchiral\ states,\ returns\ the\ index\ of\ the\ correct\ Verma\ module\ */}}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}*\ \mbox{\hyperlink{classminimal__model__states_a7f4753cbc9ad14c7dde3c71c7e017ec8}{state\_vmod\_left}};\ \ }
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}*\ \mbox{\hyperlink{classminimal__model__states_af82566a733bafff3a036c97a793ada13}{state\_vmod\_right}};\ \ }
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keywordtype}{int}*\ \mbox{\hyperlink{classminimal__model__states_ae3705bec5a50fb520ca30fe74b482c25}{state\_field}};\ \ \textcolor{comment}{//rmk\ edit\ 21/04/24}}
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{double}*\ \mbox{\hyperlink{classminimal__model__states_a2520441cfb5f039e377240c296790494}{h}};\ }
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classtensor3D}{tensor3D<\ long\ double\ >}}\ \mbox{\hyperlink{classminimal__model__states_aaf7385be4ef722eed4ef4d5ce297b4de}{cstate\_ortho\_modecoeff}};\ }
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classtensor3D}{tensor3D<\ long\ double\ >}}\ \mbox{\hyperlink{classminimal__model__states_a3527ac53f5e25310d3dc387899be53c4}{me\_chi\_0}};\ }
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classtensor2D}{tensor2D<\ long\ double\ >}}\ \mbox{\hyperlink{classminimal__model__states_abe3088d71555ea1ab1b84c92d3942969}{norm}};\ }
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classtensor3D}{tensor3D<\ long\ double\ >}}\ \mbox{\hyperlink{classminimal__model__states_af19531990eda66a60d27cf7740690d71}{cstate\_mode}};\ }
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classtensor2D}{tensor2D<\ long\ double\ >}}\ \mbox{\hyperlink{classminimal__model__states_a1ad02ff2dfc154efaeda0a60337f256f}{cstate\_norm}};\ }
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}*\ \mbox{\hyperlink{classminimal__model__states_a0d6e6698f89b1aa264cdface987be015}{num\_chir}};\ \ }
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classtensor2D}{tensor2D<\ int\ >}}\ \mbox{\hyperlink{classminimal__model__states_a3fa8e2961a7b8e79b4c6dce12572eae8}{cstate\_lev}};\ }
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classtensor2D}{tensor2D<\ int\ >}}\ \mbox{\hyperlink{classminimal__model__states_ab3e0514d0118978469341295f4d69b62}{cstate\_nmode}};\ }
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classtensor2D}{tensor2D<\ int\ >}}\ \mbox{\hyperlink{classminimal__model__states_a2f566f39198656985f6e42aef091ef9e}{cstate\_ortho\_lev}};\ }
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classtensor2D}{tensor2D<\ int\ >}}\ \mbox{\hyperlink{classminimal__model__states_ac0cd941d12af23d6cd3bf5a90bbfc102}{cstate\_ortho\_nmode}};\ }
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classtensor3D}{tensor3D<\ int\ >}}\ \mbox{\hyperlink{classminimal__model__states_acb109e11753e0abe4d4760356e9d427a}{cstate\_ortho\_mode}};\ }
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classminimal__model__states_a2ab7aea38fe21c2bf1e42f28d016900b}{MaxKac}};\ }
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classtensor2D}{tensor2D<\ int\ >}}\ \mbox{\hyperlink{classminimal__model__states_aa805b824de700f82fd3d39817ea34c65}{nstates\_lev}};\ }
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classtensor2D}{tensor2D<\ int\ >}}\ \mbox{\hyperlink{classminimal__model__states_afe23727ada7df2eecc38dd19f48564c5}{nstates\_lev\_each}};\ }
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classtensor3D}{tensor3D<\ int\ >}}\ \mbox{\hyperlink{classminimal__model__states_a39e1659b42edab012d74404edec6df80}{state\_right\_lev}};\ }
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classtensor3D}{tensor3D<\ int\ >}}\ \mbox{\hyperlink{classminimal__model__states_ac602acd6f59c362b6fbe31cb0893713e}{state\_left\_lev}};\ }
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classtensor4D}{tensor4D<\ int\ >}}\ \mbox{\hyperlink{classminimal__model__states_a665f01d516571c8047669e79d715d519}{state\_nonchiral\_lev}};\ }
+\DoxyCodeLine{00077\ \ \ \ \ \textcolor{comment}{//\ \ \ \ char\ overlapname[100];\ }}
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{comment}{//\ \ \ \ char\ statename[100];}}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classminimal__model__states}{minimal\_model\_states}}();}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00084\ \};}
+\DoxyCodeLine{00085\ \textcolor{preprocessor}{\#endif\ }}
+
+\end{DoxyCode}

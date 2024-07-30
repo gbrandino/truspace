@@ -1,0 +1,528 @@
+\doxysection{minimal\+\_\+model\+\_\+\+Hamiltonian Class Reference}
+\hypertarget{classminimal__model__Hamiltonian}{}\label{classminimal__model__Hamiltonian}\index{minimal\_model\_Hamiltonian@{minimal\_model\_Hamiltonian}}
+
+
+\doxylink{classHamiltonian}{Hamiltonian} Class.  
+
+
+
+
+{\ttfamily \#include $<$minimal\+\_\+model\+\_\+\+Hamiltonian.\+h$>$}
+
+Inheritance diagram for minimal\+\_\+model\+\_\+\+Hamiltonian\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classminimal__model__Hamiltonian}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classminimal__model__Hamiltonian_afb5579588707eca99edc392bef433aa6}{minimal\+\_\+model\+\_\+\+Hamiltonian}} (\mbox{\hyperlink{classminimal__model__parameters}{minimal\+\_\+model\+\_\+parameters}} \&\mbox{\hyperlink{classHamiltonian_afc4326f58ef24ef5f2976e2b75dd01a3}{p}}, \mbox{\hyperlink{classminimal__model__states}{minimal\+\_\+model\+\_\+states}} \&\mbox{\hyperlink{classHamiltonian_a135cdd81a8cbd3fc01e9589c90b95040}{st}}, \mbox{\hyperlink{classchirME}{chir\+ME}} \&\mbox{\hyperlink{classHamiltonian_abeb412f8b1bf5cb5ceef6a600ed57a8a}{me}})
+\begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classminimal__model__Hamiltonian_afdf87397452ed805e7b5a0160481baa1}{\texorpdfstring{$\sim$}{\string~}minimal\+\_\+model\+\_\+\+Hamiltonian}} ()
+\begin{DoxyCompactList}\small\item\em Destructor. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classminimal__model__Hamiltonian_aa941ac0491f7a286cedbe850983b4923}{init}} ()
+\begin{DoxyCompactList}\small\item\em Initializes the first iteration \doxylink{classHamiltonian}{Hamiltonian}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classminimal__model__Hamiltonian_af76976bc2cee444091a2d0ee80e02e8d}{print\+\_\+eigen\+Values}} (int iteration, int sweep, double \texorpdfstring{$\ast$}{*}eigenvalues, std\+::string fname, int max\+State)
+\begin{DoxyCompactList}\small\item\em Routine to print eigenvalues to file. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classminimal__model__Hamiltonian_a9719f04528ad1151aa6ff157e2727a39}{print\+\_\+eigen\+Vectors}} (double \texorpdfstring{$\ast$}{*}eigenvectors, std\+::string fname, int size)
+\begin{DoxyCompactList}\small\item\em Routine to print eigenvectors to file. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classminimal__model__Hamiltonian_a5510971707b598870fc243615249f924}{NRG\+\_\+block\+\_\+A}} (double \texorpdfstring{$\ast$}{*}eigenvalues)
+\begin{DoxyCompactList}\small\item\em Routine to fill the top left corner of the \doxylink{classNRG}{NRG} matrix (A block). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classminimal__model__Hamiltonian_a8abb970d2d0eb3a41b44cc11f953bd5f}{NRG\+\_\+block\+\_\+\+BC}} (int iteration, double \texorpdfstring{$\ast$}{*}coeff)
+\begin{DoxyCompactList}\small\item\em Routine to fill the bottom left and top right corners of the \doxylink{classNRG}{NRG} matrix (B and C blocks). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classminimal__model__Hamiltonian_ab5870f4f0220642582897d5a3a127b93}{NRG\+\_\+block\+\_\+D}} (int iteration)
+\begin{DoxyCompactList}\small\item\em Routine to fill the bottom right corner of the \doxylink{classNRG}{NRG} matrix (D block). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classminimal__model__Hamiltonian_a261bc06af3ec561e4e284d3083636557}{sweep\+\_\+block\+\_\+\+BC}} (int iteration, double \texorpdfstring{$\ast$}{*}coeff, double \texorpdfstring{$\ast$}{*}coeff\+Sweep, int NRGspacesize, int NRGstoresize)
+\begin{DoxyCompactList}\small\item\em Routine to fill the bottom left and top right corners of the Sweep matrix (B and C blocks). \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classminimal__model__Hamiltonian_afb5579588707eca99edc392bef433aa6}{minimal\+\_\+model\+\_\+\+Hamiltonian}} (\mbox{\hyperlink{classminimal__model__parameters}{minimal\+\_\+model\+\_\+parameters}} \&\mbox{\hyperlink{classHamiltonian_afc4326f58ef24ef5f2976e2b75dd01a3}{p}}, \mbox{\hyperlink{classminimal__model__states}{minimal\+\_\+model\+\_\+states}} \&\mbox{\hyperlink{classHamiltonian_a135cdd81a8cbd3fc01e9589c90b95040}{st}}, \mbox{\hyperlink{classchirME}{chir\+ME}} \&\mbox{\hyperlink{classHamiltonian_abeb412f8b1bf5cb5ceef6a600ed57a8a}{me}})
+\begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
+\Hypertarget{classminimal__model__Hamiltonian_afdf87397452ed805e7b5a0160481baa1}\label{classminimal__model__Hamiltonian_afdf87397452ed805e7b5a0160481baa1} 
+{\bfseries \texorpdfstring{$\sim$}{\string~}minimal\+\_\+model\+\_\+\+Hamiltonian} ()
+\begin{DoxyCompactList}\small\item\em Destructor. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classminimal__model__Hamiltonian_aa941ac0491f7a286cedbe850983b4923}{init}} ()
+\begin{DoxyCompactList}\small\item\em Initializes the first iteration \doxylink{classHamiltonian}{Hamiltonian}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classminimal__model__Hamiltonian_af76976bc2cee444091a2d0ee80e02e8d}{print\+\_\+eigen\+Values}} (int iteration, int sweep, double \texorpdfstring{$\ast$}{*}eigenvalues, std\+::string fname, int max\+State)
+\begin{DoxyCompactList}\small\item\em Routine to print eigenvalues to file. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classminimal__model__Hamiltonian_a9719f04528ad1151aa6ff157e2727a39}{print\+\_\+eigen\+Vectors}} (double \texorpdfstring{$\ast$}{*}eigenvectors, std\+::string fname, int size)
+\begin{DoxyCompactList}\small\item\em Routine to print eigenvectors to file. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classminimal__model__Hamiltonian_a5510971707b598870fc243615249f924}{NRG\+\_\+block\+\_\+A}} (double \texorpdfstring{$\ast$}{*}eigenvalues)
+\begin{DoxyCompactList}\small\item\em Routine to fill the top left corner of the \doxylink{classNRG}{NRG} matrix (A block). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classminimal__model__Hamiltonian_a8abb970d2d0eb3a41b44cc11f953bd5f}{NRG\+\_\+block\+\_\+\+BC}} (int iteration, double \texorpdfstring{$\ast$}{*}coeff)
+\begin{DoxyCompactList}\small\item\em Routine to fill the bottom left and top right corners of the \doxylink{classNRG}{NRG} matrix (B and C blocks). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classminimal__model__Hamiltonian_ab5870f4f0220642582897d5a3a127b93}{NRG\+\_\+block\+\_\+D}} (int iteration)
+\begin{DoxyCompactList}\small\item\em Routine to fill the bottom right corner of the \doxylink{classNRG}{NRG} matrix (D block). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classminimal__model__Hamiltonian_a261bc06af3ec561e4e284d3083636557}{sweep\+\_\+block\+\_\+\+BC}} (int iteration, double \texorpdfstring{$\ast$}{*}coeff, double \texorpdfstring{$\ast$}{*}coeff\+Sweep, int NRGspacesize, int NRGstoresize)
+\begin{DoxyCompactList}\small\item\em Routine to fill the bottom left and top right corners of the Sweep matrix (B and C blocks). \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classHamiltonian}{Hamiltonian}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classHamiltonian_ae431703173e2943dc6aa7e118cbca31c}{Hamiltonian}} (\mbox{\hyperlink{classparameters}{parameters}} \&p\+\_\+in, \mbox{\hyperlink{classstates}{states}} \&st\+\_\+in, \mbox{\hyperlink{classmatrix__elements}{matrix\+\_\+elements}} \&me\+\_\+in)
+\begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
+virtual {\bfseries \texorpdfstring{$\sim$}{\string~}\+Hamiltonian} ()
+\begin{DoxyCompactList}\small\item\em Destructor. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classHamiltonian_ae431703173e2943dc6aa7e118cbca31c}{Hamiltonian}} (\mbox{\hyperlink{classparameters}{parameters}} \&p\+\_\+in, \mbox{\hyperlink{classstates}{states}} \&st\+\_\+in, \mbox{\hyperlink{classmatrix__elements}{matrix\+\_\+elements}} \&me\+\_\+in)
+\begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
+virtual {\bfseries \texorpdfstring{$\sim$}{\string~}\+Hamiltonian} ()
+\begin{DoxyCompactList}\small\item\em Destructor. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classminimal__model__Hamiltonian_a61436e215b6baab32e0d4dc843413614}\label{classminimal__model__Hamiltonian_a61436e215b6baab32e0d4dc843413614} 
+int {\bfseries Momentum}
+\begin{DoxyCompactList}\small\item\em Current momentum subspace. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes inherited from \mbox{\hyperlink{classHamiltonian}{Hamiltonian}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classtensor2D}{tensor2D}}$<$ double $>$ {\bfseries H}
+\begin{DoxyCompactList}\small\item\em Tensor2D holding the \doxylink{classHamiltonian}{Hamiltonian} matrix elements. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classHamiltonian_ab17354d805e72f8e171f1d4b42d54856}{Msize}}
+\begin{DoxyCompactList}\small\item\em Size of the \doxylink{classHamiltonian}{Hamiltonian} matrix. \end{DoxyCompactList}\item 
+double {\bfseries R}
+\begin{DoxyCompactList}\small\item\em Current value of the system size R. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classparameters}{parameters}} \& {\bfseries p}
+\begin{DoxyCompactList}\small\item\em Reference to parameters object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classstates}{states}} \& \mbox{\hyperlink{classHamiltonian_a135cdd81a8cbd3fc01e9589c90b95040}{st}}
+\begin{DoxyCompactList}\small\item\em Reference to state obejct. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classmatrix__elements}{matrix\+\_\+elements}} \& {\bfseries me}
+\begin{DoxyCompactList}\small\item\em Reference to chir\+Me object. \end{DoxyCompactList}\item 
+int {\bfseries descH} \mbox{[}9\mbox{]}
+\begin{DoxyCompactList}\small\item\em BLACS descriptor of the distributed \doxylink{classHamiltonian}{Hamiltonian}. \end{DoxyCompactList}\item 
+int {\bfseries ictxt}
+\begin{DoxyCompactList}\small\item\em BLACS context. \end{DoxyCompactList}\item 
+int {\bfseries rowH}
+\begin{DoxyCompactList}\small\item\em Number of row of local slice of \doxylink{classHamiltonian}{Hamiltonian} matrix. \end{DoxyCompactList}\item 
+int {\bfseries colH}
+\begin{DoxyCompactList}\small\item\em Number of columns of local slice of \doxylink{classHamiltonian}{Hamiltonian} matrix. \end{DoxyCompactList}\item 
+int {\bfseries local\+Offset\+Row}
+\begin{DoxyCompactList}\small\item\em Row ffset of the \doxylink{classHamiltonian}{Hamiltonian} matrix for the current process in the BLACS grid. \end{DoxyCompactList}\item 
+int {\bfseries local\+Offset\+Col}
+\begin{DoxyCompactList}\small\item\em Col ffset of the \doxylink{classHamiltonian}{Hamiltonian} matrix for the current process in the BLACS grid. \end{DoxyCompactList}\item 
+int {\bfseries myrank\+\_\+mpi}
+\begin{DoxyCompactList}\small\item\em Processor ID for MPI. \end{DoxyCompactList}\item 
+int {\bfseries nprocs\+\_\+mpi}
+\begin{DoxyCompactList}\small\item\em Number of MPI processes. \end{DoxyCompactList}\item 
+int \texorpdfstring{$\ast$}{*} {\bfseries Offset}
+\begin{DoxyCompactList}\small\item\em Array containing the offset for each process, used for the distributed calculation of the \doxylink{classHamiltonian}{Hamiltonian}. \end{DoxyCompactList}\item 
+int {\bfseries nprow}
+\begin{DoxyCompactList}\small\item\em Number of processes per row in the BLACS grid. \end{DoxyCompactList}\item 
+int {\bfseries npcol}
+\begin{DoxyCompactList}\small\item\em Number of processes per col in the BLACS grid. \end{DoxyCompactList}\item 
+int {\bfseries myrow}
+\begin{DoxyCompactList}\small\item\em Row ID of the current process in the BLACS grid. \end{DoxyCompactList}\item 
+int {\bfseries mycol}
+\begin{DoxyCompactList}\small\item\em Col ID of the current process in the BLACS grid. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Protected Member Functions inherited from \mbox{\hyperlink{classHamiltonian}{Hamiltonian}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Hamiltonian} ()
+\begin{DoxyCompactList}\small\item\em Default constructor is protected, to prevent instantiation of invalid object. \end{DoxyCompactList}\item 
+{\bfseries Hamiltonian} ()
+\begin{DoxyCompactList}\small\item\em Default constructor is protected, to prevent instantiation of invalid object. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\doxylink{classHamiltonian}{Hamiltonian} Class. 
+
+~\newline
+ Class that calculates and holds the \doxylink{classHamiltonian}{Hamiltonian} matrix and the function to calculates the elements needed for \doxylink{classNRG}{NRG} and Sweep. For NRG/\+Sweep the structure of the matrix is
+
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{2}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ }\\\cline{1-2}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ }\\\cline{1-2}
+\endhead
+A   &B    \\\cline{1-2}
+C   &D   \\\cline{1-2}
+\end{longtabu}
+
+
+Where A is a matrix of size \doxylink{classparameters_a66a6f4fca1216c8012c4d48e9de1364a}{parameters\+::\+Nsize}\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}2, B and C are of size \doxylink{classparameters_a66a6f4fca1216c8012c4d48e9de1364a}{parameters\+::\+Nsize}\texorpdfstring{$\ast$}{*} \doxylink{classparameters_a6316b36c6b8ffb4bb8731c2fc5eadb5e}{parameters\+::\+Nstep} and C is of size \doxylink{classparameters_a6316b36c6b8ffb4bb8731c2fc5eadb5e}{parameters\+::\+Nstep}\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}2 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classminimal__model__Hamiltonian_afb5579588707eca99edc392bef433aa6}\label{classminimal__model__Hamiltonian_afb5579588707eca99edc392bef433aa6} 
+\index{minimal\_model\_Hamiltonian@{minimal\_model\_Hamiltonian}!minimal\_model\_Hamiltonian@{minimal\_model\_Hamiltonian}}
+\index{minimal\_model\_Hamiltonian@{minimal\_model\_Hamiltonian}!minimal\_model\_Hamiltonian@{minimal\_model\_Hamiltonian}}
+\doxysubsubsection{\texorpdfstring{minimal\_model\_Hamiltonian()}{minimal\_model\_Hamiltonian()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily minimal\+\_\+model\+\_\+\+Hamiltonian\+::minimal\+\_\+model\+\_\+\+Hamiltonian (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classminimal__model__parameters}{minimal\+\_\+model\+\_\+parameters}} \&}]{p,  }\item[{\mbox{\hyperlink{classminimal__model__states}{minimal\+\_\+model\+\_\+states}} \&}]{st,  }\item[{\mbox{\hyperlink{classchirME}{chir\+ME}} \&}]{me }\end{DoxyParamCaption})}
+
+
+
+Constructor. 
+
+Allocates the correct size of the tensor H, which hold the \doxylink{classHamiltonian}{Hamiltonian} matrix elements. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em p} & Reference to a parameter object. \\
+\hline
+\mbox{\texttt{ in}}  & {\em st} & Reference to a state object. \\
+\hline
+\mbox{\texttt{ in}}  & {\em me} & Reference to a \doxylink{classchirME}{chir\+ME} object. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classminimal__model__Hamiltonian_afdf87397452ed805e7b5a0160481baa1}\label{classminimal__model__Hamiltonian_afdf87397452ed805e7b5a0160481baa1} 
+\index{minimal\_model\_Hamiltonian@{minimal\_model\_Hamiltonian}!````~minimal\_model\_Hamiltonian@{\texorpdfstring{$\sim$}{\string~}minimal\_model\_Hamiltonian}}
+\index{````~minimal\_model\_Hamiltonian@{\texorpdfstring{$\sim$}{\string~}minimal\_model\_Hamiltonian}!minimal\_model\_Hamiltonian@{minimal\_model\_Hamiltonian}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}minimal\_model\_Hamiltonian()}{\string~minimal\_model\_Hamiltonian()}}
+{\footnotesize\ttfamily minimal\+\_\+model\+\_\+\+Hamiltonian\+::\texorpdfstring{$\sim$}{\string~}minimal\+\_\+model\+\_\+\+Hamiltonian (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Destructor. 
+
+\doxylink{classHamiltonian}{Hamiltonian} class file.
+
+\doxylink{classminimal__model__Hamiltonian}{minimal\+\_\+model\+\_\+\+Hamiltonian} class file.
+
+\begin{DoxyAuthor}{Authors}
+Giuseppe Piero Brandino -\/ e\+Xact-\/lab s.\+r.\+l. 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+July 2024
+\end{DoxyDate}
+\begin{DoxyAuthor}{Authors}
+Giuseppe Piero Brandino -\/ e\+Xact-\/lab s.\+r.\+l. 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+November 2017 
+\end{DoxyDate}
+\Hypertarget{classminimal__model__Hamiltonian_afb5579588707eca99edc392bef433aa6}\label{classminimal__model__Hamiltonian_afb5579588707eca99edc392bef433aa6} 
+\index{minimal\_model\_Hamiltonian@{minimal\_model\_Hamiltonian}!minimal\_model\_Hamiltonian@{minimal\_model\_Hamiltonian}}
+\index{minimal\_model\_Hamiltonian@{minimal\_model\_Hamiltonian}!minimal\_model\_Hamiltonian@{minimal\_model\_Hamiltonian}}
+\doxysubsubsection{\texorpdfstring{minimal\_model\_Hamiltonian()}{minimal\_model\_Hamiltonian()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily minimal\+\_\+model\+\_\+\+Hamiltonian\+::minimal\+\_\+model\+\_\+\+Hamiltonian (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classminimal__model__parameters}{minimal\+\_\+model\+\_\+parameters}} \&}]{p,  }\item[{\mbox{\hyperlink{classminimal__model__states}{minimal\+\_\+model\+\_\+states}} \&}]{st,  }\item[{\mbox{\hyperlink{classchirME}{chir\+ME}} \&}]{me }\end{DoxyParamCaption})}
+
+
+
+Constructor. 
+
+Allocates the correct size of the tensor H, which hold the \doxylink{classHamiltonian}{Hamiltonian} matrix elements. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em p} & Reference to a parameter object. \\
+\hline
+\mbox{\texttt{ in}}  & {\em st} & Reference to a state object. \\
+\hline
+\mbox{\texttt{ in}}  & {\em me} & Reference to a \doxylink{classchirME}{chir\+ME} object. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classminimal__model__Hamiltonian_aa941ac0491f7a286cedbe850983b4923}\label{classminimal__model__Hamiltonian_aa941ac0491f7a286cedbe850983b4923} 
+\index{minimal\_model\_Hamiltonian@{minimal\_model\_Hamiltonian}!init@{init}}
+\index{init@{init}!minimal\_model\_Hamiltonian@{minimal\_model\_Hamiltonian}}
+\doxysubsubsection{\texorpdfstring{init()}{init()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void minimal\+\_\+model\+\_\+\+Hamiltonian\+::init (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Initializes the first iteration \doxylink{classHamiltonian}{Hamiltonian}. 
+
+The first iteration hamiltonian has conformal energy on diagonal and expectation value of the perturbing operator(s) on the conformal states and stores it in the tensor H. Internally, it uses the state object member and the \doxylink{classchirME}{chir\+ME} object member 
+
+Implements \mbox{\hyperlink{classHamiltonian_ab3c734fffdccf18d83dd9253129faaff}{Hamiltonian}}.
+
+\Hypertarget{classminimal__model__Hamiltonian_aa941ac0491f7a286cedbe850983b4923}\label{classminimal__model__Hamiltonian_aa941ac0491f7a286cedbe850983b4923} 
+\index{minimal\_model\_Hamiltonian@{minimal\_model\_Hamiltonian}!init@{init}}
+\index{init@{init}!minimal\_model\_Hamiltonian@{minimal\_model\_Hamiltonian}}
+\doxysubsubsection{\texorpdfstring{init()}{init()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void minimal\+\_\+model\+\_\+\+Hamiltonian\+::init (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Initializes the first iteration \doxylink{classHamiltonian}{Hamiltonian}. 
+
+The first iteration hamiltonian has conformal energy on diagonal and expectation value of the perturbing operator(s) on the conformal states and stores it in the tensor H. Internally, it uses the state object member and the \doxylink{classchirME}{chir\+ME} object member 
+
+Implements \mbox{\hyperlink{classHamiltonian_ab3c734fffdccf18d83dd9253129faaff}{Hamiltonian}}.
+
+\Hypertarget{classminimal__model__Hamiltonian_a5510971707b598870fc243615249f924}\label{classminimal__model__Hamiltonian_a5510971707b598870fc243615249f924} 
+\index{minimal\_model\_Hamiltonian@{minimal\_model\_Hamiltonian}!NRG\_block\_A@{NRG\_block\_A}}
+\index{NRG\_block\_A@{NRG\_block\_A}!minimal\_model\_Hamiltonian@{minimal\_model\_Hamiltonian}}
+\doxysubsubsection{\texorpdfstring{NRG\_block\_A()}{NRG\_block\_A()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void minimal\+\_\+model\+\_\+\+Hamiltonian\+::\+NRG\+\_\+block\+\_\+A (\begin{DoxyParamCaption}\item[{double \texorpdfstring{$\ast$}{*}}]{eigenvalues }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Routine to fill the top left corner of the \doxylink{classNRG}{NRG} matrix (A block). 
+
+The top left corner of the NRG/\+Sweep matrix usually contains the eigenvaues of the previous iteration on the diagonal, 0 otherwise
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em eigenvalues} & Array containing the eigenvalues of the previous \doxylink{classNRG}{NRG} iteration. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{classHamiltonian_a23db23fd29e7a4a70e8d9bc0a07f57fb}{Hamiltonian}}.
+
+\Hypertarget{classminimal__model__Hamiltonian_a5510971707b598870fc243615249f924}\label{classminimal__model__Hamiltonian_a5510971707b598870fc243615249f924} 
+\index{minimal\_model\_Hamiltonian@{minimal\_model\_Hamiltonian}!NRG\_block\_A@{NRG\_block\_A}}
+\index{NRG\_block\_A@{NRG\_block\_A}!minimal\_model\_Hamiltonian@{minimal\_model\_Hamiltonian}}
+\doxysubsubsection{\texorpdfstring{NRG\_block\_A()}{NRG\_block\_A()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void minimal\+\_\+model\+\_\+\+Hamiltonian\+::\+NRG\+\_\+block\+\_\+A (\begin{DoxyParamCaption}\item[{double \texorpdfstring{$\ast$}{*}}]{eigenvalues }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Routine to fill the top left corner of the \doxylink{classNRG}{NRG} matrix (A block). 
+
+The top left corner of the NRG/\+Sweep matrix usually contains the eigenvaues of the previous iteration on the diagonal, 0 otherwise
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em eigenvalues} & Array containing the eigenvalues of the previous \doxylink{classNRG}{NRG} iteration. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{classHamiltonian_a23db23fd29e7a4a70e8d9bc0a07f57fb}{Hamiltonian}}.
+
+\Hypertarget{classminimal__model__Hamiltonian_a8abb970d2d0eb3a41b44cc11f953bd5f}\label{classminimal__model__Hamiltonian_a8abb970d2d0eb3a41b44cc11f953bd5f} 
+\index{minimal\_model\_Hamiltonian@{minimal\_model\_Hamiltonian}!NRG\_block\_BC@{NRG\_block\_BC}}
+\index{NRG\_block\_BC@{NRG\_block\_BC}!minimal\_model\_Hamiltonian@{minimal\_model\_Hamiltonian}}
+\doxysubsubsection{\texorpdfstring{NRG\_block\_BC()}{NRG\_block\_BC()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void minimal\+\_\+model\+\_\+\+Hamiltonian\+::\+NRG\+\_\+block\+\_\+\+BC (\begin{DoxyParamCaption}\item[{int}]{iteration,  }\item[{double \texorpdfstring{$\ast$}{*}}]{coeff }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Routine to fill the bottom left and top right corners of the \doxylink{classNRG}{NRG} matrix (B and C blocks). 
+
+The the bottom left and top right corners contain the expectaion value of the perturbing operator(s) between previous step eigenstates and the newly added states of the computational basis. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em iteration} & Index of the \doxylink{classNRG}{NRG} iteration \\
+\hline
+\mbox{\texttt{ in}}  & {\em coeff} & Matrix containing the eigenvectors of the previous \doxylink{classNRG}{NRG} iteration, one per row \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{classHamiltonian_aa4ce99fd925f019ee7d09d0819e0838c}{Hamiltonian}}.
+
+\Hypertarget{classminimal__model__Hamiltonian_a8abb970d2d0eb3a41b44cc11f953bd5f}\label{classminimal__model__Hamiltonian_a8abb970d2d0eb3a41b44cc11f953bd5f} 
+\index{minimal\_model\_Hamiltonian@{minimal\_model\_Hamiltonian}!NRG\_block\_BC@{NRG\_block\_BC}}
+\index{NRG\_block\_BC@{NRG\_block\_BC}!minimal\_model\_Hamiltonian@{minimal\_model\_Hamiltonian}}
+\doxysubsubsection{\texorpdfstring{NRG\_block\_BC()}{NRG\_block\_BC()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void minimal\+\_\+model\+\_\+\+Hamiltonian\+::\+NRG\+\_\+block\+\_\+\+BC (\begin{DoxyParamCaption}\item[{int}]{iteration,  }\item[{double \texorpdfstring{$\ast$}{*}}]{coeff }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Routine to fill the bottom left and top right corners of the \doxylink{classNRG}{NRG} matrix (B and C blocks). 
+
+The the bottom left and top right corners contain the expectaion value of the perturbing operator(s) between previous step eigenstates and the newly added states of the computational basis. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em iteration} & Index of the \doxylink{classNRG}{NRG} iteration \\
+\hline
+\mbox{\texttt{ in}}  & {\em coeff} & Matrix containing the eigenvectors of the previous \doxylink{classNRG}{NRG} iteration, one per row \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{classHamiltonian_aa4ce99fd925f019ee7d09d0819e0838c}{Hamiltonian}}.
+
+\Hypertarget{classminimal__model__Hamiltonian_ab5870f4f0220642582897d5a3a127b93}\label{classminimal__model__Hamiltonian_ab5870f4f0220642582897d5a3a127b93} 
+\index{minimal\_model\_Hamiltonian@{minimal\_model\_Hamiltonian}!NRG\_block\_D@{NRG\_block\_D}}
+\index{NRG\_block\_D@{NRG\_block\_D}!minimal\_model\_Hamiltonian@{minimal\_model\_Hamiltonian}}
+\doxysubsubsection{\texorpdfstring{NRG\_block\_D()}{NRG\_block\_D()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void minimal\+\_\+model\+\_\+\+Hamiltonian\+::\+NRG\+\_\+block\+\_\+D (\begin{DoxyParamCaption}\item[{int}]{iteration }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Routine to fill the bottom right corner of the \doxylink{classNRG}{NRG} matrix (D block). 
+
+The bottom right corner contains the expectaion value of the perturbing operator(s) on the newly added states of the computational basis 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em iteration} & Index of the \doxylink{classNRG}{NRG} iteration \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{classHamiltonian_a54a08459692f4ec58f08caec3cf79848}{Hamiltonian}}.
+
+\Hypertarget{classminimal__model__Hamiltonian_ab5870f4f0220642582897d5a3a127b93}\label{classminimal__model__Hamiltonian_ab5870f4f0220642582897d5a3a127b93} 
+\index{minimal\_model\_Hamiltonian@{minimal\_model\_Hamiltonian}!NRG\_block\_D@{NRG\_block\_D}}
+\index{NRG\_block\_D@{NRG\_block\_D}!minimal\_model\_Hamiltonian@{minimal\_model\_Hamiltonian}}
+\doxysubsubsection{\texorpdfstring{NRG\_block\_D()}{NRG\_block\_D()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void minimal\+\_\+model\+\_\+\+Hamiltonian\+::\+NRG\+\_\+block\+\_\+D (\begin{DoxyParamCaption}\item[{int}]{iteration }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Routine to fill the bottom right corner of the \doxylink{classNRG}{NRG} matrix (D block). 
+
+The bottom right corner contains the expectaion value of the perturbing operator(s) on the newly added states of the computational basis 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em iteration} & Index of the \doxylink{classNRG}{NRG} iteration \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{classHamiltonian_a54a08459692f4ec58f08caec3cf79848}{Hamiltonian}}.
+
+\Hypertarget{classminimal__model__Hamiltonian_af76976bc2cee444091a2d0ee80e02e8d}\label{classminimal__model__Hamiltonian_af76976bc2cee444091a2d0ee80e02e8d} 
+\index{minimal\_model\_Hamiltonian@{minimal\_model\_Hamiltonian}!print\_eigenValues@{print\_eigenValues}}
+\index{print\_eigenValues@{print\_eigenValues}!minimal\_model\_Hamiltonian@{minimal\_model\_Hamiltonian}}
+\doxysubsubsection{\texorpdfstring{print\_eigenValues()}{print\_eigenValues()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void minimal\+\_\+model\+\_\+\+Hamiltonian\+::print\+\_\+eigen\+Values (\begin{DoxyParamCaption}\item[{int}]{iteration,  }\item[{int}]{sweep,  }\item[{double \texorpdfstring{$\ast$}{*}}]{eigenvalues,  }\item[{std\+::string}]{fname,  }\item[{int}]{max\+State }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Routine to print eigenvalues to file. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em iteration} & \doxylink{classNRG}{NRG} iteration number. \\
+\hline
+\mbox{\texttt{ in}}  & {\em sweep} & Sweep iteration. \\
+\hline
+\mbox{\texttt{ in}}  & {\em eigenvalues} & Array containing the eigenvalues to print. \\
+\hline
+\mbox{\texttt{ in}}  & {\em fname} & std\+::string containing the file name to print. Usually, a member variable of filenames. \\
+\hline
+\mbox{\texttt{ in}}  & {\em max\+State} & Integer describing the maximum state considered in the current \doxylink{classNRG}{NRG} iteration. Used to define effective energy of the truncation. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{classHamiltonian_a7829a6c2690f5ffcc105ecc9a7514dc7}{Hamiltonian}}.
+
+\Hypertarget{classminimal__model__Hamiltonian_af76976bc2cee444091a2d0ee80e02e8d}\label{classminimal__model__Hamiltonian_af76976bc2cee444091a2d0ee80e02e8d} 
+\index{minimal\_model\_Hamiltonian@{minimal\_model\_Hamiltonian}!print\_eigenValues@{print\_eigenValues}}
+\index{print\_eigenValues@{print\_eigenValues}!minimal\_model\_Hamiltonian@{minimal\_model\_Hamiltonian}}
+\doxysubsubsection{\texorpdfstring{print\_eigenValues()}{print\_eigenValues()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void minimal\+\_\+model\+\_\+\+Hamiltonian\+::print\+\_\+eigen\+Values (\begin{DoxyParamCaption}\item[{int}]{iteration,  }\item[{int}]{sweep,  }\item[{double \texorpdfstring{$\ast$}{*}}]{eigenvalues,  }\item[{std\+::string}]{fname,  }\item[{int}]{max\+State }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Routine to print eigenvalues to file. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em iteration} & \doxylink{classNRG}{NRG} iteration number. \\
+\hline
+\mbox{\texttt{ in}}  & {\em sweep} & Sweep iteration. \\
+\hline
+\mbox{\texttt{ in}}  & {\em eigenvalues} & Array containing the eigenvalues to print. \\
+\hline
+\mbox{\texttt{ in}}  & {\em fname} & std\+::string containing the file name to print. Usually, a member variable of filenames. \\
+\hline
+\mbox{\texttt{ in}}  & {\em max\+State} & Integer describing the maximum state considered in the current \doxylink{classNRG}{NRG} iteration. Used to define effective energy of the truncation. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{classHamiltonian_a7829a6c2690f5ffcc105ecc9a7514dc7}{Hamiltonian}}.
+
+\Hypertarget{classminimal__model__Hamiltonian_a9719f04528ad1151aa6ff157e2727a39}\label{classminimal__model__Hamiltonian_a9719f04528ad1151aa6ff157e2727a39} 
+\index{minimal\_model\_Hamiltonian@{minimal\_model\_Hamiltonian}!print\_eigenVectors@{print\_eigenVectors}}
+\index{print\_eigenVectors@{print\_eigenVectors}!minimal\_model\_Hamiltonian@{minimal\_model\_Hamiltonian}}
+\doxysubsubsection{\texorpdfstring{print\_eigenVectors()}{print\_eigenVectors()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void minimal\+\_\+model\+\_\+\+Hamiltonian\+::print\+\_\+eigen\+Vectors (\begin{DoxyParamCaption}\item[{double \texorpdfstring{$\ast$}{*}}]{eigenvectors,  }\item[{std\+::string}]{fname,  }\item[{int}]{size }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Routine to print eigenvectors to file. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em eigenvectors} & Matrix containing the eigenvectors to print, one per row \\
+\hline
+\mbox{\texttt{ in}}  & {\em fname} & std\+::string containing the file name to print. Usually, a member variable of filenames. \\
+\hline
+\mbox{\texttt{ in}}  & {\em size} & Number of component of each eigenvectors (row size of the eigenvectors array(. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{classHamiltonian_a3b5878170ebdcf7ce6fc000cb3668fc6}{Hamiltonian}}.
+
+\Hypertarget{classminimal__model__Hamiltonian_a9719f04528ad1151aa6ff157e2727a39}\label{classminimal__model__Hamiltonian_a9719f04528ad1151aa6ff157e2727a39} 
+\index{minimal\_model\_Hamiltonian@{minimal\_model\_Hamiltonian}!print\_eigenVectors@{print\_eigenVectors}}
+\index{print\_eigenVectors@{print\_eigenVectors}!minimal\_model\_Hamiltonian@{minimal\_model\_Hamiltonian}}
+\doxysubsubsection{\texorpdfstring{print\_eigenVectors()}{print\_eigenVectors()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void minimal\+\_\+model\+\_\+\+Hamiltonian\+::print\+\_\+eigen\+Vectors (\begin{DoxyParamCaption}\item[{double \texorpdfstring{$\ast$}{*}}]{eigenvectors,  }\item[{std\+::string}]{fname,  }\item[{int}]{size }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Routine to print eigenvectors to file. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em eigenvectors} & Matrix containing the eigenvectors to print, one per row \\
+\hline
+\mbox{\texttt{ in}}  & {\em fname} & std\+::string containing the file name to print. Usually, a member variable of filenames. \\
+\hline
+\mbox{\texttt{ in}}  & {\em size} & Number of component of each eigenvectors (row size of the eigenvectors array(. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{classHamiltonian_a3b5878170ebdcf7ce6fc000cb3668fc6}{Hamiltonian}}.
+
+\Hypertarget{classminimal__model__Hamiltonian_a261bc06af3ec561e4e284d3083636557}\label{classminimal__model__Hamiltonian_a261bc06af3ec561e4e284d3083636557} 
+\index{minimal\_model\_Hamiltonian@{minimal\_model\_Hamiltonian}!sweep\_block\_BC@{sweep\_block\_BC}}
+\index{sweep\_block\_BC@{sweep\_block\_BC}!minimal\_model\_Hamiltonian@{minimal\_model\_Hamiltonian}}
+\doxysubsubsection{\texorpdfstring{sweep\_block\_BC()}{sweep\_block\_BC()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void minimal\+\_\+model\+\_\+\+Hamiltonian\+::sweep\+\_\+block\+\_\+\+BC (\begin{DoxyParamCaption}\item[{int}]{iteration,  }\item[{double \texorpdfstring{$\ast$}{*}}]{coeff,  }\item[{double \texorpdfstring{$\ast$}{*}}]{coeff\+Sweep,  }\item[{int}]{NRGspacesize,  }\item[{int}]{NRGstoresize }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Routine to fill the bottom left and top right corners of the Sweep matrix (B and C blocks). 
+
+The the bottom left and top right corners contain the expectaion value of the \doxylink{classHamiltonian}{Hamiltonian} between previous step eigenstates and eigenstates of the previous step same iteration 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em iteration} & Index of the \doxylink{classNRG}{NRG} iteration \\
+\hline
+\mbox{\texttt{ in}}  & {\em coeff} & Matrix containing the eigenvectors of the previous \doxylink{classNRG}{NRG} iteration, one per row \\
+\hline
+\mbox{\texttt{ in}}  & {\em coeff\+Sweep} & Matrix containing the eigenvectors of the previous sweep and same \doxylink{classNRG}{NRG} iteration, one per row \\
+\hline
+\mbox{\texttt{ in}}  & {\em NRGspacesize} & Current size of the \doxylink{classNRG}{NRG} hilbert space, i.\+e. the number of components of eigenvectors in coeff \\
+\hline
+\mbox{\texttt{ in}}  & {\em NRGstoresize} & Size of the \doxylink{classNRG}{NRG} hilbert space at the previous sweep same \doxylink{classNRG}{NRG} iteration, i.\+e. the number of components of eigenvectors in coeff\+Sweep \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{classHamiltonian_a9bbe852b73ed7fed62f00653f65d4d93}{Hamiltonian}}.
+
+\Hypertarget{classminimal__model__Hamiltonian_a261bc06af3ec561e4e284d3083636557}\label{classminimal__model__Hamiltonian_a261bc06af3ec561e4e284d3083636557} 
+\index{minimal\_model\_Hamiltonian@{minimal\_model\_Hamiltonian}!sweep\_block\_BC@{sweep\_block\_BC}}
+\index{sweep\_block\_BC@{sweep\_block\_BC}!minimal\_model\_Hamiltonian@{minimal\_model\_Hamiltonian}}
+\doxysubsubsection{\texorpdfstring{sweep\_block\_BC()}{sweep\_block\_BC()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void minimal\+\_\+model\+\_\+\+Hamiltonian\+::sweep\+\_\+block\+\_\+\+BC (\begin{DoxyParamCaption}\item[{int}]{iteration,  }\item[{double \texorpdfstring{$\ast$}{*}}]{coeff,  }\item[{double \texorpdfstring{$\ast$}{*}}]{coeff\+Sweep,  }\item[{int}]{NRGspacesize,  }\item[{int}]{NRGstoresize }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Routine to fill the bottom left and top right corners of the Sweep matrix (B and C blocks). 
+
+The the bottom left and top right corners contain the expectaion value of the \doxylink{classHamiltonian}{Hamiltonian} between previous step eigenstates and eigenstates of the previous step same iteration 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em iteration} & Index of the \doxylink{classNRG}{NRG} iteration \\
+\hline
+\mbox{\texttt{ in}}  & {\em coeff} & Matrix containing the eigenvectors of the previous \doxylink{classNRG}{NRG} iteration, one per row \\
+\hline
+\mbox{\texttt{ in}}  & {\em coeff\+Sweep} & Matrix containing the eigenvectors of the previous sweep and same \doxylink{classNRG}{NRG} iteration, one per row \\
+\hline
+\mbox{\texttt{ in}}  & {\em NRGspacesize} & Current size of the \doxylink{classNRG}{NRG} hilbert space, i.\+e. the number of components of eigenvectors in coeff \\
+\hline
+\mbox{\texttt{ in}}  & {\em NRGstoresize} & Size of the \doxylink{classNRG}{NRG} hilbert space at the previous sweep same \doxylink{classNRG}{NRG} iteration, i.\+e. the number of components of eigenvectors in coeff\+Sweep \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{classHamiltonian_a9bbe852b73ed7fed62f00653f65d4d93}{Hamiltonian}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+truspace/\mbox{\hyperlink{minimal__model__Hamiltonian_8h}{minimal\+\_\+model\+\_\+\+Hamiltonian.\+h}}\item 
+truspace/\mbox{\hyperlink{minimal__model__Hamiltonian__MPI_8h}{minimal\+\_\+model\+\_\+\+Hamiltonian\+\_\+\+MPI.\+h}}\item 
+truspace/minimal\+\_\+model\+\_\+\+Hamiltonian.\+cpp\item 
+truspace/minimal\+\_\+model\+\_\+\+Hamiltonian\+\_\+\+MPI.\+cpp\end{DoxyCompactItemize}

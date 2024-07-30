@@ -1,0 +1,43 @@
+\doxysection{nrg/tensors.h File Reference}
+\hypertarget{tensors_8h}{}\label{tensors_8h}\index{nrg/tensors.h@{nrg/tensors.h}}
+
+
+Set of helper templates class to manage 2D, 3D, 4D, 5D, 6D tensors.  
+
+
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$cstdlib$>$}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classtensor2D}{tensor2\+D$<$ T $>$}}
+\begin{DoxyCompactList}\small\item\em Template class for 2D tensors This classes do not provide an allocator. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classtensor3D}{tensor3\+D$<$ T $>$}}
+\begin{DoxyCompactList}\small\item\em Template class for 3D tensors This classes do not provide an allocator. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classtensor4D}{tensor4\+D$<$ T $>$}}
+\begin{DoxyCompactList}\small\item\em Template class for 4D tensors This classes do not provide an allocator. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classtensor5D}{tensor5\+D$<$ T $>$}}
+\begin{DoxyCompactList}\small\item\em Template class for 5D tensors This classes do not provide an allocator. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classtensor6D}{tensor6\+D$<$ T $>$}}
+\begin{DoxyCompactList}\small\item\em Template class for 6D tensors This classes do not provide an allocator. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Set of helper templates class to manage 2D, 3D, 4D, 5D, 6D tensors. 
+
+This classes do not provide an allocator. They are allocated automatically using the costum constructor tesor?D( int int ....) The default constructor can be used, but only to create dummy tensors, that needs to be assigned using the assignment operator (=)
+
+Memebers are all public. ~\newline
+
+\begin{DoxyItemize}
+\item n1, n2, ... contains the dimensions
+\item the pointer data contains the data in col major order, such that it can be pass to BLAS/\+LAPACK easily as A.\+data
+\item reading and writing single elements is done using the () operator so element 1,2,5 of tensor A is accessed A(1,2,5)
+\end{DoxyItemize}
+
+\begin{DoxyAuthor}{Author}
+Giuseppe Piero Brandino -\/ e\+Xact-\/lab s.\+r.\+l. 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+October 2017 
+\end{DoxyDate}

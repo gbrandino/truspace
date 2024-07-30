@@ -1,0 +1,40 @@
+\doxysection{parameters.\+h}
+\hypertarget{parameters_8h_source}{}\label{parameters_8h_source}\index{nrg/parameters.h@{nrg/parameters.h}}
+\mbox{\hyperlink{parameters_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#ifndef\ PARAMETERS\_H}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#define\ PARAMETERS\_H}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{tensors_8h}{tensors.h}}"{}}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}sparse\_tensor.h"{}}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <complex>}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <map>}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00022\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classparameters}{parameters}}}
+\DoxyCodeLine{00023\ \{}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ input\ parameters}}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classparameters_a55e7a4022c9a53ca65ae904e8ccb3700}{maxEigen}};\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classparameters_a66a6f4fca1216c8012c4d48e9de1364a}{Nsize}};\ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classparameters_a6316b36c6b8ffb4bb8731c2fc5eadb5e}{Nstep}};\ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classparameters_a24f86317a789c0ba11b4d53c627a2c0e}{NRG}};\ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classparameters_a2d35533e2114ef73fcff4fa3de468b50}{nSweep}};\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classparameters_aa211fc0d7e83372004cc300c8f757fcd}{saveEigenvec}};\ \ \ }
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classparameters_a68ac761486cd8b4ccf925b9688c30bc5}{calcExpVal}};\ \ \ \ \ }
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classparameters_ad2f40572407ced97e462d7d86bbfd6fd}{onlyDiagExpV}};\ \ \ }
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ class\ methods}}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classparameters_a2e2af680388704e90c6c0ceb0edc6cd5}{parameters}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ nrgfilename);}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classparameters_a942520b06693d539a3af8814208899e8}{print}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classparameters_a8ef05b5210024cb8d7ab84fddb4d05b2}{\string~parameters}}();}
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classparameters_a2e2af680388704e90c6c0ceb0edc6cd5}{parameters}}();}
+\DoxyCodeLine{00055\ \};}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#endif\ \ \ \ }}
+
+\end{DoxyCode}

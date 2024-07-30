@@ -1,0 +1,32 @@
+\doxysection{truspace/worker.h File Reference}
+\hypertarget{worker_8h}{}\label{worker_8h}\index{truspace/worker.h@{truspace/worker.h}}
+
+
+Contains driver Class for states, matrix element and \doxylink{classNRG}{NRG} calculation.  
+
+
+{\ttfamily \#include "{}minimal\+\_\+model\+\_\+parameters.\+h"{}}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classworker}{worker}}
+\begin{DoxyCompactList}\small\item\em Driver Class for states, matrix element and \doxylink{classNRG}{NRG} calculation. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Contains driver Class for states, matrix element and \doxylink{classNRG}{NRG} calculation. 
+
+It takes care of
+\begin{DoxyItemize}
+\item looping through the subspace found by parameters\+::analyze\+\_\+subspace
+\item finding chiral and non-\/chiral base states in each subspace
+\item calling \doxylink{classNRG}{NRG} routine on each subspace
+\item calculating Matrix element on the eigenstates found, in each subspace. If the operator connects a set of subspaces, then those subspaces are diagonalized at the same time
+\end{DoxyItemize}
+
+\begin{DoxyAuthor}{Author}
+Giuseppe Piero Brandino -\/ e\+Xact-\/lab s.\+r.\+l. 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+November 2017 
+\end{DoxyDate}

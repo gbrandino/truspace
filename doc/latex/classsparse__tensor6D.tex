@@ -1,0 +1,129 @@
+\doxysection{sparse\+\_\+tensor6D\texorpdfstring{$<$}{<} T \texorpdfstring{$>$}{>} Class Template Reference}
+\hypertarget{classsparse__tensor6D}{}\label{classsparse__tensor6D}\index{sparse\_tensor6D$<$ T $>$@{sparse\_tensor6D$<$ T $>$}}
+
+
+Template class for 6D tensors This classes do not provide an allocator.  
+
+
+
+
+{\ttfamily \#include $<$sparse\+\_\+tensor.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classsparse__tensor6D_ae6125d851c3bc19986104ecc197cc06a}\label{classsparse__tensor6D_ae6125d851c3bc19986104ecc197cc06a} 
+{\bfseries sparse\+\_\+tensor6D} ()
+\begin{DoxyCompactList}\small\item\em Default Constructor, it allocates a 1x1x1x1x1x1 tensor. \end{DoxyCompactList}\item 
+\Hypertarget{classsparse__tensor6D_ae9533a49f95357573c90f9d4eb69d822}\label{classsparse__tensor6D_ae9533a49f95357573c90f9d4eb69d822} 
+{\bfseries \texorpdfstring{$\sim$}{\string~}sparse\+\_\+tensor6D} ()
+\begin{DoxyCompactList}\small\item\em Destructor, deallocates data member. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classsparse__tensor6D}{sparse\+\_\+tensor6D}}$<$ T $>$ \& \mbox{\hyperlink{classsparse__tensor6D_a529d9c950507d8bb2e0b53aaf2efb2cb}{operator=}} (const \mbox{\hyperlink{classsparse__tensor6D}{sparse\+\_\+tensor6D}}$<$ T $>$ \&)
+\begin{DoxyCompactList}\small\item\em Assignment operator. \end{DoxyCompactList}\item 
+\Hypertarget{classsparse__tensor6D_abf55ffb602907969c25f086edbcfd114}\label{classsparse__tensor6D_abf55ffb602907969c25f086edbcfd114} 
+T \& {\bfseries set} (const int, const int, const int, const int, const int, const int)
+\item 
+T \mbox{\hyperlink{classsparse__tensor6D_a1ea3e36cfda15f63493d7c8e8a2af8d8}{operator()}} (const int, const int, const int, const int, const int, const int)
+\begin{DoxyCompactList}\small\item\em getter operator, with presence check. \end{DoxyCompactList}\item 
+T \mbox{\hyperlink{classsparse__tensor6D_a1c25f40b373f1d9105d54eedf27bf256}{operator()}} (const int, const int, const int, const int, const int, const int) const
+\begin{DoxyCompactList}\small\item\em getter operator, with bound check -\/ Constant tensor version. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classsparse__tensor6D_aa54801bce538cc8eabe0dcc8f6030b90}\label{classsparse__tensor6D_aa54801bce538cc8eabe0dcc8f6030b90} 
+std\+::unordered\+\_\+map$<$ tuple6\+\_\+key\+\_\+t, T, \mbox{\hyperlink{structkey__hash6}{key\+\_\+hash6}} $>$ {\bfseries data}
+\item 
+\Hypertarget{classsparse__tensor6D_a1c6e6def8eaaceb71d126ec60150b13d}\label{classsparse__tensor6D_a1c6e6def8eaaceb71d126ec60150b13d} 
+int {\bfseries size}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$class T$>$\newline
+class sparse\+\_\+tensor6\+D$<$ T $>$}
+Template class for 6D tensors This classes do not provide an allocator. 
+
+They are allocated automatically using the costum constructor tesor?D( int int ....) The default constructor can be used, but only to create dummy tensors, that needs to be assigned using the assignment operator (=)
+
+Memebers are all public. ~\newline
+
+\begin{DoxyItemize}
+\item n1, n2, ... contains the dimensions
+\item the pointer data contains the data in col major order, such that it can be pass to BLAS/\+LAPACK easily as A.\+data
+\item reading and writing single elements is done using the () operator so element 1,2,5 of tensor A is accessed A(1,2,5) 
+\end{DoxyItemize}
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classsparse__tensor6D_a1ea3e36cfda15f63493d7c8e8a2af8d8}\label{classsparse__tensor6D_a1ea3e36cfda15f63493d7c8e8a2af8d8} 
+\index{sparse\_tensor6D$<$ T $>$@{sparse\_tensor6D$<$ T $>$}!operator()@{operator()}}
+\index{operator()@{operator()}!sparse\_tensor6D$<$ T $>$@{sparse\_tensor6D$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{operator()()}{operator()()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+T \mbox{\hyperlink{classsparse__tensor6D}{sparse\+\_\+tensor6D}}$<$ T $>$\+::operator() (\begin{DoxyParamCaption}\item[{const int}]{i1,  }\item[{const int}]{i2,  }\item[{const int}]{i3,  }\item[{const int}]{i4,  }\item[{const int}]{i5,  }\item[{const int}]{i6 }\end{DoxyParamCaption})}
+
+
+
+getter operator, with presence check. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em i1} & First index of the element to access \\
+\hline
+\mbox{\texttt{ in}}  & {\em i2} & Second index of the element to access \\
+\hline
+\mbox{\texttt{ in}}  & {\em i3} & Third index of the element to access \\
+\hline
+\mbox{\texttt{ in}}  & {\em i4} & Fourth index of the element to access \\
+\hline
+\mbox{\texttt{ in}}  & {\em i5} & Fifth index of the element to access \\
+\hline
+\mbox{\texttt{ in}}  & {\em i6} & Sixth index of the element to access \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classsparse__tensor6D_a1c25f40b373f1d9105d54eedf27bf256}\label{classsparse__tensor6D_a1c25f40b373f1d9105d54eedf27bf256} 
+\index{sparse\_tensor6D$<$ T $>$@{sparse\_tensor6D$<$ T $>$}!operator()@{operator()}}
+\index{operator()@{operator()}!sparse\_tensor6D$<$ T $>$@{sparse\_tensor6D$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{operator()()}{operator()()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+T \mbox{\hyperlink{classsparse__tensor6D}{sparse\+\_\+tensor6D}}$<$ T $>$\+::operator() (\begin{DoxyParamCaption}\item[{const int}]{i1,  }\item[{const int}]{i2,  }\item[{const int}]{i3,  }\item[{const int}]{i4,  }\item[{const int}]{i5,  }\item[{const int}]{i6 }\end{DoxyParamCaption}) const}
+
+
+
+getter operator, with bound check -\/ Constant tensor version. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em i1} & First index of the element to access \\
+\hline
+\mbox{\texttt{ in}}  & {\em i2} & Second index of the element to access \\
+\hline
+\mbox{\texttt{ in}}  & {\em i3} & Third index of the element to access \\
+\hline
+\mbox{\texttt{ in}}  & {\em i4} & Fourth index of the element to access \\
+\hline
+\mbox{\texttt{ in}}  & {\em i5} & Fifth index of the element to access \\
+\hline
+\mbox{\texttt{ in}}  & {\em i6} & Sixth index of the element to access \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classsparse__tensor6D_a529d9c950507d8bb2e0b53aaf2efb2cb}\label{classsparse__tensor6D_a529d9c950507d8bb2e0b53aaf2efb2cb} 
+\index{sparse\_tensor6D$<$ T $>$@{sparse\_tensor6D$<$ T $>$}!operator=@{operator=}}
+\index{operator=@{operator=}!sparse\_tensor6D$<$ T $>$@{sparse\_tensor6D$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+\mbox{\hyperlink{classsparse__tensor6D}{sparse\+\_\+tensor6D}}$<$ T $>$ \& \mbox{\hyperlink{classsparse__tensor6D}{sparse\+\_\+tensor6D}}$<$ T $>$\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classsparse__tensor6D}{sparse\+\_\+tensor6D}}$<$ T $>$ \&}]{tens }\end{DoxyParamCaption})}
+
+
+
+Assignment operator. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em tens} & The tensor to copy return A reference to the current object, to allow expressions such as a=b=c to work \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+nrg/sparse\+\_\+tensor.\+h\end{DoxyCompactItemize}

@@ -1,0 +1,36 @@
+\doxysection{truspace\+\_\+extension\+\_\+example/custom\+\_\+config.h File Reference}
+\hypertarget{custom__config_8h}{}\label{custom__config_8h}\index{truspace\_extension\_example/custom\_config.h@{truspace\_extension\_example/custom\_config.h}}
+
+
+Configuration file holding version number, some hard-\/coded limits that effect array dimensions, constants and macros.  
+
+
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{custom__config_8h_a1c6d5de492ac61ad29aec7aa9a436bbf}\label{custom__config_8h_a1c6d5de492ac61ad29aec7aa9a436bbf} 
+\#define {\bfseries VERSION}~"{}1.\+0.\+0"{}
+\item 
+\Hypertarget{custom__config_8h_ac89d5f8a358eb8a1abdcd0fcef134f1a}\label{custom__config_8h_ac89d5f8a358eb8a1abdcd0fcef134f1a} 
+\#define {\bfseries SIGN}(a,  b)~((b) $>$= 0.\+0 ? fabsl(a) \+: -\/fabsl(a))
+\item 
+\Hypertarget{custom__config_8h_a75acf5c356c74685d995225dbe357ba1}\label{custom__config_8h_a75acf5c356c74685d995225dbe357ba1} 
+\#define {\bfseries SIGNd}(a,  b)~((b) $>$= 0.\+0 ? fabs(a) \+: -\/fabs(a))
+\item 
+\Hypertarget{custom__config_8h_a598a3330b3c21701223ee0ca14316eca}\label{custom__config_8h_a598a3330b3c21701223ee0ca14316eca} 
+\#define {\bfseries PI}~3.\+1415926535897
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Configuration file holding version number, some hard-\/coded limits that effect array dimensions, constants and macros. 
+
+\begin{DoxyAuthor}{Authors}
+Giuseppe Piero Brandino -\/ e\+Xact-\/lab s.\+r.\+l. 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+October 2019 
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+GNU Public License. 
+\end{DoxyCopyright}

@@ -1,0 +1,40 @@
+\doxysection{NRG\+\_\+\+MPI.\+h}
+\hypertarget{NRG__MPI_8h_source}{}\label{NRG__MPI_8h_source}\index{nrg/NRG\_MPI.h@{nrg/NRG\_MPI.h}}
+\mbox{\hyperlink{NRG__MPI_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#ifndef\ NRG\_H}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#define\ NRG\_H}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{tensors_8h}{tensors.h}}"{}}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{parameters_8h}{parameters.h}}"{}}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}Hamiltonian\_MPI.h"{}}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{filenames_8h}{filenames.h}}"{}}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#ifdef\ \_\_APPLE\_\_}}
+\DoxyCodeLine{00016\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \{}
+\DoxyCodeLine{00017\ \textcolor{keywordtype}{int}\ dsyevr\_(\textcolor{keywordtype}{char}\ *jobz,\ \textcolor{keywordtype}{char}\ *range,\ \textcolor{keywordtype}{char}\ *uplo,\ \textcolor{keywordtype}{int}\ *n,\textcolor{keywordtype}{double}\ *a,\ \textcolor{keywordtype}{int}\ *lda,\ \textcolor{keywordtype}{double}\ *vl,\ \textcolor{keywordtype}{double}\ *vu,\ \textcolor{keywordtype}{int}\ *il,\ \textcolor{keywordtype}{int}\ *\ iu,\ \textcolor{keywordtype}{double}\ *abstol,\ \textcolor{keywordtype}{int}\ *m,\ \textcolor{keywordtype}{double}\ *w,\textcolor{keywordtype}{double}\ *z,\ \textcolor{keywordtype}{int}\ *ldz,\ \textcolor{keywordtype}{int}\ *isuppz,\ \textcolor{keywordtype}{double}\ *work\_for,\textcolor{keywordtype}{int}\ *lwork,\textcolor{keywordtype}{int}\ *iwork,\textcolor{keywordtype}{int}\ *liwork,\ \textcolor{keywordtype}{int}\ *info);}
+\DoxyCodeLine{00018\ \}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00020\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \{}
+\DoxyCodeLine{00021\ \textcolor{keywordtype}{void}\ dsyevr\_(\textcolor{keywordtype}{char}\ *jobz,\ \textcolor{keywordtype}{char}\ *range,\ \textcolor{keywordtype}{char}\ *uplo,\ \textcolor{keywordtype}{int}\ *n,\textcolor{keywordtype}{double}\ *a,\ \textcolor{keywordtype}{int}\ *lda,\ \textcolor{keywordtype}{double}\ *vl,\ \textcolor{keywordtype}{double}\ *vu,\ \textcolor{keywordtype}{int}\ *il,\ \textcolor{keywordtype}{int}\ *\ iu,\ \textcolor{keywordtype}{double}\ *abstol,\ \textcolor{keywordtype}{int}\ *m,\ \textcolor{keywordtype}{double}\ *w,\textcolor{keywordtype}{double}\ *z,\ \textcolor{keywordtype}{int}\ *ldz,\ \textcolor{keywordtype}{int}\ *isuppz,\ \textcolor{keywordtype}{double}\ *work\_for,\textcolor{keywordtype}{int}\ *lwork,\textcolor{keywordtype}{int}\ *iwork,\textcolor{keywordtype}{int}\ *liwork,\ \textcolor{keywordtype}{int}\ *info);}
+\DoxyCodeLine{00022\ \}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00028\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classNRG}{NRG}}}
+\DoxyCodeLine{00029\ \{}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classNRG_a6bf501546b1e832d3252e4309c4a23b4}{NRG}}();}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classNRG_a63d1da6ac2d6d5e4b9ace89aa28a2f1b}{\string~NRG}}();}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classNRG_a0cdebccf7b1db2cd43c5516dbc4a2d99}{run}}(\mbox{\hyperlink{classparameters}{parameters}}\&\ p,\ \mbox{\hyperlink{classHamiltonian}{Hamiltonian}}\&\ H,\ \mbox{\hyperlink{classfilenames}{filenames}}\&\ fnames);}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classtensor2D}{tensor2D<double>}}\ \mbox{\hyperlink{classNRG_a537f962921c03bdd2c69a7f478d86e09}{EigenVectors}};}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classNRG_a7a05492a4430738de19fe40e86b82fa6}{NIters}};\ }
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classNRG_a9b274aa64283108388dfe2fa6883a848}{NSweeps}};\ }
+\DoxyCodeLine{00051\ \};}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

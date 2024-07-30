@@ -1,0 +1,34 @@
+\doxysection{harmonic\+\_\+matrix\+\_\+elements.\+h}
+\hypertarget{harmonic__matrix__elements_8h_source}{}\label{harmonic__matrix__elements_8h_source}\index{truspace\_extension\_example/harmonic\_matrix\_elements.h@{truspace\_extension\_example/harmonic\_matrix\_elements.h}}
+\mbox{\hyperlink{harmonic__matrix__elements_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#ifndef\ HARMONIC\_MATRIX\_ELEMENTS\_H}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#define\ HARMONIC\_MATRIX\_ELEMENTS\_H}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{custom__parameters_8h}{custom\_parameters.h}}"{}}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{matrix__elements_8h}{matrix\_elements.h}}"{}}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{harmonic__states_8h}{harmonic\_states.h}}"{}}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{tensors_8h}{tensors.h}}"{}}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{harmonic__filenames_8h}{harmonic\_filenames.h}}"{}}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00019\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classharmonic__matrix__elements}{harmonic\_matrix\_elements}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classmatrix__elements}{matrix\_elements}}}
+\DoxyCodeLine{00020\ \{}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classharmonic__matrix__elements}{harmonic\_matrix\_elements}}(\mbox{\hyperlink{classcustom__parameters}{custom\_parameters}}\&\ p,\ \mbox{\hyperlink{classharmonic__states}{harmonic\_states}}\&\ st);}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classharmonic__matrix__elements_aa51b77faaff6876530914f63acc925be}{\string~harmonic\_matrix\_elements}}();}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classharmonic__matrix__elements_a7aa107ff802cb67cd2f2c99b9d1d91af}{calculate}}(\mbox{\hyperlink{classcustom__parameters}{custom\_parameters}}\&\ p,\ \mbox{\hyperlink{classharmonic__filenames}{harmonic\_filenames}}\&\ fnames,\ \mbox{\hyperlink{classharmonic__states}{harmonic\_states}}\&\ st);}
+\DoxyCodeLine{00038\ \ }
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classharmonic__matrix__elements_a3d030c0b6a2deeeeadce1a2f24a0795a}{calculate\_for\_ExpVal}}(\mbox{\hyperlink{classcustom__parameters}{custom\_parameters}}\&\ p,\ \mbox{\hyperlink{classharmonic__states}{harmonic\_states}}\&\ st);}
+\DoxyCodeLine{00044\ \ }
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classharmonic__matrix__elements_ad9fd0668eca1229bd119b87a26c0d1d8}{calculate\_ExpVal}}(\mbox{\hyperlink{classparameters}{parameters}}\&\ p,\ \mbox{\hyperlink{classstates}{states}}\&\ st,\ \textcolor{keywordtype}{double}*\ coeff,\ \textcolor{keywordtype}{int}\ size,\ std::string\ fname,\ \textcolor{keywordtype}{double}\ R);}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classtensor3D}{tensor3D<\ double\ >}}\ \mbox{\hyperlink{classharmonic__matrix__elements_a0f957c36e681e36d1c39bb9dedcacb30}{me\_unperturbed}};\ }
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classtensor2D}{tensor2D<\ double\ >}}\ \mbox{\hyperlink{classharmonic__matrix__elements_afbccd4e6cd6a9b21fe6f252fb4aa411b}{me\_unperturbed\_for\_expval}};\ }
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classharmonic__matrix__elements}{harmonic\_matrix\_elements}}();}
+\DoxyCodeLine{00062\ \};}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#endif\ \ }}
+
+\end{DoxyCode}

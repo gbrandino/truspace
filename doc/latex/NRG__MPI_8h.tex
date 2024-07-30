@@ -1,0 +1,33 @@
+\doxysection{nrg/\+NRG\+\_\+\+MPI.h File Reference}
+\hypertarget{NRG__MPI_8h}{}\label{NRG__MPI_8h}\index{nrg/NRG\_MPI.h@{nrg/NRG\_MPI.h}}
+
+
+Class that handles exact diagonalization, \doxylink{classNRG}{NRG} and Sweep in a model-\/agnostic way ( as much as possible ) -\/ MPI Parallel Version using scalapack/pblas.  
+
+
+{\ttfamily \#include "{}tensors.\+h"{}}\newline
+{\ttfamily \#include "{}parameters.\+h"{}}\newline
+{\ttfamily \#include "{}Hamiltonian\+\_\+\+MPI.\+h"{}}\newline
+{\ttfamily \#include "{}filenames.\+h"{}}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classNRG}{NRG}}
+\begin{DoxyCompactList}\small\item\em Class that handles exact diagonalization, \doxylink{classNRG}{NRG} and Sweep in a model-\/agnostic way ( as much as possible ) \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{NRG__MPI_8h_a40452aa5237dc794cc24917f2cbe6ed7}\label{NRG__MPI_8h_a40452aa5237dc794cc24917f2cbe6ed7} 
+void {\bfseries dsyevr\+\_\+} (char \texorpdfstring{$\ast$}{*}jobz, char \texorpdfstring{$\ast$}{*}range, char \texorpdfstring{$\ast$}{*}uplo, int \texorpdfstring{$\ast$}{*}n, double \texorpdfstring{$\ast$}{*}a, int \texorpdfstring{$\ast$}{*}lda, double \texorpdfstring{$\ast$}{*}vl, double \texorpdfstring{$\ast$}{*}vu, int \texorpdfstring{$\ast$}{*}il, int \texorpdfstring{$\ast$}{*}iu, double \texorpdfstring{$\ast$}{*}abstol, int \texorpdfstring{$\ast$}{*}m, double \texorpdfstring{$\ast$}{*}w, double \texorpdfstring{$\ast$}{*}z, int \texorpdfstring{$\ast$}{*}ldz, int \texorpdfstring{$\ast$}{*}isuppz, double \texorpdfstring{$\ast$}{*}work\+\_\+for, int \texorpdfstring{$\ast$}{*}lwork, int \texorpdfstring{$\ast$}{*}iwork, int \texorpdfstring{$\ast$}{*}liwork, int \texorpdfstring{$\ast$}{*}info)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Class that handles exact diagonalization, \doxylink{classNRG}{NRG} and Sweep in a model-\/agnostic way ( as much as possible ) -\/ MPI Parallel Version using scalapack/pblas. 
+
+\begin{DoxyAuthor}{Authors}
+Giuseppe Piero Brandino -\/ e\+Xact-\/lab s.\+r.\+l. 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+November 2017 
+\end{DoxyDate}
