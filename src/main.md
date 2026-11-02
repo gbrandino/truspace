@@ -2,7 +2,7 @@ Welcome to the Truspace developer documenation!
 
 This site contains all the information you need to modify or extend Truspace.
 
-For compilation and user-guide, please refer to http://bitbucket.org/truspacedevelopers/truspace
+For compilation and user-guide, please refer to https://github.com/gbrandino/truspace 
 
 
 
